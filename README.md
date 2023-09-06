@@ -1,2 +1,2 @@
 # pixmace
-a pixel art tool made by godo 4.x. inspired pixelorama.
+a pixel art tool made by godot 4.x. inspired pixelorama.
