@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://btjv6kteur8ff"]
+
+[ext_resource type="Script" path="res://src/top_menu_bar/TopMenuBar.gd" id="1_pfu8f"]
+
+[node name="TopMenuBar" type="Panel"]
+custom_minimum_size = Vector2(0, 32)
+offset_right = 1152.0
+offset_bottom = 32.0
+script = ExtResource("1_pfu8f")
+
+[node name="MenuItems" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 0
+offset_left = 5.0
+offset_right = 485.0
+offset_bottom = 31.0
+rotation = 0.00105019
+
+[node name="File" type="MenuButton" parent="MenuItems"]
+layout_mode = 2
+text = "File"
+
+[node name="RecentProjects" type="PopupMenu" parent="MenuItems/File"]
+mouse_passthrough = true
+
+[node name="Edit" type="MenuButton" parent="MenuItems"]
+layout_mode = 2
+text = "Edit"
+
+[node name="Select" type="MenuButton" parent="MenuItems"]
+layout_mode = 2
+text = "Select"
+
+[node name="Filter" type="MenuButton" parent="MenuItems"]
+layout_mode = 2
+text = "Filter"
+
+[node name="View" type="MenuButton" parent="MenuItems"]
+layout_mode = 2
+text = "View"
+
+[node name="Help" type="MenuButton" parent="MenuItems"]
+layout_mode = 2
+text = "Help"
