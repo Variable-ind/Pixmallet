@@ -35,18 +35,24 @@ func register(label, data, parent_menu):
 		var item = data[i]
 		if item.get('key'):
 			if item.has('check'):
-				print(item['check'])
 				add_check_item(item['label'], i)
 				set_item_checked(i, bool(item['check']))
 			else:
 				add_item(item['label'], i)
+		item['index'] = i
 		data_dict[i] = item
 
 
 func _on_id_pressed(_id):
 	var item = data_dict.get(_id)
 	if item:
+		# signel
 		item_pressed.emit(item)
-		if not item.has('check'):
+		
+		# change ui element display
+		if item.has('check'):
+			item['check'] = not item.get('check')
+			set_item_checked(item['index'], item['check'])
+		else:
 			hide()
 			get_parent().hide()

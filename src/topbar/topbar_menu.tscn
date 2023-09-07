@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://btjv6kteur8ff"]
 
 [ext_resource type="Script" path="res://src/topbar/TopbarMenu.gd" id="1_pfu8f"]
-[ext_resource type="Script" path="res://src/topbar/RecentProjects.gd" id="2_6f7uf"]
+[ext_resource type="Script" path="res://src/topbar/Submenu.gd" id="2_k6ose"]
 
 [node name="TopbarMenu" type="Panel"]
 custom_minimum_size = Vector2(0, 32)
@@ -31,7 +31,7 @@ text = "Select"
 
 [node name="Modify" type="MenuButton" parent="MenuItems"]
 layout_mode = 2
-text = "Filter"
+text = "Modify"
 
 [node name="View" type="MenuButton" parent="MenuItems"]
 layout_mode = 2
@@ -51,7 +51,7 @@ position = Vector2i(-9999, -9999)
 mouse_passthrough = true
 hide_on_item_selection = false
 hide_on_checkable_item_selection = false
-script = ExtResource("2_6f7uf")
+script = ExtResource("2_k6ose")
 
 [connection signal="id_pressed" from="Submenu" to="Submenu" method="_on_id_pressed"]
 [connection signal="item_pressed" from="Submenu" to="." method="_on_submenu_item_pressed"]

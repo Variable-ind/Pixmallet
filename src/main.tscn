@@ -21,3 +21,5 @@ offset_bottom = 648.0
 
 [node name="TopMenuBar" parent="VBoxContainer" instance=ExtResource("2_had7o")]
 layout_mode = 2
+
+[connection signal="open_modeal" from="VBoxContainer/TopMenuBar" to="." method="_on_open_modeal"]
