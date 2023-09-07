@@ -7,7 +7,7 @@ content_margin_left = 6.0
 content_margin_top = 4.0
 content_margin_right = 6.0
 content_margin_bottom = 4.0
-bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
 border_color = Color(0.0792967, 0.0792967, 0.0792967, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t0f5f"]
@@ -388,7 +388,7 @@ content_margin_left = 6.0
 content_margin_top = 4.0
 content_margin_right = 6.0
 content_margin_bottom = 4.0
-bg_color = Color(0.0906248, 0.0906248, 0.0906248, 1)
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 border_color = Color(0.0792967, 0.0792967, 0.0792967, 1)
 
 [sub_resource type="StyleBoxLine" id="113"]
@@ -710,6 +710,7 @@ MenuButton/colors/font_color_disabled = Color(1, 1, 1, 0.3)
 MenuButton/colors/font_color_hover = Color(0.866992, 0.866992, 0.866992, 1)
 MenuButton/colors/font_color_pressed = Color(1, 1, 1, 1)
 MenuButton/constants/hseparation = 3
+MenuButton/font_sizes/font_size = 14
 MenuButton/styles/disabled = SubResource("23")
 MenuButton/styles/focus = SubResource("23")
 MenuButton/styles/hover = SubResource("23")
@@ -740,7 +741,7 @@ PopupMenu/colors/font_color_disabled = Color(1, 1, 1, 0.3)
 PopupMenu/colors/font_color_hover = Color(0.866992, 0.866992, 0.866992, 1)
 PopupMenu/constants/hseparation = 6
 PopupMenu/constants/vseparation = 6
-PopupMenu/font_sizes/font_size = 14
+PopupMenu/font_sizes/font_size = 12
 PopupMenu/styles/disabled = SubResource("23")
 PopupMenu/styles/focus = SubResource("23")
 PopupMenu/styles/hover = SubResource("112")
