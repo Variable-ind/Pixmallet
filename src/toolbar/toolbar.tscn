@@ -1,0 +1,141 @@
+[gd_scene load_steps=19 format=3 uid="uid://2dfuv5bk0ahw"]
+
+[ext_resource type="Texture2D" uid="uid://dabr2l2poo40" path="res://assets/tools/rectselect.png" id="1_4b821"]
+[ext_resource type="Texture2D" uid="uid://bo7tvqhkljud1" path="res://assets/tools/ellipseselect.png" id="2_gnk2b"]
+[ext_resource type="Texture2D" uid="uid://ca1lpqnuloco1" path="res://assets/tools/ellipsetool.png" id="2_mmbwr"]
+[ext_resource type="Texture2D" uid="uid://dgger1ccb6fdp" path="res://assets/tools/polygonselect.png" id="3_4jygv"]
+[ext_resource type="Texture2D" uid="uid://cesws6k32711i" path="res://assets/tools/colorselect.png" id="4_i1b5m"]
+[ext_resource type="Texture2D" uid="uid://cggiu2qaf1c3m" path="res://assets/tools/magicwand.png" id="5_ths5t"]
+[ext_resource type="Texture2D" uid="uid://b7egpjrynjmfv" path="res://assets/tools/lasso.png" id="6_ttgef"]
+[ext_resource type="Texture2D" uid="uid://wt0vail7kds6" path="res://assets/tools/move.png" id="7_f1g6f"]
+[ext_resource type="Texture2D" uid="uid://c1oko6i7pu4yi" path="res://assets/tools/zoom.png" id="8_4142v"]
+[ext_resource type="Texture2D" uid="uid://b51pj17ue6v00" path="res://assets/tools/pan.png" id="9_ctfl0"]
+[ext_resource type="Texture2D" uid="uid://mwrrnrqg1nlq" path="res://assets/tools/colorpicker.png" id="10_pigs5"]
+[ext_resource type="Texture2D" uid="uid://cn6pef3q78hju" path="res://assets/tools/crop.png" id="11_6evt5"]
+[ext_resource type="Texture2D" uid="uid://bu2xdkkd4q0xw" path="res://assets/tools/pencil.png" id="12_lcplk"]
+[ext_resource type="Texture2D" uid="uid://dyklwot5qf248" path="res://assets/tools/eraser.png" id="13_cs1bv"]
+[ext_resource type="Texture2D" uid="uid://deht2s0ivcrww" path="res://assets/tools/bucket.png" id="14_foabd"]
+[ext_resource type="Texture2D" uid="uid://58fue40mgjf7" path="res://assets/tools/shading.png" id="15_i3f7k"]
+[ext_resource type="Texture2D" uid="uid://qofiqyd3wnfb" path="res://assets/tools/linetool.png" id="16_gfn4d"]
+[ext_resource type="Texture2D" uid="uid://cxskx4knx50d5" path="res://assets/tools/rectangletool.png" id="17_le3mm"]
+
+[node name="Toolbar" type="ScrollContainer"]
+custom_minimum_size = Vector2(36, 36)
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ToolBtns" type="HFlowContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="SelRect" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("1_4b821")
+icon_alignment = 1
+
+[node name="SelRect2" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("2_gnk2b")
+icon_alignment = 1
+
+[node name="SelRect3" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("3_4jygv")
+icon_alignment = 1
+
+[node name="SelRect4" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("4_i1b5m")
+icon_alignment = 1
+
+[node name="SelRect5" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("5_ths5t")
+icon_alignment = 1
+
+[node name="SelRect6" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("6_ttgef")
+icon_alignment = 1
+
+[node name="SelRect7" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("7_f1g6f")
+icon_alignment = 1
+
+[node name="SelRect8" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("8_4142v")
+icon_alignment = 1
+
+[node name="SelRect9" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("9_ctfl0")
+icon_alignment = 1
+
+[node name="SelRect10" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("10_pigs5")
+icon_alignment = 1
+
+[node name="SelRect11" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("11_6evt5")
+icon_alignment = 1
+
+[node name="SelRect12" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("12_lcplk")
+icon_alignment = 1
+
+[node name="SelRect13" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("13_cs1bv")
+icon_alignment = 1
+
+[node name="SelRect14" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("14_foabd")
+icon_alignment = 1
+
+[node name="SelRect15" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("15_i3f7k")
+icon_alignment = 1
+
+[node name="SelRect16" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("16_gfn4d")
+icon_alignment = 1
+
+[node name="SelRect17" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("17_le3mm")
+icon_alignment = 1
+
+[node name="SelRect18" type="Button" parent="PanelContainer/ToolBtns"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("2_mmbwr")
+icon_alignment = 1

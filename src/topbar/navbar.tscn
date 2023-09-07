@@ -5,8 +5,9 @@
 
 [node name="Navbar" type="Panel"]
 custom_minimum_size = Vector2(0, 32)
-offset_right = 1152.0
-offset_bottom = 32.0
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
 script = ExtResource("1_d0y5t")
 
 [node name="MenuItems" type="HBoxContainer" parent="."]

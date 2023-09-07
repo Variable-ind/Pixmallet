@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dohsjgbmqo83r"]
+[gd_scene load_steps=5 format=3 uid="uid://dohsjgbmqo83r"]
 
 [ext_resource type="Theme" uid="uid://cni2pknt64208" path="res://assets/theme/default.tres" id="1_lmk87"]
 [ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/topbar/navbar.tscn" id="2_had7o"]
 [ext_resource type="Script" path="res://src/main.gd" id="2_uyclk"]
+[ext_resource type="PackedScene" uid="uid://2dfuv5bk0ahw" path="res://src/toolbar/toolbar.tscn" id="4_caqd8"]
 
-[node name="Control" type="Control"]
+[node name="MainControl" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,11 +16,22 @@ theme = ExtResource("1_lmk87")
 script = ExtResource("2_uyclk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Navbar" parent="VBoxContainer" instance=ExtResource("2_had7o")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 616)
+layout_mode = 2
+
+[node name="Toolbar" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_caqd8")]
 layout_mode = 2
 
 [connection signal="navigation_to" from="VBoxContainer/Navbar" to="." method="_on_navbar_navigation_to"]
