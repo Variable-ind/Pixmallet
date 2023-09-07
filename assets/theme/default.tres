@@ -740,6 +740,7 @@ PopupMenu/colors/font_color_accel = Color(1, 1, 1, 0.3)
 PopupMenu/colors/font_color_disabled = Color(1, 1, 1, 0.3)
 PopupMenu/colors/font_color_hover = Color(0.866992, 0.866992, 0.866992, 1)
 PopupMenu/constants/hseparation = 6
+PopupMenu/constants/v_separation = 12
 PopupMenu/constants/vseparation = 6
 PopupMenu/font_sizes/font_size = 12
 PopupMenu/styles/disabled = SubResource("23")

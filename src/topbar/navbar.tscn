@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://btjv6kteur8ff"]
 
-[ext_resource type="Script" path="res://src/topbar/TopbarMenu.gd" id="1_pfu8f"]
+[ext_resource type="Script" path="res://src/topbar/Navbar.gd" id="1_d0y5t"]
 [ext_resource type="Script" path="res://src/topbar/Submenu.gd" id="2_k6ose"]
 
-[node name="TopbarMenu" type="Panel"]
+[node name="Navbar" type="Panel"]
 custom_minimum_size = Vector2(0, 32)
 offset_right = 1152.0
 offset_bottom = 32.0
-script = ExtResource("1_pfu8f")
+script = ExtResource("1_d0y5t")
 
 [node name="MenuItems" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 24)

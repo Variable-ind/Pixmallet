@@ -17,6 +17,10 @@ config/icon="res://assets/icons/icon.png"
 config/macos_native_icon="res://assets/icons/Icon.icns"
 config/windows_native_icon="res://assets/icons/icon.ico"
 
+[autoload]
+
+g="*res://src/autoload/g.gd"
+
 [display]
 
 window/dpi/allow_hidpi=false

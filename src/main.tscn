@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dohsjgbmqo83r"]
 
 [ext_resource type="Theme" uid="uid://cni2pknt64208" path="res://assets/theme/default.tres" id="1_lmk87"]
-[ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/topbar/topbar_menu.tscn" id="2_had7o"]
+[ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/topbar/navbar.tscn" id="2_had7o"]
 [ext_resource type="Script" path="res://src/main.gd" id="2_uyclk"]
 
 [node name="Control" type="Control"]
@@ -19,7 +19,7 @@ layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="TopMenuBar" parent="VBoxContainer" instance=ExtResource("2_had7o")]
+[node name="Navbar" parent="VBoxContainer" instance=ExtResource("2_had7o")]
 layout_mode = 2
 
-[connection signal="open_modeal" from="VBoxContainer/TopMenuBar" to="." method="_on_open_modeal"]
+[connection signal="navigation_to" from="VBoxContainer/Navbar" to="." method="_on_navbar_navigation_to"]
