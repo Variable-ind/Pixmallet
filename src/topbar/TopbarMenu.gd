@@ -28,26 +28,26 @@ enum {
 			{'key': 'save_file', 'label': 'Save'},
 			{'key': 'save_file_as', 'label': 'Save as'},
 			{'key': 'export_file', 'label': 'Export'},
-			{'key': 'quit', 'label': 'Quit', 'type': QUIT},
+			{'key': 'quit', 'label': 'Quit', 'evt': QUIT},
 		]
 	},
 	{
 		'menu': $MenuItems/Edit,
 		'popmenus': [
-			{'key': 'undo', 'label': 'Undo', 'type': EDIT},
-			{'key': 'redo', 'label':'Redo', 'type': EDIT},
-			{'key': 'copy', 'label': 'Copy', 'type': EDIT},
-			{'key': 'paste', 'label': 'Paste', 'type': EDIT},
-			{'key': 'delete', 'label': 'Delete', 'type': EDIT},
+			{'key': 'undo', 'label': 'Undo', 'evt': EDIT},
+			{'key': 'redo', 'label':'Redo', 'evt': EDIT},
+			{'key': 'copy', 'label': 'Copy', 'evt': EDIT},
+			{'key': 'paste', 'label': 'Paste', 'evt': EDIT},
+			{'key': 'delete', 'label': 'Delete', 'evt': EDIT},
 			{'key': 'preferences', 'label': 'Preferences'},
 		]
 	},
 	{
 		'menu': $MenuItems/Select,
 		'popmenus': [
-			{'key': 'select_all', 'label': 'All', 'type': SELECT},
-			{'key': 'clear_selection', 'label':'Clear', 'type': SELECT},
-			{'key': 'invert_selection', 'label': 'Invert', 'type': SELECT},
+			{'key': 'select_all', 'label': 'All', 'evt': SELECT},
+			{'key': 'clear_selection', 'label':'Clear', 'evt': SELECT},
+			{'key': 'invert_selection', 'label': 'Invert', 'evt': SELECT},
 #			{'key': 'tile_selection', 'label': 'On Tile'},
 		]
 	},
@@ -72,24 +72,24 @@ enum {
 	{
 		'menu': $MenuItems/View,
 		'popmenus': [
-			{'key': 'tile_mode', 'label': 'Tile Mode', 'type': VIEW},
-			{'key': 'tile_mode_offset', 'label':'Tile Mode Offset', 'type': VIEW},
-			{'key': 'grayscale_view', 'label': 'Grayscale View', 'type': VIEW},
-			{'key': 'mirror_view', 'label': 'Mirror View', 'type': VIEW},
-			{'key': 'show_grid', 'label': 'Show Grid', 'type': VIEW},
-			{'key': 'show_pixel_grid', 'label': 'Show Pixel Grid', 'type': VIEW},
-			{'key': 'show_rulers', 'label': 'Show Rulers', 'type': VIEW},
-			{'key': 'show_guides', 'label': 'Show Guides', 'type': VIEW},
-			{'key': 'show_mouse_guides', 'label': 'Show Mouse Guides', 'type': VIEW},
+			{'key': 'tile_mode', 'label': 'Tile Mode', 'evt': VIEW},
+			{'key': 'tile_mode_offset', 'label':'Tile Mode Offset', 'evt': VIEW},
+			{'key': 'grayscale_view', 'label': 'Grayscale View', 'evt': VIEW},
+			{'key': 'mirror_view', 'label': 'Mirror View', 'evt': VIEW},
+			{'key': 'show_grid', 'label': 'Show Grid', 'evt': VIEW},
+			{'key': 'show_pixel_grid', 'label': 'Show Pixel Grid', 'evt': VIEW},
+			{'key': 'show_rulers', 'label': 'Show Rulers', 'evt': VIEW},
+			{'key': 'show_guides', 'label': 'Show Guides', 'evt': VIEW},
+			{'key': 'show_mouse_guides', 'label': 'Show Mouse Guides', 'evt': VIEW},
 			{'label': 'Snap To',
 			 'submenu': $Submenu.duplicate(),
 			 'data': [
 				{'key':'snap_to_grid', 'label':'Grids', 
-				 'check': true, 'type': SNAP},
+				 'check': true, 'evt': SNAP},
 				{'key':'snap_to_guides', 'label':'Guides', 
-				 'check': true, 'type': SNAP},
+				 'check': true, 'evt': SNAP},
 				{'key':'snap_to_perspective', 'label':'Perspective Guides',
-				 'check': true, 'type': SNAP}
+				 'check': true, 'evt': SNAP}
 			]},
 		]
 	},
@@ -98,27 +98,27 @@ enum {
 		'popmenus': [
 #			{'key': 'toogle_canvas_only', 'label': 'Toogle Canvas Only'},
 			{'key': 'show_tools_panel', 'label': 'Tools', 
-			 'check': true, 'type': PANEL},
+			 'check': true, 'evt': PANEL},
 			{'key': 'show_timeline_panel', 'label': 'Animation Timeline',
-			 'check': true, 'type': PANEL},
+			 'check': true, 'evt': PANEL},
 			{'key': 'show_canvas_preview', 'label': 'Canvas Preview',
-			 'check': true, 'type': PANEL},
+			 'check': true, 'evt': PANEL},
 			{'key': 'show_color_picker', 'label': 'Color Pickers',
-			 'check': true, 'type': PANEL},
+			 'check': true, 'evt': PANEL},
 			{'key': 'show_tool_options', 'label': 'Tool Options',
-			 'check': true, 'type': PANEL},
+			 'check': true, 'evt': PANEL},
 			{'key': 'show_reference_image', 'label': 'Reference Images',
-			 'check': false, 'type': PANEL},
+			 'check': false, 'evt': PANEL},
 			{'key': 'show_perspective', 'label': 'Perspective Editor',
-			 'check': false, 'type': PANEL},
+			 'check': false, 'evt': PANEL},
 		]
 	},
 	{
 		'menu': $MenuItems/Help,
 		'popmenus': [
-			{'key': 'open_splash_screen', 'label': 'Splash Screen', 'type': SPLASH},
-			{'key': 'open_online_support', 'label':'Support', 'type': LINK},
-			{'key': 'open_logs_folder', 'label': 'Logs', 'type': FOLDER},
+			{'key': 'open_splash_screen', 'label': 'Splash Screen', 'evt': SPLASH},
+			{'key': 'open_online_support', 'label':'Support', 'evt': LINK},
+			{'key': 'open_logs_folder', 'label': 'Logs', 'evt': FOLDER},
 			{'key': 'about', 'label': 'About'},
 		]
 	}
@@ -171,7 +171,7 @@ func _on_menu_id_pressed(item_id):
 	var menu_popup = menu_item['popup']
 	var idx = menu_item['index']
 
-	match menu_item.get('type'):
+	match menu_item.get('evt'):
 		EDIT: 
 			pass
 		SELECT:
@@ -194,7 +194,7 @@ func _on_menu_id_pressed(item_id):
 
 
 func _on_submenu_item_pressed(item_data):
-	match item_data.get('type'):
+	match item_data.get('evt'):
 		SNAP:
 			print('snap -->', item_data['key'])
 		_:
