@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://btjv6kteur8ff"]
+[gd_scene load_steps=4 format=3 uid="uid://btjv6kteur8ff"]
 
 [ext_resource type="Script" path="res://src/topbar/Navbar.gd" id="1_d0y5t"]
-[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_xrh2l"]
 [ext_resource type="Script" path="res://src/topbar/Submenu.gd" id="2_k6ose"]
 [ext_resource type="Texture2D" uid="uid://b1y5mj2xeo2iq" path="res://assets/icons/icon-navbar.png" id="3_eajbj"]
 
@@ -12,7 +11,6 @@ anchor_right = 1.0
 grow_horizontal = 2
 rotation = -0.000250265
 size_flags_horizontal = 3
-theme = ExtResource("1_xrh2l")
 script = ExtResource("1_d0y5t")
 
 [node name="MenuItems" type="HBoxContainer" parent="."]
