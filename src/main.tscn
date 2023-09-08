@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dohsjgbmqo83r"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_q6w2k"]
-[ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/topbar/navbar.tscn" id="2_had7o"]
+[ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/navbar/navbar.tscn" id="2_had7o"]
 [ext_resource type="Script" path="res://src/main.gd" id="2_uyclk"]
 [ext_resource type="PackedScene" uid="uid://2dfuv5bk0ahw" path="res://src/toolbar/toolbar.tscn" id="4_caqd8"]
 
@@ -47,3 +47,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [connection signal="navigation_to" from="VBoxContainer/Navbar" to="." method="_on_navbar_navigation_to"]
+[connection signal="active_tool" from="VBoxContainer/PanelContainer/HBoxContainer/Toolbar" to="." method="_on_toolbar_active_tool"]

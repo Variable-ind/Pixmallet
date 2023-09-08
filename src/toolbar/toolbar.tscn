@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://2dfuv5bk0ahw"]
+[gd_scene load_steps=21 format=3 uid="uid://2dfuv5bk0ahw"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_m1jv5"]
+[ext_resource type="Script" path="res://src/toolbar/Toolbar.gd" id="2_vu3bu"]
 [ext_resource type="Texture2D" uid="uid://2xg57xeeqje3" path="res://assets/tools/select-rect.png" id="2_wdcp3"]
 [ext_resource type="Texture2D" uid="uid://8jggqkk5iia3" path="res://assets/tools/select-ellipse.png" id="3_4kf5b"]
 [ext_resource type="Texture2D" uid="uid://psqjer7k7bk6" path="res://assets/tools/select-polygan.png" id="4_tok5a"]
@@ -32,6 +33,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 3
 theme = ExtResource("1_m1jv5")
 horizontal_scroll_mode = 3
+script = ExtResource("2_vu3bu")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(32, 0)
@@ -44,8 +46,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 6.0
-offset_bottom = 6.0
+offset_top = 12.0
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 0
@@ -92,34 +94,22 @@ layout_mode = 2
 icon = ExtResource("7_06nsg")
 icon_alignment = 1
 
-[node name="Move" type="Button" parent="Panel/ToolBtns"]
+[node name="Line" type="Button" parent="Panel/ToolBtns"]
 custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
-icon = ExtResource("7_f1g6f")
+icon = ExtResource("17_6nl15")
 icon_alignment = 1
 
-[node name="Zoom" type="Button" parent="Panel/ToolBtns"]
+[node name="Rect" type="Button" parent="Panel/ToolBtns"]
 custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
-icon = ExtResource("8_4142v")
+icon = ExtResource("18_vr1hu")
 icon_alignment = 1
 
-[node name="Pan" type="Button" parent="Panel/ToolBtns"]
+[node name="Ellipse" type="Button" parent="Panel/ToolBtns"]
 custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
-icon = ExtResource("9_ctfl0")
-icon_alignment = 1
-
-[node name="ColorPicker" type="Button" parent="Panel/ToolBtns"]
-custom_minimum_size = Vector2(32, 36)
-layout_mode = 2
-icon = ExtResource("11_g8mgo")
-icon_alignment = 1
-
-[node name="Crop" type="Button" parent="Panel/ToolBtns"]
-custom_minimum_size = Vector2(32, 36)
-layout_mode = 2
-icon = ExtResource("11_6evt5")
+icon = ExtResource("19_barme")
 icon_alignment = 1
 
 [node name="Pencil" type="Button" parent="Panel/ToolBtns"]
@@ -140,26 +130,38 @@ layout_mode = 2
 icon = ExtResource("15_tgeqr")
 icon_alignment = 1
 
+[node name="Pan" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
+layout_mode = 2
+icon = ExtResource("9_ctfl0")
+icon_alignment = 1
+
+[node name="Move" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
+layout_mode = 2
+icon = ExtResource("7_f1g6f")
+icon_alignment = 1
+
+[node name="ColorPicker" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
+layout_mode = 2
+icon = ExtResource("11_g8mgo")
+icon_alignment = 1
+
+[node name="Crop" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
+layout_mode = 2
+icon = ExtResource("11_6evt5")
+icon_alignment = 1
+
+[node name="Zoom" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
+layout_mode = 2
+icon = ExtResource("8_4142v")
+icon_alignment = 1
+
 [node name="Shading" type="Button" parent="Panel/ToolBtns"]
 custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("15_i3f7k")
-icon_alignment = 1
-
-[node name="Line" type="Button" parent="Panel/ToolBtns"]
-custom_minimum_size = Vector2(32, 36)
-layout_mode = 2
-icon = ExtResource("17_6nl15")
-icon_alignment = 1
-
-[node name="Rect" type="Button" parent="Panel/ToolBtns"]
-custom_minimum_size = Vector2(32, 36)
-layout_mode = 2
-icon = ExtResource("18_vr1hu")
-icon_alignment = 1
-
-[node name="Ellipse" type="Button" parent="Panel/ToolBtns"]
-custom_minimum_size = Vector2(32, 36)
-layout_mode = 2
-icon = ExtResource("19_barme")
 icon_alignment = 1

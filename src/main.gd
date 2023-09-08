@@ -1,11 +1,17 @@
 extends Control
 
 
-func _on_navbar_navigation_to(item_id, item_data, navbarId):
-	match item_id:
-		navbarId.NEW_FILE:
+func _on_navbar_navigation_to(navId, data):
+	print(navId, data)
+	match navId:
+		Navbar.NEW_FILE:
 			pass
-		navbarId.OPEN_FILE:
+		Navbar.OPEN_FILE:
 			pass
-			
 
+
+func _on_toolbar_active_tool(toolId):
+	print(toolId)
+	match toolId:
+		Toolbar.COLOR_PICKER:
+			pass
