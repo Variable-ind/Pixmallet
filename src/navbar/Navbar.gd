@@ -26,6 +26,8 @@ enum {
 	SPLASH, SUPPORT, LOG_FOLDER, ABOUT,
 }
 
+var menu_item_map: Dictionary = {}
+
 
 @onready var navbar_menus = [
 	{
@@ -127,8 +129,6 @@ enum {
 		]
 	}
 ]
-
-var menu_item_map: Dictionary = {}
 
 
 func _ready():

@@ -4,8 +4,6 @@ class_name Toolbar
 
 signal active_tool(toolId)
 
-@onready var toolbtns = $Panel/ToolBtns
-
 enum {
 	SEL_RECT,
 	SEL_ELLIPSE,
@@ -47,6 +45,8 @@ const TOOL_ID_MAP: Dictionary = {
 	'Zoom': ZOOM,
 	'Shading': SHADING,
 }
+
+@onready var toolbtns = $ToolBtns
 
 
 func _ready():

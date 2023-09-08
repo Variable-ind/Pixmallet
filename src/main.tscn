@@ -1,11 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://dohsjgbmqo83r"]
+[gd_scene load_steps=11 format=3 uid="uid://dohsjgbmqo83r"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_q6w2k"]
 [ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/navbar/navbar.tscn" id="2_had7o"]
 [ext_resource type="Script" path="res://src/main.gd" id="2_uyclk"]
 [ext_resource type="PackedScene" uid="uid://2dfuv5bk0ahw" path="res://src/toolbar/toolbar.tscn" id="4_caqd8"]
+[ext_resource type="PackedScene" uid="uid://bpb81qqyhhoab" path="res://src/rulers/h_ruler.tscn" id="5_vgkdf"]
+[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="6_vx4od"]
+[ext_resource type="Shader" path="res://src/shaders/Greyscale.gdshader" id="7_3v0gn"]
+[ext_resource type="PackedScene" uid="uid://dkkj62x4hs764" path="res://src/sider/common.tscn" id="8_24hhy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u122j"]
+shader = ExtResource("6_vx4od")
+shader_parameter/size = 10.0
+shader_parameter/alpha = 1.0
+shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
+shader_parameter/color2 = Color(1, 1, 1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/scale = Vector2(0, 0)
+shader_parameter/rect_size = Vector2(0, 0)
+shader_parameter/follow_movement = false
+shader_parameter/follow_scale = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ib7er"]
+shader = ExtResource("7_3v0gn")
 
 [node name="Control" type="Control"]
+custom_minimum_size = Vector2(800, 480)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +35,7 @@ grow_vertical = 2
 theme = ExtResource("1_q6w2k")
 script = ExtResource("2_uyclk")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="main_area" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,27 +44,114 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"frameset"
 
-[node name="Navbar" parent="VBoxContainer" instance=ExtResource("2_had7o")]
+[node name="Navbar" parent="main_area" instance=ExtResource("2_had7o")]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="mainborad" type="PanelContainer" parent="main_area"]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+[node name="work_area" type="HBoxContainer" parent="main_area/mainborad"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"frameset"
 
-[node name="Toolbar" parent="VBoxContainer/PanelContainer/HBoxContainer" instance=ExtResource("4_caqd8")]
+[node name="Toolbar" parent="main_area/mainborad/work_area" instance=ExtResource("4_caqd8")]
 layout_mode = 2
 size_flags_vertical = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/HBoxContainer"]
-custom_minimum_size = Vector2(1216, 0)
+[node name="draw_area" type="VBoxContainer" parent="main_area/mainborad/work_area"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="navigation_to" from="VBoxContainer/Navbar" to="." method="_on_navbar_navigation_to"]
-[connection signal="active_tool" from="VBoxContainer/PanelContainer/HBoxContainer/Toolbar" to="." method="_on_toolbar_active_tool"]
+[node name="Tabbar" type="TabBar" parent="main_area/mainborad/work_area/draw_area"]
+layout_mode = 2
+tab_close_display_policy = 2
+tab_count = 3
+tab_0/title = "Untitled"
+tab_1/title = "asdfdf"
+tab_2/title = "test"
+tab_2/disabled = true
+
+[node name="HRuler" parent="main_area/mainborad/work_area/draw_area" instance=ExtResource("5_vgkdf")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="draw_subarea" type="HBoxContainer" parent="main_area/mainborad/work_area/draw_area"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VRuler" type="Button" parent="main_area/mainborad/work_area/draw_area/draw_subarea"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+flat = true
+
+[node name="DrawContainer" type="SubViewportContainer" parent="main_area/mainborad/work_area/draw_area/draw_subarea"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DrawViewport" type="SubViewport" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(360, 360)
+render_target_update_mode = 4
+
+[node name="Background" type="ColorRect" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer/DrawViewport"]
+visible = false
+material = SubResource("ShaderMaterial_u122j")
+mouse_filter = 2
+
+[node name="Canvas" type="Node2D" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer/DrawViewport"]
+visible = false
+
+[node name="Camera2D" type="Camera2D" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer/DrawViewport"]
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer/DrawViewport"]
+visible = false
+
+[node name="GreyscaleVision" type="ColorRect" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer/DrawViewport/CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_ib7er")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="sider" type="PanelContainer" parent="main_area/mainborad/work_area"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"sider"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="main_area/mainborad/work_area/sider"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="sider_area" type="VBoxContainer" parent="main_area/mainborad/work_area/sider/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"frameset"
+
+[node name="Preview" type="Panel" parent="main_area/mainborad/work_area/sider/ScrollContainer/sider_area"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Common" parent="main_area/mainborad/work_area/sider/ScrollContainer/sider_area" instance=ExtResource("8_24hhy")]
+layout_mode = 2
+
+[node name="Color" type="Panel" parent="main_area/mainborad/work_area/sider/ScrollContainer/sider_area"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="ToolOption" type="Panel" parent="main_area/mainborad/work_area/sider/ScrollContainer/sider_area"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="navigation_to" from="main_area/Navbar" to="." method="_on_navbar_navigation_to"]
+[connection signal="active_tool" from="main_area/mainborad/work_area/Toolbar" to="." method="_on_toolbar_active_tool"]

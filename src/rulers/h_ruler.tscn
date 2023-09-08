@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpb81qqyhhoab"]
+
+[ext_resource type="Script" path="res://src/rulers/Ruler.gd" id="1_anx3j"]
+
+[node name="HRuler" type="Button"]
+custom_minimum_size = Vector2(0, 16)
+flat = true
+script = ExtResource("1_anx3j")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
