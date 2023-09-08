@@ -1,12 +1,12 @@
 extends Control
 
 
-func _on_navbar_navigation_to(item_id, item_data):
+func _on_navbar_navigation_to(item_id, item_data, navbarId):
 
 	match item_id:
-		Navbar.NEW_FILE:
+		navbarId.NEW_FILE:
 			pass
-		Navbar.OPEN_FILE:
+		navbarId.OPEN_FILE:
 			pass
 			
 

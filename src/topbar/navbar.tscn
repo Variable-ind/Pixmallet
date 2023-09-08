@@ -1,22 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://btjv6kteur8ff"]
+[gd_scene load_steps=5 format=3 uid="uid://btjv6kteur8ff"]
 
 [ext_resource type="Script" path="res://src/topbar/Navbar.gd" id="1_d0y5t"]
+[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_xrh2l"]
 [ext_resource type="Script" path="res://src/topbar/Submenu.gd" id="2_k6ose"]
+[ext_resource type="Texture2D" uid="uid://b1y5mj2xeo2iq" path="res://assets/icons/icon-navbar.png" id="3_eajbj"]
 
 [node name="Navbar" type="Panel"]
 custom_minimum_size = Vector2(0, 32)
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+rotation = -0.000250265
+size_flags_horizontal = 3
+theme = ExtResource("1_xrh2l")
 script = ExtResource("1_d0y5t")
 
 [node name="MenuItems" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 24)
-layout_mode = 0
-offset_left = 5.0
-offset_right = 485.0
-offset_bottom = 31.0
-rotation = 0.00105019
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="icon" type="MarginContainer" parent="MenuItems"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="iconTexture" type="TextureRect" parent="MenuItems/icon"]
+layout_mode = 2
+texture = ExtResource("3_eajbj")
+expand_mode = 1
 
 [node name="File" type="MenuButton" parent="MenuItems"]
 layout_mode = 2

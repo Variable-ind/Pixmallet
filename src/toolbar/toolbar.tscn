@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://2dfuv5bk0ahw"]
+[gd_scene load_steps=20 format=3 uid="uid://2dfuv5bk0ahw"]
 
 [ext_resource type="Texture2D" uid="uid://dabr2l2poo40" path="res://assets/tools/rectselect.png" id="1_4b821"]
+[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_m1jv5"]
 [ext_resource type="Texture2D" uid="uid://bo7tvqhkljud1" path="res://assets/tools/ellipseselect.png" id="2_gnk2b"]
 [ext_resource type="Texture2D" uid="uid://ca1lpqnuloco1" path="res://assets/tools/ellipsetool.png" id="2_mmbwr"]
 [ext_resource type="Texture2D" uid="uid://dgger1ccb6fdp" path="res://assets/tools/polygonselect.png" id="3_4jygv"]
@@ -20,122 +21,140 @@
 [ext_resource type="Texture2D" uid="uid://cxskx4knx50d5" path="res://assets/tools/rectangletool.png" id="17_le3mm"]
 
 [node name="Toolbar" type="ScrollContainer"]
-custom_minimum_size = Vector2(36, 36)
-anchors_preset = 9
+custom_minimum_size = Vector2(32, 0)
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1248.0
+grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+theme = ExtResource("1_m1jv5")
+horizontal_scroll_mode = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(36, 36)
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="ToolBtns" type="HFlowContainer" parent="PanelContainer"]
-layout_mode = 2
+[node name="ToolBtns" type="FlowContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 
-[node name="SelRect" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="SelRect" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("1_4b821")
 icon_alignment = 1
 
-[node name="SelRect2" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="SelEllipse" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("2_gnk2b")
 icon_alignment = 1
 
-[node name="SelRect3" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="SelPolygon" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("3_4jygv")
 icon_alignment = 1
 
-[node name="SelRect4" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="SelColor" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("4_i1b5m")
 icon_alignment = 1
 
-[node name="SelRect5" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="SelMagic" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("5_ths5t")
 icon_alignment = 1
 
-[node name="SelRect6" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="SelLasso" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("6_ttgef")
 icon_alignment = 1
 
-[node name="SelRect7" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Move" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("7_f1g6f")
 icon_alignment = 1
 
-[node name="SelRect8" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Zoom" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("8_4142v")
 icon_alignment = 1
 
-[node name="SelRect9" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Pan" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("9_ctfl0")
 icon_alignment = 1
 
-[node name="SelRect10" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="ColorPicker" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("10_pigs5")
 icon_alignment = 1
 
-[node name="SelRect11" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Crop" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("11_6evt5")
 icon_alignment = 1
 
-[node name="SelRect12" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Pencil" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("12_lcplk")
 icon_alignment = 1
 
-[node name="SelRect13" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Eraser" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("13_cs1bv")
 icon_alignment = 1
 
-[node name="SelRect14" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Fill" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("14_foabd")
 icon_alignment = 1
 
-[node name="SelRect15" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Shading" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("15_i3f7k")
 icon_alignment = 1
 
-[node name="SelRect16" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Line" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("16_gfn4d")
 icon_alignment = 1
 
-[node name="SelRect17" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Rect" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("17_le3mm")
 icon_alignment = 1
 
-[node name="SelRect18" type="Button" parent="PanelContainer/ToolBtns"]
-custom_minimum_size = Vector2(36, 36)
+[node name="Ellipse" type="Button" parent="Panel/ToolBtns"]
+custom_minimum_size = Vector2(32, 36)
 layout_mode = 2
 icon = ExtResource("2_mmbwr")
 icon_alignment = 1
