@@ -1,9 +1,15 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://bnvbwu202rx6u"]
 
 [ext_resource type="FontFile" uid="uid://cbrk73jwnqj6t" path="res://assets/fonts/Roboto-Regular.ttf" id="1_fxdeo"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s0uol"]
+bg_color = Color(0.6, 0.333333, 0.266667, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6pl4"]
 bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bj5yt"]
+bg_color = Color(0.6, 0.333333, 0.266667, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mn7ha"]
 content_margin_left = 6.0
@@ -54,7 +60,9 @@ shadow_offset = Vector2(-6, -6)
 [resource]
 default_font = ExtResource("1_fxdeo")
 default_font_size = 14
+Button/styles/focus = SubResource("StyleBoxFlat_s0uol")
 Button/styles/normal = SubResource("StyleBoxFlat_d6pl4")
+Button/styles/pressed = SubResource("StyleBoxFlat_bj5yt")
 MenuButton/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 MenuButton/colors/font_disabled_color = Color(1, 1, 1, 0.3)
 MenuButton/colors/font_focus_color = Color(0.972549, 0.941176, 0.937255, 1)
