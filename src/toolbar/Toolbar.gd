@@ -46,14 +46,16 @@ const TOOL_ID_MAP: Dictionary = {
 	'Shading': SHADING,
 }
 
-@onready var toolbtns = $ToolBtns
+@onready var toolbtns = $ToolBtns.get_children()
 
 
 func _ready():
-	for btn in toolbtns.get_children():
+	for btn in toolbtns:
 		if btn is Button:
 			btn.pressed.connect(_on_button_pressed.bind(btn))
 
 
 func _on_button_pressed(btn):
-	active_tool.emit(TOOL_ID_MAP.get(btn.name, -1))
+	var btn_name :String = btn.sel_name if btn is ExtendableButton else btn.name
+	active_tool.emit(TOOL_ID_MAP.get(btn_name, -1))
+	

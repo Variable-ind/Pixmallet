@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dkkj62x4hs764"]
+[gd_scene load_steps=9 format=3 uid="uid://dkkj62x4hs764"]
 
 [ext_resource type="Texture2D" uid="uid://c18wh8glajtor" path="res://assets/common/rotate-cw.png" id="1_05grq"]
 [ext_resource type="Texture2D" uid="uid://t4x3p6bxgvxw" path="res://assets/common/draw-mirror-h.png" id="1_77wnn"]
@@ -9,74 +9,79 @@
 [ext_resource type="Texture2D" uid="uid://cnn5f7do2gre8" path="res://assets/common/prefect-pixel.png" id="3_uy6m1"]
 [ext_resource type="Texture2D" uid="uid://dd362j0tsse6l" path="res://assets/common/pen-setting.png" id="4_1man4"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_mdneh"]
-allow_unpress = true
-
 [node name="Common" type="Panel"]
-custom_minimum_size = Vector2(300, 40)
+custom_minimum_size = Vector2(300, 34)
 offset_right = 300.0
+offset_bottom = 32.0
 
 [node name="BoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_top = 1.0
+offset_right = 300.0
+offset_bottom = 33.0
 alignment = 1
 
 [node name="FlipH" type="Button" parent="BoxContainer"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+focus_mode = 0
 icon = ExtResource("1_rhola")
 icon_alignment = 1
 
 [node name="FlipV" type="Button" parent="BoxContainer"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+focus_mode = 0
 icon = ExtResource("2_2c505")
 icon_alignment = 1
 
 [node name="RotateCCW" type="Button" parent="BoxContainer"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+focus_mode = 0
 icon = ExtResource("1_l8g7d")
 icon_alignment = 1
 
 [node name="RotateCW" type="Button" parent="BoxContainer"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+focus_mode = 0
 icon = ExtResource("1_05grq")
 icon_alignment = 1
+
+[node name="_divider" type="VSeparator" parent="BoxContainer"]
+layout_mode = 2
 
 [node name="MirrorH" type="Button" parent="BoxContainer"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+focus_mode = 0
 toggle_mode = true
-keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_mdneh")
+action_mode = 0
 icon = ExtResource("1_77wnn")
 icon_alignment = 1
 
 [node name="MirrorV" type="Button" parent="BoxContainer"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+focus_mode = 0
 toggle_mode = true
-keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_mdneh")
+action_mode = 0
 icon = ExtResource("2_03ere")
 icon_alignment = 1
 
 [node name="PerfectPx" type="Button" parent="BoxContainer"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+focus_mode = 0
 toggle_mode = true
-keep_pressed_outside = true
+action_mode = 0
 icon = ExtResource("3_uy6m1")
 icon_alignment = 1
 
 [node name="PenSetting" type="Button" parent="BoxContainer"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+focus_mode = 0
 icon = ExtResource("4_1man4")
 icon_alignment = 1

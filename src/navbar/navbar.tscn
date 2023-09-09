@@ -40,37 +40,44 @@ expand_mode = 1
 
 [node name="File" type="MenuButton" parent="MenuItems"]
 layout_mode = 2
+theme_type_variation = &"navbtn"
 text = "File"
 flat = false
 
 [node name="Edit" type="MenuButton" parent="MenuItems"]
 layout_mode = 2
+theme_type_variation = &"navbtn"
 text = "Edit"
 flat = false
 
 [node name="Select" type="MenuButton" parent="MenuItems"]
 layout_mode = 2
+theme_type_variation = &"navbtn"
 text = "Select"
 flat = false
 
 [node name="Modify" type="MenuButton" parent="MenuItems"]
 layout_mode = 2
+theme_type_variation = &"navbtn"
 text = "Modify"
 flat = false
 
 [node name="View" type="MenuButton" parent="MenuItems"]
 layout_mode = 2
+theme_type_variation = &"navbtn"
 text = "View"
 flat = false
 
 [node name="Window" type="MenuButton" parent="MenuItems"]
 layout_mode = 2
+theme_type_variation = &"navbtn"
 text = "Window
 "
 flat = false
 
 [node name="Help" type="MenuButton" parent="MenuItems"]
 layout_mode = 2
+theme_type_variation = &"navbtn"
 text = "Help"
 flat = false
 

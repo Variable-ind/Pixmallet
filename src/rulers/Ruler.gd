@@ -83,10 +83,13 @@ func _draw():
 				Vector2(pos.x + R_WIDTH, R_WIDTH),
 				Color.WHITE
 			)
-			var val :int= (
-				(ruler_transform * major_subdivide * minor_subdivide)
-				 * Vector2(j, 0)
-			).x
+			
+			# draw numbers
+			
+#			var val :int= (
+#				(ruler_transform * major_subdivide * minor_subdivide)
+#				 * Vector2(j, 0)
+#			).x
 
 #			draw_string(
 #				font,

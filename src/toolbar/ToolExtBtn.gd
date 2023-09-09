@@ -1,8 +1,17 @@
 extends Button
 
-const LONG_PRESS_DELAY = 0.6
-var long_press_timer = Timer.new()
-@onready var popup:PopupPanel = $Popup
+class_name ExtendableButton
+# THIS CLASS MIGHT USE FOR MULTIPLE TOOLBAR BUTTONS.
+
+const CELL_WIDTH :int = 36
+const LONG_PRESS_DELAY :float = 0.6
+var long_press_timer :Timer = Timer.new()
+var arrow_icon_color :Color = Color(0.980392, 0.921569, 0.843137, 0.33)
+var sel_name: StringName = ''
+
+@onready var popup :PopupPanel = $Popup
+@onready var extend_btns = $Popup/ExtendBtns.get_children()
+
 
 
 func _ready():
@@ -11,6 +20,47 @@ func _ready():
 	long_press_timer.wait_time = LONG_PRESS_DELAY
 	long_press_timer.timeout.connect(show_popup)
 	
+	var erase_list: Array = []
+	for btn in extend_btns:
+		if btn is Button:
+			btn.pressed.connect(_on_select_extend_btn.bind(btn))
+		else:
+			erase_list.append(btn)
+	
+	for er in erase_list:
+		extend_btns.erase(er)
+		
+	# set current btn
+	change_btn(extend_btns[0].name, extend_btns[0].icon)
+	
+	# set popup
+	popup.size = Vector2(CELL_WIDTH * extend_btns.size(), CELL_WIDTH)
+	popup.hide()
+	print(size.x)
+	
+	queue_redraw()
+
+
+func _draw():
+	# draw arrow
+	draw_colored_polygon([Vector2(34, 16), Vector2(30, 12), Vector2(30, 20)],
+						 arrow_icon_color)
+
+
+func get_selected_btn():
+	for btn in extend_btns:
+		if btn.name == name:
+			return btn
+
+
+func change_btn(btn_name:StringName, btn_icon:Texture2D):
+	sel_name = btn_name
+	icon = btn_icon
+
+
+func show_popup():
+	popup.position = global_position + Vector2(34, -3)
+	popup.show()
 
 
 func _on_button_down():
@@ -23,6 +73,8 @@ func _on_button_up():
 		long_press_timer.stop()
 
 
-func show_popup():
-	popup.position = global_position + Vector2(32, -3)
-	popup.show()
+func _on_select_extend_btn(btn):
+	change_btn(btn.name, btn.icon)
+	popup.hide()
+	await get_tree().create_timer(0.1).timeout
+	pressed.emit()
