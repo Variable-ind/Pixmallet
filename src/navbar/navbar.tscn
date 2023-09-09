@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://src/navbar/Submenu.gd" id="3_7qha6"]
 
 [node name="Navbar" type="Panel"]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 40)
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
@@ -32,7 +32,7 @@ theme_override_constants/margin_bottom = 6
 
 [node name="iconTexture" type="TextureRect" parent="MenuItems/icon"]
 texture_filter = 2
-custom_minimum_size = Vector2(20, 0)
+custom_minimum_size = Vector2(28, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("2_gemga")

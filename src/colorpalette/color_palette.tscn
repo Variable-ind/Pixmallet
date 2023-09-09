@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://bw43bipa0o2mv"]
+
+[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default/default.tres" id="1_0qsv8"]
+[ext_resource type="Script" path="res://src/colorpalette/ColorPalette.gd" id="2_rqgjd"]
+[ext_resource type="Texture2D" uid="uid://5gpo44fntnjs" path="res://assets/tools/pencil.png" id="3_e20ir"]
+[ext_resource type="Texture2D" uid="uid://bcwm0xl3ijquu" path="res://assets/colorpalette/switch-color.png" id="4_7l0dn"]
+
+[node name="ColorPalette" type="Panel"]
+custom_minimum_size = Vector2(300, 200)
+theme = ExtResource("1_0qsv8")
+script = ExtResource("2_rqgjd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"label_head"
+text = "Color"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Foreground" type="ColorPickerButton" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 36)
+layout_mode = 2
+tooltip_text = "Foreground"
+mouse_default_cursor_shape = 2
+icon = ExtResource("3_e20ir")
+icon_alignment = 1
+edit_alpha = false
+
+[node name="colorSwitchBtn" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+icon = ExtResource("4_7l0dn")
+flat = true
+icon_alignment = 1
+
+[node name="Background" type="ColorPickerButton" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 36)
+layout_mode = 2
+tooltip_text = "Background"
+mouse_default_cursor_shape = 2
+color = Color(1, 1, 1, 1)

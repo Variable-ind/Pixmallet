@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=28 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=34 format=3 uid="uid://bnvbwu202rx6u"]
 
 [ext_resource type="StyleBox" uid="uid://bheih5k4b056s" path="res://assets/theme/default/styles/nav_btn_disabled_flat.tres" id="1_03gb2"]
+[ext_resource type="StyleBox" uid="uid://dgle7h18anrxb" path="res://assets/theme/default/styles/label_head_flat.tres" id="1_fn0j0"]
 [ext_resource type="StyleBox" uid="uid://cf5qnm76n1vgp" path="res://assets/theme/default/styles/btn_disabled_flat.tres" id="1_gw45d"]
 [ext_resource type="StyleBox" uid="uid://n06qmgnvvxxx" path="res://assets/theme/default/styles/menu_btn_disabled_flat.tres" id="1_oamrq"]
 [ext_resource type="StyleBox" uid="uid://brsl1hfw4hvk" path="res://assets/theme/default/styles/nav_btn_hover_flat.tres" id="1_r5co6"]
@@ -17,12 +18,18 @@
 [ext_resource type="StyleBox" uid="uid://c6n6ncpq36g1k" path="res://assets/theme/default/styles/menu_btn_flat.tres" id="4_vxq6g"]
 [ext_resource type="FontFile" uid="uid://cbrk73jwnqj6t" path="res://assets/fonts/Roboto-Regular.ttf" id="5_goc0m"]
 [ext_resource type="StyleBox" uid="uid://blqn6wlakteka" path="res://assets/theme/default/styles/btn_pressed_flat.tres" id="5_gpy7y"]
+[ext_resource type="StyleBox" uid="uid://xtul83dsf4ly" path="res://assets/theme/default/styles/bordered_btn_flat.tres" id="6_k3h2g"]
+[ext_resource type="StyleBox" uid="uid://b3elkyxnq406h" path="res://assets/theme/default/styles/bordered_btn_hover_flat.tres" id="6_klyvc"]
+[ext_resource type="StyleBox" uid="uid://bmg0bc8xct7uy" path="res://assets/theme/default/styles/bordered_btn_pressed_flat.tres" id="8_ggyub"]
 [ext_resource type="StyleBox" uid="uid://dxhbunqfbxy20" path="res://assets/theme/default/styles/panel_flat.tres" id="9_6xpo6"]
 [ext_resource type="StyleBox" uid="uid://bb723tsttwu4a" path="res://assets/theme/default/styles/popmenu_panel_flat.tres" id="10_1ofmt"]
+[ext_resource type="StyleBox" uid="uid://dnuypm8uy6jcj" path="res://assets/theme/default/styles/popmenu_btn_hover_flat.tres" id="14_id4re"]
 [ext_resource type="StyleBox" uid="uid://5gpm5j7uy7b4" path="res://assets/theme/default/styles/tab_hover_flat.tres" id="14_plnka"]
 [ext_resource type="StyleBox" uid="uid://eeobgk3f2np3" path="res://assets/theme/default/styles/tab_selected_flat.tres" id="15_mo0ra"]
 [ext_resource type="StyleBox" uid="uid://dg3bprl82200u" path="res://assets/theme/default/styles/tab_unselected_flat.tres" id="16_g6krp"]
 [ext_resource type="StyleBox" uid="uid://cccftcckaubqv" path="res://assets/theme/default/styles/divider.tres" id="17_224fy"]
+[ext_resource type="StyleBox" uid="uid://qnp4eoygedou" path="res://assets/theme/default/styles/tab_disabled_flat.tres" id="19_fg07w"]
+[ext_resource type="FontFile" uid="uid://s2kjgwxjq1id" path="res://assets/fonts/Roboto-Bold.ttf" id="23_4mryb"]
 [ext_resource type="StyleBox" uid="uid://jhn0w1jy2x71" path="res://assets/theme/default/styles/sider_panel_flat.tres" id="23_mv6bk"]
 [ext_resource type="StyleBox" uid="uid://cqnsh3ktxs14v" path="res://assets/theme/default/styles/toolbar_panel_flat.tres" id="24_orrlj"]
 
@@ -32,13 +39,6 @@ content_margin_top = 3.0
 content_margin_right = 6.0
 bg_color = Color(0.6, 0.333333, 0.266667, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwyfv"]
-content_margin_left = 12.0
-content_margin_top = 6.0
-content_margin_right = 12.0
-content_margin_bottom = 6.0
-bg_color = Color(0.4, 0.4, 0.4, 0.588235)
-
 [resource]
 default_font = ExtResource("5_goc0m")
 default_font_size = 14
@@ -47,6 +47,9 @@ Button/styles/focus = ExtResource("2_dl8wy")
 Button/styles/hover = ExtResource("3_01sg6")
 Button/styles/normal = ExtResource("4_vp1rr")
 Button/styles/pressed = ExtResource("5_gpy7y")
+ColorPickerButton/styles/hover = ExtResource("6_klyvc")
+ColorPickerButton/styles/normal = ExtResource("6_k3h2g")
+ColorPickerButton/styles/pressed = ExtResource("8_ggyub")
 MenuButton/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 MenuButton/colors/font_disabled_color = Color(1, 1, 1, 0.3)
 MenuButton/colors/font_focus_color = Color(0.972549, 0.941176, 0.937255, 1)
@@ -63,14 +66,14 @@ Panel/styles/panel = ExtResource("9_6xpo6")
 PopupMenu/constants/item_end_padding = 6
 PopupMenu/constants/item_start_padding = 6
 PopupMenu/constants/v_separation = 12
-PopupMenu/styles/hover = ExtResource("10_1ofmt")
+PopupMenu/styles/hover = ExtResource("14_id4re")
 PopupMenu/styles/panel = ExtResource("10_1ofmt")
 TabBar/constants/h_separation = 6
 TabBar/font_sizes/font_size = 12
 TabBar/icons/close = ExtResource("2_0pgow")
 TabBar/icons/decrement = ExtResource("3_x8cjh")
 TabBar/icons/decrement_highlight = ExtResource("4_4fsy6")
-TabBar/styles/tab_disabled = SubResource("StyleBoxFlat_qwyfv")
+TabBar/styles/tab_disabled = ExtResource("19_fg07w")
 TabBar/styles/tab_hovered = ExtResource("14_plnka")
 TabBar/styles/tab_selected = ExtResource("15_mo0ra")
 TabBar/styles/tab_unselected = ExtResource("16_g6krp")
@@ -78,7 +81,13 @@ VSeparator/constants/separation = 0
 VSeparator/styles/separator = ExtResource("17_224fy")
 frameset/base_type = &"BoxContainer"
 frameset/constants/separation = 0
+label_head/base_type = &"Label"
+label_head/font_sizes/font_size = 16
+label_head/fonts/font = ExtResource("23_4mryb")
+label_head/styles/normal = ExtResource("1_fn0j0")
 navbtn/base_type = &"MenuButton"
+navbtn/font_sizes/font_size = 14
+navbtn/fonts/font = ExtResource("23_4mryb")
 navbtn/styles/disabled = ExtResource("1_03gb2")
 navbtn/styles/focus = ExtResource("2_qse8p")
 navbtn/styles/hover = ExtResource("1_r5co6")

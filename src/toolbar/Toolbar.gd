@@ -58,4 +58,6 @@ func _ready():
 func _on_button_pressed(btn):
 	var btn_name :String = btn.sel_name if btn is ExtendableButton else btn.name
 	active_tool.emit(TOOL_ID_MAP.get(btn_name, -1))
+	# toogle mode button must switch `Action Mode` to `Button Press`
+	# to prevent mouse up outside switch to pressed style but not really pressed.
 	

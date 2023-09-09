@@ -78,3 +78,5 @@ func _on_select_extend_btn(btn):
 	popup.hide()
 	await get_tree().create_timer(0.1).timeout
 	pressed.emit()
+	# toogle mode button must switch `Action Mode` to `Button Press`
+	# to prevent mouse up outside switch to pressed style but not really pressed.
