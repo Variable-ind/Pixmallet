@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://btjv6kteur8ff"]
+[gd_scene load_steps=4 format=3 uid="uid://btjv6kteur8ff"]
 
 [ext_resource type="Script" path="res://src/navbar/Navbar.gd" id="1_j0vud"]
-[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_w2gtv"]
 [ext_resource type="Texture2D" uid="uid://djmshu3w5v525" path="res://assets/icons/icon_48x48.png" id="2_gemga"]
 [ext_resource type="Script" path="res://src/navbar/Submenu.gd" id="3_7qha6"]
 
@@ -12,7 +11,6 @@ anchor_right = 1.0
 grow_horizontal = 2
 rotation = -0.000250265
 size_flags_horizontal = 3
-theme = ExtResource("1_w2gtv")
 script = ExtResource("1_j0vud")
 
 [node name="MenuItems" type="HBoxContainer" parent="."]
@@ -25,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="icon" type="MarginContainer" parent="MenuItems"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 6
@@ -34,7 +32,9 @@ theme_override_constants/margin_bottom = 6
 
 [node name="iconTexture" type="TextureRect" parent="MenuItems/icon"]
 texture_filter = 2
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 texture = ExtResource("2_gemga")
 expand_mode = 1
 

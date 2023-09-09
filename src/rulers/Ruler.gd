@@ -21,7 +21,7 @@ func _gui_input(_event: InputEvent):
 
 # Code taken and modified from Godot's source code
 func _draw():
-	var font = ThemeDB.fallback_font
+#	var font = ThemeDB.fallback_font
 	var transform = Transform2D()
 	var ruler_transform = Transform2D()
 	var major_subdivide = Transform2D()
@@ -88,13 +88,13 @@ func _draw():
 				 * Vector2(j, 0)
 			).x
 
-			draw_string(
-				font,
-				Vector2(pos.x + R_WIDTH + 2, 6),
-				str(snappedf(val, 0.1)),
-				HORIZONTAL_ALIGNMENT_LEFT, 
-				-1, 9
-			)
+#			draw_string(
+#				font,
+#				Vector2(pos.x + R_WIDTH + 2, 6),
+#				str(snappedf(val, 0.1)),
+#				HORIZONTAL_ALIGNMENT_LEFT, 
+#				-1, 9
+#			)
 		else:
 			if j % minor_subdivision == 0:
 				draw_line(

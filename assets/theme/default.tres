@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=28 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=22 format=3 uid="uid://bnvbwu202rx6u"]
 
 [ext_resource type="Texture2D" uid="uid://bolpd85jv2bw8" path="res://assets/common/close.png" id="1_1wu06"]
 [ext_resource type="FontFile" uid="uid://cbrk73jwnqj6t" path="res://assets/fonts/Roboto-Regular.ttf" id="1_fxdeo"]
@@ -52,6 +52,9 @@ content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
 bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.2, 0.2, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5y08"]
 content_margin_left = 6.0
@@ -105,45 +108,12 @@ content_margin_right = 0.0
 content_margin_bottom = 0.0
 bg_color = Color(0.156863, 0.156863, 0.156863, 0.784314)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmmf8"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 12.0
-bg_color = Color(0.176471, 0.176471, 0.176471, 1)
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0.12549, 0.12549, 0.12549, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gq5gy"]
-content_margin_left = 6.0
-content_margin_right = 6.0
-bg_color = Color(0.133333, 0.133333, 0.133333, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uqs2m"]
-content_margin_left = 6.0
-content_margin_right = 6.0
-bg_color = Color(0.133333, 0.133333, 0.133333, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j32gd"]
-content_margin_left = 6.0
-content_margin_right = 6.0
-bg_color = Color(0.6, 0.333333, 0.266667, 0.470588)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1ibm"]
-content_margin_left = 6.0
-content_margin_right = 6.0
-bg_color = Color(0.133333, 0.133333, 0.133333, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14ifv"]
-content_margin_left = 6.0
-content_margin_right = 6.0
-bg_color = Color(0.6, 0.333333, 0.266667, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xo66n"]
 content_margin_top = 24.0
 bg_color = Color(0.133333, 0.133333, 0.133333, 1)
-expand_margin_top = 12.0
+border_width_top = 2
+border_width_bottom = 1
+border_color = Color(0.2, 0.2, 0.2, 1)
 
 [resource]
 default_font = ExtResource("1_fxdeo")
@@ -182,13 +152,5 @@ frameset/base_type = &"BoxContainer"
 frameset/constants/separation = 0
 sider/base_type = &"PanelContainer"
 sider/styles/panel = SubResource("StyleBoxFlat_52ddx")
-sider_board/base_type = &"Panel"
-sider_board/styles/panel = SubResource("StyleBoxFlat_mmmf8")
-sider_btn_flat/base_type = &"Button"
-sider_btn_flat/styles/disabled = SubResource("StyleBoxFlat_gq5gy")
-sider_btn_flat/styles/focus = SubResource("StyleBoxFlat_uqs2m")
-sider_btn_flat/styles/hover = SubResource("StyleBoxFlat_j32gd")
-sider_btn_flat/styles/normal = SubResource("StyleBoxFlat_y1ibm")
-sider_btn_flat/styles/pressed = SubResource("StyleBoxFlat_14ifv")
 toolbar/base_type = &"ScrollContainer"
 toolbar/styles/panel = SubResource("StyleBoxFlat_xo66n")
