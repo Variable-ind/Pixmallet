@@ -9,7 +9,7 @@ extends Control
 
 
 func _ready():
-	DisplayServer.window_set_min_size(Vector2i(800, 480))
+	DisplayServer.window_set_min_size(Vector2i(800, 600))
 	g.control = control
 	g.viewport = viewport
 	g.camera = camera

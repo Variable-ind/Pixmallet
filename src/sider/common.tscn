@@ -10,15 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://dd362j0tsse6l" path="res://assets/common/pen-setting.png" id="4_1man4"]
 
 [node name="Common" type="Panel"]
-custom_minimum_size = Vector2(300, 34)
+custom_minimum_size = Vector2(300, 48)
 offset_right = 300.0
 offset_bottom = 32.0
 
 [node name="BoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -54,9 +57,6 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 icon = ExtResource("1_05grq")
 icon_alignment = 1
-
-[node name="_divider" type="VSeparator" parent="BoxContainer"]
-layout_mode = 2
 
 [node name="MirrorH" type="Button" parent="BoxContainer"]
 custom_minimum_size = Vector2(32, 0)

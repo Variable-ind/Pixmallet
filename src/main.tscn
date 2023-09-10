@@ -43,7 +43,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_type_variation = &"frameset"
+theme_override_constants/separation = 0
 
 [node name="Navbar" parent="main_area" instance=ExtResource("2_had7o")]
 layout_mode = 2
@@ -52,20 +52,25 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="work_area" type="HBoxContainer" parent="main_area/mainborad"]
+[node name="work-area" type="HBoxContainer" parent="main_area/mainborad"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_type_variation = &"frameset"
+theme_override_constants/separation = 0
 
-[node name="Toolbar" parent="main_area/mainborad/work_area" instance=ExtResource("4_caqd8")]
+[node name="left-sider" type="PanelContainer" parent="main_area/mainborad/work-area"]
+layout_mode = 2
+theme_type_variation = &"sider_left"
+
+[node name="Toolbar" parent="main_area/mainborad/work-area/left-sider" instance=ExtResource("4_caqd8")]
 layout_mode = 2
 size_flags_vertical = 1
 
-[node name="draw_area" type="VBoxContainer" parent="main_area/mainborad/work_area"]
+[node name="draw-area" type="VBoxContainer" parent="main_area/mainborad/work-area"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 0
 
-[node name="Tabbar" type="TabBar" parent="main_area/mainborad/work_area/draw_area"]
+[node name="Tabbar" type="TabBar" parent="main_area/mainborad/work-area/draw-area"]
 layout_mode = 2
 tab_close_display_policy = 2
 tab_count = 3
@@ -74,45 +79,45 @@ tab_1/title = "asdfdf"
 tab_2/title = "test"
 tab_2/disabled = true
 
-[node name="HRuler" parent="main_area/mainborad/work_area/draw_area" instance=ExtResource("5_vgkdf")]
+[node name="HRuler" parent="main_area/mainborad/work-area/draw-area" instance=ExtResource("5_vgkdf")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="draw_subarea" type="HBoxContainer" parent="main_area/mainborad/work_area/draw_area"]
+[node name="draw_subarea" type="HBoxContainer" parent="main_area/mainborad/work-area/draw-area"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VRuler" type="Button" parent="main_area/mainborad/work_area/draw_area/draw_subarea"]
+[node name="VRuler" type="Button" parent="main_area/mainborad/work-area/draw-area/draw_subarea"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 flat = true
 
-[node name="DrawContainer" type="SubViewportContainer" parent="main_area/mainborad/work_area/draw_area/draw_subarea"]
+[node name="DrawContainer" type="SubViewportContainer" parent="main_area/mainborad/work-area/draw-area/draw_subarea"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DrawViewport" type="SubViewport" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer"]
+[node name="DrawViewport" type="SubViewport" parent="main_area/mainborad/work-area/draw-area/draw_subarea/DrawContainer"]
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 size = Vector2i(360, 360)
 render_target_update_mode = 4
 
-[node name="Background" type="ColorRect" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer/DrawViewport"]
+[node name="Background" type="ColorRect" parent="main_area/mainborad/work-area/draw-area/draw_subarea/DrawContainer/DrawViewport"]
 visible = false
 material = SubResource("ShaderMaterial_u122j")
 mouse_filter = 2
 
-[node name="Canvas" type="Node2D" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer/DrawViewport"]
+[node name="Canvas" type="Node2D" parent="main_area/mainborad/work-area/draw-area/draw_subarea/DrawContainer/DrawViewport"]
 visible = false
 
-[node name="Camera2D" type="Camera2D" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer/DrawViewport"]
+[node name="Camera2D" type="Camera2D" parent="main_area/mainborad/work-area/draw-area/draw_subarea/DrawContainer/DrawViewport"]
 visible = false
 
-[node name="CanvasLayer" type="CanvasLayer" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer/DrawViewport"]
+[node name="CanvasLayer" type="CanvasLayer" parent="main_area/mainborad/work-area/draw-area/draw_subarea/DrawContainer/DrawViewport"]
 visible = false
 
-[node name="GreyscaleVision" type="ColorRect" parent="main_area/mainborad/work_area/draw_area/draw_subarea/DrawContainer/DrawViewport/CanvasLayer"]
+[node name="GreyscaleVision" type="ColorRect" parent="main_area/mainborad/work-area/draw-area/draw_subarea/DrawContainer/DrawViewport/CanvasLayer"]
 visible = false
 material = SubResource("ShaderMaterial_ib7er")
 anchors_preset = 15
@@ -122,36 +127,30 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="sider" type="PanelContainer" parent="main_area/mainborad/work_area"]
-custom_minimum_size = Vector2(300, 0)
+[node name="right-sider" type="PanelContainer" parent="main_area/mainborad/work-area"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_type_variation = &"sider"
+theme_type_variation = &"sider_right"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="main_area/mainborad/work_area/sider"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="sider_area" type="VBoxContainer" parent="main_area/mainborad/work_area/sider/ScrollContainer"]
+[node name="split" type="VBoxContainer" parent="main_area/mainborad/work-area/right-sider"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_type_variation = &"frameset"
+theme_type_variation = &"sider"
 
-[node name="Preview" type="Panel" parent="main_area/mainborad/work_area/sider/ScrollContainer/sider_area"]
+[node name="Preview" type="Panel" parent="main_area/mainborad/work-area/right-sider/split"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="Common" parent="main_area/mainborad/work_area/sider/ScrollContainer/sider_area" instance=ExtResource("8_24hhy")]
+[node name="ColorPalette" parent="main_area/mainborad/work-area/right-sider/split" instance=ExtResource("9_lyr4b")]
 layout_mode = 2
 
-[node name="ColorPalette" parent="main_area/mainborad/work_area/sider/ScrollContainer/sider_area" instance=ExtResource("9_lyr4b")]
+[node name="Common" parent="main_area/mainborad/work-area/right-sider/split" instance=ExtResource("8_24hhy")]
 layout_mode = 2
 
-[node name="ToolOption" type="Panel" parent="main_area/mainborad/work_area/sider/ScrollContainer/sider_area"]
+[node name="ToolOption" type="Panel" parent="main_area/mainborad/work-area/right-sider/split"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
 
 [connection signal="navigation_to" from="main_area/Navbar" to="." method="_on_navbar_navigation_to"]
-[connection signal="active_tool" from="main_area/mainborad/work_area/Toolbar" to="." method="_on_toolbar_active_tool"]
+[connection signal="active_tool" from="main_area/mainborad/work-area/left-sider/Toolbar" to="." method="_on_toolbar_active_tool"]

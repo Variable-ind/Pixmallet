@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=34 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=40 format=3 uid="uid://bnvbwu202rx6u"]
 
 [ext_resource type="StyleBox" uid="uid://bheih5k4b056s" path="res://assets/theme/default/styles/nav_btn_disabled_flat.tres" id="1_03gb2"]
 [ext_resource type="StyleBox" uid="uid://dgle7h18anrxb" path="res://assets/theme/default/styles/label_head_flat.tres" id="1_fn0j0"]
@@ -16,22 +16,28 @@
 [ext_resource type="Texture2D" uid="uid://c2tskr266hp77" path="res://assets/common/arrow.png" id="4_4fsy6"]
 [ext_resource type="StyleBox" uid="uid://c26reyyqx2j3i" path="res://assets/theme/default/styles/btn_flat.tres" id="4_vp1rr"]
 [ext_resource type="StyleBox" uid="uid://c6n6ncpq36g1k" path="res://assets/theme/default/styles/menu_btn_flat.tres" id="4_vxq6g"]
-[ext_resource type="FontFile" uid="uid://cbrk73jwnqj6t" path="res://assets/fonts/Roboto-Regular.ttf" id="5_goc0m"]
 [ext_resource type="StyleBox" uid="uid://blqn6wlakteka" path="res://assets/theme/default/styles/btn_pressed_flat.tres" id="5_gpy7y"]
 [ext_resource type="StyleBox" uid="uid://xtul83dsf4ly" path="res://assets/theme/default/styles/bordered_btn_flat.tres" id="6_k3h2g"]
 [ext_resource type="StyleBox" uid="uid://b3elkyxnq406h" path="res://assets/theme/default/styles/bordered_btn_hover_flat.tres" id="6_klyvc"]
 [ext_resource type="StyleBox" uid="uid://bmg0bc8xct7uy" path="res://assets/theme/default/styles/bordered_btn_pressed_flat.tres" id="8_ggyub"]
-[ext_resource type="StyleBox" uid="uid://dxhbunqfbxy20" path="res://assets/theme/default/styles/panel_flat.tres" id="9_6xpo6"]
 [ext_resource type="StyleBox" uid="uid://bb723tsttwu4a" path="res://assets/theme/default/styles/popmenu_panel_flat.tres" id="10_1ofmt"]
+[ext_resource type="StyleBox" uid="uid://dxhbunqfbxy20" path="res://assets/theme/default/styles/panel_flat.tres" id="13_oo4p5"]
 [ext_resource type="StyleBox" uid="uid://dnuypm8uy6jcj" path="res://assets/theme/default/styles/popmenu_btn_hover_flat.tres" id="14_id4re"]
 [ext_resource type="StyleBox" uid="uid://5gpm5j7uy7b4" path="res://assets/theme/default/styles/tab_hover_flat.tres" id="14_plnka"]
 [ext_resource type="StyleBox" uid="uid://eeobgk3f2np3" path="res://assets/theme/default/styles/tab_selected_flat.tres" id="15_mo0ra"]
 [ext_resource type="StyleBox" uid="uid://dg3bprl82200u" path="res://assets/theme/default/styles/tab_unselected_flat.tres" id="16_g6krp"]
 [ext_resource type="StyleBox" uid="uid://cccftcckaubqv" path="res://assets/theme/default/styles/divider.tres" id="17_224fy"]
 [ext_resource type="StyleBox" uid="uid://qnp4eoygedou" path="res://assets/theme/default/styles/tab_disabled_flat.tres" id="19_fg07w"]
-[ext_resource type="FontFile" uid="uid://s2kjgwxjq1id" path="res://assets/fonts/Roboto-Bold.ttf" id="23_4mryb"]
-[ext_resource type="StyleBox" uid="uid://jhn0w1jy2x71" path="res://assets/theme/default/styles/sider_panel_flat.tres" id="23_mv6bk"]
+[ext_resource type="StyleBox" uid="uid://ccgvmc82tq3a0" path="res://assets/theme/default/styles/btn_accent_hover_flat.tres" id="24_i5ccb"]
 [ext_resource type="StyleBox" uid="uid://cqnsh3ktxs14v" path="res://assets/theme/default/styles/toolbar_panel_flat.tres" id="24_orrlj"]
+[ext_resource type="FontFile" uid="uid://cllbhityges65" path="res://assets/fonts/OpenSans-Regular.ttf" id="24_tutt7"]
+[ext_resource type="FontFile" uid="uid://c8xuja0cdkq51" path="res://assets/fonts/OpenSans-Bold.ttf" id="25_ca3p4"]
+[ext_resource type="StyleBox" uid="uid://coiisduwee3cc" path="res://assets/theme/default/styles/btn_accent_flat.tres" id="25_uae00"]
+[ext_resource type="StyleBox" uid="uid://bprj3rs3k2mye" path="res://assets/theme/default/styles/btn_accent_pressed.tres" id="26_1umu1"]
+[ext_resource type="StyleBox" uid="uid://cktutb77fexfr" path="res://assets/theme/default/styles/navbar_panel.tres" id="27_la1gj"]
+[ext_resource type="StyleBox" uid="uid://dgkf3pc1o60of" path="res://assets/theme/default/styles/panel_block_flat.tres" id="28_etp36"]
+[ext_resource type="StyleBox" uid="uid://jhn0w1jy2x71" path="res://assets/theme/default/styles/sider_right_panel_flat.tres" id="31_lc3nx"]
+[ext_resource type="StyleBox" uid="uid://wlum2qhnb2fv" path="res://assets/theme/default/styles/sider_left_panel_flat.tres" id="31_v0acv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kt5n5"]
 content_margin_left = 6.0
@@ -40,7 +46,7 @@ content_margin_right = 6.0
 bg_color = Color(0.6, 0.333333, 0.266667, 1)
 
 [resource]
-default_font = ExtResource("5_goc0m")
+default_font = ExtResource("24_tutt7")
 default_font_size = 14
 Button/styles/disabled = ExtResource("1_gw45d")
 Button/styles/focus = ExtResource("2_dl8wy")
@@ -50,6 +56,10 @@ Button/styles/pressed = ExtResource("5_gpy7y")
 ColorPickerButton/styles/hover = ExtResource("6_klyvc")
 ColorPickerButton/styles/normal = ExtResource("6_k3h2g")
 ColorPickerButton/styles/pressed = ExtResource("8_ggyub")
+MarginContainer/constants/margin_bottom = 12
+MarginContainer/constants/margin_left = 12
+MarginContainer/constants/margin_right = 12
+MarginContainer/constants/margin_top = 12
 MenuButton/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 MenuButton/colors/font_disabled_color = Color(1, 1, 1, 0.3)
 MenuButton/colors/font_focus_color = Color(0.972549, 0.941176, 0.937255, 1)
@@ -62,7 +72,7 @@ MenuButton/styles/focus = ExtResource("2_cs863")
 MenuButton/styles/hover = ExtResource("3_pwsdi")
 MenuButton/styles/normal = ExtResource("4_vxq6g")
 MenuButton/styles/pressed = SubResource("StyleBoxFlat_kt5n5")
-Panel/styles/panel = ExtResource("9_6xpo6")
+Panel/styles/panel = ExtResource("13_oo4p5")
 PopupMenu/constants/item_end_padding = 6
 PopupMenu/constants/item_start_padding = 6
 PopupMenu/constants/v_separation = 12
@@ -79,20 +89,27 @@ TabBar/styles/tab_selected = ExtResource("15_mo0ra")
 TabBar/styles/tab_unselected = ExtResource("16_g6krp")
 VSeparator/constants/separation = 0
 VSeparator/styles/separator = ExtResource("17_224fy")
-frameset/base_type = &"BoxContainer"
-frameset/constants/separation = 0
+btn_accent/base_type = &"Button"
+btn_accent/styles/hover = ExtResource("24_i5ccb")
+btn_accent/styles/normal = ExtResource("25_uae00")
+btn_accent/styles/pressed = ExtResource("26_1umu1")
+inner_block/base_type = &"PanelContainer"
+inner_block/styles/panel = ExtResource("28_etp36")
 label_head/base_type = &"Label"
 label_head/font_sizes/font_size = 16
-label_head/fonts/font = ExtResource("23_4mryb")
+label_head/fonts/font = ExtResource("25_ca3p4")
 label_head/styles/normal = ExtResource("1_fn0j0")
+navbar/styles/panel = ExtResource("27_la1gj")
 navbtn/base_type = &"MenuButton"
 navbtn/font_sizes/font_size = 14
-navbtn/fonts/font = ExtResource("23_4mryb")
+navbtn/fonts/font = ExtResource("25_ca3p4")
 navbtn/styles/disabled = ExtResource("1_03gb2")
 navbtn/styles/focus = ExtResource("2_qse8p")
 navbtn/styles/hover = ExtResource("1_r5co6")
 navbtn/styles/normal = ExtResource("2_r8fj1")
-sider/base_type = &"PanelContainer"
-sider/styles/panel = ExtResource("23_mv6bk")
+sider_left/base_type = &"PanelContainer"
+sider_left/styles/panel = ExtResource("31_v0acv")
+sider_right/base_type = &"PanelContainer"
+sider_right/styles/panel = ExtResource("31_lc3nx")
 toolbar/base_type = &"ScrollContainer"
 toolbar/styles/panel = ExtResource("24_orrlj")

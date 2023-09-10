@@ -6,7 +6,7 @@ class_name ExtendableButton
 const CELL_WIDTH :int = 36
 const LONG_PRESS_DELAY :float = 0.6
 var long_press_timer :Timer = Timer.new()
-var arrow_icon_color :Color = Color(0.980392, 0.921569, 0.843137, 0.33)
+var arrow_icon_color :Color = Color(1, 1, 1, 0.66)
 var sel_name: StringName = ''
 
 @onready var popup :PopupPanel = $Popup
@@ -43,7 +43,7 @@ func _ready():
 
 func _draw():
 	# draw arrow
-	draw_colored_polygon([Vector2(34, 16), Vector2(30, 12), Vector2(30, 20)],
+	draw_colored_polygon([Vector2(36, 16), Vector2(32, 12), Vector2(32, 20)],
 						 arrow_icon_color)
 
 
@@ -59,7 +59,7 @@ func change_btn(btn_name:StringName, btn_icon:Texture2D):
 
 
 func show_popup():
-	popup.position = global_position + Vector2(34, -3)
+	popup.position = global_position + Vector2(36, -3)
 	popup.show()
 
 

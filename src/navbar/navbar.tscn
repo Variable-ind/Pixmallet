@@ -11,6 +11,7 @@ anchor_right = 1.0
 grow_horizontal = 2
 rotation = -0.000250265
 size_flags_horizontal = 3
+theme_type_variation = &"navbar"
 script = ExtResource("1_j0vud")
 
 [node name="MenuItems" type="HBoxContainer" parent="."]
