@@ -152,5 +152,16 @@ custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="overlay" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0666667, 0.0666667, 0.0666667, 0.784314)
+
 [connection signal="navigation_to" from="main_area/Navbar" to="." method="_on_navbar_navigation_to"]
 [connection signal="active_tool" from="main_area/mainborad/work-area/left-sider/Toolbar" to="." method="_on_toolbar_active_tool"]
+[connection signal="modal_toggled" from="main_area/mainborad/work-area/right-sider/split/ColorPalette" to="." method="_on_modal_toggled"]

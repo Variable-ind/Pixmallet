@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bw43bipa0o2mv"]
+[gd_scene load_steps=11 format=3 uid="uid://bw43bipa0o2mv"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default/default.tres" id="1_0qsv8"]
 [ext_resource type="Script" path="res://src/colorpalette/ColorPalette.gd" id="2_rqgjd"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://nyd7ybgj0r6y" path="res://assets/common/plus.png" id="5_p7a2o"]
 [ext_resource type="Script" path="res://src/colorpalette/ColorSwitch.gd" id="5_pslre"]
 [ext_resource type="Texture2D" uid="uid://bpphhysy73qnp" path="res://assets/common/arrow-right.png" id="6_8lodd"]
+[ext_resource type="Texture2D" uid="uid://barcrh21as7lr" path="res://assets/common/trash.png" id="6_ciqqo"]
+[ext_resource type="Script" path="res://src/colorpalette/CreatePaletteConfirm.gd" id="9_07vel"]
+[ext_resource type="Script" path="res://src/colorpalette/DeletePaletteConfirm.gd" id="10_fnq1b"]
 
 [node name="ColorPalette" type="Panel"]
 custom_minimum_size = Vector2(300, 200)
@@ -86,6 +89,16 @@ size_flags_vertical = 0
 layout_mode = 2
 alignment = 2
 
+[node name="RemovePaletteBtn" type="Button" parent="margin/VBoxContainer/bottom"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = ExtResource("6_ciqqo")
+flat = true
+icon_alignment = 1
+
 [node name="PaletteSelector" type="MenuButton" parent="margin/VBoxContainer/bottom"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -95,33 +108,52 @@ text = "Select Palette"
 icon = ExtResource("6_8lodd")
 alignment = 0
 
-[node name="NewPaletteBtn" type="Button" parent="margin/VBoxContainer/bottom"]
+[node name="CreatePaletteBtn" type="Button" parent="margin/VBoxContainer/bottom"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_type_variation = &"btn_accent"
 icon = ExtResource("5_p7a2o")
 icon_alignment = 1
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
-title = "New Palette Name"
-position = Vector2i(0, 36)
+[node name="CreateDialog" type="ConfirmationDialog" parent="."]
+disable_3d = true
+title = "New Palette"
+initial_position = 1
 size = Vector2i(300, 110)
-visible = true
 min_size = Vector2i(300, 100)
 max_size = Vector2i(300, 80)
 theme_type_variation = &"ConfirmDialog"
+ok_button_text = "Create"
+script = ExtResource("9_07vel")
 
-[node name="MarginContainer" type="MarginContainer" parent="ConfirmationDialog"]
+[node name="MarginContainer" type="MarginContainer" parent="CreateDialog"]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 292.0
 offset_bottom = 66.0
 
-[node name="TextEdit" type="TextEdit" parent="ConfirmationDialog/MarginContainer"]
+[node name="inputName" type="LineEdit" parent="CreateDialog/MarginContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 placeholder_text = "Input name here."
+alignment = 1
+
+[node name="DeleteDialog" type="ConfirmationDialog" parent="."]
+disable_3d = true
+title = "New Palette"
+initial_position = 1
+size = Vector2i(300, 60)
+min_size = Vector2i(300, 60)
+max_size = Vector2i(300, 60)
+theme_type_variation = &"ConfirmDialog"
+ok_button_text = "Delete"
+script = ExtResource("10_fnq1b")
 
 [connection signal="pressed" from="margin/VBoxContainer/colorpicker/ColorSwitchBtn" to="." method="_on_switch_color"]
+[connection signal="pressed" from="margin/VBoxContainer/bottom/RemovePaletteBtn" to="." method="_on_del_palette_btn_pressed"]
+[connection signal="pressed" from="margin/VBoxContainer/bottom/CreatePaletteBtn" to="." method="_on_create_palette_btn_pressed"]
+[connection signal="confirmed" from="CreateDialog" to="CreateDialog" method="_on_confirmed"]
+[connection signal="create_dialog_confirmed" from="CreateDialog" to="." method="_on_create_dialog_confirmed"]
+[connection signal="text_changed" from="CreateDialog/MarginContainer/inputName" to="CreateDialog" method="_on_input_name_text_changed"]
+[connection signal="confirmed" from="DeleteDialog" to="." method="_on_delete_dialog_confirmed"]

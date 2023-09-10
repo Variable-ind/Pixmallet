@@ -6,6 +6,7 @@ extends Control
 @onready var camera = viewport.find_child("Camera2D")
 
 @onready var v_ruler = %VRuler
+@onready var overlay = $overlay
 
 
 func _ready():
@@ -17,6 +18,7 @@ func _ready():
 	# update rulers
 #	viewport.item_rect_changed.connect(v_ruler.queue_redraw)
 #	project_changed.connect(v_ruler.queue_redraw)
+
 
 
 func _on_navbar_navigation_to(navId, data):
@@ -33,3 +35,9 @@ func _on_toolbar_active_tool(toolId):
 	match toolId:
 		Toolbar.COLOR_PICKER:
 			pass
+
+
+func _on_modal_toggled(state:bool):
+	if overlay:
+		overlay.visible = state
+	

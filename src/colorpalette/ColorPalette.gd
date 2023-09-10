@@ -2,18 +2,29 @@ extends Panel
 
 class_name ColorPalette
 
+signal modal_toggled(state:int)
+
 const PALETTE_ROW_NUM = 12
 	
 var current_palette : ColorPaletteRes
 var palettes_stack :Array[ColorPaletteRes] = []
+var current_palette_index: int = -1
 
 @onready var colorForeground :ColorPickerButton = %Foreground
 @onready var colorBackground :ColorPickerButton = %Background
 @onready var paletteSelector :MenuButton = %PaletteSelector
 @onready var colorSwitch :ColorSwitch = %ColorSwitch
+@onready var createDialog :Window = $CreateDialog
+@onready var deleteDialog :Window = $DeleteDialog
+
+@onready var removePaletteBtn :Button = %RemovePaletteBtn
 
 
 func _ready():
+	createDialog.visibility_changed.connect(_on_dialog_toggled.bind(createDialog))
+	deleteDialog.visibility_changed.connect(_on_dialog_toggled.bind(deleteDialog))
+	
+	
 	set_color_picker(colorForeground.get_picker())
 	set_color_picker(colorBackground.get_picker())
 	
@@ -32,12 +43,21 @@ func load_palettes():
 	var palette_dir :DirAccess = g.user_palette_dir
 	var files = palette_dir.get_files()
 	
+	var default_res = null
 	for file in files:
 		var _res = ResourceLoader.load(
 			config.PATH_PALETTE_DIR.path_join(file))
-		palettes_stack.append(_res)
+		if _res.as_default:
+			default_res = _res
+		else:
+			palettes_stack.append(_res)
+	
+	if default_res:
+		palettes_stack.insert(0, default_res)
 
 	var popmenu = paletteSelector.get_popup()
+	popmenu.index_pressed.connect(switch_palette)
+	
 	for pal in palettes_stack:
 		popmenu.add_radio_check_item(pal.name)
 	
@@ -45,21 +65,48 @@ func load_palettes():
 	
 	
 func switch_palette(index:int=0):
+	if index >= palettes_stack.size() or index < 0:
+		return
 	current_palette = palettes_stack[index]
 	paletteSelector.text = current_palette.name
 	colorSwitch.set_colors(current_palette.colors)
 	var popmenu = paletteSelector.get_popup()
+	if current_palette_index >= 0:
+		popmenu.set_item_checked(current_palette_index, false)
 	popmenu.set_item_checked(index, true)
+	current_palette_index = index
+	
+	removePaletteBtn.disabled = current_palette.as_default
+		
 
-
-func create_palette(palette_name):
-	var new_palette :ColorPaletteRes = ColorPaletteRes.new()
+func create_palette(palette_name:String):
+	var new_palette :ColorPaletteRes = ColorPaletteRes.new(palette_name)
 	palettes_stack.append(new_palette)
+	ResourceSaver.save(new_palette,
+					   config.PATH_PALETTE_DIR.path_join(new_palette.file))
 	var popmenu = paletteSelector.get_popup()
 	popmenu.add_radio_check_item(new_palette.name)
 	switch_palette(palettes_stack.size()-1)
-	ResourceSaver.save(new_palette, config.PATH_PALETTE_DIR)
+	
 
+func delete_palette(index:int=0):
+	if index >= palettes_stack.size() or index < 0:
+		return
+	
+	var rm_palette = palettes_stack[index]
+	
+	if rm_palette.as_default:
+		return
+
+	palettes_stack.remove_at(index)
+	DirAccess.remove_absolute(config.PATH_PALETTE_DIR.path_join(rm_palette.file))
+	
+	var popmenu = paletteSelector.get_popup()
+	popmenu.remove_item(index)
+	if current_palette_index == index:
+		current_palette_index = -1
+	switch_palette(palettes_stack.size()-1)
+	
 
 func set_color_picker(picker):
 	picker.can_add_swatches = false
@@ -77,3 +124,23 @@ func _on_switch_color():
 	var tmp_color :Color = colorForeground.color
 	colorForeground.color = colorBackground.color
 	colorBackground.color = tmp_color
+
+
+func _on_create_dialog_confirmed(new_palette_name):
+	create_palette(new_palette_name)
+
+
+func _on_delete_dialog_confirmed():
+	delete_palette(current_palette_index)
+
+
+func _on_create_palette_btn_pressed():
+	createDialog.show()
+
+
+func _on_del_palette_btn_pressed():
+	deleteDialog.show()
+		
+
+func _on_dialog_toggled(dialog):
+	modal_toggled.emit(dialog.visible)

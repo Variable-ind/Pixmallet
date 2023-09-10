@@ -7,13 +7,19 @@ const PLAETTE_FILE_NAME_TMPL = 'color-palette-{}-{}.tres'
 
 @export var name = ''
 @export var file = '':
-	set(file_name): file_name if file_name else _gen_filename()
+	set(file_name): file = _gen_filename(file_name)
 	get: return file
-	
+		
+			
 @export var colors :PackedColorArray = PackedColorArray([
-	Color.BLACK, Color.hex(0x222222ff), Color.hex(0x999999ff), Color.WHITE,
+	Color.BLACK, Color.hex(0x222222ff), Color.hex(0x333333ff),
+	Color.hex(0x666666ff), Color.hex(0x999999ff), Color.WHITE,
 ])
 
+var as_default :bool :
+	get: return file == default_file
+
+# create default resource if need. 
 var default_name = 'Default'
 var default_file = 'default.tres'
 var default_colors :PackedColorArray = PackedColorArray([
@@ -51,8 +57,11 @@ var default_colors :PackedColorArray = PackedColorArray([
 ])
 
 
-func _init():
-	file = _gen_filename()
+func _init(palette_name :String = '', file_name :String = ''):
+	if not file:
+		file = file_name
+	if not name:
+		name = palette_name
 
 
 func set_to_default():
@@ -73,9 +82,15 @@ func clear():
 	colors = []
 
 
-func _gen_filename():
-	return PLAETTE_FILE_NAME_TMPL.format([
-		randi_range(100000, 999999),
-		Time.get_ticks_msec(),
-	])
+func _gen_filename(file_name:String=''):
+	if file_name:
+		if file_name.ends_with('.tres'):
+			return file_name
+		else:
+			return file_name + '.tres'
+	else:
+		return PLAETTE_FILE_NAME_TMPL.format([
+			randi_range(100000, 999999),
+			Time.get_ticks_msec(),
+		], "{}")
 	

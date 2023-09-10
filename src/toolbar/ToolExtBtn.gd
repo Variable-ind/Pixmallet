@@ -36,7 +36,6 @@ func _ready():
 	# set popup
 	popup.size = Vector2(CELL_WIDTH * extend_btns.size(), CELL_WIDTH)
 	popup.hide()
-	print(size.x)
 	
 	queue_redraw()
 

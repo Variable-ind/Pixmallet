@@ -27,7 +27,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="FlipH" type="Button" parent="BoxContainer"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -36,7 +36,7 @@ icon = ExtResource("1_rhola")
 icon_alignment = 1
 
 [node name="FlipV" type="Button" parent="BoxContainer"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -45,7 +45,7 @@ icon = ExtResource("2_2c505")
 icon_alignment = 1
 
 [node name="RotateCCW" type="Button" parent="BoxContainer"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -54,7 +54,7 @@ icon = ExtResource("1_l8g7d")
 icon_alignment = 1
 
 [node name="RotateCW" type="Button" parent="BoxContainer"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -63,7 +63,7 @@ icon = ExtResource("1_05grq")
 icon_alignment = 1
 
 [node name="MirrorH" type="Button" parent="BoxContainer"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -74,7 +74,7 @@ icon = ExtResource("1_77wnn")
 icon_alignment = 1
 
 [node name="MirrorV" type="Button" parent="BoxContainer"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -85,7 +85,7 @@ icon = ExtResource("2_03ere")
 icon_alignment = 1
 
 [node name="PerfectPx" type="Button" parent="BoxContainer"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -96,7 +96,7 @@ icon = ExtResource("3_uy6m1")
 icon_alignment = 1
 
 [node name="PenSetting" type="Button" parent="BoxContainer"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
