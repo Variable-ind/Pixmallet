@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=40 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=43 format=3 uid="uid://bnvbwu202rx6u"]
 
 [ext_resource type="StyleBox" uid="uid://bheih5k4b056s" path="res://assets/theme/default/styles/nav_btn_disabled_flat.tres" id="1_03gb2"]
 [ext_resource type="StyleBox" uid="uid://dgle7h18anrxb" path="res://assets/theme/default/styles/label_head_flat.tres" id="1_fn0j0"]
@@ -12,8 +12,6 @@
 [ext_resource type="StyleBox" uid="uid://d4jyw1cirfyhw" path="res://assets/theme/default/styles/nav_btn_flat.tres" id="2_r8fj1"]
 [ext_resource type="StyleBox" uid="uid://b8vwifsgydqvs" path="res://assets/theme/default/styles/btn_hover_flat.tres" id="3_01sg6"]
 [ext_resource type="StyleBox" uid="uid://blyxqtkad10vs" path="res://assets/theme/default/styles/menu_btn_hover_flat.tres" id="3_pwsdi"]
-[ext_resource type="Texture2D" uid="uid://d1yu0febfn383" path="res://assets/common/arrow-off.png" id="3_x8cjh"]
-[ext_resource type="Texture2D" uid="uid://c2tskr266hp77" path="res://assets/common/arrow.png" id="4_4fsy6"]
 [ext_resource type="StyleBox" uid="uid://c26reyyqx2j3i" path="res://assets/theme/default/styles/btn_flat.tres" id="4_vp1rr"]
 [ext_resource type="StyleBox" uid="uid://c6n6ncpq36g1k" path="res://assets/theme/default/styles/menu_btn_flat.tres" id="4_vxq6g"]
 [ext_resource type="StyleBox" uid="uid://blqn6wlakteka" path="res://assets/theme/default/styles/btn_pressed_flat.tres" id="5_gpy7y"]
@@ -27,7 +25,11 @@
 [ext_resource type="StyleBox" uid="uid://eeobgk3f2np3" path="res://assets/theme/default/styles/tab_selected_flat.tres" id="15_mo0ra"]
 [ext_resource type="StyleBox" uid="uid://dg3bprl82200u" path="res://assets/theme/default/styles/tab_unselected_flat.tres" id="16_g6krp"]
 [ext_resource type="StyleBox" uid="uid://cccftcckaubqv" path="res://assets/theme/default/styles/divider.tres" id="17_224fy"]
+[ext_resource type="Texture2D" uid="uid://8628muy3ehm0" path="res://assets/common/arrow-left-off.png" id="17_lgtwp"]
+[ext_resource type="Texture2D" uid="uid://crie37lhuspwq" path="res://assets/common/arrow-left.png" id="18_mvt21"]
+[ext_resource type="Texture2D" uid="uid://wl57rj6yulid" path="res://assets/common/arrow-right-off.png" id="19_4wa5l"]
 [ext_resource type="StyleBox" uid="uid://qnp4eoygedou" path="res://assets/theme/default/styles/tab_disabled_flat.tres" id="19_fg07w"]
+[ext_resource type="Texture2D" uid="uid://bpphhysy73qnp" path="res://assets/common/arrow-right.png" id="20_kfq7f"]
 [ext_resource type="StyleBox" uid="uid://ccgvmc82tq3a0" path="res://assets/theme/default/styles/btn_accent_hover_flat.tres" id="24_i5ccb"]
 [ext_resource type="StyleBox" uid="uid://cqnsh3ktxs14v" path="res://assets/theme/default/styles/toolbar_panel_flat.tres" id="24_orrlj"]
 [ext_resource type="FontFile" uid="uid://cllbhityges65" path="res://assets/fonts/OpenSans-Regular.ttf" id="24_tutt7"]
@@ -35,9 +37,10 @@
 [ext_resource type="StyleBox" uid="uid://coiisduwee3cc" path="res://assets/theme/default/styles/btn_accent_flat.tres" id="25_uae00"]
 [ext_resource type="StyleBox" uid="uid://bprj3rs3k2mye" path="res://assets/theme/default/styles/btn_accent_pressed.tres" id="26_1umu1"]
 [ext_resource type="StyleBox" uid="uid://cktutb77fexfr" path="res://assets/theme/default/styles/navbar_panel.tres" id="27_la1gj"]
-[ext_resource type="StyleBox" uid="uid://dgkf3pc1o60of" path="res://assets/theme/default/styles/panel_block_flat.tres" id="28_etp36"]
+[ext_resource type="StyleBox" uid="uid://bjjpt0b0ge8mm" path="res://assets/theme/default/styles/inner_panel_flat.tres" id="28_vtbaf"]
 [ext_resource type="StyleBox" uid="uid://jhn0w1jy2x71" path="res://assets/theme/default/styles/sider_right_panel_flat.tres" id="31_lc3nx"]
 [ext_resource type="StyleBox" uid="uid://wlum2qhnb2fv" path="res://assets/theme/default/styles/sider_left_panel_flat.tres" id="31_v0acv"]
+[ext_resource type="StyleBox" uid="uid://dxj1tdapfsvml" path="res://assets/theme/default/styles/inner_scroll_flat.tres" id="32_qrwcd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kt5n5"]
 content_margin_left = 6.0
@@ -67,6 +70,7 @@ MenuButton/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
 MenuButton/colors/font_outline_color = Color(1, 1, 1, 1)
 MenuButton/colors/font_pressed_color = Color(1, 1, 1, 1)
 MenuButton/font_sizes/font_size = 14
+MenuButton/fonts/font = ExtResource("25_ca3p4")
 MenuButton/styles/disabled = ExtResource("1_oamrq")
 MenuButton/styles/focus = ExtResource("2_cs863")
 MenuButton/styles/hover = ExtResource("3_pwsdi")
@@ -81,8 +85,10 @@ PopupMenu/styles/panel = ExtResource("10_1ofmt")
 TabBar/constants/h_separation = 6
 TabBar/font_sizes/font_size = 12
 TabBar/icons/close = ExtResource("2_0pgow")
-TabBar/icons/decrement = ExtResource("3_x8cjh")
-TabBar/icons/decrement_highlight = ExtResource("4_4fsy6")
+TabBar/icons/decrement = ExtResource("17_lgtwp")
+TabBar/icons/decrement_highlight = ExtResource("18_mvt21")
+TabBar/icons/increment = ExtResource("19_4wa5l")
+TabBar/icons/increment_highlight = ExtResource("20_kfq7f")
 TabBar/styles/tab_disabled = ExtResource("19_fg07w")
 TabBar/styles/tab_hovered = ExtResource("14_plnka")
 TabBar/styles/tab_selected = ExtResource("15_mo0ra")
@@ -93,8 +99,10 @@ btn_accent/base_type = &"Button"
 btn_accent/styles/hover = ExtResource("24_i5ccb")
 btn_accent/styles/normal = ExtResource("25_uae00")
 btn_accent/styles/pressed = ExtResource("26_1umu1")
-inner_block/base_type = &"PanelContainer"
-inner_block/styles/panel = ExtResource("28_etp36")
+inner_panel/base_type = &"PanelContainer"
+inner_panel/styles/panel = ExtResource("28_vtbaf")
+inner_scroll/base_type = &"ScrollContainer"
+inner_scroll/styles/panel = ExtResource("32_qrwcd")
 label_head/base_type = &"Label"
 label_head/font_sizes/font_size = 16
 label_head/fonts/font = ExtResource("25_ca3p4")

@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Pixmallet"
 run/main_scene="res://src/main.tscn"
+config/use_custom_user_dir=true
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://assets/icons/icon.png"
 config/macos_native_icon="res://assets/icons/Icon.icns"
@@ -20,6 +21,8 @@ config/windows_native_icon="res://assets/icons/icon.ico"
 [autoload]
 
 g="*res://src/autoload/g.gd"
+utils="*res://src/autoload/utils.gd"
+config="*res://src/config.gd"
 
 [display]
 

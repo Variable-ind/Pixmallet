@@ -38,22 +38,22 @@ func register(label, data, parent_menu, redirect_id:int=-1):
 	for i in data.size():
 		var item = data[i]
 		
-		if not item.get('_id'):
+		if not item.get('id'):
 			dynamic_data_stack.append(item)
 			continue
 			
 		if item.has('check'):
-			add_check_item(item['label'], item['_id'])
+			add_check_item(item['label'], item['id'])
 			set_item_checked(i, bool(item['check']))
 		else:
-			add_item(item['label'], item['_id'])
+			add_item(item['label'], item['id'])
 		
 		# inject redirect id
 		if redirect_id > -1:
 			item['redirect_id'] = redirect_id
 		
 		item['index'] = i
-		data_dict[item['_id']] = item
+		data_dict[item['id']] = item
 	
 	# fill none id item after others.
 	if dynamic_data_stack.size() > 0:
@@ -65,8 +65,8 @@ func register(label, data, parent_menu, redirect_id:int=-1):
 func append_item(item, redirect_id:int = -1):
 	# append single item after registered.
 	
-	if not item.get('_id'):
-		item['_id'] = _generate_item_id()
+	if not item.get('id'):
+		item['id'] = _generate_item_id()
 	
 	if redirect_id > -1:
 		item['redirect_id'] = redirect_id
@@ -74,12 +74,12 @@ func append_item(item, redirect_id:int = -1):
 	item['index'] = item_count
 	
 	if item.has('check'):
-		add_check_item(item['label'], item['_id'])
+		add_check_item(item['label'], item['id'])
 		set_item_checked(item['index'], bool(item['check']))
 	else:
-		add_item(item['label'], item['_id'])
+		add_item(item['label'], item['id'])
 	
-	data_dict[item['_id']] = item
+	data_dict[item['id']] = item
 		
 
 func _generate_item_id():
@@ -89,8 +89,8 @@ func _generate_item_id():
 	var curr_id = 0
 	for k in data_dict:
 		var item = data_dict[k]
-		if item['_id'] > curr_id:
-			curr_id = item['_id']
+		if item['id'] > curr_id:
+			curr_id = item['id']
 	return curr_id + 10
 
 
