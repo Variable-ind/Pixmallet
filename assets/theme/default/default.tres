@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=43 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=48 format=3 uid="uid://bnvbwu202rx6u"]
 
 [ext_resource type="StyleBox" uid="uid://bheih5k4b056s" path="res://assets/theme/default/styles/nav_btn_disabled_flat.tres" id="1_03gb2"]
 [ext_resource type="StyleBox" uid="uid://dgle7h18anrxb" path="res://assets/theme/default/styles/label_head_flat.tres" id="1_fn0j0"]
@@ -15,9 +15,9 @@
 [ext_resource type="StyleBox" uid="uid://c26reyyqx2j3i" path="res://assets/theme/default/styles/btn_flat.tres" id="4_vp1rr"]
 [ext_resource type="StyleBox" uid="uid://c6n6ncpq36g1k" path="res://assets/theme/default/styles/menu_btn_flat.tres" id="4_vxq6g"]
 [ext_resource type="StyleBox" uid="uid://blqn6wlakteka" path="res://assets/theme/default/styles/btn_pressed_flat.tres" id="5_gpy7y"]
-[ext_resource type="StyleBox" uid="uid://xtul83dsf4ly" path="res://assets/theme/default/styles/bordered_btn_flat.tres" id="6_k3h2g"]
-[ext_resource type="StyleBox" uid="uid://b3elkyxnq406h" path="res://assets/theme/default/styles/bordered_btn_hover_flat.tres" id="6_klyvc"]
-[ext_resource type="StyleBox" uid="uid://bmg0bc8xct7uy" path="res://assets/theme/default/styles/bordered_btn_pressed_flat.tres" id="8_ggyub"]
+[ext_resource type="StyleBox" uid="uid://b3elkyxnq406h" path="res://assets/theme/default/styles/color_btn_hover_flat.tres" id="6_t4dwx"]
+[ext_resource type="StyleBox" uid="uid://xtul83dsf4ly" path="res://assets/theme/default/styles/color_btn_flat.tres" id="7_ph11j"]
+[ext_resource type="StyleBox" uid="uid://bmg0bc8xct7uy" path="res://assets/theme/default/styles/color_btn_pressed_flat.tres" id="8_56ypg"]
 [ext_resource type="StyleBox" uid="uid://bb723tsttwu4a" path="res://assets/theme/default/styles/popmenu_panel_flat.tres" id="10_1ofmt"]
 [ext_resource type="StyleBox" uid="uid://dxhbunqfbxy20" path="res://assets/theme/default/styles/panel_flat.tres" id="13_oo4p5"]
 [ext_resource type="StyleBox" uid="uid://dnuypm8uy6jcj" path="res://assets/theme/default/styles/popmenu_btn_hover_flat.tres" id="14_id4re"]
@@ -41,6 +41,11 @@
 [ext_resource type="StyleBox" uid="uid://jhn0w1jy2x71" path="res://assets/theme/default/styles/sider_right_panel_flat.tres" id="31_lc3nx"]
 [ext_resource type="StyleBox" uid="uid://wlum2qhnb2fv" path="res://assets/theme/default/styles/sider_left_panel_flat.tres" id="31_v0acv"]
 [ext_resource type="StyleBox" uid="uid://dxj1tdapfsvml" path="res://assets/theme/default/styles/inner_scroll_flat.tres" id="32_qrwcd"]
+[ext_resource type="StyleBox" path="res://assets/theme/default/styles/toolbtn_disabled_flat.tres" id="42_20p5v"]
+[ext_resource type="StyleBox" path="res://assets/theme/default/styles/toolbtn_focus_flat.tres" id="43_5g48y"]
+[ext_resource type="StyleBox" path="res://assets/theme/default/styles/toolbtn_hover_flat.tres" id="44_8qdau"]
+[ext_resource type="StyleBox" uid="uid://d2w0fo1ty4gff" path="res://assets/theme/default/styles/toolbtn_flat.tres" id="45_n0h5i"]
+[ext_resource type="StyleBox" path="res://assets/theme/default/styles/toolbtn_pressed_flat.tres" id="46_v4ujd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kt5n5"]
 content_margin_left = 6.0
@@ -56,9 +61,11 @@ Button/styles/focus = ExtResource("2_dl8wy")
 Button/styles/hover = ExtResource("3_01sg6")
 Button/styles/normal = ExtResource("4_vp1rr")
 Button/styles/pressed = ExtResource("5_gpy7y")
-ColorPickerButton/styles/hover = ExtResource("6_klyvc")
-ColorPickerButton/styles/normal = ExtResource("6_k3h2g")
-ColorPickerButton/styles/pressed = ExtResource("8_ggyub")
+ColorPickerButton/styles/hover = ExtResource("6_t4dwx")
+ColorPickerButton/styles/normal = ExtResource("7_ph11j")
+ColorPickerButton/styles/pressed = ExtResource("8_56ypg")
+ConfirmDialog/base_type = &"Window"
+ConfirmDialog/fonts/title_font = ExtResource("25_ca3p4")
 MarginContainer/constants/margin_bottom = 12
 MarginContainer/constants/margin_left = 12
 MarginContainer/constants/margin_right = 12
@@ -95,6 +102,9 @@ TabBar/styles/tab_selected = ExtResource("15_mo0ra")
 TabBar/styles/tab_unselected = ExtResource("16_g6krp")
 VSeparator/constants/separation = 0
 VSeparator/styles/separator = ExtResource("17_224fy")
+Window/fonts/title_font = ExtResource("25_ca3p4")
+Window/icons/close = ExtResource("2_0pgow")
+Window/icons/close_pressed = ExtResource("2_0pgow")
 btn_accent/base_type = &"Button"
 btn_accent/styles/hover = ExtResource("24_i5ccb")
 btn_accent/styles/normal = ExtResource("25_uae00")
@@ -121,3 +131,9 @@ sider_right/base_type = &"PanelContainer"
 sider_right/styles/panel = ExtResource("31_lc3nx")
 toolbar/base_type = &"ScrollContainer"
 toolbar/styles/panel = ExtResource("24_orrlj")
+toolbtn/base_type = &"Button"
+toolbtn/styles/disabled = ExtResource("42_20p5v")
+toolbtn/styles/focus = ExtResource("43_5g48y")
+toolbtn/styles/hover = ExtResource("44_8qdau")
+toolbtn/styles/normal = ExtResource("45_n0h5i")
+toolbtn/styles/pressed = ExtResource("46_v4ujd")
