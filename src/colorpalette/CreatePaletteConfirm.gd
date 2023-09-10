@@ -11,6 +11,9 @@ const UNTITLED_NAME:String = 'Untitled'
 
 func _ready():
 	register_text_enter(inputName)
+	
+	inputName.grab_focus()
+	
 	confirm_btn.disabled = true
 	confirm_btn.focus_mode = Control.FOCUS_NONE
 	
