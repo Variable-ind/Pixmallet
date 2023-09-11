@@ -160,7 +160,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0666667, 0.0666667, 0.0666667, 0.784314)
+color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 
 [connection signal="navigation_to" from="main_area/Navbar" to="." method="_on_navbar_navigation_to"]
 [connection signal="active_tool" from="main_area/mainborad/work-area/left-sider/Toolbar" to="." method="_on_toolbar_active_tool"]

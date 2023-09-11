@@ -27,7 +27,6 @@ var default_colors :PackedColorArray = PackedColorArray([
 	Color.hex(0x111111ff),
 	Color.hex(0x222222ff),
 	Color.hex(0x333333ff),
-	Color.hex(0x444444ff),
 	Color.hex(0x666666ff),
 	Color.hex(0x999999ff),
 	Color.hex(0xaaaaaaff),
@@ -65,7 +64,9 @@ func _init(palette_name :String = '', file_name :String = ''):
 
 
 func set_to_default():
-	colors = default_colors
+	colors.clear()
+	for color in default_colors:
+		colors.append(color)
 	name = default_name
 	file = default_file
 

@@ -6,6 +6,7 @@ signal create_dialog_confirmed(text)
 const UNTITLED_NAME:String = 'Untitled' 
 
 @onready var confirm_btn:Button = get_ok_button()
+@onready var cancel_btn:Button = get_cancel_button()
 @onready var inputName:LineEdit = $MarginContainer/inputName
 
 
@@ -16,6 +17,11 @@ func _ready():
 	
 	confirm_btn.disabled = true
 	confirm_btn.focus_mode = Control.FOCUS_NONE
+	confirm_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	
+	cancel_btn.focus_mode = Control.FOCUS_NONE
+	cancel_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	
 	
 
 func _on_confirmed():

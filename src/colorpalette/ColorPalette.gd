@@ -13,7 +13,7 @@ var current_palette_index: int = -1
 @onready var colorForeground :ColorPickerButton = %Foreground
 @onready var colorBackground :ColorPickerButton = %Background
 @onready var paletteSelector :MenuButton = %PaletteSelector
-@onready var colorSwitch :ColorSwitch = %ColorSwitch
+@onready var colorSwitches :ColorSwitches = %ColorSwitches
 @onready var createDialog :Window = $CreateDialog
 @onready var deleteDialog :Window = $DeleteDialog
 
@@ -21,12 +21,18 @@ var current_palette_index: int = -1
 
 
 func _ready():
+	createDialog.hide()
+	deleteDialog.hide()
 	createDialog.visibility_changed.connect(_on_dialog_toggled.bind(createDialog))
 	deleteDialog.visibility_changed.connect(_on_dialog_toggled.bind(deleteDialog))
 	
 	
 	set_color_picker(colorForeground.get_picker())
 	set_color_picker(colorBackground.get_picker())
+	
+	# set current_color to match which switch must be selected.
+	# allow to multiple switch been selected at same time.
+#	colorSwitches.current_color = colorForeground.color
 	
 	# palettes
 	load_palettes()
@@ -37,7 +43,7 @@ func load_palettes():
 	if not ResourceLoader.exists(config.PATH_PALETTE_DEFAULT):
 		var default_palette = ColorPaletteRes.new()
 		default_palette.set_to_default()
-		ResourceSaver.save(default_palette, config.PATH_PALETTE_DEFAULT)
+		save_palette(default_palette)
 		print('create palette: ', config.PATH_PALETTE_DEFAULT)
 	
 	var palette_dir :DirAccess = g.user_palette_dir
@@ -69,7 +75,7 @@ func switch_palette(index:int=0):
 		return
 	current_palette = palettes_stack[index]
 	paletteSelector.text = current_palette.name
-	colorSwitch.set_colors(current_palette.colors)
+	colorSwitches.set_switches(current_palette.colors)
 	var popmenu = paletteSelector.get_popup()
 	if current_palette_index >= 0:
 		popmenu.set_item_checked(current_palette_index, false)
@@ -82,8 +88,7 @@ func switch_palette(index:int=0):
 func create_palette(palette_name:String):
 	var new_palette :ColorPaletteRes = ColorPaletteRes.new(palette_name)
 	palettes_stack.append(new_palette)
-	ResourceSaver.save(new_palette,
-					   config.PATH_PALETTE_DIR.path_join(new_palette.file))
+	save_palette(new_palette)
 	var popmenu = paletteSelector.get_popup()
 	popmenu.add_radio_check_item(new_palette.name)
 	switch_palette(palettes_stack.size()-1)
@@ -106,6 +111,13 @@ func delete_palette(index:int=0):
 	if current_palette_index == index:
 		current_palette_index = -1
 	switch_palette(palettes_stack.size()-1)
+	
+
+func save_palette(palette:ColorPaletteRes):
+	if palette.as_default and palette.colors.size() <= 0:
+		palette.set_to_default()
+		colorSwitches.set_switches(palette.colors)
+	ResourceSaver.save(palette, config.PATH_PALETTE_DIR.path_join(palette.file))	
 	
 
 func set_color_picker(picker):
@@ -140,7 +152,30 @@ func _on_create_palette_btn_pressed():
 
 func _on_del_palette_btn_pressed():
 	deleteDialog.show()
+	deleteDialog.set_hint(current_palette.name)
 		
 
 func _on_dialog_toggled(dialog):
 	modal_toggled.emit(dialog.visible)
+
+
+func _on_add_color_switch():
+	current_palette.colors.append(colorForeground.color)
+	colorSwitches.set_switches(current_palette.colors)
+
+
+func _on_remove_color_switch(index):
+	current_palette.colors.remove_at(index)
+	colorSwitches.set_switches(current_palette.colors)
+	save_palette(current_palette)
+
+
+func _on_select_color_switch(index):
+	if index >= current_palette.colors.size():
+		index = current_palette.colors.size() - 1
+	colorForeground.color = current_palette.colors[index]
+	colorSwitches.current_color = colorForeground.color
+
+
+func _on_foreground_color_changed(color):
+	colorSwitches.current_color = color

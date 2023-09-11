@@ -19,6 +19,9 @@ func _ready():
 #	viewport.item_rect_changed.connect(v_ruler.queue_redraw)
 #	project_changed.connect(v_ruler.queue_redraw)
 
+	# ensure modal background overlay is hide
+	overlay.hide()
+
 
 
 func _on_navbar_navigation_to(navId, data):
