@@ -35,11 +35,13 @@ func _ready():
 
 func load_palettes():
 	# ensure default palette
-	if not ResourceLoader.exists(config.PATH_PALETTE_DEFAULT):
+	var default_palette_tres_file = config.PATH_PALETTE_DIR.path_join(
+									ColorPaletteRes.DEFAULT_FILE)
+	if not ResourceLoader.exists(default_palette_tres_file):
 		var default_palette = ColorPaletteRes.new()
 		default_palette.set_to_default()
 		save_palette(default_palette)
-		print('create palette: ', config.PATH_PALETTE_DEFAULT)
+		print('create palette: ', default_palette_tres_file)
 	
 	var palette_dir :DirAccess = g.user_palette_dir
 	var files = palette_dir.get_files()

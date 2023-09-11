@@ -79,3 +79,14 @@ prefix = "Width:"
 [node name="Height" type="SpinBox" parent="row/column-2"]
 layout_mode = 2
 prefix = "Height:"
+
+[node name="holder2" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="label-similarity" type="Label" parent="."]
+layout_mode = 2
+text = "Similarity"
+
+[node name="Similarity" type="SpinBox" parent="."]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2

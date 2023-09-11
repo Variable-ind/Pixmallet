@@ -20,11 +20,6 @@ var current_color :Color = Color.BLACK :
 
 
 @onready var addSwitchBtn:Button = $AddSwitchBtn
-	
-
-func _ready():
-#	addSwitchBtn.custom_minimum_size = ColorSwitch.SIZE
-	print(addSwitchBtn.custom_minimum_size)
 
 
 func get_switches():

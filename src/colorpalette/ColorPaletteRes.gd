@@ -16,11 +16,11 @@ const PLAETTE_FILE_NAME_TMPL = 'color-palette-{}-{}.tres'
 ])
 
 var as_default :bool :
-	get: return file == default_file
+	get: return file == DEFAULT_FILE
 
 # create default resource if need. 
-var default_name = 'Default'
-var default_file = 'default.tres'
+const DEFAULT_NAME = 'Default'
+const DEFAULT_FILE = 'color-palette-default.tres'
 var default_colors :PackedColorArray = PackedColorArray([
 	Color.BLACK, Color.WHITE,
 	Color.hex(0x111111ff), Color.hex(0x333333ff), Color.hex(0x666666ff), Color.hex(0x8888888ff),
@@ -60,8 +60,8 @@ func set_to_default():
 	colors.clear()
 	for color in default_colors:
 		colors.append(color)
-	name = default_name
-	file = default_file
+	name = DEFAULT_NAME
+	file = DEFAULT_FILE
 
 
 func append_color(color: Color):
