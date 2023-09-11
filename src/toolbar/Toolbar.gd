@@ -46,11 +46,9 @@ const TOOL_ID_MAP: Dictionary = {
 	'Shading': SHADING,
 }
 
-@onready var toolbtns = $ToolBtns.get_children()
-
 
 func _ready():
-	for btn in toolbtns:
+	for btn in get_children():
 		if btn is Button:
 			btn.pressed.connect(_on_button_pressed.bind(btn))
 

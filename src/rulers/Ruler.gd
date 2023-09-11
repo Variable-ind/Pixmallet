@@ -81,7 +81,7 @@ func _draw():
 			draw_line(
 				Vector2(pos.x + R_WIDTH, 0),
 				Vector2(pos.x + R_WIDTH, R_WIDTH),
-				Color.WHITE
+				Color.DIM_GRAY
 			)
 			
 			# draw numbers
@@ -103,13 +103,13 @@ func _draw():
 				draw_line(
 					Vector2(pos.x + R_WIDTH, R_WIDTH * 0.33),
 					Vector2(pos.x + R_WIDTH, R_WIDTH),
-					Color.WHITE
+					Color.DIM_GRAY
 				)
 			else:
 				draw_line(
 					Vector2(pos.x + R_WIDTH, R_WIDTH * 0.66),
 					Vector2(pos.x + R_WIDTH, R_WIDTH),
-					Color.WHITE
+					Color.DIM_GRAY
 				)
 
 

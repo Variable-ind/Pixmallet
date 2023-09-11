@@ -24,7 +24,7 @@ func _ready():
 
 
 
-func _on_navbar_navigation_to(navId, data):
+func _on_navigation_to(navId, data):
 	print(navId, data)
 	match navId:
 		Navbar.NEW_FILE:
@@ -33,14 +33,18 @@ func _on_navbar_navigation_to(navId, data):
 			pass
 
 
-func _on_toolbar_active_tool(toolId):
+func _on_active_tool(toolId):
 	print(toolId)
 	match toolId:
 		Toolbar.COLOR_PICKER:
 			pass
 
 
+func _on_active_adjust_tool(adjustId):
+	print(adjustId)
+	
+
+
 func _on_modal_toggled(state:bool):
 	if overlay:
 		overlay.visible = state
-	
