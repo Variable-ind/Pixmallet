@@ -11,7 +11,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_r7a0j")
 
-[node name="Title" type="Label" parent="."]
+[node name="title" type="Label" parent="."]
 layout_mode = 2
 theme_type_variation = &"title"
 text = "Selection Tool"
@@ -83,10 +83,25 @@ prefix = "Height:"
 [node name="holder2" type="HSeparator" parent="."]
 layout_mode = 2
 
-[node name="label-similarity" type="Label" parent="."]
+[node name="DrawingSel" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="label-size" type="Label" parent="DrawingSel"]
+layout_mode = 2
+text = "Pencil Size"
+
+[node name="DrawingSize" type="SpinBox" parent="DrawingSel"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="MagicSel" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="label-similarity" type="Label" parent="MagicSel"]
 layout_mode = 2
 text = "Similarity"
 
-[node name="Similarity" type="SpinBox" parent="."]
+[node name="Similarity" type="SpinBox" parent="MagicSel"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2

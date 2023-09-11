@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn6hrld4rvere"]
+[gd_scene load_steps=4 format=3 uid="uid://bn6hrld4rvere"]
 
 [ext_resource type="Script" path="res://src/options/Options.gd" id="1_ewabw"]
 [ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/options/selection_option/selection.tscn" id="3_b7cll"]
+[ext_resource type="PackedScene" uid="uid://d2jmndg28bimn" path="res://src/options/pencil/pencil.tscn" id="3_pytnm"]
 
 [node name="Options" type="Panel"]
 custom_minimum_size = Vector2(300, 240)
@@ -22,4 +23,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Selection" parent="ScrollContainer/MarginContainer" instance=ExtResource("3_b7cll")]
+visible = false
+layout_mode = 2
+
+[node name="Pencil" parent="ScrollContainer/MarginContainer" instance=ExtResource("3_pytnm")]
 layout_mode = 2
