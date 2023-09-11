@@ -13,7 +13,7 @@ var current_palette_index: int = -1
 @onready var colorForeground :ColorPickerButton = %Foreground
 @onready var colorBackground :ColorPickerButton = %Background
 @onready var paletteSelector :MenuButton = %PaletteSelector
-@onready var colorSwitches :ColorSwitches = %ColorSwitches
+@onready var colorSwitchGrid :ColorSwitchGrid = %ColorSwitchGrid
 @onready var createDialog :Window = $CreateDialog
 @onready var deleteDialog :Window = $DeleteDialog
 
@@ -26,13 +26,8 @@ func _ready():
 	createDialog.visibility_changed.connect(_on_dialog_toggled.bind(createDialog))
 	deleteDialog.visibility_changed.connect(_on_dialog_toggled.bind(deleteDialog))
 	
-	
 	set_color_picker(colorForeground.get_picker())
 	set_color_picker(colorBackground.get_picker())
-	
-	# set current_color to match which switch must be selected.
-	# allow to multiple switch been selected at same time.
-#	colorSwitches.current_color = colorForeground.color
 	
 	# palettes
 	load_palettes()
@@ -75,7 +70,7 @@ func switch_palette(index:int=0):
 		return
 	current_palette = palettes_stack[index]
 	paletteSelector.text = current_palette.name
-	colorSwitches.set_switches(current_palette.colors)
+	colorSwitchGrid.set_switches(current_palette.colors, colorForeground.color)
 	var popmenu = paletteSelector.get_popup()
 	if current_palette_index >= 0:
 		popmenu.set_item_checked(current_palette_index, false)
@@ -116,7 +111,7 @@ func delete_palette(index:int=0):
 func save_palette(palette:ColorPaletteRes):
 	if palette.as_default and palette.colors.size() <= 0:
 		palette.set_to_default()
-		colorSwitches.set_switches(palette.colors)
+		colorSwitchGrid.set_switches(palette.colors, colorForeground.color)
 	ResourceSaver.save(palette, config.PATH_PALETTE_DIR.path_join(palette.file))	
 	
 
@@ -161,21 +156,28 @@ func _on_dialog_toggled(dialog):
 
 func _on_add_color_switch():
 	current_palette.colors.append(colorForeground.color)
-	colorSwitches.set_switches(current_palette.colors)
+	colorSwitchGrid.set_switches(current_palette.colors, colorForeground.color)
+	save_palette(current_palette)
 
 
 func _on_remove_color_switch(index):
 	current_palette.colors.remove_at(index)
-	colorSwitches.set_switches(current_palette.colors)
+	colorSwitchGrid.set_switches(current_palette.colors, colorForeground.color)
+	save_palette(current_palette)
+
+
+func _on_move_color_switch(index, to_index):
+	var color = current_palette.colors[index]
+	current_palette.colors.remove_at(index)
+	current_palette.colors.insert(to_index, color)
+	colorSwitchGrid.set_switches(current_palette.colors, colorForeground.color)
 	save_palette(current_palette)
 
 
 func _on_select_color_switch(index):
-	if index >= current_palette.colors.size():
-		index = current_palette.colors.size() - 1
 	colorForeground.color = current_palette.colors[index]
-	colorSwitches.current_color = colorForeground.color
+	colorSwitchGrid.current_color = colorForeground.color
 
 
 func _on_foreground_color_changed(color):
-	colorSwitches.current_color = color
+	colorSwitchGrid.current_color = color
