@@ -8,7 +8,7 @@ signal remove_color_switch(index)
 signal move_color_switch(index, to_index)
 
 
-const TOTAL_LIMIT = 60
+const TOTAL_LIMIT = 120
 
 
 var current_color :Color = Color.BLACK :
@@ -20,6 +20,11 @@ var current_color :Color = Color.BLACK :
 
 
 @onready var addSwitchBtn:Button = $AddSwitchBtn
+	
+
+func _ready():
+#	addSwitchBtn.custom_minimum_size = ColorSwitch.SIZE
+	print(addSwitchBtn.custom_minimum_size)
 
 
 func get_switches():
@@ -34,7 +39,7 @@ func append_color_switch(color: Color, index):
 	var color_switch = ColorSwitch.new()
 	color_switch.color = color
 	color_switch.switch_index = index
-	color_switch.custom_minimum_size = addSwitchBtn.get_minimum_size()
+	color_switch.custom_minimum_size = addSwitchBtn.custom_minimum_size
 	color_switch.gui_input.connect(_on_switch_input.bind(index))
 	add_child(color_switch)
 #	addSwitchBtn.add_sibling(color_rect)  # DO NOT do that way, complex color index matching.

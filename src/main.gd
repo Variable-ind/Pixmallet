@@ -10,7 +10,7 @@ extends Control
 
 
 func _ready():
-	DisplayServer.window_set_min_size(Vector2i(800, 600))
+	DisplayServer.window_set_min_size(Vector2i(800, 700))
 	g.control = control
 	g.viewport = viewport
 	g.camera = camera
@@ -21,7 +21,6 @@ func _ready():
 
 	# ensure modal background overlay is hide
 	overlay.hide()
-
 
 
 func _on_navigation_to(navId, data):

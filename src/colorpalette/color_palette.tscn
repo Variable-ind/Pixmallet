@@ -14,6 +14,8 @@
 custom_minimum_size = Vector2(300, 200)
 offset_right = 300.0
 offset_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_0qsv8")
 script = ExtResource("2_rqgjd")
 

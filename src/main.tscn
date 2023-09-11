@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dohsjgbmqo83r"]
+[gd_scene load_steps=13 format=3 uid="uid://dohsjgbmqo83r"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default/default.tres" id="1_vrsc7"]
 [ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/navbar/navbar.tscn" id="2_had7o"]
@@ -9,6 +9,7 @@
 [ext_resource type="Shader" path="res://src/shaders/Greyscale.gdshader" id="7_3v0gn"]
 [ext_resource type="PackedScene" uid="uid://dkkj62x4hs764" path="res://src/adjustment/Adjustment.tscn" id="8_24hhy"]
 [ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/colorpalette/color_palette.tscn" id="9_lyr4b"]
+[ext_resource type="PackedScene" uid="uid://bn6hrld4rvere" path="res://src/options/Options.tscn" id="10_3dpqo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u122j"]
 shader = ExtResource("6_vx4od")
@@ -142,23 +143,24 @@ mouse_filter = 2
 layout_mode = 2
 theme_type_variation = &"sider_right"
 
-[node name="split" type="VBoxContainer" parent="main_area/mainborad/work-area/right-sider"]
+[node name="split" type="VSplitContainer" parent="main_area/mainborad/work-area/right-sider"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_type_variation = &"sider"
 
 [node name="Preview" type="Panel" parent="main_area/mainborad/work-area/right-sider/split"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-
-[node name="ColorPalette" parent="main_area/mainborad/work-area/right-sider/split" instance=ExtResource("9_lyr4b")]
-layout_mode = 2
-
-[node name="ToolOption" type="Panel" parent="main_area/mainborad/work-area/right-sider/split"]
-custom_minimum_size = Vector2(0, 200)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="split" type="VSplitContainer" parent="main_area/mainborad/work-area/right-sider/split"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ColorPalette" parent="main_area/mainborad/work-area/right-sider/split/split" instance=ExtResource("9_lyr4b")]
+custom_minimum_size = Vector2(300, 260)
+layout_mode = 2
+
+[node name="Options" parent="main_area/mainborad/work-area/right-sider/split/split" instance=ExtResource("10_3dpqo")]
+layout_mode = 2
 
 [node name="overlay" type="ColorRect" parent="."]
 visible = false
@@ -173,4 +175,4 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 [connection signal="navigation_to" from="main_area/Navbar" to="." method="_on_navigation_to"]
 [connection signal="active_tool" from="main_area/mainborad/work-area/left-sider/Toolbar" to="." method="_on_active_tool"]
 [connection signal="active_adjust_tool" from="main_area/mainborad/work-area/draw-area/canvas-funcbar/split/Adjustment" to="." method="_on_active_adjust_tool"]
-[connection signal="modal_toggled" from="main_area/mainborad/work-area/right-sider/split/ColorPalette" to="." method="_on_modal_toggled"]
+[connection signal="modal_toggled" from="main_area/mainborad/work-area/right-sider/split/split/ColorPalette" to="." method="_on_modal_toggled"]

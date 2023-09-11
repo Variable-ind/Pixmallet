@@ -4,18 +4,22 @@
 [ext_resource type="Texture2D" uid="uid://nyd7ybgj0r6y" path="res://assets/common/plus.png" id="2_3a1e8"]
 
 [node name="ColorSwitchGrid" type="GridContainer"]
-offset_right = 250.0
-offset_bottom = 60.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/h_separation = 2
 theme_override_constants/v_separation = 2
 columns = 10
 script = ExtResource("1_7r6e0")
 
 [node name="AddSwitchBtn" type="Button" parent="."]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
+theme_type_variation = &"toolbtn"
 icon = ExtResource("2_3a1e8")
 flat = true
 icon_alignment = 1

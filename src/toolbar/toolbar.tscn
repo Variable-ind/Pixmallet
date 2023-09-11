@@ -138,7 +138,7 @@ button_group = SubResource("ButtonGroup_bofa6")
 icon = ExtResource("7_06nsg")
 icon_alignment = 1
 
-[node name="Draw" type="Button" parent="ToolBtns"]
+[node name="Shape" type="Button" parent="ToolBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -151,10 +151,10 @@ icon = ExtResource("18_vr1hu")
 icon_alignment = 1
 script = ExtResource("4_unnqe")
 
-[node name="Popup" type="PopupPanel" parent="ToolBtns/Draw"]
+[node name="Popup" type="PopupPanel" parent="ToolBtns/Shape"]
 size = Vector2i(220, 48)
 
-[node name="ExtendBtns" type="HBoxContainer" parent="ToolBtns/Draw/Popup"]
+[node name="ExtendBtns" type="HBoxContainer" parent="ToolBtns/Shape/Popup"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -165,7 +165,7 @@ offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Rect" type="Button" parent="ToolBtns/Draw/Popup/ExtendBtns"]
+[node name="ShapeRect" type="Button" parent="ToolBtns/Shape/Popup/ExtendBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -176,7 +176,7 @@ button_group = SubResource("ButtonGroup_pjl1d")
 icon = ExtResource("18_vr1hu")
 icon_alignment = 1
 
-[node name="Ellipse" type="Button" parent="ToolBtns/Draw/Popup/ExtendBtns"]
+[node name="ShapeEllipse" type="Button" parent="ToolBtns/Shape/Popup/ExtendBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -187,7 +187,7 @@ button_group = SubResource("ButtonGroup_pjl1d")
 icon = ExtResource("19_barme")
 icon_alignment = 1
 
-[node name="Line" type="Button" parent="ToolBtns/Draw/Popup/ExtendBtns"]
+[node name="ShapeLine" type="Button" parent="ToolBtns/Shape/Popup/ExtendBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -308,5 +308,5 @@ icon_alignment = 1
 
 [connection signal="button_down" from="ToolBtns/Select" to="ToolBtns/Select" method="_on_button_down"]
 [connection signal="button_up" from="ToolBtns/Select" to="ToolBtns/Select" method="_on_button_up"]
-[connection signal="button_down" from="ToolBtns/Draw" to="ToolBtns/Draw" method="_on_button_down"]
-[connection signal="button_up" from="ToolBtns/Draw" to="ToolBtns/Draw" method="_on_button_up"]
+[connection signal="button_down" from="ToolBtns/Shape" to="ToolBtns/Shape" method="_on_button_down"]
+[connection signal="button_up" from="ToolBtns/Shape" to="ToolBtns/Shape" method="_on_button_up"]

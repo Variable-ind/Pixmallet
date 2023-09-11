@@ -2,7 +2,6 @@ extends ColorRect
 
 class_name ColorSwitch
 
-
 const TOOLTIP_TMPL = 'RGBa: ({r},{g},{b},{a})\nHEX: #{hex}\n\nRight click to remove'
 
 var selected :bool = false :

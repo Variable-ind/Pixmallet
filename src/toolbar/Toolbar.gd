@@ -11,9 +11,9 @@ enum {
 	SEL_COLOR,
 	SEL_MAGIC,
 	SEL_LASSO,
-	LINE,
-	RECT,
-	ELLIPSE,
+	SHAPE_LINE,
+	SHAPE_RECT,
+	SHAPE_ELLIPSE,
 	PENCIL,
 	ERASER,
 	FILL,
@@ -32,9 +32,9 @@ const TOOL_ID_MAP: Dictionary = {
 	'SelColor': SEL_COLOR,
 	'SelMagic': SEL_MAGIC,
 	'Sel_Lass': SEL_LASSO,
-	'Line': LINE,
-	'Rect': RECT,
-	'Ellipse': ELLIPSE,
+	'ShapeLine': SHAPE_LINE,
+	'ShapeRect': SHAPE_RECT,
+	'ShapeEllipse': SHAPE_ELLIPSE,
 	'Pencil': PENCIL,
 	'Eraser': ERASER,
 	'Fill': FILL,
@@ -46,9 +46,11 @@ const TOOL_ID_MAP: Dictionary = {
 	'Shading': SHADING,
 }
 
+@onready var toolbtns = $ToolBtns
+
 
 func _ready():
-	for btn in get_children():
+	for btn in toolbtns.get_children():
 		if btn is Button:
 			btn.pressed.connect(_on_button_pressed.bind(btn))
 
@@ -56,6 +58,7 @@ func _ready():
 func _on_button_pressed(btn):
 	var btn_name :String = btn.sel_name if btn is ExtendableButton else btn.name
 	active_tool.emit(TOOL_ID_MAP.get(btn_name, -1))
+
 	# toogle mode button must switch `Action Mode` to `Button Press`
 	# to prevent mouse up outside switch to pressed style but not really pressed.
 	
