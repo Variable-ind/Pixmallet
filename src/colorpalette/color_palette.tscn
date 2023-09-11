@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://src/colorpalette/DeletePaletteConfirm.gd" id="10_fnq1b"]
 
 [node name="ColorPalette" type="Panel"]
-custom_minimum_size = Vector2(300, 200)
+custom_minimum_size = Vector2(300, 210)
 offset_right = 300.0
 offset_bottom = 200.0
 size_flags_horizontal = 3
@@ -27,14 +27,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="margin"]
+[node name="column" type="VBoxContainer" parent="margin"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="colorpicker" type="HBoxContainer" parent="margin/VBoxContainer"]
+[node name="colorpicker" type="HBoxContainer" parent="margin/column"]
 layout_mode = 2
 
-[node name="Foreground" type="ColorPickerButton" parent="margin/VBoxContainer/colorpicker"]
+[node name="Foreground" type="ColorPickerButton" parent="margin/column/colorpicker"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -45,7 +45,7 @@ mouse_default_cursor_shape = 2
 icon = ExtResource("3_e20ir")
 icon_alignment = 1
 
-[node name="ColorSwitchBtn" type="Button" parent="margin/VBoxContainer/colorpicker"]
+[node name="ColorSwitchBtn" type="Button" parent="margin/column/colorpicker"]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 focus_mode = 0
@@ -54,7 +54,7 @@ icon = ExtResource("4_7l0dn")
 flat = true
 icon_alignment = 1
 
-[node name="Background" type="ColorPickerButton" parent="margin/VBoxContainer/colorpicker"]
+[node name="Background" type="ColorPickerButton" parent="margin/column/colorpicker"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -64,23 +64,23 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 color = Color(1, 1, 1, 1)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="margin/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="margin/column"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"inner_scroll"
 horizontal_scroll_mode = 0
 
-[node name="ColorSwitchGrid" parent="margin/VBoxContainer/ScrollContainer" instance=ExtResource("5_addgj")]
+[node name="ColorSwitchGrid" parent="margin/column/ScrollContainer" instance=ExtResource("5_addgj")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="bottom" type="HBoxContainer" parent="margin/VBoxContainer"]
+[node name="bottom" type="HBoxContainer" parent="margin/column"]
 layout_mode = 2
 alignment = 2
 
-[node name="RemovePaletteBtn" type="Button" parent="margin/VBoxContainer/bottom"]
+[node name="RemovePaletteBtn" type="Button" parent="margin/column/bottom"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
@@ -90,14 +90,14 @@ icon = ExtResource("6_ciqqo")
 flat = true
 icon_alignment = 1
 
-[node name="PaletteSelector" type="MenuButton" parent="margin/VBoxContainer/bottom"]
+[node name="PaletteSelector" type="MenuButton" parent="margin/column/bottom"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 alignment = 0
 
-[node name="CreatePaletteBtn" type="Button" parent="margin/VBoxContainer/bottom"]
+[node name="CreatePaletteBtn" type="Button" parent="margin/column/bottom"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 focus_mode = 0
@@ -151,14 +151,14 @@ text = "Delete Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="color_changed" from="margin/VBoxContainer/colorpicker/Foreground" to="." method="_on_foreground_color_changed"]
-[connection signal="pressed" from="margin/VBoxContainer/colorpicker/ColorSwitchBtn" to="." method="_on_switch_color"]
-[connection signal="add_color_switch" from="margin/VBoxContainer/ScrollContainer/ColorSwitchGrid" to="." method="_on_add_color_switch"]
-[connection signal="move_color_switch" from="margin/VBoxContainer/ScrollContainer/ColorSwitchGrid" to="." method="_on_move_color_switch"]
-[connection signal="remove_color_switch" from="margin/VBoxContainer/ScrollContainer/ColorSwitchGrid" to="." method="_on_remove_color_switch"]
-[connection signal="select_color_switch" from="margin/VBoxContainer/ScrollContainer/ColorSwitchGrid" to="." method="_on_select_color_switch"]
-[connection signal="pressed" from="margin/VBoxContainer/bottom/RemovePaletteBtn" to="." method="_on_del_palette_btn_pressed"]
-[connection signal="pressed" from="margin/VBoxContainer/bottom/CreatePaletteBtn" to="." method="_on_create_palette_btn_pressed"]
+[connection signal="color_changed" from="margin/column/colorpicker/Foreground" to="." method="_on_foreground_color_changed"]
+[connection signal="pressed" from="margin/column/colorpicker/ColorSwitchBtn" to="." method="_on_switch_color"]
+[connection signal="add_color_switch" from="margin/column/ScrollContainer/ColorSwitchGrid" to="." method="_on_add_color_switch"]
+[connection signal="move_color_switch" from="margin/column/ScrollContainer/ColorSwitchGrid" to="." method="_on_move_color_switch"]
+[connection signal="remove_color_switch" from="margin/column/ScrollContainer/ColorSwitchGrid" to="." method="_on_remove_color_switch"]
+[connection signal="select_color_switch" from="margin/column/ScrollContainer/ColorSwitchGrid" to="." method="_on_select_color_switch"]
+[connection signal="pressed" from="margin/column/bottom/RemovePaletteBtn" to="." method="_on_del_palette_btn_pressed"]
+[connection signal="pressed" from="margin/column/bottom/CreatePaletteBtn" to="." method="_on_create_palette_btn_pressed"]
 [connection signal="confirmed" from="CreateDialog" to="CreateDialog" method="_on_confirmed"]
 [connection signal="create_dialog_confirmed" from="CreateDialog" to="." method="_on_create_dialog_confirmed"]
 [connection signal="text_changed" from="CreateDialog/MarginContainer/inputName" to="CreateDialog" method="_on_input_name_text_changed"]

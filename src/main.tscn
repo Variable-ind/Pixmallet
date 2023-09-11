@@ -53,32 +53,32 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="work-area" type="HBoxContainer" parent="main_area/mainborad"]
+[node name="workspace" type="HBoxContainer" parent="main_area/mainborad"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="left-sider" type="PanelContainer" parent="main_area/mainborad/work-area"]
+[node name="left-sider" type="PanelContainer" parent="main_area/mainborad/workspace"]
 layout_mode = 2
 theme_type_variation = &"sider_left"
 
-[node name="Toolbar" parent="main_area/mainborad/work-area/left-sider" instance=ExtResource("4_caqd8")]
+[node name="Toolbar" parent="main_area/mainborad/workspace/left-sider" instance=ExtResource("4_caqd8")]
 layout_mode = 2
 size_flags_vertical = 1
 
-[node name="draw-area" type="VBoxContainer" parent="main_area/mainborad/work-area"]
+[node name="canvas" type="VBoxContainer" parent="main_area/mainborad/workspace"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="canvas-funcbar" type="PanelContainer" parent="main_area/mainborad/work-area/draw-area"]
+[node name="canvas-funcbar" type="PanelContainer" parent="main_area/mainborad/workspace/canvas"]
 layout_mode = 2
 theme_type_variation = &"canvas_funcbar"
 
-[node name="split" type="HBoxContainer" parent="main_area/mainborad/work-area/draw-area/canvas-funcbar"]
+[node name="split" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/canvas-funcbar"]
 layout_mode = 2
 
-[node name="Tabbar" type="TabBar" parent="main_area/mainborad/work-area/draw-area/canvas-funcbar/split"]
+[node name="Tabbar" type="TabBar" parent="main_area/mainborad/workspace/canvas/canvas-funcbar/split"]
 layout_mode = 2
 size_flags_horizontal = 3
 tab_close_display_policy = 2
@@ -88,48 +88,48 @@ tab_1/title = "asdfdf"
 tab_2/title = "test"
 tab_2/disabled = true
 
-[node name="Adjustment" parent="main_area/mainborad/work-area/draw-area/canvas-funcbar/split" instance=ExtResource("8_24hhy")]
+[node name="Adjustment" parent="main_area/mainborad/workspace/canvas/canvas-funcbar/split" instance=ExtResource("8_24hhy")]
 layout_mode = 2
 
-[node name="HRuler" parent="main_area/mainborad/work-area/draw-area" instance=ExtResource("5_vgkdf")]
+[node name="HRuler" parent="main_area/mainborad/workspace/canvas" instance=ExtResource("5_vgkdf")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="draw-subarea" type="HBoxContainer" parent="main_area/mainborad/work-area/draw-area"]
+[node name="draw" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VRuler" type="Button" parent="main_area/mainborad/work-area/draw-area/draw-subarea"]
+[node name="VRuler" type="Button" parent="main_area/mainborad/workspace/canvas/draw"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 flat = true
 
-[node name="DrawContainer" type="SubViewportContainer" parent="main_area/mainborad/work-area/draw-area/draw-subarea"]
+[node name="DrawContainer" type="SubViewportContainer" parent="main_area/mainborad/workspace/canvas/draw"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DrawViewport" type="SubViewport" parent="main_area/mainborad/work-area/draw-area/draw-subarea/DrawContainer"]
+[node name="DrawViewport" type="SubViewport" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer"]
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 size = Vector2i(360, 360)
 render_target_update_mode = 4
 
-[node name="Background" type="ColorRect" parent="main_area/mainborad/work-area/draw-area/draw-subarea/DrawContainer/DrawViewport"]
+[node name="Background" type="ColorRect" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer/DrawViewport"]
 visible = false
 material = SubResource("ShaderMaterial_u122j")
 mouse_filter = 2
 
-[node name="Canvas" type="Node2D" parent="main_area/mainborad/work-area/draw-area/draw-subarea/DrawContainer/DrawViewport"]
+[node name="Canvas" type="Node2D" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer/DrawViewport"]
 visible = false
 
-[node name="Camera2D" type="Camera2D" parent="main_area/mainborad/work-area/draw-area/draw-subarea/DrawContainer/DrawViewport"]
+[node name="Camera2D" type="Camera2D" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer/DrawViewport"]
 visible = false
 
-[node name="CanvasLayer" type="CanvasLayer" parent="main_area/mainborad/work-area/draw-area/draw-subarea/DrawContainer/DrawViewport"]
+[node name="CanvasLayer" type="CanvasLayer" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer/DrawViewport"]
 visible = false
 
-[node name="GreyscaleVision" type="ColorRect" parent="main_area/mainborad/work-area/draw-area/draw-subarea/DrawContainer/DrawViewport/CanvasLayer"]
+[node name="GreyscaleVision" type="ColorRect" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer/DrawViewport/CanvasLayer"]
 visible = false
 material = SubResource("ShaderMaterial_ib7er")
 anchors_preset = 15
@@ -139,27 +139,26 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="right-sider" type="PanelContainer" parent="main_area/mainborad/work-area"]
+[node name="right-sider" type="PanelContainer" parent="main_area/mainborad/workspace"]
 layout_mode = 2
 theme_type_variation = &"sider_right"
 
-[node name="split" type="VSplitContainer" parent="main_area/mainborad/work-area/right-sider"]
+[node name="split" type="VSplitContainer" parent="main_area/mainborad/workspace/right-sider"]
 layout_mode = 2
 
-[node name="Preview" type="Panel" parent="main_area/mainborad/work-area/right-sider/split"]
+[node name="Preview" type="Panel" parent="main_area/mainborad/workspace/right-sider/split"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="split" type="VSplitContainer" parent="main_area/mainborad/work-area/right-sider/split"]
+[node name="split" type="VSplitContainer" parent="main_area/mainborad/workspace/right-sider/split"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ColorPalette" parent="main_area/mainborad/work-area/right-sider/split/split" instance=ExtResource("9_lyr4b")]
-custom_minimum_size = Vector2(300, 260)
+[node name="ColorPalette" parent="main_area/mainborad/workspace/right-sider/split/split" instance=ExtResource("9_lyr4b")]
 layout_mode = 2
 
-[node name="Options" parent="main_area/mainborad/work-area/right-sider/split/split" instance=ExtResource("10_3dpqo")]
+[node name="Options" parent="main_area/mainborad/workspace/right-sider/split/split" instance=ExtResource("10_3dpqo")]
 layout_mode = 2
 
 [node name="overlay" type="ColorRect" parent="."]
@@ -173,6 +172,6 @@ grow_vertical = 2
 color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 
 [connection signal="navigation_to" from="main_area/Navbar" to="." method="_on_navigation_to"]
-[connection signal="active_tool" from="main_area/mainborad/work-area/left-sider/Toolbar" to="." method="_on_active_tool"]
-[connection signal="active_adjust_tool" from="main_area/mainborad/work-area/draw-area/canvas-funcbar/split/Adjustment" to="." method="_on_active_adjust_tool"]
-[connection signal="modal_toggled" from="main_area/mainborad/work-area/right-sider/split/split/ColorPalette" to="." method="_on_modal_toggled"]
+[connection signal="active_tool" from="main_area/mainborad/workspace/left-sider/Toolbar" to="." method="_on_active_tool"]
+[connection signal="active_adjust_tool" from="main_area/mainborad/workspace/canvas/canvas-funcbar/split/Adjustment" to="." method="_on_active_adjust_tool"]
+[connection signal="modal_toggled" from="main_area/mainborad/workspace/right-sider/split/split/ColorPalette" to="." method="_on_modal_toggled"]
