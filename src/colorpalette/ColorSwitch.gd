@@ -8,7 +8,7 @@ signal select_color_switch(index)
 
 const TOTAL_LIMIT = 60
 
-const TOOLTIP_TEXT_TMPL = '({r},{g},{b},{a}), {hex}\nRight click to remove'
+const TOOLTIP_TEXT_TMPL = '({r},{g},{b},{a})\n#{hex}\n\nRight click to remove'
 
 var current_color :Color = Color.BLACK :
 	set(color):
@@ -34,6 +34,7 @@ func append_color_switch(color: Color):
 	color_rect.tooltip_text = TOOLTIP_TEXT_TMPL.format({
 		'r': color.r8, 'g': color.g8, 'b': color.b8, 'a': color.a8, 'hex': color.to_html()})
 	add_child(color_rect)
+#	addSwitchBtn.add_sibling(color_rect)  # DO NOT do that way, complex color index matching.
 
 
 func set_switches(colors: PackedColorArray):
@@ -44,7 +45,9 @@ func set_switches(colors: PackedColorArray):
 
 	for c in colors:
 		append_color_switch(c)
-	move_child(addSwitchBtn, get_child_count() -1)
+		
+	move_child(addSwitchBtn, get_child_count() -1)  # move add button after switches.
+
 
 
 func clear_switches():

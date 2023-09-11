@@ -12,8 +12,7 @@ const PLAETTE_FILE_NAME_TMPL = 'color-palette-{}-{}.tres'
 		
 			
 @export var colors :PackedColorArray = PackedColorArray([
-	Color.BLACK, Color.hex(0x222222ff), Color.hex(0x333333ff),
-	Color.hex(0x666666ff), Color.hex(0x999999ff), Color.WHITE,
+	Color.BLACK, Color.hex(0x999999ff), Color.WHITE,
 ])
 
 var as_default :bool :
@@ -23,17 +22,11 @@ var as_default :bool :
 var default_name = 'Default'
 var default_file = 'default.tres'
 var default_colors :PackedColorArray = PackedColorArray([
-	Color.BLACK,
-	Color.hex(0x111111ff),
-	Color.hex(0x222222ff),
-	Color.hex(0x333333ff),
-	Color.hex(0x666666ff),
-	Color.hex(0x999999ff),
-	Color.hex(0xaaaaaaff),
-	Color.hex(0xccccccff),
-	Color.hex(0xddddddff),
-	Color.hex(0xeeeeeeff),
-	Color.WHITE,
+	Color.BLACK, Color.WHITE,
+	Color.hex(0x111111ff), Color.hex(0x333333ff), Color.hex(0x666666ff), Color.hex(0x8888888ff),
+	Color.hex(0xaaaaaaff), Color.hex(0xccccccff), Color.hex(0xeeeeeeff),
+	
+	
 	Color.hex(0xF1453Dff),
 	Color.hex(0xE62565ff),
 	Color.hex(0x9B2FAEff),
