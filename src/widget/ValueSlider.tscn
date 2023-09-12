@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://yjhp0ssng2mp"]
 
 [ext_resource type="Script" path="res://src/widget/ValueSlider.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/graphics/misc/value_slider.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bd4730qkv2wd1" path="res://assets/widget/value_slider.png" id="2"]
 
 [node name="ValueSlider" type="TextureProgressBar"]
 custom_minimum_size = Vector2(32, 24)
