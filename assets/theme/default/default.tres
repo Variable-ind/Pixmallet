@@ -1,56 +1,63 @@
-[gd_resource type="Theme" load_steps=52 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=59 format=3 uid="uid://bnvbwu202rx6u"]
 
-[ext_resource type="StyleBox" uid="uid://bheih5k4b056s" path="res://assets/theme/default/styles/nav_btn_disabled_flat.tres" id="1_03gb2"]
-[ext_resource type="StyleBox" uid="uid://dgle7h18anrxb" path="res://assets/theme/default/styles/label_head_flat.tres" id="1_fn0j0"]
-[ext_resource type="StyleBox" uid="uid://n06qmgnvvxxx" path="res://assets/theme/default/styles/menu_btn_disabled_flat.tres" id="1_oamrq"]
-[ext_resource type="StyleBox" uid="uid://brsl1hfw4hvk" path="res://assets/theme/default/styles/nav_btn_hover_flat.tres" id="1_r5co6"]
+[ext_resource type="StyleBox" uid="uid://bheih5k4b056s" path="res://assets/theme/default/styles/nav_btn_disabled.tres" id="1_03gb2"]
+[ext_resource type="StyleBox" uid="uid://dgle7h18anrxb" path="res://assets/theme/default/styles/label_head.tres" id="1_fn0j0"]
+[ext_resource type="StyleBox" uid="uid://n06qmgnvvxxx" path="res://assets/theme/default/styles/menu_btn_disabled.tres" id="1_oamrq"]
+[ext_resource type="StyleBox" uid="uid://brsl1hfw4hvk" path="res://assets/theme/default/styles/nav_btn_hover.tres" id="1_r5co6"]
 [ext_resource type="Texture2D" uid="uid://bolpd85jv2bw8" path="res://assets/common/close.png" id="2_0pgow"]
-[ext_resource type="StyleBox" uid="uid://dswyhmg2lrn2m" path="res://assets/theme/default/styles/btn_disabled_flat.tres" id="2_0ul81"]
-[ext_resource type="StyleBox" uid="uid://b3qam55vs7qlj" path="res://assets/theme/default/styles/menu_btn_focus_flat.tres" id="2_cs863"]
-[ext_resource type="StyleBox" uid="uid://df02fi66i0mu" path="res://assets/theme/default/styles/btn_hover_flat.tres" id="2_ippa5"]
-[ext_resource type="StyleBox" uid="uid://bfwxc36m84xsv" path="res://assets/theme/default/styles/nav_btn_focus_flat.tres" id="2_qse8p"]
-[ext_resource type="StyleBox" uid="uid://d4jyw1cirfyhw" path="res://assets/theme/default/styles/nav_btn_flat.tres" id="2_r8fj1"]
-[ext_resource type="StyleBox" uid="uid://ch4ijq1pjchqc" path="res://assets/theme/default/styles/btn_pressed_flat.tres" id="3_a0osx"]
-[ext_resource type="StyleBox" uid="uid://b8ic87v3h667h" path="res://assets/theme/default/styles/btn_focus_flat.tres" id="3_fbsfc"]
-[ext_resource type="StyleBox" uid="uid://blyxqtkad10vs" path="res://assets/theme/default/styles/menu_btn_hover_flat.tres" id="3_pwsdi"]
-[ext_resource type="StyleBox" uid="uid://cdckled7lhp0t" path="res://assets/theme/default/styles/btn_flat.tres" id="4_vp1rr"]
-[ext_resource type="StyleBox" uid="uid://c6n6ncpq36g1k" path="res://assets/theme/default/styles/menu_btn_flat.tres" id="4_vxq6g"]
-[ext_resource type="StyleBox" uid="uid://b3elkyxnq406h" path="res://assets/theme/default/styles/color_btn_hover_flat.tres" id="6_t4dwx"]
-[ext_resource type="StyleBox" uid="uid://xtul83dsf4ly" path="res://assets/theme/default/styles/color_btn_flat.tres" id="7_ph11j"]
-[ext_resource type="StyleBox" uid="uid://bmg0bc8xct7uy" path="res://assets/theme/default/styles/color_btn_pressed_flat.tres" id="8_56ypg"]
-[ext_resource type="StyleBox" uid="uid://bb723tsttwu4a" path="res://assets/theme/default/styles/popmenu_panel_flat.tres" id="10_1ofmt"]
+[ext_resource type="StyleBox" uid="uid://dswyhmg2lrn2m" path="res://assets/theme/default/styles/btn_disabled.tres" id="2_0ul81"]
+[ext_resource type="StyleBox" uid="uid://b3qam55vs7qlj" path="res://assets/theme/default/styles/menu_btn_focus.tres" id="2_cs863"]
+[ext_resource type="StyleBox" uid="uid://df02fi66i0mu" path="res://assets/theme/default/styles/btn_hover.tres" id="2_ippa5"]
+[ext_resource type="StyleBox" uid="uid://bfwxc36m84xsv" path="res://assets/theme/default/styles/nav_btn_focus.tres" id="2_qse8p"]
+[ext_resource type="StyleBox" uid="uid://d4jyw1cirfyhw" path="res://assets/theme/default/styles/nav_btn.tres" id="2_r8fj1"]
+[ext_resource type="StyleBox" uid="uid://ch4ijq1pjchqc" path="res://assets/theme/default/styles/btn_pressed.tres" id="3_a0osx"]
+[ext_resource type="StyleBox" uid="uid://b8ic87v3h667h" path="res://assets/theme/default/styles/btn_focus.tres" id="3_fbsfc"]
+[ext_resource type="StyleBox" uid="uid://blyxqtkad10vs" path="res://assets/theme/default/styles/menu_btn_hover.tres" id="3_pwsdi"]
+[ext_resource type="StyleBox" uid="uid://cdckled7lhp0t" path="res://assets/theme/default/styles/btn.tres" id="4_vp1rr"]
+[ext_resource type="StyleBox" uid="uid://c6n6ncpq36g1k" path="res://assets/theme/default/styles/menu_btn.tres" id="4_vxq6g"]
+[ext_resource type="StyleBox" uid="uid://b3elkyxnq406h" path="res://assets/theme/default/styles/color_btn_hover.tres" id="6_t4dwx"]
+[ext_resource type="StyleBox" uid="uid://xtul83dsf4ly" path="res://assets/theme/default/styles/color_btn.tres" id="7_ph11j"]
+[ext_resource type="StyleBox" uid="uid://bb268vu0funr2" path="res://assets/theme/default/styles/checkbtn.tres" id="7_wbsj1"]
+[ext_resource type="StyleBox" uid="uid://bmg0bc8xct7uy" path="res://assets/theme/default/styles/color_btn_pressed.tres" id="8_56ypg"]
+[ext_resource type="StyleBox" uid="uid://c78pfe7o0wurs" path="res://assets/theme/default/styles/checkbtn_hover.tres" id="9_utqyh"]
+[ext_resource type="StyleBox" uid="uid://bb723tsttwu4a" path="res://assets/theme/default/styles/popmenu_panel.tres" id="10_1ofmt"]
 [ext_resource type="StyleBox" uid="uid://frgiektl382x" path="res://assets/theme/default/styles/h_divider.tres" id="10_jwdll"]
 [ext_resource type="StyleBox" uid="uid://b7e6j57nlofgc" path="res://assets/theme/default/styles/empty_separator.tres" id="11_fmld6"]
 [ext_resource type="StyleBox" uid="uid://dxhbunqfbxy20" path="res://assets/theme/default/styles/panel_flat.tres" id="13_oo4p5"]
-[ext_resource type="StyleBox" uid="uid://dnuypm8uy6jcj" path="res://assets/theme/default/styles/popmenu_btn_hover_flat.tres" id="14_id4re"]
-[ext_resource type="StyleBox" uid="uid://5gpm5j7uy7b4" path="res://assets/theme/default/styles/tab_hover_flat.tres" id="14_plnka"]
-[ext_resource type="StyleBox" uid="uid://bitcfmvc20kw1" path="res://assets/theme/default/styles/panel_container_flat.tres" id="15_g0g7h"]
-[ext_resource type="StyleBox" uid="uid://eeobgk3f2np3" path="res://assets/theme/default/styles/tab_selected_flat.tres" id="15_mo0ra"]
-[ext_resource type="StyleBox" uid="uid://dg3bprl82200u" path="res://assets/theme/default/styles/tab_unselected_flat.tres" id="16_g6krp"]
-[ext_resource type="StyleBox" uid="uid://bkrf5co67h4s2" path="res://assets/theme/default/styles/menu_btn_pressed_flat.tres" id="16_h51pr"]
+[ext_resource type="StyleBox" uid="uid://dnuypm8uy6jcj" path="res://assets/theme/default/styles/popmenu_btn_hover.tres" id="14_id4re"]
+[ext_resource type="StyleBox" uid="uid://5gpm5j7uy7b4" path="res://assets/theme/default/styles/tab_hover.tres" id="14_plnka"]
+[ext_resource type="StyleBox" uid="uid://bitcfmvc20kw1" path="res://assets/theme/default/styles/panel_container.tres" id="15_g0g7h"]
+[ext_resource type="StyleBox" uid="uid://eeobgk3f2np3" path="res://assets/theme/default/styles/tab_selected.tres" id="15_mo0ra"]
+[ext_resource type="StyleBox" uid="uid://dg3bprl82200u" path="res://assets/theme/default/styles/tab_unselected.tres" id="16_g6krp"]
+[ext_resource type="StyleBox" uid="uid://bkrf5co67h4s2" path="res://assets/theme/default/styles/menu_btn_pressed.tres" id="16_h51pr"]
 [ext_resource type="Texture2D" uid="uid://8628muy3ehm0" path="res://assets/common/arrow-left-off.png" id="17_lgtwp"]
 [ext_resource type="Texture2D" uid="uid://crie37lhuspwq" path="res://assets/common/arrow-left.png" id="18_mvt21"]
 [ext_resource type="Texture2D" uid="uid://wl57rj6yulid" path="res://assets/common/arrow-right-off.png" id="19_4wa5l"]
-[ext_resource type="StyleBox" uid="uid://qnp4eoygedou" path="res://assets/theme/default/styles/tab_disabled_flat.tres" id="19_fg07w"]
+[ext_resource type="StyleBox" uid="uid://qnp4eoygedou" path="res://assets/theme/default/styles/tab_disabled.tres" id="19_fg07w"]
 [ext_resource type="Texture2D" uid="uid://bpphhysy73qnp" path="res://assets/common/arrow-right.png" id="20_kfq7f"]
-[ext_resource type="StyleBox" uid="uid://cqnsh3ktxs14v" path="res://assets/theme/default/styles/toolbar_panel_flat.tres" id="24_orrlj"]
+[ext_resource type="StyleBox" uid="uid://cqnsh3ktxs14v" path="res://assets/theme/default/styles/toolbar_panel.tres" id="24_orrlj"]
 [ext_resource type="FontFile" uid="uid://cllbhityges65" path="res://assets/fonts/OpenSans-Regular.ttf" id="24_tutt7"]
 [ext_resource type="FontFile" uid="uid://c8xuja0cdkq51" path="res://assets/fonts/OpenSans-Bold.ttf" id="25_ca3p4"]
 [ext_resource type="StyleBox" uid="uid://cktutb77fexfr" path="res://assets/theme/default/styles/navbar_panel.tres" id="27_la1gj"]
-[ext_resource type="StyleBox" uid="uid://dgcm1w1q77r37" path="res://assets/theme/default/styles/adjust_btn_hover_flat.tres" id="28_05dxv"]
-[ext_resource type="StyleBox" uid="uid://bjjpt0b0ge8mm" path="res://assets/theme/default/styles/inner_panel_flat.tres" id="28_vtbaf"]
-[ext_resource type="StyleBox" uid="uid://v26alhjdo8a1" path="res://assets/theme/default/styles/adjust_btn_flat.tres" id="29_n1qd4"]
-[ext_resource type="StyleBox" uid="uid://ohphg7817ei2" path="res://assets/theme/default/styles/adjust_btn_pressed_flat.tres" id="30_0kt1v"]
+[ext_resource type="StyleBox" uid="uid://dgcm1w1q77r37" path="res://assets/theme/default/styles/adjust_btn_hover.tres" id="28_05dxv"]
+[ext_resource type="StyleBox" uid="uid://bjjpt0b0ge8mm" path="res://assets/theme/default/styles/inner_panel.tres" id="28_vtbaf"]
+[ext_resource type="StyleBox" uid="uid://v26alhjdo8a1" path="res://assets/theme/default/styles/adjust_btn.tres" id="29_n1qd4"]
+[ext_resource type="StyleBox" uid="uid://ohphg7817ei2" path="res://assets/theme/default/styles/adjust_btn_pressed.tres" id="30_0kt1v"]
+[ext_resource type="StyleBox" uid="uid://bfhx8sg0wmx3g" path="res://assets/theme/default/styles/txbtn_focus.tres" id="30_5grpd"]
+[ext_resource type="StyleBox" uid="uid://cq6u4q284ywhm" path="res://assets/theme/default/styles/txbtn.tres" id="30_lo8b2"]
+[ext_resource type="StyleBox" uid="uid://dk4qsjevfkuww" path="res://assets/theme/default/styles/txbtn_disabled.tres" id="30_xlqax"]
 [ext_resource type="StyleBox" path="res://assets/theme/default/styles/canvas_funcbar.tres" id="31_i8h72"]
-[ext_resource type="StyleBox" uid="uid://jhn0w1jy2x71" path="res://assets/theme/default/styles/sider_right_panel_flat.tres" id="31_lc3nx"]
-[ext_resource type="StyleBox" uid="uid://wlum2qhnb2fv" path="res://assets/theme/default/styles/sider_left_panel_flat.tres" id="31_v0acv"]
-[ext_resource type="StyleBox" uid="uid://dxj1tdapfsvml" path="res://assets/theme/default/styles/inner_scroll_flat.tres" id="32_qrwcd"]
-[ext_resource type="StyleBox" uid="uid://cf5qnm76n1vgp" path="res://assets/theme/default/styles/toolbtn_disabled_flat.tres" id="42_20p5v"]
-[ext_resource type="StyleBox" uid="uid://vmmwbj8a1xpw" path="res://assets/theme/default/styles/toolbtn_focus_flat.tres" id="43_5g48y"]
-[ext_resource type="StyleBox" uid="uid://cic7bu0g4d00q" path="res://assets/theme/default/styles/title_flat.tres" id="43_c0pgx"]
-[ext_resource type="StyleBox" uid="uid://b8vwifsgydqvs" path="res://assets/theme/default/styles/toolbtn_hover_flat.tres" id="44_8qdau"]
-[ext_resource type="StyleBox" uid="uid://d2w0fo1ty4gff" path="res://assets/theme/default/styles/toolbtn_flat.tres" id="45_n0h5i"]
-[ext_resource type="StyleBox" uid="uid://blqn6wlakteka" path="res://assets/theme/default/styles/toolbtn_pressed_flat.tres" id="46_v4ujd"]
+[ext_resource type="StyleBox" uid="uid://jhn0w1jy2x71" path="res://assets/theme/default/styles/sider_right_panel.tres" id="31_lc3nx"]
+[ext_resource type="StyleBox" uid="uid://b2rdwitx08qn8" path="res://assets/theme/default/styles/txbtn_hover.tres" id="31_r3gct"]
+[ext_resource type="StyleBox" uid="uid://wlum2qhnb2fv" path="res://assets/theme/default/styles/sider_left_panel.tres" id="31_v0acv"]
+[ext_resource type="StyleBox" uid="uid://dxj1tdapfsvml" path="res://assets/theme/default/styles/inner_scroll.tres" id="32_qrwcd"]
+[ext_resource type="StyleBox" uid="uid://ln0d5alox36i" path="res://assets/theme/default/styles/txbtn_pressed.tres" id="34_ukm6t"]
+[ext_resource type="StyleBox" uid="uid://cf5qnm76n1vgp" path="res://assets/theme/default/styles/toolbtn_disabled.tres" id="42_20p5v"]
+[ext_resource type="StyleBox" uid="uid://vmmwbj8a1xpw" path="res://assets/theme/default/styles/toolbtn_focus.tres" id="43_5g48y"]
+[ext_resource type="StyleBox" uid="uid://cic7bu0g4d00q" path="res://assets/theme/default/styles/title.tres" id="43_c0pgx"]
+[ext_resource type="StyleBox" uid="uid://b8vwifsgydqvs" path="res://assets/theme/default/styles/toolbtn_hover.tres" id="44_8qdau"]
+[ext_resource type="StyleBox" uid="uid://d2w0fo1ty4gff" path="res://assets/theme/default/styles/toolbtn.tres" id="45_n0h5i"]
+[ext_resource type="StyleBox" uid="uid://blqn6wlakteka" path="res://assets/theme/default/styles/toolbtn_pressed.tres" id="46_v4ujd"]
 
 [resource]
 default_font = ExtResource("24_tutt7")
@@ -61,6 +68,9 @@ Button/styles/focus = ExtResource("3_fbsfc")
 Button/styles/hover = ExtResource("2_ippa5")
 Button/styles/normal = ExtResource("4_vp1rr")
 Button/styles/pressed = ExtResource("3_a0osx")
+CheckButton/styles/hover_pressed = ExtResource("9_utqyh")
+CheckButton/styles/normal = ExtResource("7_wbsj1")
+CheckButton/styles/pressed = ExtResource("7_wbsj1")
 ColorPickerButton/styles/hover = ExtResource("6_t4dwx")
 ColorPickerButton/styles/normal = ExtResource("7_ph11j")
 ColorPickerButton/styles/pressed = ExtResource("8_56ypg")
@@ -120,6 +130,12 @@ TabBar/styles/tab_disabled = ExtResource("19_fg07w")
 TabBar/styles/tab_hovered = ExtResource("14_plnka")
 TabBar/styles/tab_selected = ExtResource("15_mo0ra")
 TabBar/styles/tab_unselected = ExtResource("16_g6krp")
+TextureBtn/base_type = &"Button"
+TextureBtn/styles/disabled = ExtResource("30_xlqax")
+TextureBtn/styles/focus = ExtResource("30_5grpd")
+TextureBtn/styles/hover = ExtResource("31_r3gct")
+TextureBtn/styles/normal = ExtResource("30_lo8b2")
+TextureBtn/styles/pressed = ExtResource("34_ukm6t")
 VSeparator/constants/separation = 12
 VSeparator/styles/separator = ExtResource("11_fmld6")
 VSplitContainer/constants/separation = 0

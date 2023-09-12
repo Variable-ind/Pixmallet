@@ -29,6 +29,7 @@ layout_mode = 2
 [node name="TextureButton" type="Button" parent="row"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_type_variation = &"TextureBtn"
 icon = ExtResource("1_jvnfr")
 icon_alignment = 1
 expand_icon = true
@@ -36,9 +37,6 @@ expand_icon = true
 [node name="SpinBox" type="SpinBox" parent="row"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
-prefix = "Size:"
-suffix = "px"
 
 [node name="holder2" type="HSeparator" parent="."]
 layout_mode = 2

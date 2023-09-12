@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcwm0xl3ijquu"
-path="res://.godot/imported/switch-color.png-e63c6543b1ca066ca1a311740b776d56.ctex"
+uid="uid://c0lg7tcxk5eya"
+path="res://.godot/imported/switch.png-0ccfd5ea7e6a499753022746a88d1fec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/colorpalette/switch-color.png"
-dest_files=["res://.godot/imported/switch-color.png-e63c6543b1ca066ca1a311740b776d56.ctex"]
+source_file="res://assets/common/switch.png"
+dest_files=["res://.godot/imported/switch.png-0ccfd5ea7e6a499753022746a88d1fec.ctex"]
 
 [params]
 

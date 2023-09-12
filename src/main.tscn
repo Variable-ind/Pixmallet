@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dohsjgbmqo83r"]
+[gd_scene load_steps=14 format=3 uid="uid://dohsjgbmqo83r"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default/default.tres" id="1_vrsc7"]
 [ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/navbar/navbar.tscn" id="2_had7o"]
@@ -9,7 +9,8 @@
 [ext_resource type="Shader" path="res://src/shaders/Greyscale.gdshader" id="7_3v0gn"]
 [ext_resource type="PackedScene" uid="uid://dkkj62x4hs764" path="res://src/adjustment/Adjustment.tscn" id="8_24hhy"]
 [ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/colorpalette/color_palette.tscn" id="9_lyr4b"]
-[ext_resource type="PackedScene" uid="uid://bn6hrld4rvere" path="res://src/options/Options.tscn" id="10_3dpqo"]
+[ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/options/selection_option/selection.tscn" id="10_3xt4b"]
+[ext_resource type="PackedScene" uid="uid://d2jmndg28bimn" path="res://src/options/pencil/pencil.tscn" id="11_rleat"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u122j"]
 shader = ExtResource("6_vx4od")
@@ -147,9 +148,8 @@ theme_type_variation = &"sider_right"
 layout_mode = 2
 
 [node name="Preview" type="Panel" parent="main_area/mainborad/workspace/right-sider/split"]
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="split" type="VSplitContainer" parent="main_area/mainborad/workspace/right-sider/split"]
 layout_mode = 2
@@ -157,8 +157,30 @@ size_flags_vertical = 3
 
 [node name="ColorPalette" parent="main_area/mainborad/workspace/right-sider/split/split" instance=ExtResource("9_lyr4b")]
 layout_mode = 2
+size_flags_vertical = 1
 
-[node name="Options" parent="main_area/mainborad/workspace/right-sider/split/split" instance=ExtResource("10_3dpqo")]
+[node name="Panel" type="Panel" parent="main_area/mainborad/workspace/right-sider/split/split"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="scroll" type="ScrollContainer" parent="main_area/mainborad/workspace/right-sider/split/split/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="margin" type="MarginContainer" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Selection" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("10_3xt4b")]
+visible = false
+layout_mode = 2
+
+[node name="Pencil" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("11_rleat")]
 layout_mode = 2
 
 [node name="overlay" type="ColorRect" parent="."]

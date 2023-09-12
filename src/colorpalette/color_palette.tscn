@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default/default.tres" id="1_0qsv8"]
 [ext_resource type="Script" path="res://src/colorpalette/ColorPalette.gd" id="2_rqgjd"]
 [ext_resource type="Texture2D" uid="uid://5gpo44fntnjs" path="res://assets/tools/pencil.png" id="3_e20ir"]
-[ext_resource type="Texture2D" uid="uid://bcwm0xl3ijquu" path="res://assets/colorpalette/switch-color.png" id="4_7l0dn"]
+[ext_resource type="Texture2D" uid="uid://c0lg7tcxk5eya" path="res://assets/common/switch.png" id="4_h3l0l"]
 [ext_resource type="PackedScene" uid="uid://b2qbuxif5ivby" path="res://src/colorpalette/color_switch_grid.tscn" id="5_addgj"]
 [ext_resource type="Texture2D" uid="uid://barcrh21as7lr" path="res://assets/common/trash.png" id="6_ciqqo"]
 [ext_resource type="Texture2D" uid="uid://csipogx871ius" path="res://assets/common/add_file.png" id="7_qvx2u"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://src/colorpalette/DeletePaletteConfirm.gd" id="10_fnq1b"]
 
 [node name="ColorPalette" type="Panel"]
-custom_minimum_size = Vector2(300, 210)
+custom_minimum_size = Vector2(300, 200)
 offset_right = 300.0
 offset_bottom = 200.0
 size_flags_horizontal = 3
@@ -36,7 +36,7 @@ layout_mode = 2
 
 [node name="Foreground" type="ColorPickerButton" parent="margin/column/colorpicker"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(36, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Foreground"
@@ -46,17 +46,17 @@ icon = ExtResource("3_e20ir")
 icon_alignment = 1
 
 [node name="ColorSwitchBtn" type="Button" parent="margin/column/colorpicker"]
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(36, 30)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-icon = ExtResource("4_7l0dn")
+icon = ExtResource("4_h3l0l")
 flat = true
 icon_alignment = 1
 
 [node name="Background" type="ColorPickerButton" parent="margin/column/colorpicker"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(36, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Background"
@@ -77,6 +77,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="bottom" type="HBoxContainer" parent="margin/column"]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 alignment = 2
 
