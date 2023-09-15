@@ -28,6 +28,7 @@ const ADJUST_ID_MAP :Dictionary = {
 
 func _ready():
 	for	btn in get_children():
+		btn.anch
 		if btn is Button:
 			btn.pressed.connect(_on_pressed.bind(btn))
 			btn.mouse_entered.connect(_on_mouseover.bind(btn))

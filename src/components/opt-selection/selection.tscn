@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cnv2wo1wwsfyu"]
 
-[ext_resource type="Script" path="res://src/widget/ValueSlider.gd" id="1_07xlp"]
+[ext_resource type="Script" path="res://src/widget/ValSlider.gd" id="1_07xlp"]
 
 [node name="Selection" type="VBoxContainer"]
 anchors_preset = 15
@@ -89,16 +89,11 @@ layout_mode = 2
 layout_mode = 2
 text = "Brush Size"
 
-[node name="DrawingSize" type="TextureProgressBar" parent="DrawingSel"]
+[node name="DrawingSize" type="ProgressBar" parent="DrawingSel"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 focus_mode = 2
-theme_type_variation = &"ValueSlider"
-nine_patch_stretch = true
-stretch_margin_left = 3
-stretch_margin_top = 3
-stretch_margin_right = 3
-stretch_margin_bottom = 3
+theme_type_variation = &"ValSlider"
 script = ExtResource("1_07xlp")
 
 [node name="MagicSel" type="HBoxContainer" parent="."]

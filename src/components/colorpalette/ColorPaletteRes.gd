@@ -76,6 +76,9 @@ func clear():
 	colors = []
 
 
+func destroy():
+	free()
+
 func _gen_filename(file_name:String=''):
 	if file_name:
 		if file_name.ends_with('.tres'):

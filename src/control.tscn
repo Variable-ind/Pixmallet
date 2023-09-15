@@ -1,19 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://dohsjgbmqo83r"]
+[gd_scene load_steps=14 format=3 uid="uid://b8jv3d0p6f8c0"]
 
-[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default/default.tres" id="1_vrsc7"]
-[ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/components/navbar/navbar.tscn" id="2_had7o"]
-[ext_resource type="Script" path="res://src/main.gd" id="2_uyclk"]
-[ext_resource type="PackedScene" uid="uid://2dfuv5bk0ahw" path="res://src/components/toolbar/toolbar.tscn" id="4_caqd8"]
-[ext_resource type="PackedScene" uid="uid://bpb81qqyhhoab" path="res://src/components/rulers/h_ruler.tscn" id="5_vgkdf"]
-[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="6_vx4od"]
-[ext_resource type="Shader" path="res://src/shaders/Greyscale.gdshader" id="7_3v0gn"]
-[ext_resource type="PackedScene" uid="uid://dkkj62x4hs764" path="res://src/components/adjustment/adjustment_tool.tscn" id="8_24hhy"]
-[ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/components/colorpalette/color_palette.tscn" id="9_lyr4b"]
-[ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/components/opt-selection/selection.tscn" id="10_3xt4b"]
-[ext_resource type="PackedScene" uid="uid://d2jmndg28bimn" path="res://src/components/opt-pencil/pencil.tscn" id="11_rleat"]
+[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default/default.tres" id="1_3mvgy"]
+[ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
+[ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/components/navbar/navbar.tscn" id="3_iv05c"]
+[ext_resource type="PackedScene" uid="uid://2dfuv5bk0ahw" path="res://src/components/toolbar/toolbar.tscn" id="4_7tfkl"]
+[ext_resource type="PackedScene" uid="uid://dkkj62x4hs764" path="res://src/components/adjustment/adjustment_tool.tscn" id="5_cd782"]
+[ext_resource type="PackedScene" uid="uid://bpb81qqyhhoab" path="res://src/components/rulers/h_ruler.tscn" id="6_nmtuf"]
+[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="7_eo0uy"]
+[ext_resource type="Shader" path="res://src/shaders/Greyscale.gdshader" id="8_rxagw"]
+[ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/components/colorpalette/color_palette.tscn" id="9_igahc"]
+[ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/components/opt-selection/selection.tscn" id="10_m4bfb"]
+[ext_resource type="PackedScene" uid="uid://d2jmndg28bimn" path="res://src/components/opt-pencil/pencil.tscn" id="11_gpkqv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u122j"]
-shader = ExtResource("6_vx4od")
+shader = ExtResource("7_eo0uy")
 shader_parameter/size = 10.0
 shader_parameter/alpha = 1.0
 shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
@@ -25,7 +25,7 @@ shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ib7er"]
-shader = ExtResource("7_3v0gn")
+shader = ExtResource("8_rxagw")
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -35,8 +35,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_vrsc7")
-script = ExtResource("2_uyclk")
+theme = ExtResource("1_3mvgy")
+script = ExtResource("2_egbqx")
 
 [node name="main_area" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -47,7 +47,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="Navbar" parent="main_area" instance=ExtResource("2_had7o")]
+[node name="Navbar" parent="main_area" instance=ExtResource("3_iv05c")]
 layout_mode = 2
 
 [node name="mainborad" type="PanelContainer" parent="main_area"]
@@ -63,7 +63,7 @@ theme_override_constants/separation = 0
 layout_mode = 2
 theme_type_variation = &"sider_left"
 
-[node name="Toolbar" parent="main_area/mainborad/workspace/left-sider" instance=ExtResource("4_caqd8")]
+[node name="Toolbar" parent="main_area/mainborad/workspace/left-sider" instance=ExtResource("4_7tfkl")]
 layout_mode = 2
 size_flags_vertical = 1
 
@@ -89,10 +89,10 @@ tab_1/title = "asdfdf"
 tab_2/title = "test"
 tab_2/disabled = true
 
-[node name="Adjustment" parent="main_area/mainborad/workspace/canvas/canvas-funcbar/split" instance=ExtResource("8_24hhy")]
+[node name="Adjustment" parent="main_area/mainborad/workspace/canvas/canvas-funcbar/split" instance=ExtResource("5_cd782")]
 layout_mode = 2
 
-[node name="HRuler" parent="main_area/mainborad/workspace/canvas" instance=ExtResource("5_vgkdf")]
+[node name="HRuler" parent="main_area/mainborad/workspace/canvas" instance=ExtResource("6_nmtuf")]
 layout_mode = 2
 focus_mode = 0
 
@@ -155,7 +155,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ColorPalette" parent="main_area/mainborad/workspace/right-sider/split/split" instance=ExtResource("9_lyr4b")]
+[node name="ColorPalette" parent="main_area/mainborad/workspace/right-sider/split/split" instance=ExtResource("9_igahc")]
 layout_mode = 2
 size_flags_vertical = 1
 
@@ -176,10 +176,10 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Selection" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("10_3xt4b")]
+[node name="Selection" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("10_m4bfb")]
 layout_mode = 2
 
-[node name="Pencil" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("11_rleat")]
+[node name="Pencil" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("11_gpkqv")]
 visible = false
 layout_mode = 2
 

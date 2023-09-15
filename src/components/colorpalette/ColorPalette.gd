@@ -110,6 +110,8 @@ func delete_palette(index:int=0):
 		current_palette_index = -1
 	switch_palette(palettes_stack.size()-1)
 	
+	rm_palette.destroy()
+	
 
 func save_palette(palette:ColorPaletteRes):
 	if palette.as_default and palette.colors.size() <= 0:
