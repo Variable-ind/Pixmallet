@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dkkj62x4hs764"]
 
-[ext_resource type="Script" path="res://src/components/adjustment/AdjustmentTool.gd" id="1_wk5q7"]
+[ext_resource type="Script" path="res://src/adjustment/AdjustmentTool.gd" id="1_wk5q7"]
 [ext_resource type="Texture2D" uid="uid://w4mloklylrbw" path="res://assets/components/flip-h.png" id="2_ntn0e"]
 [ext_resource type="Texture2D" uid="uid://bs4hd7aou4oo" path="res://assets/components/flip-v.png" id="3_ap6pk"]
 [ext_resource type="Texture2D" uid="uid://buv4yejvagx6u" path="res://assets/components/rotate-ccw.png" id="4_b12nu"]

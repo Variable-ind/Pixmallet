@@ -49,7 +49,7 @@ const TOOL_ID_MAP: Dictionary = {
 @onready var toolbtns = $ToolBtns
 @onready var toolbar_keymaps = {
 	'Select': {'action': 'select', 'event': KeyChain.makeEventKey(KEY_W)},
-	'Shape': {'action': 'shape', 'event': KeyChain.makeEventKey(KEY_U)},
+	'Shape': {'action': 'shape', 'event': KeyChain.makeEventKey(KEY_A)},
 	'Pencil': {'action': 'pencil', 'event': KeyChain.makeEventKey(KEY_B)},
 	'Eraser': {'action': 'eraser', 'event': KeyChain.makeEventKey(KEY_E)},
 	'Fill': {'action': 'fill', 'event': KeyChain.makeEventKey(KEY_G)},

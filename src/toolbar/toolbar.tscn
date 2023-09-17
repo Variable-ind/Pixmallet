@@ -1,26 +1,26 @@
 [gd_scene load_steps=24 format=3 uid="uid://2dfuv5bk0ahw"]
 
-[ext_resource type="ButtonGroup" uid="uid://to2t0cm101ui" path="res://assets/tools/tool_btns_group.tres" id="2_ktry7"]
-[ext_resource type="Script" path="res://src/components/toolbar/Toolbar.gd" id="2_vu3bu"]
-[ext_resource type="Texture2D" uid="uid://2xg57xeeqje3" path="res://assets/tools/select-rect.png" id="2_wdcp3"]
-[ext_resource type="Texture2D" uid="uid://8jggqkk5iia3" path="res://assets/tools/select-ellipse.png" id="3_4kf5b"]
-[ext_resource type="Texture2D" uid="uid://psqjer7k7bk6" path="res://assets/tools/select-polygan.png" id="4_tok5a"]
-[ext_resource type="Script" path="res://src/components/toolbar/ToolExtBtn.gd" id="4_unnqe"]
-[ext_resource type="Texture2D" uid="uid://hujnof5oxaa6" path="res://assets/tools/select-color.png" id="5_cmb1m"]
-[ext_resource type="Texture2D" uid="uid://6ldiuvx5mor5" path="res://assets/tools/select-magic.png" id="6_pw2ft"]
-[ext_resource type="Texture2D" uid="uid://deiybbeovgddn" path="res://assets/tools/select-lasso.png" id="7_06nsg"]
-[ext_resource type="Texture2D" uid="uid://kcnpbwocu06f" path="res://assets/tools/move.png" id="7_f1g6f"]
-[ext_resource type="Texture2D" uid="uid://dbmmas3bhptd1" path="res://assets/tools/zoom.png" id="8_4142v"]
-[ext_resource type="Texture2D" uid="uid://bo23pia3e48yq" path="res://assets/tools/pan.png" id="9_ctfl0"]
-[ext_resource type="Texture2D" uid="uid://3tukdejpinj5" path="res://assets/tools/crop.png" id="11_6evt5"]
-[ext_resource type="Texture2D" uid="uid://cewfw5f4rigl1" path="res://assets/tools/color-picker.png" id="11_g8mgo"]
-[ext_resource type="Texture2D" uid="uid://5gpo44fntnjs" path="res://assets/tools/pencil.png" id="12_lcplk"]
-[ext_resource type="Texture2D" uid="uid://curtw7fjt77e" path="res://assets/tools/erase.png" id="14_g62t7"]
-[ext_resource type="Texture2D" uid="uid://bn7uh51h1vxnj" path="res://assets/tools/shading.png" id="15_i3f7k"]
-[ext_resource type="Texture2D" uid="uid://g17xxuwxdcbp" path="res://assets/tools/fill.png" id="15_tgeqr"]
-[ext_resource type="Texture2D" uid="uid://dn2nay50eaoqr" path="res://assets/tools/line.png" id="17_6nl15"]
-[ext_resource type="Texture2D" uid="uid://d1tln60blrobh" path="res://assets/tools/rect.png" id="18_vr1hu"]
-[ext_resource type="Texture2D" uid="uid://m8mw5uftt0jo" path="res://assets/tools/ellipse.png" id="19_barme"]
+[ext_resource type="Script" path="res://src/toolbar/Toolbar.gd" id="1_k08cc"]
+[ext_resource type="ButtonGroup" uid="uid://to2t0cm101ui" path="res://assets/tools/tool_btns_group.tres" id="2_qba0t"]
+[ext_resource type="Texture2D" uid="uid://2xg57xeeqje3" path="res://assets/tools/select-rect.png" id="3_cnba6"]
+[ext_resource type="Script" path="res://src/toolbar/ToolExtBtn.gd" id="4_03cbi"]
+[ext_resource type="Texture2D" uid="uid://8jggqkk5iia3" path="res://assets/tools/select-ellipse.png" id="5_so0br"]
+[ext_resource type="Texture2D" uid="uid://psqjer7k7bk6" path="res://assets/tools/select-polygan.png" id="6_12lcf"]
+[ext_resource type="Texture2D" uid="uid://hujnof5oxaa6" path="res://assets/tools/select-color.png" id="7_u80ca"]
+[ext_resource type="Texture2D" uid="uid://6ldiuvx5mor5" path="res://assets/tools/select-magic.png" id="8_2jlql"]
+[ext_resource type="Texture2D" uid="uid://deiybbeovgddn" path="res://assets/tools/select-lasso.png" id="9_fp51h"]
+[ext_resource type="Texture2D" uid="uid://d1tln60blrobh" path="res://assets/tools/rect.png" id="10_kfktx"]
+[ext_resource type="Texture2D" uid="uid://m8mw5uftt0jo" path="res://assets/tools/ellipse.png" id="11_lib62"]
+[ext_resource type="Texture2D" uid="uid://dn2nay50eaoqr" path="res://assets/tools/line.png" id="12_a8imr"]
+[ext_resource type="Texture2D" uid="uid://5gpo44fntnjs" path="res://assets/tools/pencil.png" id="13_y0q6n"]
+[ext_resource type="Texture2D" uid="uid://curtw7fjt77e" path="res://assets/tools/erase.png" id="14_audbp"]
+[ext_resource type="Texture2D" uid="uid://g17xxuwxdcbp" path="res://assets/tools/fill.png" id="15_qr25w"]
+[ext_resource type="Texture2D" uid="uid://bo23pia3e48yq" path="res://assets/tools/pan.png" id="16_ud7g6"]
+[ext_resource type="Texture2D" uid="uid://kcnpbwocu06f" path="res://assets/tools/move.png" id="17_6o88h"]
+[ext_resource type="Texture2D" uid="uid://cewfw5f4rigl1" path="res://assets/tools/color-picker.png" id="18_8e01v"]
+[ext_resource type="Texture2D" uid="uid://3tukdejpinj5" path="res://assets/tools/crop.png" id="19_1uy22"]
+[ext_resource type="Texture2D" uid="uid://dbmmas3bhptd1" path="res://assets/tools/zoom.png" id="20_f4lst"]
+[ext_resource type="Texture2D" uid="uid://bn7uh51h1vxnj" path="res://assets/tools/shading.png" id="21_bxfkp"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_bofa6"]
 
@@ -36,7 +36,7 @@ size_flags_vertical = 3
 theme_type_variation = &"toolbar"
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
-script = ExtResource("2_vu3bu")
+script = ExtResource("1_k08cc")
 
 [node name="ToolBtns" type="FlowContainer" parent="."]
 custom_minimum_size = Vector2(40, 0)
@@ -52,10 +52,10 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("2_wdcp3")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("3_cnba6")
 icon_alignment = 1
-script = ExtResource("4_unnqe")
+script = ExtResource("4_03cbi")
 
 [node name="Popup" type="PopupPanel" parent="ToolBtns/Select"]
 size = Vector2i(220, 40)
@@ -79,7 +79,7 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_bofa6")
-icon = ExtResource("2_wdcp3")
+icon = ExtResource("3_cnba6")
 icon_alignment = 1
 
 [node name="SelEllipse" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
@@ -90,7 +90,7 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_bofa6")
-icon = ExtResource("3_4kf5b")
+icon = ExtResource("5_so0br")
 icon_alignment = 1
 
 [node name="SelPolygon" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
@@ -101,7 +101,7 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_bofa6")
-icon = ExtResource("4_tok5a")
+icon = ExtResource("6_12lcf")
 icon_alignment = 1
 
 [node name="SelColor" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
@@ -112,7 +112,7 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_bofa6")
-icon = ExtResource("5_cmb1m")
+icon = ExtResource("7_u80ca")
 icon_alignment = 1
 
 [node name="SelMagic" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
@@ -123,7 +123,7 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_bofa6")
-icon = ExtResource("6_pw2ft")
+icon = ExtResource("8_2jlql")
 icon_alignment = 1
 
 [node name="SelLasso" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
@@ -134,7 +134,7 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_bofa6")
-icon = ExtResource("7_06nsg")
+icon = ExtResource("9_fp51h")
 icon_alignment = 1
 
 [node name="Shape" type="Button" parent="ToolBtns"]
@@ -145,10 +145,10 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("18_vr1hu")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("10_kfktx")
 icon_alignment = 1
-script = ExtResource("4_unnqe")
+script = ExtResource("4_03cbi")
 
 [node name="Popup" type="PopupPanel" parent="ToolBtns/Shape"]
 size = Vector2i(220, 48)
@@ -172,7 +172,7 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_pjl1d")
-icon = ExtResource("18_vr1hu")
+icon = ExtResource("10_kfktx")
 icon_alignment = 1
 
 [node name="ShapeEllipse" type="Button" parent="ToolBtns/Shape/Popup/ExtendBtns"]
@@ -183,7 +183,7 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_pjl1d")
-icon = ExtResource("19_barme")
+icon = ExtResource("11_lib62")
 icon_alignment = 1
 
 [node name="ShapeLine" type="Button" parent="ToolBtns/Shape/Popup/ExtendBtns"]
@@ -194,7 +194,7 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_pjl1d")
-icon = ExtResource("17_6nl15")
+icon = ExtResource("12_a8imr")
 icon_alignment = 1
 
 [node name="Pencil" type="Button" parent="ToolBtns"]
@@ -205,8 +205,8 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("12_lcplk")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("13_y0q6n")
 icon_alignment = 1
 
 [node name="Eraser" type="Button" parent="ToolBtns"]
@@ -217,8 +217,8 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("14_g62t7")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("14_audbp")
 icon_alignment = 1
 
 [node name="Fill" type="Button" parent="ToolBtns"]
@@ -229,8 +229,8 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("15_tgeqr")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("15_qr25w")
 icon_alignment = 1
 
 [node name="Pan" type="Button" parent="ToolBtns"]
@@ -241,8 +241,8 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("9_ctfl0")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("16_ud7g6")
 icon_alignment = 1
 
 [node name="Move" type="Button" parent="ToolBtns"]
@@ -253,8 +253,8 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("7_f1g6f")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("17_6o88h")
 icon_alignment = 1
 
 [node name="ColorPicker" type="Button" parent="ToolBtns"]
@@ -265,8 +265,8 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("11_g8mgo")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("18_8e01v")
 icon_alignment = 1
 
 [node name="Crop" type="Button" parent="ToolBtns"]
@@ -277,8 +277,8 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("11_6evt5")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("19_1uy22")
 icon_alignment = 1
 
 [node name="Zoom" type="Button" parent="ToolBtns"]
@@ -289,8 +289,8 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("8_4142v")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("20_f4lst")
 icon_alignment = 1
 
 [node name="Shading" type="Button" parent="ToolBtns"]
@@ -301,8 +301,8 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"toolbtn"
 toggle_mode = true
 action_mode = 0
-button_group = ExtResource("2_ktry7")
-icon = ExtResource("15_i3f7k")
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("21_bxfkp")
 icon_alignment = 1
 
 [connection signal="button_down" from="ToolBtns/Select" to="ToolBtns/Select" method="_on_button_down"]

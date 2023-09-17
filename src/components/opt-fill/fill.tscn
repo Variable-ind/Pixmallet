@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://cih65rgsgsl3u"]
+
+[ext_resource type="Script" path="res://src/widget/ValSlider/ValSlider.gd" id="1_wa76p"]
+
+[node name="Fill" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"title"
+text = "Fill"
+horizontal_alignment = 1
+
+[node name="divider" type="HSeparator" parent="."]
+layout_mode = 2
+theme_type_variation = &"HDivider"
+
+[node name="label-area" type="Label" parent="."]
+layout_mode = 2
+text = "Fill area"
+
+[node name="FillArea" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Similar area"
+popup/item_0/id = 0
+popup/item_1/text = "Similar colors"
+popup/item_1/id = 1
+popup/item_2/text = "Whole selection"
+popup/item_2/id = 2
+
+[node name="Similarity" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_type_variation = &"ValSlider"
+min_value = 1.0
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("1_wa76p")
+text_alignment = 1
+prefix = "Similarity:"
+
+[node name="holder" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="label-with" type="Label" parent="."]
+layout_mode = 2
+text = "Fill with"
+
+[node name="FillWith" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "Selected color"
+popup/item_0/id = 0
+popup/item_1/text = "Pattern"
+popup/item_1/id = 1
+
+[node name="OffsetX" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_type_variation = &"ValSlider"
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("1_wa76p")
+text_alignment = 1
+suffix = "Offset X:"
+
+[node name="OffsetY" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_type_variation = &"ValSlider"
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("1_wa76p")
+text_alignment = 1
+suffix = "Offset Y:"

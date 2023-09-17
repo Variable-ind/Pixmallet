@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2jmndg28bimn"]
+[gd_scene load_steps=3 format=3 uid="uid://dbsb1l7cp4rg7"]
 
-[ext_resource type="Texture2D" uid="uid://dodq3378qymnc" path="res://assets/brushes/bars.png" id="1_jvnfr"]
-[ext_resource type="Script" path="res://src/widget/ValSlider/ValSlider.gd" id="2_j33j5"]
+[ext_resource type="Texture2D" uid="uid://dodq3378qymnc" path="res://assets/brushes/bars.png" id="1_pktke"]
+[ext_resource type="Script" path="res://src/widget/ValSlider/ValSlider.gd" id="2_ny86e"]
 
-[node name="Pencil" type="VBoxContainer"]
+[node name="Eraser" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,7 +14,7 @@ rotation = -1.15247e-05
 [node name="title" type="Label" parent="."]
 layout_mode = 2
 theme_type_variation = &"title"
-text = "Pencil"
+text = "Eraser"
 horizontal_alignment = 1
 
 [node name="divider" type="HSeparator" parent="."]
@@ -28,7 +28,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_type_variation = &"TextureBtn"
-icon = ExtResource("1_jvnfr")
+icon = ExtResource("1_pktke")
 icon_alignment = 1
 expand_icon = true
 
@@ -41,7 +41,7 @@ max_value = 30.0
 step = 1.0
 value = 1.0
 show_percentage = false
-script = ExtResource("2_j33j5")
+script = ExtResource("2_ny86e")
 text_alignment = 1
 prefix = "Size:"
 suffix = "px"
@@ -49,23 +49,15 @@ suffix = "px"
 [node name="holder" type="HSeparator" parent="."]
 layout_mode = 2
 
-[node name="OverwriteColor" type="CheckButton" parent="."]
-custom_minimum_size = Vector2(32, 32)
+[node name="Opacity" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-text = "Overwrite Color"
-
-[node name="holder2" type="HSeparator" parent="."]
-layout_mode = 2
-
-[node name="FillInside" type="CheckButton" parent="."]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-text = "Fill inside"
-
-[node name="holder3" type="HSeparator" parent="."]
-layout_mode = 2
-
-[node name="Spacing" type="CheckButton" parent="."]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-text = "Spacing"
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 255.0
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("2_ny86e")
+text_alignment = 1
+prefix = "Opacity:"
