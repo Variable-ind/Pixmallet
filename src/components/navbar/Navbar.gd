@@ -4,8 +4,6 @@ class_name Navbar
 
 signal navigation_to(navId, data)
 
-const ACTION_NAME_TMPL = 'pxm_tool_{a}'
-
 enum {
 	NEW_FILE, OPEN_FILE, RECENT_FILE, SAVE_FILE, SAVE_FILE_AS, EXPORT_FILE, QUIT,
 	
@@ -156,14 +154,12 @@ func _set_menu_items(menu:MenuButton, structure:Array):
 				menu_popup.add_item(item['label'], item['id'])
 			if item.get('action'):
 				var shortcut:Shortcut = Shortcut.new()
-				var event:InputEventAction = InputEventAction.new()
-				var event_action:StringName = ACTION_NAME_TMPL.format(
-					{'n': item['action']}) 
-				event.action = item.get('event', event_action)
-				shortcut.events.append(event)
-				menu_popup.set_item_shortcut(i, shortcut)
-				InputMap.add_action(item['shortcut'])
-				InputMap.action_add_event(item['shortcut'], event)
+#				var event:InputEventAction = InputEventAction.new()
+#				var event_action:StringName = ACTION_NAME_TMPL.format(
+#					{'n': item['action']}) 
+#				event.action = item.get('event', event_action)
+#				shortcut.events.append(event)
+#				menu_popup.set_item_shortcut(i, shortcut)
 		
 		# record menu item to k, v map
 		item['popup'] = menu_popup

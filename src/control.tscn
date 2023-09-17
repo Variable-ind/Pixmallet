@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=15 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default/default.tres" id="1_3mvgy"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/components/colorpalette/color_palette.tscn" id="9_igahc"]
 [ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/components/opt-selection/selection.tscn" id="10_m4bfb"]
 [ext_resource type="PackedScene" uid="uid://d2jmndg28bimn" path="res://src/components/opt-pencil/pencil.tscn" id="11_gpkqv"]
+[ext_resource type="PackedScene" uid="uid://codf6k0w3eg3b" path="res://src/components/opt-shape/Shape.tscn" id="12_54orb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u122j"]
 shader = ExtResource("7_eo0uy")
@@ -177,9 +178,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Selection" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("10_m4bfb")]
+visible = false
 layout_mode = 2
 
 [node name="Pencil" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("11_gpkqv")]
+layout_mode = 2
+
+[node name="Shape" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("12_54orb")]
 visible = false
 layout_mode = 2
 

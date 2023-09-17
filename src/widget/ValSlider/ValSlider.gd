@@ -29,9 +29,13 @@ var btn_pressed = false
 @onready var valueSpinBox :SpinBox = SpinBox.new()
 
 
-func _ready():
+func _init():
 	show_percentage = false
-	
+	if custom_minimum_size.y < 30:
+		custom_minimum_size.y = 30
+
+
+func _ready():
 	# spin box
 	valueSpinBox.alignment = text_alignment
 	valueSpinBox.prefix = prefix
@@ -53,12 +57,11 @@ func _ready():
 	# for line edit of the spin box
 	override_lineedit_stylebox(valueSpinBox)
 	
-	if hidden_text:
-		valueSpinBox.hide()
-	
 	valueLineEdit = valueSpinBox.get_line_edit()
+	valueLineEdit.selecting_enabled = false
 	valueLineEdit.gui_input.connect(_on_line_edit_gui_input)
 	valueLineEdit.focus_exited.connect(_on_line_edit_focus_exit)
+	valueLineEdit.resized.connect(_on_line_edit_resized)
 	
 	overlayer.color = Color.TRANSPARENT
 	overlayer.size = valueLineEdit.size
@@ -66,6 +69,9 @@ func _ready():
 	overlayer.mouse_exited.connect(_on_overlayer_mouseout)
 	add_child(overlayer)
 	
+	if hidden_text:
+		valueSpinBox.hide()
+
 
 func override_lineedit_stylebox(spinbox):
 	var line_edit :LineEdit = spinbox.get_line_edit()
@@ -104,7 +110,11 @@ func change_progress():
 		value = last_value + (_delta * slide_pressure) * step
 	else:
 		ratio = last_ratio + _delta / _distanc
-
+	
+	# convert to text
+	valueLineEdit.text = str(value)
+	valueSpinBox.apply()
+	
 
 func _on_overlayer_gui_input(event: InputEvent):
 	if (event is InputEventMouseButton):
@@ -123,10 +133,10 @@ func _on_overlayer_gui_input(event: InputEvent):
 				state = TYPING
 				overlayer.hide()
 				valueSpinBox.get_line_edit().grab_focus()
+				valueLineEdit.selecting_enabled = true
 			elif event is InputEventMouseMotion and btn_pressed:
 				if mouse_start_pos.distance_to(get_global_mouse_position()) > 2:
 					state = SLIDING
-					print('SLIDING')
 		SLIDING:
 			if (event is InputEventMouseButton and not btn_pressed and
 				event.button_index == MOUSE_BUTTON_LEFT):
@@ -140,14 +150,22 @@ func _on_overlayer_mouseout():
 		state = NORMAL	
 
 
+func _on_line_edit_resized():
+	overlayer.size = valueLineEdit.size
+
+
 func _on_line_edit_gui_input(event: InputEvent):
-	if state == TYPING:
-		if event is InputEventKey:
-			print(event.keycode)
-		if event is InputEventKey and event.keycode == KEY_ESCAPE:
-			valueLineEdit.release_focus()
+	match state:
+		NORMAL:
+			if event is InputEventMouseButton:
+				overlayer.hide()
+				state = TYPING
+		TYPING:
+			if event is InputEventKey and event.keycode == KEY_ESCAPE:
+				valueLineEdit.release_focus()
 
 
 func _on_line_edit_focus_exit():
 	state = NORMAL
 	overlayer.show()
+	valueLineEdit.selecting_enabled = false

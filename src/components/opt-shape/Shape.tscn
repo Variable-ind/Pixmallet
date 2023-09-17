@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://codf6k0w3eg3b"]
+
+[ext_resource type="Script" path="res://src/widget/ValSlider/ValSlider.gd" id="1_xvpfu"]
+
+[node name="Shape" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"title"
+text = "Shape Tool"
+horizontal_alignment = 1
+
+[node name="divider" type="HSeparator" parent="."]
+layout_mode = 2
+theme_type_variation = &"HDivider"
+
+[node name="label-size" type="Label" parent="."]
+layout_mode = 2
+text = "Brush Size"
+
+[node name="BrushSize" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_type_variation = &"ValSlider"
+min_value = 1.0
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("1_xvpfu")
+text_alignment = 1
+suffix = "px"
+
+[node name="holder" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="fill" type="CheckButton" parent="."]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+text = "Fill Shape"

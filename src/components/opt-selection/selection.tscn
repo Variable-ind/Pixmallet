@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cnv2wo1wwsfyu"]
 
-[ext_resource type="Script" path="res://src/widget/ValSlider.gd" id="1_07xlp"]
+[ext_resource type="Script" path="res://src/widget/ValSlider/ValSlider.gd" id="1_07xlp"]
 
 [node name="Selection" type="VBoxContainer"]
 anchors_preset = 15
@@ -16,7 +16,7 @@ theme_type_variation = &"title"
 text = "Selection Tool"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="divider" type="HSeparator" parent="."]
 layout_mode = 2
 theme_type_variation = &"HDivider"
 
@@ -82,27 +82,31 @@ prefix = "Height:"
 [node name="holder2" type="HSeparator" parent="."]
 layout_mode = 2
 
-[node name="DrawingSel" type="VBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="label-size" type="Label" parent="DrawingSel"]
-layout_mode = 2
-text = "Brush Size"
-
-[node name="DrawingSize" type="ProgressBar" parent="DrawingSel"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-focus_mode = 2
-theme_type_variation = &"ValSlider"
-script = ExtResource("1_07xlp")
-
-[node name="MagicSel" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="label-similarity" type="Label" parent="MagicSel"]
+[node name="label-similarity" type="Label" parent="."]
 layout_mode = 2
 text = "Similarity"
 
-[node name="Similarity" type="SpinBox" parent="MagicSel"]
-custom_minimum_size = Vector2(0, 20)
+[node name="Similarity" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("1_07xlp")
+text_alignment = 1
+
+[node name="label-size" type="Label" parent="."]
+layout_mode = 2
+text = "Brush Size"
+
+[node name="BrushSize" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+min_value = 1.0
+max_value = 30.0
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("1_07xlp")
+text_alignment = 1
+suffix = "px"
