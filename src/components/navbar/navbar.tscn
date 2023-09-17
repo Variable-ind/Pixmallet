@@ -84,7 +84,6 @@ flat = false
 
 [node name="Submenu" type="PopupMenu" parent="."]
 position = Vector2i(-9999, -9999)
-mouse_passthrough = true
 hide_on_checkable_item_selection = false
 script = ExtResource("3_7qha6")
 

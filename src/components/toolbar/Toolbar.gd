@@ -31,7 +31,7 @@ const TOOL_ID_MAP: Dictionary = {
 	'SelPolygon': SEL_POLYGON,
 	'SelColor': SEL_COLOR,
 	'SelMagic': SEL_MAGIC,
-	'Sel_Lass': SEL_LASSO,
+	'SelLasso': SEL_LASSO,
 	'ShapeLine': SHAPE_LINE,
 	'ShapeRect': SHAPE_RECT,
 	'ShapeEllipse': SHAPE_ELLIPSE,
@@ -47,12 +47,39 @@ const TOOL_ID_MAP: Dictionary = {
 }
 
 @onready var toolbtns = $ToolBtns
+@onready var toolbar_keymaps = {
+	'Select': {'action': 'select', 'event': KeyChain.makeEventKey(KEY_W)},
+	'Shape': {'action': 'shape', 'event': KeyChain.makeEventKey(KEY_U)},
+	'Pencil': {'action': 'pencil', 'event': KeyChain.makeEventKey(KEY_B)},
+	'Eraser': {'action': 'eraser', 'event': KeyChain.makeEventKey(KEY_E)},
+	'Fill': {'action': 'fill', 'event': KeyChain.makeEventKey(KEY_G)},
+	'Pan': {'action': 'pan', 'event': KeyChain.makeEventKey(KEY_SPACE)},
+	'Move': {'action': 'move', 'event': KeyChain.makeEventKey(KEY_V)},
+	'ColorPicker': {'action': 'color_picker', 'event': KeyChain.makeEventKey(KEY_I)},
+	'Crop': {'action': 'crop', 'event': KeyChain.makeEventKey(KEY_C)},
+	'Zoom': {'action': 'zoom', 'event': KeyChain.makeEventKey(KEY_Z)},
+	'Shading': {'action': 'shading', 'event': KeyChain.makeEventKey(KEY_S)},
+}
 
 
 func _ready():
 	for btn in toolbtns.get_children():
 		if btn is Button:
 			btn.pressed.connect(_on_button_pressed.bind(btn))
+			btn.focus_mode = Control.FOCUS_NONE
+			btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+			btn.tooltip_text = btn.name
+			var keymap = toolbar_keymaps.get(btn.name)
+			if keymap:
+				btn.shortcut = Shortcut.new()
+				var event:InputEventAction = InputEventAction.new()
+				event.action = keymap['action']
+				btn.shortcut.events.append(event)
+				var action = g.keyChain.add_action(keymap['action'], 
+												   btn.name, 
+												   name)
+				if keymap.get('event'):
+					action.bind_event(keymap['event'])
 
 
 func _on_button_pressed(btn):

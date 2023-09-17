@@ -28,41 +28,55 @@ enum {
 var menu_item_map: Dictionary = {}
 
 
-@onready var navbar_menus = [
+@onready var navbar_keymaps = [
 	{
 		'menu': $MenuItems/File,
 		'popmenus': [
-			{'id': NEW_FILE, 'label': 'New', 'action': 'new_file'},
-			{'id': OPEN_FILE, 'label':'Open', 'action': 'open_file'},
+			{'id': NEW_FILE, 'label': 'New', 'action': 'new_file', 
+			 'event': KeyChain.makeEventKey(KEY_N, true)},
+			{'id': OPEN_FILE, 'label':'Open', 'action': 'open_file',
+			 'event': KeyChain.makeEventKey(KEY_O, true)},
 			{'id': RECENT_FILE, 'label': 'Recent projects',
 			 'submenu': $Submenu.duplicate(), 'unified': true, 'data': [
 				{'label': 'file_path_1.file', 'path': 'file_path_1.file'},
 				{'label': 'file_path_2.file', 'path': 'file_path_2.file'},
 				{'label': 'file_path_2.file', 'path': 'file_path_2.file'},
 			]},
-			{'id': SAVE_FILE, 'label': 'Save', 'action': 'save'},
-			{'id': SAVE_FILE_AS, 'label': 'Save as', 'action': 'save_as'},
-			{'id': EXPORT_FILE, 'label': 'Export', 'action': 'export'},
-			{'id': QUIT, 'label': 'Quit', 'action': 'quit'},
+			{'id': SAVE_FILE, 'label': 'Save', 'action': 'save',
+			 'event': KeyChain.makeEventKey(KEY_S, true)},
+			{'id': SAVE_FILE_AS, 'label': 'Save as', 'action': 'save_as',
+			 'event': KeyChain.makeEventKey(KEY_S, true, true)},
+			{'id': EXPORT_FILE, 'label': 'Export', 'action': 'export',
+			 'event': KeyChain.makeEventKey(KEY_S, true, true, true)},
+			{'id': QUIT, 'label': 'Quit', 'action': 'quit',
+			 'event': KeyChain.makeEventKey(KEY_Q, true)},
 		]
 	},
 	{
 		'menu': $MenuItems/Edit,
 		'popmenus': [
-			{'id': UNDO, 'label': 'Undo', 'action': 'undo'},
-			{'id': REDO, 'label':'Redo', 'action': 'redo'},
-			{'id': COPY, 'label': 'Copy', 'action': 'copy'},
-			{'id': PASTE, 'label': 'Paste', 'action': 'paste'},
-			{'id': DELETE, 'label': 'Delete', 'action': 'delete'},
+			{'id': UNDO, 'label': 'Undo', 'action': 'undo',
+			 'event': KeyChain.makeEventKey(KEY_Z, true)},
+			{'id': REDO, 'label':'Redo', 'action': 'redo',
+			 'event': KeyChain.makeEventKey(KEY_Z, true, true)},
+			{'id': COPY, 'label': 'Copy', 'action': 'copy',
+			 'event': KeyChain.makeEventKey(KEY_C, true)},
+			{'id': PASTE, 'label': 'Paste', 'action': 'paste',
+			 'event': KeyChain.makeEventKey(KEY_V, true)},
+			{'id': DELETE, 'label': 'Delete', 'action': 'delete',
+			 'event': KeyChain.makeEventKey(KEY_BACKSPACE)},
 			{'id': PREFERENCES, 'label': 'Preferences'},
 		]
 	},
 	{
 		'menu': $MenuItems/Select,
 		'popmenus': [
-			{'id': SELECT_ALL, 'label': 'All', 'action': 'select_all'},
-			{'id': CLEAR_SEL, 'label':'Clear', 'action': 'clear_selection'},
-			{'id': INVERT_SEL, 'label': 'Invert', 'action': 'invert_selection'},
+			{'id': SELECT_ALL, 'label': 'All', 'action': 'select_all',
+			 'event': KeyChain.makeEventKey(KEY_A, true)},
+			{'id': CLEAR_SEL, 'label':'Clear', 'action': 'clear_selection',
+			 'event': KeyChain.makeEventKey(KEY_D, true)},
+			{'id': INVERT_SEL, 'label': 'Invert', 'action': 'invert_selection',
+			 'event': KeyChain.makeEventKey(KEY_I, true, true)},
 #			{'key': 'tile_selection', 'label': 'On Tile'},
 		]
 	},
@@ -133,7 +147,7 @@ var menu_item_map: Dictionary = {}
 
 
 func _ready():
-	for menu in navbar_menus:
+	for menu in navbar_keymaps:
 		_set_menu_items(menu['menu'], menu['popmenus'])
 
 
@@ -159,6 +173,11 @@ func _set_menu_items(menu:MenuButton, structure:Array):
 				var event:InputEventAction = InputEventAction.new()
 				event.action = item['action']
 				shortcut.events.append(event)
+				var action = g.keyChain.add_action(item['action'], 
+												   item['label'], 
+												   name)
+				if item.get('event'):
+					action.bind_event(item['event'])
 				menu_popup.set_item_shortcut(i, shortcut)
 		
 		# record menu item to k, v map

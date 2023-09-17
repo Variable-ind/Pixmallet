@@ -43,7 +43,7 @@ func load_palettes():
 		save_palette(default_palette)
 		print('create palette: ', default_palette_tres_file)
 	
-	var palette_dir :DirAccess = g.user_palette_dir
+	var palette_dir :DirAccess = DirAccess.open(config.PATH_PALETTE_DIR)
 	var files = palette_dir.get_files()
 	
 	var default_res = null

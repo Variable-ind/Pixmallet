@@ -98,7 +98,8 @@ func add_action(action_key :StringName, action_name :String = '' , tag :StringNa
 	var action :KeyChainAction
 	
 	action = get_action(action_key)
-	assert(action == null, 'Action key must bee not duplicated.')
+	assert(action == null, 
+		   'Action key must bee not duplicated. - {a}'.format({'a':action_key}))
 	
 	add_tag(tag)
 	
@@ -123,7 +124,7 @@ func update_action(action_key :StringName, action_name :String = '' , tag :Strin
 		action_name = action_key.capitalize()
 	
 	var action = get_action(action_key)
-	assert(action != null, 'Action not found.')
+	assert(action != null, 'Action not found. - {a}'.format({'a':action_key}))
 	
 	add_tag(tag)
 		

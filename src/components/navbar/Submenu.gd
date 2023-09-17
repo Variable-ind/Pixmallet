@@ -1,5 +1,7 @@
 extends PopupMenu
 
+class_name NavSubmenu
+
 signal item_pressed(item_data)
 
 var data_dict: Dictionary = {}
