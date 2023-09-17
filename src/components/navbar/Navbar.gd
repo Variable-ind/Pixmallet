@@ -33,69 +33,71 @@ var menu_item_map: Dictionary = {}
 		'menu': $MenuItems/File,
 		'popmenus': [
 			{'id': NEW_FILE, 'label': 'New', 'action': 'new_file'},
-			{'id': OPEN_FILE, 'label':'Open'},
+			{'id': OPEN_FILE, 'label':'Open', 'action': 'open_file'},
 			{'id': RECENT_FILE, 'label': 'Recent projects',
 			 'submenu': $Submenu.duplicate(), 'unified': true, 'data': [
 				{'label': 'file_path_1.file', 'path': 'file_path_1.file'},
 				{'label': 'file_path_2.file', 'path': 'file_path_2.file'},
 				{'label': 'file_path_2.file', 'path': 'file_path_2.file'},
 			]},
-			{'id': SAVE_FILE, 'label': 'Save'},
-			{'id': SAVE_FILE_AS, 'label': 'Save as'},
-			{'id': EXPORT_FILE, 'label': 'Export'},
-			{'id': QUIT, 'label': 'Quit'},
+			{'id': SAVE_FILE, 'label': 'Save', 'action': 'save'},
+			{'id': SAVE_FILE_AS, 'label': 'Save as', 'action': 'save_as'},
+			{'id': EXPORT_FILE, 'label': 'Export', 'action': 'export'},
+			{'id': QUIT, 'label': 'Quit', 'action': 'quit'},
 		]
 	},
 	{
 		'menu': $MenuItems/Edit,
 		'popmenus': [
-			{'id': UNDO, 'label': 'Undo'},
-			{'id': REDO, 'label':'Redo'},
-			{'id': COPY, 'label': 'Copy'},
-			{'id': PASTE, 'label': 'Paste'},
-			{'id': DELETE, 'label': 'Delete'},
+			{'id': UNDO, 'label': 'Undo', 'action': 'undo'},
+			{'id': REDO, 'label':'Redo', 'action': 'redo'},
+			{'id': COPY, 'label': 'Copy', 'action': 'copy'},
+			{'id': PASTE, 'label': 'Paste', 'action': 'paste'},
+			{'id': DELETE, 'label': 'Delete', 'action': 'delete'},
 			{'id': PREFERENCES, 'label': 'Preferences'},
 		]
 	},
 	{
 		'menu': $MenuItems/Select,
 		'popmenus': [
-			{'id': SELECT_ALL, 'label': 'All'},
-			{'id': CLEAR_SEL, 'label':'Clear'},
-			{'id': INVERT_SEL, 'label': 'Invert'},
+			{'id': SELECT_ALL, 'label': 'All', 'action': 'select_all'},
+			{'id': CLEAR_SEL, 'label':'Clear', 'action': 'clear_selection'},
+			{'id': INVERT_SEL, 'label': 'Invert', 'action': 'invert_selection'},
 #			{'key': 'tile_selection', 'label': 'On Tile'},
 		]
 	},
 	{
 		'menu': $MenuItems/Modify,
 		'popmenus': [
-			{'id': RESIZE_CANVAS, 'label': 'Resize Canvas'},
-			{'id': IMG_OFFSET, 'label':'Offset Image'},
-			{'id': IMG_SCALE, 'label': 'Scale Image'},
-			{'id': IMG_CROP, 'label': 'Crop Image'},
-			{'id': IMG_FLIP, 'label': 'Flip Image'},
-			{'id': IMG_ROTATE, 'label': 'Rotate Image'},
-			{'id': IMG_OUTLINE, 'label': 'Outline'},
-			{'id': DROP_SHADOW, 'label': 'Drop Shadow'},
-			{'id': INVERT_COLOR, 'label': 'Invert Colors'},
-			{'id': DESATURATION, 'label': 'Desaturation'},
-			{'id': HSV, 'label': 'Hue/Saturation/Value'},
-			{'id': POSTERIZE, 'label': 'Posterize'},
-			{'id': GRADIENT, 'label': 'Gradient'},
+			{'id': RESIZE_CANVAS, 'label': 'Resize Canvas', 'action': 'resize_canvas'},
+			{'id': IMG_OFFSET, 'label':'Offset Image', 'action': 'offset_image'},
+			{'id': IMG_SCALE, 'label': 'Scale Image', 'action': 'scale_image'},
+			{'id': IMG_CROP, 'label': 'Crop Image', 'action': 'crop_image'},
+			{'id': IMG_FLIP, 'label': 'Flip Image', 'action': 'flip_image'},
+			{'id': IMG_ROTATE, 'label': 'Rotate Image', 'action': 'rotate_image'},
+			{'id': IMG_OUTLINE, 'label': 'Outline', 'action': 'outline'},
+			{'id': DROP_SHADOW, 'label': 'Drop Shadow', 'action': 'drop_shadow'},
+			{'id': INVERT_COLOR, 'label': 'Invert Colors', 'action': 'invert_color'},
+			{'id': DESATURATION, 'label': 'Desaturation', 'action': 'desaturation'},
+			{'id': HSV, 'label': 'Hue/Saturation/Value', 'action': 'hsv'},
+			{'id': POSTERIZE, 'label': 'Posterize', 'action': 'postersize'},
+			{'id': GRADIENT, 'label': 'Gradient', 'action': 'gradient'},
 		]
 	},
 	{
 		'menu': $MenuItems/View,
 		'popmenus': [
-			{'id': TILE_MODE, 'label': 'Tile Mode'},
-			{'id': TILE_MODE, 'label':'Tile Mode Offset'},
-			{'id': GRAYSCALE_VIEW, 'label': 'Grayscale View'},
-			{'id': MIRROR_VIEW, 'label': 'Mirror View'},
-			{'id': SHOW_GRID, 'label': 'Show Grid'},
-			{'id': SHOW_PIX_GRID, 'label': 'Show Pixel Grid'},
-			{'id': SHOW_RULERS, 'label': 'Show Rulers'},
-			{'id': SHOW_GUIDES, 'label': 'Show Guides'},
-			{'id': SHOW_MOUSE_GUIDES, 'label': 'Show Mouse Guides'},
+			{'id': TILE_MODE, 'label': 'Tile Mode', 'action': 'tile_mode'},
+			{'id': TILE_MODE_OFFSET, 'label':'Tile Mode Offset', 
+			 'action': 'tile_mode_offset'},
+			{'id': GRAYSCALE_VIEW, 'label': 'Grayscale View', 'action': 'grayscale_view'},
+			{'id': MIRROR_VIEW, 'label': 'Mirror View', 'action': 'mirror_view'},
+			{'id': SHOW_GRID, 'label': 'Show Grid', 'action': 'show_grid'},
+			{'id': SHOW_PIX_GRID, 'label': 'Show Pixel Grid', 'action': 'show_pixel_grid'},
+			{'id': SHOW_RULERS, 'label': 'Show Rulers', 'action': 'show_rulerss'},
+			{'id': SHOW_GUIDES, 'label': 'Show Guides', 'action': 'show_guides'},
+			{'id': SHOW_MOUSE_GUIDES, 'label': 'Show Mouse Guides', 
+			 'action': 'show_mouse_guides'},
 			{'id': SNAP_GROUP, 'label': 'Snap To', 'submenu': $Submenu.duplicate(),
 			 'data': [
 				{'id': SNAP_GRID, 'label':'Grids', 'check': false},
@@ -154,12 +156,10 @@ func _set_menu_items(menu:MenuButton, structure:Array):
 				menu_popup.add_item(item['label'], item['id'])
 			if item.get('action'):
 				var shortcut:Shortcut = Shortcut.new()
-#				var event:InputEventAction = InputEventAction.new()
-#				var event_action:StringName = ACTION_NAME_TMPL.format(
-#					{'n': item['action']}) 
-#				event.action = item.get('event', event_action)
-#				shortcut.events.append(event)
-#				menu_popup.set_item_shortcut(i, shortcut)
+				var event:InputEventAction = InputEventAction.new()
+				event.action = item['action']
+				shortcut.events.append(event)
+				menu_popup.set_item_shortcut(i, shortcut)
 		
 		# record menu item to k, v map
 		item['popup'] = menu_popup
