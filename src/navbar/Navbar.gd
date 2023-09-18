@@ -200,4 +200,3 @@ func _on_menu_id_pressed(item_id):
 
 func _on_submenu_item_pressed(item_id, item_data):
 	navigation_to.emit(item_id, item_data)
-

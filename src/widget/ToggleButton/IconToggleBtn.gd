@@ -1,7 +1,7 @@
 @tool
 extends Button
 
-class_name LayerBtn
+class_name IconToogleBtn
 
 signal layer_btn_toggled(toggled_state, is_triggered)
 
@@ -28,6 +28,8 @@ func _init():
 
 func _ready():
 	set_icon()
+	icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
 	toggled.connect(_on_toggled)
 
 

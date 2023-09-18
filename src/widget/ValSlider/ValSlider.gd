@@ -179,7 +179,7 @@ func _on_overlayer_mouseout():
 		state = NORMAL
 
 
-func _on_changed(val):
+func _on_changed():
 	valueSpinBox.min_value = min_value
 	valueSpinBox.max_value = max_value
 	valueSpinBox.value = value
