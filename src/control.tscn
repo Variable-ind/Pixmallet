@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=29 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_hk23w"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bpb81qqyhhoab" path="res://src/rulers/h_ruler.tscn" id="6_nmtuf"]
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="7_eo0uy"]
 [ext_resource type="Shader" path="res://src/shaders/Greyscale.gdshader" id="8_rxagw"]
+[ext_resource type="Script" path="res://src/widget/ValSlider/ValSlider.gd" id="9_6lej8"]
 [ext_resource type="Script" path="res://src/timeline/Layer.gd" id="9_18ohv"]
 [ext_resource type="Texture2D" uid="uid://djd6jmojrvo5h" path="res://assets/icons/eye-open.png" id="9_dtvm0"]
 [ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/components/colorpalette/color_palette.tscn" id="9_igahc"]
@@ -39,6 +40,18 @@ shader_parameter/follow_scale = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ib7er"]
 shader = ExtResource("8_rxagw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_62d7w"]
+shader = ExtResource("7_eo0uy")
+shader_parameter/size = 10.0
+shader_parameter/alpha = 1.0
+shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
+shader_parameter/color2 = Color(1, 1, 1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/scale = Vector2(0, 0)
+shader_parameter/rect_size = Vector2(0, 0)
+shader_parameter/follow_movement = false
+shader_parameter/follow_scale = false
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -166,8 +179,27 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline"]
-custom_minimum_size = Vector2(0, 36)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FPS" type="ProgressBar" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+min_value = 1.0
+max_value = 60.0
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("9_6lej8")
+suffix = "FPS"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline"]
 layout_mode = 2
@@ -273,6 +305,15 @@ clip_contents = true
 custom_minimum_size = Vector2(36, 30)
 layout_mode = 2
 theme_type_variation = &"framebtn"
+
+[node name="ColorRect" type="ColorRect" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layers/split/contents/frames/FrameBtn"]
+material = SubResource("ShaderMaterial_62d7w")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="right-sider" type="PanelContainer" parent="main_area/mainborad/workspace"]
 layout_mode = 2
