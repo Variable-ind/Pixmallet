@@ -1,6 +1,5 @@
 [gd_scene load_steps=10 format=3 uid="uid://bw43bipa0o2mv"]
 
-[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default/default.tres" id="1_0qsv8"]
 [ext_resource type="Script" path="res://src/components/colorpalette/ColorPalette.gd" id="2_rqgjd"]
 [ext_resource type="Texture2D" uid="uid://5gpo44fntnjs" path="res://assets/tools/pencil.png" id="3_e20ir"]
 [ext_resource type="Texture2D" uid="uid://c0lg7tcxk5eya" path="res://assets/components/switch.png" id="4_h3l0l"]
@@ -16,7 +15,6 @@ offset_right = 300.0
 offset_bottom = 200.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("1_0qsv8")
 script = ExtResource("2_rqgjd")
 
 [node name="margin" type="MarginContainer" parent="."]
