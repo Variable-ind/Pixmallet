@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnn5f7do2gre8"
-path="res://.godot/imported/prefect-pixel.png-e5fd98bb0c16ae2c5ea3a9f9be1e5344.ctex"
+uid="uid://t4x3p6bxgvxw"
+path="res://.godot/imported/draw-mirror-h.png-bcef99feea03e26ae7da86942e9543f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/components/prefect-pixel.png"
-dest_files=["res://.godot/imported/prefect-pixel.png-e5fd98bb0c16ae2c5ea3a9f9be1e5344.ctex"]
+source_file="res://assets/icons/draw-mirror-h.png"
+dest_files=["res://.godot/imported/draw-mirror-h.png-bcef99feea03e26ae7da86942e9543f7.ctex"]
 
 [params]
 

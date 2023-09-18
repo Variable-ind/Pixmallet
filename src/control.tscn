@@ -77,14 +77,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="canvas-funcbar" type="PanelContainer" parent="main_area/mainborad/workspace/canvas"]
+[node name="funcbar" type="PanelContainer" parent="main_area/mainborad/workspace/canvas"]
 layout_mode = 2
-theme_type_variation = &"canvas_funcbar"
+theme_type_variation = &"funcbar"
 
-[node name="split" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/canvas-funcbar"]
+[node name="split" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/funcbar"]
 layout_mode = 2
 
-[node name="Tabbar" type="TabBar" parent="main_area/mainborad/workspace/canvas/canvas-funcbar/split"]
+[node name="Tabbar" type="TabBar" parent="main_area/mainborad/workspace/canvas/funcbar/split"]
 layout_mode = 2
 size_flags_horizontal = 3
 tab_close_display_policy = 2
@@ -94,7 +94,7 @@ tab_1/title = "asdfdf"
 tab_2/title = "test"
 tab_2/disabled = true
 
-[node name="Adjustment" parent="main_area/mainborad/workspace/canvas/canvas-funcbar/split" instance=ExtResource("5_cd782")]
+[node name="Adjustment" parent="main_area/mainborad/workspace/canvas/funcbar/split" instance=ExtResource("5_cd782")]
 layout_mode = 2
 
 [node name="HRuler" parent="main_area/mainborad/workspace/canvas" instance=ExtResource("6_nmtuf")]
@@ -162,17 +162,26 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="layers" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer"]
+[node name="layer-panel" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="row" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layers"]
-custom_minimum_size = Vector2(0, 24)
+[node name="split" type="HSplitContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split"]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layers/row"]
+[node name="layerbar" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer/layerbar"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -180,7 +189,42 @@ text = "Layers"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FrameBtn" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layers/row"]
+[node name="layer" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer/layer"]
+layout_mode = 2
+theme_type_variation = &"IconButton"
+text = "dsf"
+
+[node name="Label" type="Label" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer/layer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Layers"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split"]
+layout_mode = 2
+
+[node name="framebar" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="FrameBtn" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer2/framebar"]
+clip_contents = true
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+theme_type_variation = &"framebtn"
+text = "1"
+
+[node name="frames" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="FrameBtn" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer2/frames"]
 clip_contents = true
 custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
@@ -262,5 +306,5 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 
 [connection signal="navigation_to" from="main_area/Navbar" to="." method="_on_navigation_to"]
 [connection signal="active_tool" from="main_area/mainborad/workspace/left-sider/Toolbar" to="." method="_on_active_tool"]
-[connection signal="active_adjust_tool" from="main_area/mainborad/workspace/canvas/canvas-funcbar/split/Adjustment" to="." method="_on_active_adjust_tool"]
+[connection signal="active_adjust_tool" from="main_area/mainborad/workspace/canvas/funcbar/split/Adjustment" to="." method="_on_active_adjust_tool"]
 [connection signal="modal_toggled" from="main_area/mainborad/workspace/right-sider/split/split/ColorPalette" to="." method="_on_modal_toggled"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t4x3p6bxgvxw"
-path="res://.godot/imported/draw-mirror-h.png-db2aebcb4a4f9eca1f1dfd23155308a4.ctex"
+uid="uid://djmshu3w5v525"
+path="res://.godot/imported/icon_48x48.png-b3831e558916217611c9714a844a1c34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/components/draw-mirror-h.png"
-dest_files=["res://.godot/imported/draw-mirror-h.png-db2aebcb4a4f9eca1f1dfd23155308a4.ctex"]
+source_file="res://assets/logos/icon_48x48.png"
+dest_files=["res://.godot/imported/icon_48x48.png-b3831e558916217611c9714a844a1c34.ctex"]
 
 [params]
 

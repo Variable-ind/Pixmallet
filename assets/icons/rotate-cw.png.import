@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bexqwxtnmv0bh"
-path="res://.godot/imported/minus.png-56d36bf15282295aea76f8ac0d416264.ctex"
+uid="uid://c18wh8glajtor"
+path="res://.godot/imported/rotate-cw.png-e1f32bfbfba658ad6f9b4edfb11ab605.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/components/minus.png"
-dest_files=["res://.godot/imported/minus.png-56d36bf15282295aea76f8ac0d416264.ctex"]
+source_file="res://assets/icons/rotate-cw.png"
+dest_files=["res://.godot/imported/rotate-cw.png-e1f32bfbfba658ad6f9b4edfb11ab605.ctex"]
 
 [params]
 

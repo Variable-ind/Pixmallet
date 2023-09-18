@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://dkkj62x4hs764"]
 
 [ext_resource type="Script" path="res://src/adjustment/AdjustmentTool.gd" id="1_wk5q7"]
-[ext_resource type="Texture2D" uid="uid://w4mloklylrbw" path="res://assets/components/flip-h.png" id="2_ntn0e"]
-[ext_resource type="Texture2D" uid="uid://bs4hd7aou4oo" path="res://assets/components/flip-v.png" id="3_ap6pk"]
-[ext_resource type="Texture2D" uid="uid://buv4yejvagx6u" path="res://assets/components/rotate-ccw.png" id="4_b12nu"]
-[ext_resource type="Texture2D" uid="uid://c18wh8glajtor" path="res://assets/components/rotate-cw.png" id="5_omdwd"]
-[ext_resource type="Texture2D" uid="uid://t4x3p6bxgvxw" path="res://assets/components/draw-mirror-h.png" id="6_45we1"]
-[ext_resource type="Texture2D" uid="uid://eeyothb5y4ag" path="res://assets/components/draw-mirror-v.png" id="7_530ix"]
-[ext_resource type="Texture2D" uid="uid://cnn5f7do2gre8" path="res://assets/components/prefect-pixel.png" id="8_d7txu"]
+[ext_resource type="Texture2D" uid="uid://w4mloklylrbw" path="res://assets/icons/flip-h.png" id="2_ntn0e"]
+[ext_resource type="Texture2D" uid="uid://bs4hd7aou4oo" path="res://assets/icons/flip-v.png" id="3_ap6pk"]
+[ext_resource type="Texture2D" uid="uid://buv4yejvagx6u" path="res://assets/icons/rotate-ccw.png" id="4_b12nu"]
+[ext_resource type="Texture2D" uid="uid://c18wh8glajtor" path="res://assets/icons/rotate-cw.png" id="5_omdwd"]
+[ext_resource type="Texture2D" uid="uid://t4x3p6bxgvxw" path="res://assets/icons/draw-mirror-h.png" id="6_45we1"]
+[ext_resource type="Texture2D" uid="uid://eeyothb5y4ag" path="res://assets/icons/draw-mirror-v.png" id="7_530ix"]
+[ext_resource type="Texture2D" uid="uid://cnn5f7do2gre8" path="res://assets/icons/prefect-pixel.png" id="8_d7txu"]
 
 [node name="Adjustment" type="HBoxContainer"]
 offset_right = 300.0
@@ -22,7 +22,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_type_variation = &"adjustbtn"
+theme_type_variation = &"IconButton"
 icon = ExtResource("2_ntn0e")
 flat = true
 icon_alignment = 1
@@ -32,7 +32,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_type_variation = &"adjustbtn"
+theme_type_variation = &"IconButton"
 icon = ExtResource("3_ap6pk")
 flat = true
 icon_alignment = 1
@@ -42,7 +42,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_type_variation = &"adjustbtn"
+theme_type_variation = &"IconButton"
 icon = ExtResource("4_b12nu")
 flat = true
 icon_alignment = 1
@@ -52,7 +52,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_type_variation = &"adjustbtn"
+theme_type_variation = &"IconButton"
 icon = ExtResource("5_omdwd")
 flat = true
 icon_alignment = 1
@@ -65,7 +65,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_type_variation = &"adjustbtn"
+theme_type_variation = &"IconButton"
 toggle_mode = true
 action_mode = 0
 icon = ExtResource("6_45we1")
@@ -77,7 +77,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_type_variation = &"adjustbtn"
+theme_type_variation = &"IconButton"
 toggle_mode = true
 action_mode = 0
 icon = ExtResource("7_530ix")
@@ -89,7 +89,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_type_variation = &"adjustbtn"
+theme_type_variation = &"IconButton"
 toggle_mode = true
 action_mode = 0
 icon = ExtResource("8_d7txu")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd362j0tsse6l"
-path="res://.godot/imported/pen-setting.png-b15a063ebe96848b0006a0861d955bf6.ctex"
+uid="uid://mfegu31r5d7t"
+path="res://.godot/imported/lock.png-8b5781e292369a8e02e29f0128fda63f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/components/pen-setting.png"
-dest_files=["res://.godot/imported/pen-setting.png-b15a063ebe96848b0006a0861d955bf6.ctex"]
+source_file="res://assets/icons/lock.png"
+dest_files=["res://.godot/imported/lock.png-8b5781e292369a8e02e29f0128fda63f.ctex"]
 
 [params]
 

@@ -1,12 +1,12 @@
-[gd_resource type="Theme" load_steps=63 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=62 format=3 uid="uid://bnvbwu202rx6u"]
 
-[ext_resource type="Texture2D" uid="uid://bolpd85jv2bw8" path="res://assets/components/close.png" id="23_xryma"]
-[ext_resource type="Texture2D" uid="uid://8628muy3ehm0" path="res://assets/components/arrow-left-off.png" id="24_smqa4"]
+[ext_resource type="Texture2D" uid="uid://bolpd85jv2bw8" path="res://assets/icons/close.png" id="2_jaqhv"]
+[ext_resource type="Texture2D" uid="uid://8628muy3ehm0" path="res://assets/icons/arrow-left-off.png" id="3_ijyqg"]
+[ext_resource type="Texture2D" uid="uid://crie37lhuspwq" path="res://assets/icons/arrow-left.png" id="4_qvhtc"]
+[ext_resource type="Texture2D" uid="uid://wl57rj6yulid" path="res://assets/icons/arrow-right-off.png" id="5_qiyvd"]
+[ext_resource type="Texture2D" uid="uid://bpphhysy73qnp" path="res://assets/icons/arrow-right.png" id="6_yonv5"]
 [ext_resource type="FontFile" uid="uid://cllbhityges65" path="res://assets/fonts/OpenSans-Regular.ttf" id="24_tutt7"]
-[ext_resource type="Texture2D" uid="uid://crie37lhuspwq" path="res://assets/components/arrow-left.png" id="25_b7rye"]
 [ext_resource type="FontFile" uid="uid://c8xuja0cdkq51" path="res://assets/fonts/OpenSans-Bold.ttf" id="25_ca3p4"]
-[ext_resource type="Texture2D" uid="uid://wl57rj6yulid" path="res://assets/components/arrow-right-off.png" id="26_g3rk4"]
-[ext_resource type="Texture2D" uid="uid://bpphhysy73qnp" path="res://assets/components/arrow-right.png" id="27_watux"]
 
 [sub_resource type="StyleBoxFlat" id="ButtonDisabled"]
 content_margin_left = 12.0
@@ -27,21 +27,21 @@ content_margin_left = 12.0
 content_margin_top = 6.0
 content_margin_right = 12.0
 content_margin_bottom = 6.0
-bg_color = Color(0.6, 0.333333, 0.266667, 0.4)
+bg_color = Color(0.6, 0.33, 0.26, 0.4)
 
 [sub_resource type="StyleBoxFlat" id="ButtonNormal"]
 content_margin_left = 12.0
 content_margin_top = 6.0
 content_margin_right = 12.0
 content_margin_bottom = 6.0
-bg_color = Color(0.6, 0.333333, 0.266667, 0.7)
+bg_color = Color(0.6, 0.33, 0.26, 0.7)
 
 [sub_resource type="StyleBoxFlat" id="ButtonPressed"]
 content_margin_left = 12.0
 content_margin_top = 6.0
 content_margin_right = 12.0
 content_margin_bottom = 6.0
-bg_color = Color(0.6, 0.333333, 0.266667, 1)
+bg_color = Color(0.6, 0.33, 0.26, 1)
 
 [sub_resource type="StyleBoxFlat" id="ColorPickerDisabled"]
 draw_center = false
@@ -49,7 +49,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.2, 0.2, 0.2, 0.7)
+border_color = Color(0.2, 0.2, 0.2, 0.4)
 
 [sub_resource type="StyleBoxFlat" id="ColorPickerFocus"]
 draw_center = false
@@ -57,7 +57,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.2, 0.2, 0.2, 1)
+border_color = Color(0.2, 0.2, 0.2, 0.7)
 
 [sub_resource type="StyleBoxFlat" id="ColorPickerHover"]
 draw_center = false
@@ -65,7 +65,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.6, 0.333333, 0.266667, 0.4)
+border_color = Color(0.6, 0.33, 0.26, 0.4)
 
 [sub_resource type="StyleBoxFlat" id="ColorPickerNormal"]
 draw_center = false
@@ -73,7 +73,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.6, 0.333333, 0.266667, 0.7)
+border_color = Color(0.2, 0.2, 0.2, 0.7)
 
 [sub_resource type="StyleBoxFlat" id="ColorPickerPressed"]
 draw_center = false
@@ -81,7 +81,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.6, 0.333333, 0.266667, 1)
+border_color = Color(0.6, 0.33, 0.26, 0.7)
 
 [sub_resource type="StyleBoxFlat" id="HorizontalDivider"]
 draw_center = false
@@ -90,6 +90,21 @@ border_color = Color(0.8, 0.8, 0.8, 0.2)
 
 [sub_resource type="StyleBoxFlat" id="Empty"]
 draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="IconButtonDisabled"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="IconButtonFocus"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="IconButtonHover"]
+bg_color = Color(0.6, 0.33, 0.26, 0.4)
+
+[sub_resource type="StyleBoxFlat" id="IconButtonNormal"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="IconButtonPressed"]
+bg_color = Color(0.6, 0.33, 0.26, 1)
 
 [sub_resource type="StyleBoxFlat" id="MenuButtonDisabled"]
 content_margin_left = 6.0
@@ -104,7 +119,7 @@ draw_center = false
 [sub_resource type="StyleBoxFlat" id="MenuButtonHover"]
 content_margin_left = 6.0
 content_margin_right = 6.0
-bg_color = Color(0.6, 0.333333, 0.266667, 0.4)
+bg_color = Color(0.6, 0.33, 0.26, 0.4)
 
 [sub_resource type="StyleBoxFlat" id="MenuButtonNormal"]
 content_margin_left = 6.0
@@ -114,23 +129,23 @@ draw_center = false
 [sub_resource type="StyleBoxFlat" id="MenuButtonPressed"]
 content_margin_left = 6.0
 content_margin_right = 6.0
-bg_color = Color(0.6, 0.333333, 0.266667, 1)
+bg_color = Color(0.6, 0.33, 0.26, 1)
 
 [sub_resource type="StyleBoxFlat" id="Panel"]
-bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+bg_color = Color(0.13, 0.13, 0.13, 1)
 
 [sub_resource type="StyleBoxFlat" id="PanelContainer"]
 bg_color = Color(0.2, 0.2, 0.2, 1)
 
 [sub_resource type="StyleBoxFlat" id="PopupMenuHover"]
-bg_color = Color(0.6, 0.333333, 0.266667, 0.4)
+bg_color = Color(0.6, 0.33, 0.26, 0.4)
 
 [sub_resource type="StyleBoxFlat" id="PopupMenu"]
 content_margin_left = 12.0
 content_margin_top = 12.0
 content_margin_right = 12.0
 content_margin_bottom = 12.0
-bg_color = Color(0.133333, 0.133333, 0.133333, 0.7)
+bg_color = Color(0.13, 0.13, 0.13, 0.7)
 expand_margin_left = 12.0
 expand_margin_top = 12.0
 expand_margin_right = 12.0
@@ -151,7 +166,7 @@ content_margin_left = 12.0
 content_margin_top = 8.0
 content_margin_right = 12.0
 content_margin_bottom = 6.0
-bg_color = Color(0.6, 0.333333, 0.266667, 0.4)
+bg_color = Color(0.6, 0.33, 0.26, 0.4)
 
 [sub_resource type="StyleBoxFlat" id="TabSelected"]
 content_margin_left = 12.0
@@ -160,14 +175,14 @@ content_margin_right = 12.0
 content_margin_bottom = 6.0
 bg_color = Color(0.2, 0.2, 0.2, 1)
 border_width_top = 2
-border_color = Color(0.6, 0.333333, 0.266667, 1)
+border_color = Color(0.6, 0.33, 0.26, 1)
 
 [sub_resource type="StyleBoxFlat" id="TabUnselected"]
 content_margin_left = 12.0
 content_margin_top = 8.0
 content_margin_right = 12.0
 content_margin_bottom = 6.0
-bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+bg_color = Color(0.13, 0.13, 0.13, 1)
 border_width_bottom = 2
 border_color = Color(0.06, 0.06, 0.06, 1)
 
@@ -178,48 +193,30 @@ draw_center = false
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="TextureButtonHover"]
-bg_color = Color(0.6, 0.333333, 0.266667, 0.4)
+bg_color = Color(0.6, 0.33, 0.26, 0.4)
 
 [sub_resource type="StyleBoxFlat" id="TextureButtonNormal"]
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="TextureButtonPressed"]
-bg_color = Color(0.6, 0.333333, 0.266667, 1)
+bg_color = Color(0.6, 0.33, 0.26, 1)
 
 [sub_resource type="StyleBoxFlat" id="VerticalDivider"]
 draw_center = false
 border_width_right = 1
 border_color = Color(0.8, 0.8, 0.8, 0.2)
 
-[sub_resource type="StyleBoxFlat" id="IconButtonDisabled"]
-draw_center = false
-
-[sub_resource type="StyleBoxFlat" id="IconButtonFocus"]
-draw_center = false
-
-[sub_resource type="StyleBoxFlat" id="IconButtonHover"]
-bg_color = Color(0.6, 0.333333, 0.266667, 0.4)
-
-[sub_resource type="StyleBoxFlat" id="IconButtonNormal"]
-draw_center = false
-
-[sub_resource type="StyleBoxFlat" id="IconButtonPressed"]
-bg_color = Color(0.6, 0.333333, 0.266667, 1)
-
-[sub_resource type="StyleBoxFlat" id="Funcbar"]
-bg_color = Color(0.16, 0.16, 0.16, 0.7)
-
 [sub_resource type="StyleBoxFlat" id="TButtonDisabled"]
 bg_color = Color(0.2, 0.2, 0.2, 0.7)
 
 [sub_resource type="StyleBoxFlat" id="TButtonFocus"]
-bg_color = Color(0.6, 0.333333, 0.266667, 1)
+bg_color = Color(0.6, 0.33, 0.26, 1)
 
 [sub_resource type="StyleBoxFlat" id="TButtonHover"]
-bg_color = Color(0.6, 0.333333, 0.266667, 0.4)
+bg_color = Color(0.6, 0.33, 0.26, 0.4)
 
 [sub_resource type="StyleBoxFlat" id="TButtonNormal"]
-bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+bg_color = Color(0.13, 0.13, 0.13, 1)
 
 [sub_resource type="StyleBoxFlat" id="TButtonPressed"]
 draw_center = false
@@ -227,7 +224,10 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.6, 0.333333, 0.266667, 1)
+border_color = Color(0.6, 0.33, 0.26, 1)
+
+[sub_resource type="StyleBoxFlat" id="Funcbar"]
+bg_color = Color(0.16, 0.16, 0.16, 0.7)
 
 [sub_resource type="StyleBoxFlat" id="InnerPanel"]
 content_margin_left = 12.0
@@ -243,15 +243,8 @@ content_margin_right = 3.0
 content_margin_bottom = 6.0
 bg_color = Color(0.06, 0.06, 0.06, 0.4)
 
-[sub_resource type="StyleBoxFlat" id="LabelHeader"]
-content_margin_left = 6.0
-content_margin_top = 12.0
-content_margin_right = 6.0
-content_margin_bottom = 6.0
-draw_center = false
-
 [sub_resource type="StyleBoxFlat" id="Navbar"]
-bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+bg_color = Color(0.13, 0.13, 0.13, 1)
 
 [sub_resource type="StyleBoxFlat" id="NavButtonDisabled"]
 content_margin_left = 6.0
@@ -272,7 +265,7 @@ content_margin_left = 6.0
 content_margin_top = 3.0
 content_margin_right = 6.0
 content_margin_bottom = 0.0
-bg_color = Color(0.6, 0.333333, 0.266667, 0.4)
+bg_color = Color(0.6, 0.33, 0.26, 0.4)
 
 [sub_resource type="StyleBoxFlat" id="NavButtonNormal"]
 content_margin_left = 6.0
@@ -286,7 +279,7 @@ content_margin_left = 6.0
 content_margin_top = 6.0
 content_margin_right = 6.0
 content_margin_bottom = 6.0
-bg_color = Color(0.6, 0.333333, 0.266667, 1)
+bg_color = Color(0.6, 0.33, 0.26, 1)
 
 [sub_resource type="StyleBoxFlat" id="SiderLeftPanel"]
 content_margin_right = 6.0
@@ -305,7 +298,7 @@ draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="Toolbar"]
 content_margin_top = 24.0
-bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+bg_color = Color(0.13, 0.13, 0.13, 1)
 border_color = Color(0.2, 0.2, 0.2, 1)
 
 [resource]
@@ -336,6 +329,12 @@ HDivider/constants/separation = 12
 HDivider/styles/separator = SubResource("HorizontalDivider")
 HSeparator/constants/separation = 12
 HSeparator/styles/separator = SubResource("Empty")
+IconButton/base_type = &"Button"
+IconButton/styles/disabled = SubResource("IconButtonDisabled")
+IconButton/styles/focus = SubResource("IconButtonFocus")
+IconButton/styles/hover = SubResource("IconButtonHover")
+IconButton/styles/normal = SubResource("IconButtonNormal")
+IconButton/styles/pressed = SubResource("IconButtonPressed")
 MarginContainer/constants/margin_bottom = 12
 MarginContainer/constants/margin_left = 12
 MarginContainer/constants/margin_right = 12
@@ -372,11 +371,11 @@ PopupMenu/styles/hover = SubResource("PopupMenuHover")
 PopupMenu/styles/panel = SubResource("PopupMenu")
 TabBar/constants/h_separation = 6
 TabBar/font_sizes/font_size = 12
-TabBar/icons/close = ExtResource("23_xryma")
-TabBar/icons/decrement = ExtResource("24_smqa4")
-TabBar/icons/decrement_highlight = ExtResource("25_b7rye")
-TabBar/icons/increment = ExtResource("26_g3rk4")
-TabBar/icons/increment_highlight = ExtResource("27_watux")
+TabBar/icons/close = ExtResource("2_jaqhv")
+TabBar/icons/decrement = ExtResource("3_ijyqg")
+TabBar/icons/decrement_highlight = ExtResource("4_qvhtc")
+TabBar/icons/increment = ExtResource("5_qiyvd")
+TabBar/icons/increment_highlight = ExtResource("6_yonv5")
 TabBar/styles/tab_disabled = SubResource("TabDisabled")
 TabBar/styles/tab_hovered = SubResource("TabHovered")
 TabBar/styles/tab_selected = SubResource("TabSelected")
@@ -396,30 +395,20 @@ VSplitContainer/constants/separation = 0
 Window/constants/title_height = 24
 Window/font_sizes/title_font_size = 18
 Window/fonts/title_font = ExtResource("25_ca3p4")
-Window/icons/close = ExtResource("23_xryma")
-Window/icons/close_pressed = ExtResource("23_xryma")
-adjustbtn/base_type = &"Button"
-adjustbtn/styles/disabled = SubResource("IconButtonDisabled")
-adjustbtn/styles/focus = SubResource("IconButtonFocus")
-adjustbtn/styles/hover = SubResource("IconButtonHover")
-adjustbtn/styles/normal = SubResource("IconButtonNormal")
-adjustbtn/styles/pressed = SubResource("IconButtonPressed")
-canvas_funcbar/base_type = &"PanelContainer"
-canvas_funcbar/styles/panel = SubResource("Funcbar")
+Window/icons/close = ExtResource("2_jaqhv")
+Window/icons/close_pressed = ExtResource("2_jaqhv")
 framebtn/base_type = &"Button"
 framebtn/styles/disabled = SubResource("TButtonDisabled")
 framebtn/styles/focus = SubResource("TButtonFocus")
 framebtn/styles/hover = SubResource("TButtonHover")
 framebtn/styles/normal = SubResource("TButtonNormal")
 framebtn/styles/pressed = SubResource("TButtonPressed")
+funcbar/base_type = &"PanelContainer"
+funcbar/styles/panel = SubResource("Funcbar")
 inner_panel/base_type = &"PanelContainer"
 inner_panel/styles/panel = SubResource("InnerPanel")
 inner_scroll/base_type = &"ScrollContainer"
 inner_scroll/styles/panel = SubResource("InnerScroll")
-label_head/base_type = &"Label"
-label_head/font_sizes/font_size = 16
-label_head/fonts/font = ExtResource("25_ca3p4")
-label_head/styles/normal = SubResource("LabelHeader")
 navbar/styles/panel = SubResource("Navbar")
 navbtn/base_type = &"MenuButton"
 navbtn/font_sizes/font_size = 14
@@ -439,9 +428,3 @@ title/fonts/font = ExtResource("25_ca3p4")
 title/styles/normal = SubResource("LabelTitle")
 toolbar/base_type = &"ScrollContainer"
 toolbar/styles/panel = SubResource("Toolbar")
-toolbtn/base_type = &"Button"
-toolbtn/styles/disabled = SubResource("IconButtonDisabled")
-toolbtn/styles/focus = SubResource("IconButtonFocus")
-toolbtn/styles/hover = SubResource("IconButtonHover")
-toolbtn/styles/normal = SubResource("IconButtonNormal")
-toolbtn/styles/pressed = SubResource("IconButtonPressed")

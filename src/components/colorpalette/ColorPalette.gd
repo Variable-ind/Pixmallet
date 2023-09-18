@@ -12,6 +12,7 @@ var current_palette_index: int = -1
 
 @onready var colorForeground :ColorPickerButton = %Foreground
 @onready var colorBackground :ColorPickerButton = %Background
+@onready var colorSwitchBtn :Button = %ColorSwitchBtn
 @onready var paletteSelector :MenuButton = %PaletteSelector
 @onready var colorSwitchGrid :ColorSwitchGrid = %ColorSwitchGrid
 @onready var createDialog :Window = $CreateDialog
@@ -28,6 +29,18 @@ func _ready():
 	
 	set_color_picker(colorForeground.get_picker())
 	set_color_picker(colorBackground.get_picker())
+	var stylebox = colorForeground.get_theme_stylebox('pressed').duplicate()
+	colorForeground.add_theme_stylebox_override('normal', stylebox)
+	
+	# set shortcuts X.
+	colorSwitchBtn.shortcut = Shortcut.new()
+	var event:InputEventAction = InputEventAction.new()
+	event.action = 'switch_color'
+	colorSwitchBtn.shortcut.events.append(event)
+	var action = g.keyChain.add_action(event.action, 
+									   colorSwitchBtn.name, 
+									   name)
+	action.bind_event(KeyChain.makeEventKey(KEY_X))
 	
 	# palettes
 	load_palettes()

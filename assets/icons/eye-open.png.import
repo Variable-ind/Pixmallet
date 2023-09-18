@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs4hd7aou4oo"
-path="res://.godot/imported/flip-v.png-b675974d3c91878ae87acbebfcb09eae.ctex"
+uid="uid://djd6jmojrvo5h"
+path="res://.godot/imported/eye-open.png-2bbb38a0160f1e7170c6710748547297.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/components/flip-v.png"
-dest_files=["res://.godot/imported/flip-v.png-b675974d3c91878ae87acbebfcb09eae.ctex"]
+source_file="res://assets/icons/eye-open.png"
+dest_files=["res://.godot/imported/eye-open.png-2bbb38a0160f1e7170c6710748547297.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c18wh8glajtor"
-path="res://.godot/imported/rotate-cw.png-6cb558b922602cab77a2cf4e93efc439.ctex"
+uid="uid://obg38undtpdg"
+path="res://.godot/imported/eye-close.png-fa7ed93319f23b4016242719e318cbca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/components/rotate-cw.png"
-dest_files=["res://.godot/imported/rotate-cw.png-6cb558b922602cab77a2cf4e93efc439.ctex"]
+source_file="res://assets/icons/eye-close.png"
+dest_files=["res://.godot/imported/eye-close.png-fa7ed93319f23b4016242719e318cbca.ctex"]
 
 [params]
 

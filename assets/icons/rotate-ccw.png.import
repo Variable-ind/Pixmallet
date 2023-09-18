@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8628muy3ehm0"
-path="res://.godot/imported/arrow-left-off.png-d9f2cb361167961411c1089898a7fe5b.ctex"
+uid="uid://buv4yejvagx6u"
+path="res://.godot/imported/rotate-ccw.png-4b714ac55e08a90d4abbb804d281df81.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/components/arrow-left-off.png"
-dest_files=["res://.godot/imported/arrow-left-off.png-d9f2cb361167961411c1089898a7fe5b.ctex"]
+source_file="res://assets/icons/rotate-ccw.png"
+dest_files=["res://.godot/imported/rotate-ccw.png-4b714ac55e08a90d4abbb804d281df81.ctex"]
 
 [params]
 

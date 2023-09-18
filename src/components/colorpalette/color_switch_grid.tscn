@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2qbuxif5ivby"]
 
 [ext_resource type="Script" path="res://src/components/colorpalette/ColorSwitchGrid.gd" id="1_7r6e0"]
-[ext_resource type="Texture2D" uid="uid://nyd7ybgj0r6y" path="res://assets/components/plus.png" id="2_3a1e8"]
+[ext_resource type="Texture2D" uid="uid://nyd7ybgj0r6y" path="res://assets/icons/plus.png" id="2_3a1e8"]
 
 [node name="ColorSwitchGrid" type="GridContainer"]
 anchors_preset = 15
@@ -19,7 +19,7 @@ custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_type_variation = &"toolbtn"
+theme_type_variation = &"IconButton"
 icon = ExtResource("2_3a1e8")
 flat = true
 icon_alignment = 1

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://btjv6kteur8ff"]
 
 [ext_resource type="Script" path="res://src/navbar/Navbar.gd" id="1_j0vud"]
-[ext_resource type="Texture2D" uid="uid://djmshu3w5v525" path="res://assets/icons/icon_48x48.png" id="2_gemga"]
+[ext_resource type="Texture2D" uid="uid://djmshu3w5v525" path="res://assets/logos/icon_48x48.png" id="2_gemga"]
 [ext_resource type="Script" path="res://src/navbar/Submenu.gd" id="3_7qha6"]
 
 [node name="Navbar" type="Panel"]

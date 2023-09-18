@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crie37lhuspwq"
-path="res://.godot/imported/arrow-left.png-c58bc0010a3971ef8a8b373b9ea48e03.ctex"
+uid="uid://w4mloklylrbw"
+path="res://.godot/imported/flip-h.png-567d42090d42188d6677f7a6b82e4370.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/components/arrow-left.png"
-dest_files=["res://.godot/imported/arrow-left.png-c58bc0010a3971ef8a8b373b9ea48e03.ctex"]
+source_file="res://assets/icons/flip-h.png"
+dest_files=["res://.godot/imported/flip-h.png-567d42090d42188d6677f7a6b82e4370.ctex"]
 
 [params]
 

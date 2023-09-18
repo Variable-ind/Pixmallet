@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bw43bipa0o2mv"]
+[gd_scene load_steps=9 format=3 uid="uid://bw43bipa0o2mv"]
 
 [ext_resource type="Script" path="res://src/components/colorpalette/ColorPalette.gd" id="2_rqgjd"]
 [ext_resource type="Texture2D" uid="uid://5gpo44fntnjs" path="res://assets/tools/pencil.png" id="3_e20ir"]
-[ext_resource type="Texture2D" uid="uid://c0lg7tcxk5eya" path="res://assets/components/switch.png" id="4_h3l0l"]
+[ext_resource type="Texture2D" uid="uid://c0lg7tcxk5eya" path="res://assets/icons/switch.png" id="4_h3l0l"]
 [ext_resource type="PackedScene" uid="uid://b2qbuxif5ivby" path="res://src/components/colorpalette/color_switch_grid.tscn" id="5_addgj"]
-[ext_resource type="Texture2D" uid="uid://barcrh21as7lr" path="res://assets/components/trash.png" id="6_ciqqo"]
-[ext_resource type="Texture2D" uid="uid://csipogx871ius" path="res://assets/components/add_file.png" id="7_qvx2u"]
+[ext_resource type="Texture2D" uid="uid://barcrh21as7lr" path="res://assets/icons/trash.png" id="6_ciqqo"]
+[ext_resource type="Texture2D" uid="uid://csipogx871ius" path="res://assets/icons/add_file.png" id="7_qvx2u"]
 [ext_resource type="Script" path="res://src/components/colorpalette/CreatePaletteConfirm.gd" id="9_07vel"]
 [ext_resource type="Script" path="res://src/components/colorpalette/DeletePaletteConfirm.gd" id="10_fnq1b"]
 
@@ -44,6 +44,7 @@ icon = ExtResource("3_e20ir")
 icon_alignment = 1
 
 [node name="ColorSwitchBtn" type="Button" parent="margin/column/colorpicker"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 30)
 layout_mode = 2
 focus_mode = 0
