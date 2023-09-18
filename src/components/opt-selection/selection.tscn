@@ -55,8 +55,9 @@ text = "Position"
 [node name="PosX" type="ProgressBar" parent="row/column"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
+min_value = 100.0
 step = 1.0
-value = 40.0
+value = 100.0
 show_percentage = false
 script = ExtResource("1_07xlp")
 prefix = "X:"

@@ -103,6 +103,7 @@ func _ready():
 		valueSpinBox.hide()
 		
 	value_changed.connect(_on_value_changed)
+	changed.connect(_on_changed)
 
 
 func override_lineedit_stylebox(spinbox):
@@ -176,6 +177,17 @@ func _on_overlayer_gui_input(event: InputEvent):
 func _on_overlayer_mouseout():
 	if state == HELD:
 		state = NORMAL	
+
+
+func _on_changed(val):
+	valueSpinBox.min_value = min_value
+	valueSpinBox.max_value = max_value
+	valueSpinBox.value = value
+	valueSpinBox.step = step
+	valueSpinBox.exp_edit = exp_edit
+	valueSpinBox.rounded = rounded
+	valueSpinBox.allow_greater = allow_greater
+	valueSpinBox.allow_lesser = allow_lesser
 
 
 func _on_value_changed(val):
