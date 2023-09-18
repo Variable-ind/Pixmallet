@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=60 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=65 format=3 uid="uid://bnvbwu202rx6u"]
 
 [ext_resource type="StyleBox" uid="uid://bheih5k4b056s" path="res://assets/theme/default/styles/nav_btn_disabled.tres" id="1_03gb2"]
 [ext_resource type="StyleBox" uid="uid://dgle7h18anrxb" path="res://assets/theme/default/styles/label_head.tres" id="1_fn0j0"]
@@ -59,6 +59,26 @@
 [ext_resource type="StyleBox" uid="uid://b8vwifsgydqvs" path="res://assets/theme/default/styles/toolbtn_hover.tres" id="44_8qdau"]
 [ext_resource type="StyleBox" uid="uid://d2w0fo1ty4gff" path="res://assets/theme/default/styles/toolbtn.tres" id="45_n0h5i"]
 [ext_resource type="StyleBox" uid="uid://blqn6wlakteka" path="res://assets/theme/default/styles/toolbtn_pressed.tres" id="46_v4ujd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tgo76"]
+bg_color = Color(0.2, 0.2, 0.2, 0.784314)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c22g4"]
+bg_color = Color(0.6, 0.333333, 0.266667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60s4o"]
+bg_color = Color(0.6, 0.333333, 0.266667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0khg"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_to6gc"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.333333, 0.266667, 1)
 
 [resource]
 default_font = ExtResource("24_tutt7")
@@ -154,6 +174,12 @@ adjustbtn/styles/normal = ExtResource("29_n1qd4")
 adjustbtn/styles/pressed = ExtResource("30_0kt1v")
 canvas_funcbar/base_type = &"PanelContainer"
 canvas_funcbar/styles/panel = ExtResource("31_i8h72")
+framebtn/base_type = &"Button"
+framebtn/styles/disabled = SubResource("StyleBoxFlat_tgo76")
+framebtn/styles/focus = SubResource("StyleBoxFlat_c22g4")
+framebtn/styles/hover = SubResource("StyleBoxFlat_60s4o")
+framebtn/styles/normal = SubResource("StyleBoxFlat_a0khg")
+framebtn/styles/pressed = SubResource("StyleBoxFlat_to6gc")
 inner_panel/base_type = &"PanelContainer"
 inner_panel/styles/panel = ExtResource("28_vtbaf")
 inner_scroll/base_type = &"ScrollContainer"

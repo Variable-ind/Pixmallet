@@ -101,41 +101,45 @@ layout_mode = 2
 layout_mode = 2
 focus_mode = 0
 
-[node name="draw" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas"]
+[node name="VSplitContainer" type="VSplitContainer" parent="main_area/mainborad/workspace/canvas"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VRuler" type="Button" parent="main_area/mainborad/workspace/canvas/draw"]
+[node name="draw" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VRuler" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 flat = true
 
-[node name="DrawContainer" type="SubViewportContainer" parent="main_area/mainborad/workspace/canvas/draw"]
+[node name="DrawContainer" type="SubViewportContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DrawViewport" type="SubViewport" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer"]
+[node name="DrawViewport" type="SubViewport" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer"]
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 size = Vector2i(360, 360)
 render_target_update_mode = 4
 
-[node name="Background" type="ColorRect" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer/DrawViewport"]
+[node name="Background" type="ColorRect" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer/DrawViewport"]
 visible = false
 material = SubResource("ShaderMaterial_u122j")
 mouse_filter = 2
 
-[node name="Canvas" type="Node2D" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer/DrawViewport"]
+[node name="Canvas" type="Node2D" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer/DrawViewport"]
 visible = false
 
-[node name="Camera2D" type="Camera2D" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer/DrawViewport"]
+[node name="Camera2D" type="Camera2D" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer/DrawViewport"]
 visible = false
 
-[node name="CanvasLayer" type="CanvasLayer" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer/DrawViewport"]
+[node name="CanvasLayer" type="CanvasLayer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer/DrawViewport"]
 visible = false
 
-[node name="GreyscaleVision" type="ColorRect" parent="main_area/mainborad/workspace/canvas/draw/DrawContainer/DrawViewport/CanvasLayer"]
+[node name="GreyscaleVision" type="ColorRect" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer/DrawViewport/CanvasLayer"]
 visible = false
 material = SubResource("ShaderMaterial_ib7er")
 anchors_preset = 15
@@ -144,6 +148,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="timeline" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="layers" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="row" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layers"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layers/row"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Layers"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FrameBtn" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layers/row"]
+clip_contents = true
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+theme_type_variation = &"framebtn"
+text = "1"
 
 [node name="right-sider" type="PanelContainer" parent="main_area/mainborad/workspace"]
 layout_mode = 2
