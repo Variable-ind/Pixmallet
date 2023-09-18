@@ -43,7 +43,6 @@ shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
 [node name="timeline" type="VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -231,6 +230,7 @@ offset_bottom = 30.0
 color = Color(1, 1, 1, 0)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -270,14 +270,15 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BtnVisible" type="Button" parent="ScrollContainer/layers/split/labels/Layer/row"]
-modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 toggle_mode = true
-icon = ExtResource("22_2xw2a")
+button_pressed = true
+icon = ExtResource("23_ecy55")
 icon_alignment = 1
 script = ExtResource("12_0gw4f")
+is_pressed = true
 ico_on = ExtResource("23_ecy55")
 ico_off = ExtResource("22_2xw2a")
 
@@ -311,6 +312,62 @@ size_flags_horizontal = 3
 theme_type_variation = &"CaptionEdit"
 text = "Layer"
 
+[node name="Layer2" type="Panel" parent="ScrollContainer/layers/split/labels"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("21_q5cqk")
+
+[node name="row" type="HBoxContainer" parent="ScrollContainer/layers/split/labels/Layer2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnVisible" type="Button" parent="ScrollContainer/layers/split/labels/Layer2/row"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+button_pressed = true
+icon = ExtResource("23_ecy55")
+icon_alignment = 1
+script = ExtResource("12_0gw4f")
+is_pressed = true
+ico_on = ExtResource("23_ecy55")
+ico_off = ExtResource("22_2xw2a")
+
+[node name="BtnLock" type="Button" parent="ScrollContainer/layers/split/labels/Layer2/row"]
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("24_w6j71")
+icon_alignment = 1
+script = ExtResource("12_0gw4f")
+ico_on = ExtResource("25_1kpxy")
+ico_off = ExtResource("24_w6j71")
+
+[node name="BtnLink" type="Button" parent="ScrollContainer/layers/split/labels/Layer2/row"]
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("26_3mpc4")
+icon_alignment = 1
+script = ExtResource("12_0gw4f")
+ico_on = ExtResource("27_w0fcw")
+ico_off = ExtResource("26_3mpc4")
+
+[node name="LayerName" type="LineEdit" parent="ScrollContainer/layers/split/labels/Layer2/row"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"CaptionEdit"
+text = "Layer"
+
 [node name="contents" type="VBoxContainer" parent="ScrollContainer/layers/split"]
 layout_mode = 2
 
@@ -336,6 +393,25 @@ layout_mode = 2
 theme_type_variation = &"framebtn"
 
 [node name="ColorRect" type="ColorRect" parent="ScrollContainer/layers/split/contents/frames/FrameBtn"]
+material = SubResource("ShaderMaterial_62d7w")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="frames2" type="HBoxContainer" parent="ScrollContainer/layers/split/contents"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="FrameBtn" type="TextureButton" parent="ScrollContainer/layers/split/contents/frames2"]
+clip_contents = true
+custom_minimum_size = Vector2(36, 30)
+layout_mode = 2
+theme_type_variation = &"framebtn"
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/layers/split/contents/frames2/FrameBtn"]
 material = SubResource("ShaderMaterial_62d7w")
 layout_mode = 1
 anchors_preset = 15
