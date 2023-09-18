@@ -176,7 +176,7 @@ func _on_overlayer_gui_input(event: InputEvent):
 
 func _on_overlayer_mouseout():
 	if state == HELD:
-		state = NORMAL	
+		state = NORMAL
 
 
 func _on_changed(val):

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=62 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=63 format=3 uid="uid://bnvbwu202rx6u"]
 
 [ext_resource type="Texture2D" uid="uid://bolpd85jv2bw8" path="res://assets/icons/close.png" id="2_jaqhv"]
 [ext_resource type="Texture2D" uid="uid://8628muy3ehm0" path="res://assets/icons/arrow-left-off.png" id="3_ijyqg"]
@@ -42,6 +42,9 @@ content_margin_top = 6.0
 content_margin_right = 12.0
 content_margin_bottom = 6.0
 bg_color = Color(0.6, 0.33, 0.26, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cq7s2"]
+draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="ColorPickerDisabled"]
 draw_center = false
@@ -310,6 +313,10 @@ Button/styles/focus = SubResource("ButtonFocus")
 Button/styles/hover = SubResource("ButtonHover")
 Button/styles/normal = SubResource("ButtonNormal")
 Button/styles/pressed = SubResource("ButtonPressed")
+CaptionEdit/base_type = &"LineEdit"
+CaptionEdit/colors/font_uneditable_color = Color(1, 1, 1, 0.784314)
+CaptionEdit/font_sizes/font_size = 10
+CaptionEdit/styles/focus = SubResource("StyleBoxFlat_cq7s2")
 CheckButton/styles/hover_pressed = SubResource("ButtonHover")
 CheckButton/styles/normal = SubResource("ButtonNormal")
 CheckButton/styles/pressed = SubResource("ButtonPressed")
@@ -397,6 +404,8 @@ Window/font_sizes/title_font_size = 18
 Window/fonts/title_font = ExtResource("25_ca3p4")
 Window/icons/close = ExtResource("2_jaqhv")
 Window/icons/close_pressed = ExtResource("2_jaqhv")
+caption/base_type = &"Label"
+caption/font_sizes/font_size = 10
 framebtn/base_type = &"Button"
 framebtn/styles/disabled = SubResource("TButtonDisabled")
 framebtn/styles/focus = SubResource("TButtonFocus")
