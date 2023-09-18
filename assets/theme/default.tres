@@ -1,12 +1,12 @@
 [gd_resource type="Theme" load_steps=63 format=3 uid="uid://bnvbwu202rx6u"]
 
-[ext_resource type="Texture2D" uid="uid://bolpd85jv2bw8" path="res://assets/icons/close.png" id="2_jaqhv"]
-[ext_resource type="Texture2D" uid="uid://8628muy3ehm0" path="res://assets/icons/arrow-left-off.png" id="3_ijyqg"]
-[ext_resource type="Texture2D" uid="uid://crie37lhuspwq" path="res://assets/icons/arrow-left.png" id="4_qvhtc"]
-[ext_resource type="Texture2D" uid="uid://wl57rj6yulid" path="res://assets/icons/arrow-right-off.png" id="5_qiyvd"]
-[ext_resource type="Texture2D" uid="uid://bpphhysy73qnp" path="res://assets/icons/arrow-right.png" id="6_yonv5"]
-[ext_resource type="FontFile" uid="uid://cllbhityges65" path="res://assets/fonts/OpenSans-Regular.ttf" id="24_tutt7"]
-[ext_resource type="FontFile" uid="uid://c8xuja0cdkq51" path="res://assets/fonts/OpenSans-Bold.ttf" id="25_ca3p4"]
+[ext_resource type="FontFile" uid="uid://c8xuja0cdkq51" path="res://assets/fonts/OpenSans-Bold.ttf" id="FontBold"]
+[ext_resource type="FontFile" uid="uid://cllbhityges65" path="res://assets/fonts/OpenSans-Regular.ttf" id="FontRegular"]
+[ext_resource type="Texture2D" uid="uid://crie37lhuspwq" path="res://assets/icons/arrow-left.png" id="ImageArrowLeft"]
+[ext_resource type="Texture2D" uid="uid://8628muy3ehm0" path="res://assets/icons/arrow-left-off.png" id="ImageArrowLeftOff"]
+[ext_resource type="Texture2D" uid="uid://bpphhysy73qnp" path="res://assets/icons/arrow-right.png" id="ImageArrowRight"]
+[ext_resource type="Texture2D" uid="uid://wl57rj6yulid" path="res://assets/icons/arrow-right-off.png" id="ImageArrowRightOff"]
+[ext_resource type="Texture2D" uid="uid://bolpd85jv2bw8" path="res://assets/icons/close.png" id="ImageClose"]
 
 [sub_resource type="StyleBoxFlat" id="ButtonDisabled"]
 content_margin_left = 12.0
@@ -43,7 +43,7 @@ content_margin_right = 12.0
 content_margin_bottom = 6.0
 bg_color = Color(0.6, 0.33, 0.26, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cq7s2"]
+[sub_resource type="StyleBoxFlat" id="CaptionEdit"]
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="ColorPickerDisabled"]
@@ -305,9 +305,9 @@ bg_color = Color(0.13, 0.13, 0.13, 1)
 border_color = Color(0.2, 0.2, 0.2, 1)
 
 [resource]
-default_font = ExtResource("24_tutt7")
+default_font = ExtResource("FontRegular")
 default_font_size = 14
-Button/fonts/font = ExtResource("25_ca3p4")
+Button/fonts/font = ExtResource("FontBold")
 Button/styles/disabled = SubResource("ButtonDisabled")
 Button/styles/focus = SubResource("ButtonFocus")
 Button/styles/hover = SubResource("ButtonHover")
@@ -316,7 +316,7 @@ Button/styles/pressed = SubResource("ButtonPressed")
 CaptionEdit/base_type = &"LineEdit"
 CaptionEdit/colors/font_uneditable_color = Color(1, 1, 1, 0.784314)
 CaptionEdit/font_sizes/font_size = 10
-CaptionEdit/styles/focus = SubResource("StyleBoxFlat_cq7s2")
+CaptionEdit/styles/focus = SubResource("CaptionEdit")
 CheckButton/styles/hover_pressed = SubResource("ButtonHover")
 CheckButton/styles/normal = SubResource("ButtonNormal")
 CheckButton/styles/pressed = SubResource("ButtonPressed")
@@ -328,7 +328,7 @@ ColorPickerButton/styles/pressed = SubResource("ColorPickerPressed")
 ConfirmDialog/base_type = &"Window"
 ConfirmDialog/constants/title_height = 24
 ConfirmDialog/font_sizes/title_font_size = 18
-ConfirmDialog/fonts/title_font = ExtResource("25_ca3p4")
+ConfirmDialog/fonts/title_font = ExtResource("FontBold")
 GridContainer/constants/h_separation = 2
 GridContainer/constants/v_separation = 2
 HDivider/base_type = &"HSeparator"
@@ -353,13 +353,13 @@ MenuButton/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
 MenuButton/colors/font_outline_color = Color(1, 1, 1, 1)
 MenuButton/colors/font_pressed_color = Color(1, 1, 1, 1)
 MenuButton/font_sizes/font_size = 14
-MenuButton/fonts/font = ExtResource("25_ca3p4")
+MenuButton/fonts/font = ExtResource("FontBold")
 MenuButton/styles/disabled = SubResource("MenuButtonDisabled")
 MenuButton/styles/focus = SubResource("MenuButtonFocus")
 MenuButton/styles/hover = SubResource("MenuButtonHover")
 MenuButton/styles/normal = SubResource("MenuButtonNormal")
 MenuButton/styles/pressed = SubResource("MenuButtonPressed")
-OptionButton/fonts/font = ExtResource("25_ca3p4")
+OptionButton/fonts/font = ExtResource("FontBold")
 OptionButton/styles/disabled = SubResource("ButtonDisabled")
 OptionButton/styles/disabled_mirrored = SubResource("ButtonDisabled")
 OptionButton/styles/focus = SubResource("ButtonFocus")
@@ -378,11 +378,11 @@ PopupMenu/styles/hover = SubResource("PopupMenuHover")
 PopupMenu/styles/panel = SubResource("PopupMenu")
 TabBar/constants/h_separation = 6
 TabBar/font_sizes/font_size = 12
-TabBar/icons/close = ExtResource("2_jaqhv")
-TabBar/icons/decrement = ExtResource("3_ijyqg")
-TabBar/icons/decrement_highlight = ExtResource("4_qvhtc")
-TabBar/icons/increment = ExtResource("5_qiyvd")
-TabBar/icons/increment_highlight = ExtResource("6_yonv5")
+TabBar/icons/close = ExtResource("ImageClose")
+TabBar/icons/decrement = ExtResource("ImageArrowLeftOff")
+TabBar/icons/decrement_highlight = ExtResource("ImageArrowLeft")
+TabBar/icons/increment = ExtResource("ImageArrowRightOff")
+TabBar/icons/increment_highlight = ExtResource("ImageArrowRight")
 TabBar/styles/tab_disabled = SubResource("TabDisabled")
 TabBar/styles/tab_hovered = SubResource("TabHovered")
 TabBar/styles/tab_selected = SubResource("TabSelected")
@@ -401,9 +401,9 @@ VSeparator/styles/separator = SubResource("Empty")
 VSplitContainer/constants/separation = 0
 Window/constants/title_height = 24
 Window/font_sizes/title_font_size = 18
-Window/fonts/title_font = ExtResource("25_ca3p4")
-Window/icons/close = ExtResource("2_jaqhv")
-Window/icons/close_pressed = ExtResource("2_jaqhv")
+Window/fonts/title_font = ExtResource("FontBold")
+Window/icons/close = ExtResource("ImageClose")
+Window/icons/close_pressed = ExtResource("ImageClose")
 caption/base_type = &"Label"
 caption/font_sizes/font_size = 10
 framebtn/base_type = &"Button"
@@ -421,7 +421,7 @@ inner_scroll/styles/panel = SubResource("InnerScroll")
 navbar/styles/panel = SubResource("Navbar")
 navbtn/base_type = &"MenuButton"
 navbtn/font_sizes/font_size = 14
-navbtn/fonts/font = ExtResource("25_ca3p4")
+navbtn/fonts/font = ExtResource("FontBold")
 navbtn/styles/disabled = SubResource("NavButtonDisabled")
 navbtn/styles/focus = SubResource("NavButtonFocus")
 navbtn/styles/hover = SubResource("NavButtonHover")
@@ -433,7 +433,7 @@ sider_right/base_type = &"PanelContainer"
 sider_right/styles/panel = SubResource("SiderRightPanel")
 title/base_type = &"Label"
 title/font_sizes/font_size = 16
-title/fonts/font = ExtResource("25_ca3p4")
+title/fonts/font = ExtResource("FontBold")
 title/styles/normal = SubResource("LabelTitle")
 toolbar/base_type = &"ScrollContainer"
 toolbar/styles/panel = SubResource("Toolbar")
