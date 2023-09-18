@@ -39,12 +39,10 @@ popup/item_2/id = 2
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 theme_type_variation = &"ValSlider"
-min_value = 1.0
 step = 1.0
-value = 1.0
+value = 15.0
 show_percentage = false
 script = ExtResource("1_wa76p")
-text_alignment = 1
 prefix = "Similarity:"
 
 [node name="holder" type="HSeparator" parent="."]
@@ -71,7 +69,6 @@ step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("1_wa76p")
-text_alignment = 1
 suffix = "Offset X:"
 
 [node name="OffsetY" type="ProgressBar" parent="."]
@@ -82,5 +79,4 @@ step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("1_wa76p")
-text_alignment = 1
 suffix = "Offset Y:"

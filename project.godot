@@ -15,8 +15,8 @@ run/main_scene="res://src/control.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://assets/logos/icon.png"
-config/macos_native_icon="res://assets/icons/Icon.icns"
-config/windows_native_icon="res://assets/icons/icon.ico"
+config/macos_native_icon="res://assets/logos/icon.icns"
+config/windows_native_icon="res://assets/logos/icon.ico"
 
 [autoload]
 

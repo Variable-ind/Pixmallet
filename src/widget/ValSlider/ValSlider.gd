@@ -1,3 +1,4 @@
+@tool
 extends ProgressBar
 
 class_name ValSlider
@@ -18,15 +19,43 @@ var valueLineEdit :LineEdit
 var slided_pressed :bool = false
 var btn_pressed = false
 
+var valueSpinBox :SpinBox = SpinBox.new()
+
+
 @export var slide_by_step :bool = false
 @export var slide_pressure :float = 1.0
-@export var hidden_text :bool = false
-@export var text_alignment :HorizontalAlignment
-@export var prefix :String = ''
-@export var suffix :String = ''
-@export var spin_icon:Texture2D
 
-@onready var valueSpinBox :SpinBox = SpinBox.new()
+@export var hidden_text :bool = false :
+	set(val):
+		hidden_text = val
+		if hidden_text:
+			valueSpinBox.hide()
+		else:
+			valueSpinBox.show()
+
+@export var text_alignment :HorizontalAlignment = HORIZONTAL_ALIGNMENT_CENTER:
+	set(val): 
+		text_alignment = val
+		valueSpinBox.alignment = text_alignment
+		
+@export var prefix :String = '' :
+	set(val):
+		prefix = val
+		valueSpinBox.prefix = prefix
+		
+@export var suffix :String = '' :
+	set(val):
+		suffix = val
+		valueSpinBox.suffix = suffix
+		
+@export var spin_icon :Texture2D :
+	set(val):
+		spin_icon = val
+		if spin_icon:
+			valueSpinBox.add_theme_icon_override('updown', spin_icon)
+		else:
+			valueSpinBox.remove_theme_icon_override('updown')
+
 
 
 func _init():
@@ -49,6 +78,7 @@ func _ready():
 	valueSpinBox.allow_greater = allow_greater
 	valueSpinBox.allow_lesser = allow_lesser
 #	valueSpinBox.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	valueSpinBox.value_changed.connect(_on_spin_value_changed)
 	valueSpinBox.set_anchors_preset(Control.PRESET_FULL_RECT)
 	if spin_icon:
 		valueSpinBox.add_theme_icon_override('updown', spin_icon)
@@ -71,6 +101,8 @@ func _ready():
 	
 	if hidden_text:
 		valueSpinBox.hide()
+		
+	value_changed.connect(_on_value_changed)
 
 
 func override_lineedit_stylebox(spinbox):
@@ -111,10 +143,6 @@ func change_progress():
 	else:
 		ratio = last_ratio + _delta / _distanc
 	
-	# convert to text
-	valueLineEdit.text = str(value)
-	valueSpinBox.apply()
-	
 
 func _on_overlayer_gui_input(event: InputEvent):
 	if (event is InputEventMouseButton):
@@ -148,6 +176,14 @@ func _on_overlayer_gui_input(event: InputEvent):
 func _on_overlayer_mouseout():
 	if state == HELD:
 		state = NORMAL	
+
+
+func _on_value_changed(val):
+	valueSpinBox.value = val
+
+
+func _on_spin_value_changed(val):
+	value = val
 
 
 func _on_line_edit_resized():

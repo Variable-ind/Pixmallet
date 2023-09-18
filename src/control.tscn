@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=23 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_hk23w"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -10,7 +10,10 @@
 [ext_resource type="Shader" path="res://src/shaders/Greyscale.gdshader" id="8_rxagw"]
 [ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/components/colorpalette/color_palette.tscn" id="9_igahc"]
 [ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/components/opt-selection/selection.tscn" id="10_m4bfb"]
+[ext_resource type="Script" path="res://src/timeline/LayerFuncButton.gd" id="10_uaanb"]
+[ext_resource type="Texture2D" uid="uid://do5d6ttn322c5" path="res://assets/icons/unlock.png" id="10_utbxl"]
 [ext_resource type="PackedScene" uid="uid://d2jmndg28bimn" path="res://src/components/opt-pencil/pencil.tscn" id="11_gpkqv"]
+[ext_resource type="Texture2D" uid="uid://1tbvgkny8w7s" path="res://assets/icons/unlink.png" id="11_moh5h"]
 [ext_resource type="PackedScene" uid="uid://codf6k0w3eg3b" path="res://src/components/opt-shape/shape.tscn" id="12_54orb"]
 [ext_resource type="PackedScene" uid="uid://co7ihfd12up3b" path="res://src/components/opt-zoom/zoom.tscn" id="13_2sjc7"]
 [ext_resource type="PackedScene" uid="uid://cbuijs3m885d6" path="res://src/components/opt-crop/crop.tscn" id="14_coayu"]
@@ -31,6 +34,18 @@ shader_parameter/follow_scale = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ib7er"]
 shader = ExtResource("8_rxagw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gnnm1"]
+shader = ExtResource("7_eo0uy")
+shader_parameter/size = 10.0
+shader_parameter/alpha = 1.0
+shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
+shader_parameter/color2 = Color(1, 1, 1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/scale = Vector2(0, 0)
+shader_parameter/rect_size = Vector2(0, 0)
+shader_parameter/follow_movement = false
+shader_parameter/follow_scale = false
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -150,7 +165,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="timeline" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer"]
-custom_minimum_size = Vector2(0, 200)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline"]
@@ -158,7 +173,6 @@ custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline"]
-custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -172,16 +186,11 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split"]
-custom_minimum_size = Vector2(140, 0)
+[node name="labels" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="layerbar" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer"]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer/layerbar"]
+[node name="Label" type="Label" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/labels"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -189,47 +198,80 @@ text = "Layers"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="layer" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer"]
-custom_minimum_size = Vector2(0, 24)
+[node name="layer" type="Panel" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/labels"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer/layer"]
+[node name="row" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/labels/layer"]
+layout_mode = 2
+offset_right = 200.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnLock" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/labels/layer/row"]
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
-text = "dsf"
+icon = ExtResource("10_utbxl")
+icon_alignment = 1
+script = ExtResource("10_uaanb")
 
-[node name="Label" type="Label" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer/layer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="holder" type="VSeparator" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/labels/layer/row"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/labels/layer/row"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Layers"
-horizontal_alignment = 1
 vertical_alignment = 1
+text_overrun_behavior = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split"]
+[node name="holder2" type="VSeparator" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/labels/layer/row"]
 layout_mode = 2
 
-[node name="framebar" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer2"]
+[node name="BtnLink" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/labels/layer/row"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_type_variation = &"IconButton"
+icon = ExtResource("11_moh5h")
+icon_alignment = 1
+script = ExtResource("10_uaanb")
+
+[node name="BtnVisible" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/labels/layer/row"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_type_variation = &"IconButton"
+icon_alignment = 1
+script = ExtResource("10_uaanb")
+triggered = true
+
+[node name="contents" type="VBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split"]
+layout_mode = 2
+
+[node name="framebar" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/contents"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
-[node name="FrameBtn" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer2/framebar"]
+[node name="FrameBtn" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/contents/framebar"]
 clip_contents = true
 custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
 theme_type_variation = &"framebtn"
 text = "1"
 
-[node name="frames" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer2"]
+[node name="frames" type="HBoxContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/contents"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
-[node name="FrameBtn" type="Button" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/VBoxContainer2/frames"]
+[node name="FrameBtn" type="TextureButton" parent="main_area/mainborad/workspace/canvas/VSplitContainer/timeline/ScrollContainer/layer-panel/split/contents/frames"]
+material = SubResource("ShaderMaterial_gnnm1")
 clip_contents = true
-custom_minimum_size = Vector2(36, 0)
+custom_minimum_size = Vector2(36, 30)
 layout_mode = 2
 theme_type_variation = &"framebtn"
-text = "1"
 
 [node name="right-sider" type="PanelContainer" parent="main_area/mainborad/workspace"]
 layout_mode = 2

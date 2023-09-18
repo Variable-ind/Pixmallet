@@ -56,9 +56,9 @@ text = "Position"
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 step = 1.0
+value = 40.0
 show_percentage = false
 script = ExtResource("1_07xlp")
-text_alignment = 1
 prefix = "X:"
 
 [node name="PoxY" type="ProgressBar" parent="row/column"]
@@ -67,7 +67,6 @@ layout_mode = 2
 step = 1.0
 show_percentage = false
 script = ExtResource("1_07xlp")
-text_alignment = 1
 prefix = "Y:"
 
 [node name="v-holder" type="VSeparator" parent="row"]
@@ -87,7 +86,6 @@ layout_mode = 2
 step = 1.0
 show_percentage = false
 script = ExtResource("1_07xlp")
-text_alignment = 1
 prefix = "Width:"
 suffix = "px"
 
@@ -97,7 +95,6 @@ layout_mode = 2
 step = 1.0
 show_percentage = false
 script = ExtResource("1_07xlp")
-text_alignment = 1
 prefix = "Height:"
 suffix = "px"
 
@@ -115,7 +112,6 @@ step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("1_07xlp")
-text_alignment = 1
 
 [node name="label-size" type="Label" parent="."]
 layout_mode = 2
@@ -130,5 +126,4 @@ step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("1_07xlp")
-text_alignment = 1
 suffix = "px"
