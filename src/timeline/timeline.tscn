@@ -1,6 +1,5 @@
-[gd_scene load_steps=31 format=3 uid="uid://41uljc4y6ch0"]
+[gd_scene load_steps=30 format=3 uid="uid://41uljc4y6ch0"]
 
-[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_30evg"]
 [ext_resource type="Texture2D" uid="uid://bn6kf7q2w3mll" path="res://assets/icons/add-layer.png" id="1_eknxa"]
 [ext_resource type="Texture2D" uid="uid://cctvx5owwp6ck" path="res://assets/icons/delete-layer.png" id="2_pfajt"]
 [ext_resource type="Texture2D" uid="uid://bi2txp2rls3tu" path="res://assets/icons/up-layer.png" id="3_i3mp0"]
@@ -48,13 +47,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_30evg")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+[node name="row" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,7 +60,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BtnAdd" type="MenuButton" parent="Panel/HBoxContainer"]
+[node name="BtnAdd" type="MenuButton" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
@@ -75,35 +73,35 @@ popup/item_0/id = 0
 popup/item_1/text = "Add Group"
 popup/item_1/id = 1
 
-[node name="BtnDelete" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnDelete" type="Button" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("2_pfajt")
 icon_alignment = 1
 
-[node name="BtnUp" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnUp" type="Button" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("3_i3mp0")
 icon_alignment = 1
 
-[node name="BtnDown" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnDown" type="Button" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("4_mixod")
 icon_alignment = 1
 
-[node name="BtnClone" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnClone" type="Button" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("5_1pf1a")
 icon_alignment = 1
 
-[node name="BtnMerge" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnMerge" type="Button" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
@@ -111,39 +109,39 @@ disabled = true
 icon = ExtResource("6_u84et")
 icon_alignment = 1
 
-[node name="holder" type="VSeparator" parent="Panel/HBoxContainer"]
+[node name="holder" type="VSeparator" parent="Panel/row"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BtnAddFrame" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnAddFrame" type="Button" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("7_6ek6g")
 icon_alignment = 1
 
-[node name="BtnRemoveFrame" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnRemoveFrame" type="Button" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("8_7umjh")
 icon_alignment = 1
 
-[node name="BtnCloneFrame" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnCloneFrame" type="Button" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("9_qvddq")
 icon_alignment = 1
 
-[node name="BtnTag" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnTag" type="Button" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("10_ym85g")
 icon_alignment = 1
 
-[node name="BtnPlayReverse" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnPlayReverse" type="Button" parent="Panel/row"]
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -155,7 +153,7 @@ script = ExtResource("12_0gw4f")
 ico_on = ExtResource("13_cpbhg")
 ico_off = ExtResource("11_xvs8e")
 
-[node name="BtnPlay" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnPlay" type="Button" parent="Panel/row"]
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -167,7 +165,7 @@ script = ExtResource("12_0gw4f")
 ico_on = ExtResource("13_cpbhg")
 ico_off = ExtResource("14_yei4d")
 
-[node name="BtnLoop" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnLoop" type="Button" parent="Panel/row"]
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -179,18 +177,18 @@ script = ExtResource("12_0gw4f")
 ico_on = ExtResource("16_r3vkm")
 ico_off = ExtResource("15_2r5v1")
 
-[node name="hoder-2" type="VSeparator" parent="Panel/HBoxContainer"]
-custom_minimum_size = Vector2(40, 0)
+[node name="hoder-2" type="VSeparator" parent="Panel/row"]
 layout_mode = 2
+theme_type_variation = &"VDivider"
 
-[node name="BtnOnionSetting" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnOnionSetting" type="Button" parent="Panel/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("17_bdlwg")
 icon_alignment = 1
 
-[node name="BtnOnion" type="Button" parent="Panel/HBoxContainer"]
+[node name="BtnOnion" type="Button" parent="Panel/row"]
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -202,7 +200,7 @@ script = ExtResource("12_0gw4f")
 ico_on = ExtResource("19_4rgj5")
 ico_off = ExtResource("18_gp6c5")
 
-[node name="FPS" type="ProgressBar" parent="Panel/HBoxContainer"]
+[node name="FPS" type="ProgressBar" parent="Panel/row"]
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 min_value = 1.0
@@ -212,22 +210,6 @@ value = 1.0
 show_percentage = false
 script = ExtResource("20_qlhqw")
 suffix = "FPS"
-
-[node name="_SpinBox_426141" type="SpinBox" parent="Panel/HBoxContainer/FPS"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-min_value = 1.0
-max_value = 60.0
-value = 1.0
-alignment = 1
-suffix = "FPS"
-
-[node name="_ColorRect_426142" type="ColorRect" parent="Panel/HBoxContainer/FPS"]
-layout_mode = 0
-offset_right = 84.0
-offset_bottom = 30.0
-color = Color(1, 1, 1, 0)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(0, 100)
@@ -269,6 +251,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="BtnLink" type="Button" parent="ScrollContainer/layers/split/labels/Layer/row"]
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("26_3mpc4")
+icon_alignment = 1
+script = ExtResource("12_0gw4f")
+ico_on = ExtResource("27_w0fcw")
+ico_off = ExtResource("26_3mpc4")
+
 [node name="BtnVisible" type="Button" parent="ScrollContainer/layers/split/labels/Layer/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -294,75 +288,7 @@ script = ExtResource("12_0gw4f")
 ico_on = ExtResource("25_1kpxy")
 ico_off = ExtResource("24_w6j71")
 
-[node name="BtnLink" type="Button" parent="ScrollContainer/layers/split/labels/Layer/row"]
-modulate = Color(0.411765, 0.411765, 0.411765, 1)
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-icon = ExtResource("26_3mpc4")
-icon_alignment = 1
-script = ExtResource("12_0gw4f")
-ico_on = ExtResource("27_w0fcw")
-ico_off = ExtResource("26_3mpc4")
-
 [node name="LayerName" type="LineEdit" parent="ScrollContainer/layers/split/labels/Layer/row"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"CaptionEdit"
-text = "Layer"
-
-[node name="Layer2" type="Panel" parent="ScrollContainer/layers/split/labels"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-script = ExtResource("21_q5cqk")
-
-[node name="row" type="HBoxContainer" parent="ScrollContainer/layers/split/labels/Layer2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="BtnVisible" type="Button" parent="ScrollContainer/layers/split/labels/Layer2/row"]
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-button_pressed = true
-icon = ExtResource("23_ecy55")
-icon_alignment = 1
-script = ExtResource("12_0gw4f")
-is_pressed = true
-ico_on = ExtResource("23_ecy55")
-ico_off = ExtResource("22_2xw2a")
-
-[node name="BtnLock" type="Button" parent="ScrollContainer/layers/split/labels/Layer2/row"]
-modulate = Color(0.411765, 0.411765, 0.411765, 1)
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-icon = ExtResource("24_w6j71")
-icon_alignment = 1
-script = ExtResource("12_0gw4f")
-ico_on = ExtResource("25_1kpxy")
-ico_off = ExtResource("24_w6j71")
-
-[node name="BtnLink" type="Button" parent="ScrollContainer/layers/split/labels/Layer2/row"]
-modulate = Color(0.411765, 0.411765, 0.411765, 1)
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-icon = ExtResource("26_3mpc4")
-icon_alignment = 1
-script = ExtResource("12_0gw4f")
-ico_on = ExtResource("27_w0fcw")
-ico_off = ExtResource("26_3mpc4")
-
-[node name="LayerName" type="LineEdit" parent="ScrollContainer/layers/split/labels/Layer2/row"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"CaptionEdit"
@@ -383,7 +309,7 @@ theme_type_variation = &"framebtn"
 text = "1"
 
 [node name="frames" type="HBoxContainer" parent="ScrollContainer/layers/split/contents"]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(300, 30)
 layout_mode = 2
 
 [node name="FrameBtn" type="TextureButton" parent="ScrollContainer/layers/split/contents/frames"]
@@ -393,25 +319,6 @@ layout_mode = 2
 theme_type_variation = &"framebtn"
 
 [node name="ColorRect" type="ColorRect" parent="ScrollContainer/layers/split/contents/frames/FrameBtn"]
-material = SubResource("ShaderMaterial_62d7w")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="frames2" type="HBoxContainer" parent="ScrollContainer/layers/split/contents"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="FrameBtn" type="TextureButton" parent="ScrollContainer/layers/split/contents/frames2"]
-clip_contents = true
-custom_minimum_size = Vector2(36, 30)
-layout_mode = 2
-theme_type_variation = &"framebtn"
-
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/layers/split/contents/frames2/FrameBtn"]
 material = SubResource("ShaderMaterial_62d7w")
 layout_mode = 1
 anchors_preset = 15

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=17 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_hk23w"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -6,8 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://2dfuv5bk0ahw" path="res://src/toolbar/toolbar.tscn" id="4_7tfkl"]
 [ext_resource type="PackedScene" uid="uid://dkkj62x4hs764" path="res://src/adjustment/adjustment_tool.tscn" id="5_cd782"]
 [ext_resource type="PackedScene" uid="uid://bpb81qqyhhoab" path="res://src/rulers/h_ruler.tscn" id="6_nmtuf"]
-[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="7_eo0uy"]
-[ext_resource type="Shader" path="res://src/shaders/Greyscale.gdshader" id="8_rxagw"]
+[ext_resource type="PackedScene" uid="uid://c08qtjj7x8pnk" path="res://src/canvas/draw_container.tscn" id="7_acu5l"]
 [ext_resource type="PackedScene" uid="uid://41uljc4y6ch0" path="res://src/timeline/timeline.tscn" id="9_esciw"]
 [ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/components/colorpalette/color_palette.tscn" id="9_igahc"]
 [ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/components/opt-selection/selection.tscn" id="10_m4bfb"]
@@ -17,21 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://cbuijs3m885d6" path="res://src/components/opt-crop/crop.tscn" id="14_coayu"]
 [ext_resource type="PackedScene" uid="uid://dbsb1l7cp4rg7" path="res://src/components/opt-eraser/eraser.tscn" id="15_mjhfc"]
 [ext_resource type="PackedScene" uid="uid://cih65rgsgsl3u" path="res://src/components/opt-fill/fill.tscn" id="16_4iq6d"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u122j"]
-shader = ExtResource("7_eo0uy")
-shader_parameter/size = 10.0
-shader_parameter/alpha = 1.0
-shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
-shader_parameter/color2 = Color(1, 1, 1, 1)
-shader_parameter/offset = Vector2(0, 0)
-shader_parameter/scale = Vector2(0, 0)
-shader_parameter/rect_size = Vector2(0, 0)
-shader_parameter/follow_movement = false
-shader_parameter/follow_scale = false
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ib7er"]
-shader = ExtResource("8_rxagw")
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -116,43 +100,8 @@ custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 flat = true
 
-[node name="DrawContainer" type="SubViewportContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw"]
+[node name="DrawContainer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw" instance=ExtResource("7_acu5l")]
 layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="DrawViewport" type="SubViewport" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer"]
-handle_input_locally = false
-canvas_item_default_texture_filter = 0
-size = Vector2i(360, 360)
-render_target_update_mode = 4
-
-[node name="Background" type="ColorRect" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer/DrawViewport"]
-material = SubResource("ShaderMaterial_u122j")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Canvas" type="Node2D" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer/DrawViewport"]
-visible = false
-
-[node name="Camera2D" type="Camera2D" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer/DrawViewport"]
-visible = false
-
-[node name="CanvasLayer" type="CanvasLayer" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer/DrawViewport"]
-visible = false
-
-[node name="GreyscaleVision" type="ColorRect" parent="main_area/mainborad/workspace/canvas/VSplitContainer/draw/DrawContainer/DrawViewport/CanvasLayer"]
-visible = false
-material = SubResource("ShaderMaterial_ib7er")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="timeline" parent="main_area/mainborad/workspace/canvas/VSplitContainer" instance=ExtResource("9_esciw")]
 layout_mode = 2

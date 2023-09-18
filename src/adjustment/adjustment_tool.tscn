@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkkj62x4hs764"]
+[gd_scene load_steps=10 format=3 uid="uid://dkkj62x4hs764"]
 
 [ext_resource type="Script" path="res://src/adjustment/AdjustmentTool.gd" id="1_wk5q7"]
 [ext_resource type="Texture2D" uid="uid://w4mloklylrbw" path="res://assets/icons/flip-h.png" id="2_ntn0e"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://buv4yejvagx6u" path="res://assets/icons/rotate-ccw.png" id="4_b12nu"]
 [ext_resource type="Texture2D" uid="uid://c18wh8glajtor" path="res://assets/icons/rotate-cw.png" id="5_omdwd"]
 [ext_resource type="Texture2D" uid="uid://t4x3p6bxgvxw" path="res://assets/icons/draw-mirror-h.png" id="6_45we1"]
+[ext_resource type="Script" path="res://src/widget/ToggleButton/IconToggleBtn.gd" id="7_8qvig"]
 [ext_resource type="Texture2D" uid="uid://eeyothb5y4ag" path="res://assets/icons/draw-mirror-v.png" id="7_530ix"]
 [ext_resource type="Texture2D" uid="uid://cnn5f7do2gre8" path="res://assets/icons/prefect-pixel.png" id="8_d7txu"]
 
@@ -24,7 +25,6 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("2_ntn0e")
-flat = true
 icon_alignment = 1
 
 [node name="FlipV" type="Button" parent="."]
@@ -34,7 +34,6 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("3_ap6pk")
-flat = true
 icon_alignment = 1
 
 [node name="RotateCCW" type="Button" parent="."]
@@ -44,7 +43,6 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("4_b12nu")
-flat = true
 icon_alignment = 1
 
 [node name="RotateCW" type="Button" parent="."]
@@ -54,13 +52,14 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"IconButton"
 icon = ExtResource("5_omdwd")
-flat = true
 icon_alignment = 1
 
 [node name="divier" type="VSeparator" parent="."]
 layout_mode = 2
+theme_type_variation = &"VDivider"
 
 [node name="MirrorH" type="Button" parent="."]
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -69,10 +68,13 @@ theme_type_variation = &"IconButton"
 toggle_mode = true
 action_mode = 0
 icon = ExtResource("6_45we1")
-flat = true
 icon_alignment = 1
+script = ExtResource("7_8qvig")
+ico_on = ExtResource("6_45we1")
+ico_off = ExtResource("6_45we1")
 
 [node name="MirrorV" type="Button" parent="."]
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -81,10 +83,13 @@ theme_type_variation = &"IconButton"
 toggle_mode = true
 action_mode = 0
 icon = ExtResource("7_530ix")
-flat = true
 icon_alignment = 1
+script = ExtResource("7_8qvig")
+ico_on = ExtResource("7_530ix")
+ico_off = ExtResource("7_530ix")
 
 [node name="PerfectPx" type="Button" parent="."]
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -93,5 +98,7 @@ theme_type_variation = &"IconButton"
 toggle_mode = true
 action_mode = 0
 icon = ExtResource("8_d7txu")
-flat = true
 icon_alignment = 1
+script = ExtResource("7_8qvig")
+ico_on = ExtResource("8_d7txu")
+ico_off = ExtResource("8_d7txu")
