@@ -46,12 +46,6 @@ func _draw():
 						 arrow_icon_color)
 
 
-func get_selected_btn():
-	for btn in extend_btns:
-		if btn.name == name:
-			return btn
-
-
 func change_btn(btn_name:StringName, btn_icon:Texture2D):
 	sel_name = btn_name
 	icon = btn_icon

@@ -121,7 +121,6 @@ func override_lineedit_stylebox(spinbox):
 
 
 func change_progress():
-	
 	var _distanc :float
 	var _delta :float
 	

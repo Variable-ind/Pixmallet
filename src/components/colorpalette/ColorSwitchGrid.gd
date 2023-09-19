@@ -22,7 +22,7 @@ var current_color :Color = Color.BLACK :
 @onready var addSwitchBtn:Button = $AddSwitchBtn
 
 
-func get_switches():
+func get_switches() -> Array[ColorSwitch]:
 	var switches = []
 	for child in get_children():
 		if child is ColorSwitch:

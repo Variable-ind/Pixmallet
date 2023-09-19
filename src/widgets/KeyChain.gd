@@ -50,7 +50,8 @@ func remove_event(event):
 		action.remove_event(event)
 
 
-func pack_actions_tree(as_list :bool = true):
+# return a list or dict. list as default.
+func pack_actions_tree(as_list :bool = true) -> Variant: 
 	var output :Dictionary = {'': []}
 	var output_list :Array = []
 	for tag in tags:
@@ -78,7 +79,7 @@ func pack_actions_tree(as_list :bool = true):
 		return output
 
 
-func search_actions_by_tag(by_tag :StringName = ''):
+func search_actions_by_tag(by_tag :StringName = '') -> Array[KeyChainAction]:
 	var output :Array = []
 	for action in actions:
 		if by_tag:
@@ -90,8 +91,11 @@ func search_actions_by_tag(by_tag :StringName = ''):
 	return output
 
 
-func add_action(action_key :StringName, action_name :String = '' ,
-				tag :StringName = '', deadzone: float = 0.5):
+func add_action(action_key :StringName, 
+				action_name :String = '',
+				tag :StringName = '', 
+				deadzone: float = 0.5) -> KeyChainAction:
+					
 	if not action_name:
 		action_name = action_key.capitalize()
 	
@@ -118,8 +122,11 @@ func add_action(action_key :StringName, action_name :String = '' ,
 	return action
 
 
-func update_action(action_key :StringName, action_name :String = '' ,
-				   tag :StringName = '', deadzone: float = 0.5):
+func update_action(action_key :StringName, 
+				   action_name :String = '',
+				   tag :StringName = '', 
+				   deadzone: float = 0.5) -> KeyChainAction:
+					
 	if not action_name:
 		action_name = action_key.capitalize()
 	
@@ -136,6 +143,7 @@ func update_action(action_key :StringName, action_name :String = '' ,
 	return action
 
 
+# get a KeyChainAction or null.
 func get_action(action_key :StringName):
 	for action in actions:
 		if action.key == action_key:
@@ -154,7 +162,7 @@ func del_action(action_key :StringName):
 			InputMap.erase_action(action.key)
 		
 
-func add_tag(tag :StringName):
+func add_tag(tag :StringName) -> Array[StringName]:
 	if tag and (not tags.has(tag)):
 		tags.append(tag)
 	return tags
@@ -208,7 +216,9 @@ func reset_action_tags():
 			action.tags.erase(r)
 
 
-func find_event_exists(event :InputEvent, by_tags :Variant = false):
+func find_event_exists(event :InputEvent, 
+					   by_tags = false) -> Array[KeyChainAction]:
+						
 	var confilicts :Array = []
 	
 	if by_tags == false:
@@ -255,7 +265,11 @@ func _on_keymap_event_bounded(action_key, event, action_tags):
 
 # static functions
 
-static func makeEventMouseButton(event_key, cmd=false, shift=false, alt=false):
+static func makeEventMouseButton(event_key :int, 
+								 cmd :bool=false,
+								 shift :bool=false,
+								 alt :bool=false) -> InputEventMouseButton:
+
 	var event: InputEventMouseButton = InputEventMouseButton.new()
 	event.button_index = event_key
 	event.alt_pressed = bool(alt)
@@ -264,7 +278,11 @@ static func makeEventMouseButton(event_key, cmd=false, shift=false, alt=false):
 	return event
 
 
-static func makeEventKey(event_key, cmd=false, shift=false, alt=false):
+static func makeEventKey(event_key :int,
+						 cmd :bool=false,
+						 shift :bool=false,
+						 alt :bool=false) -> InputEventKey:
+
 	var event: InputEventKey = InputEventKey.new()
 	event.keycode = event_key
 	event.alt_pressed = bool(alt)
@@ -273,9 +291,9 @@ static func makeEventKey(event_key, cmd=false, shift=false, alt=false):
 	return event
 	
 
-static func is_equal_input(evt_1 :Variant, evt_2 :Variant, 
-						   not_strict :bool = true):
-	# its possible to check event as `null`.
+static func is_equal_input(evt_1, evt_2, not_strict :bool = true) -> bool:
+	# use Variant, because its possible to check event as `null`.
+	
 	if evt_1 is InputEventWithModifiers and evt_2 is InputEventWithModifiers:
 		if evt_1 == evt_2:
 			return true
@@ -319,8 +337,6 @@ static func is_equal_input(evt_1 :Variant, evt_2 :Variant,
 class KeyChainAction:
 
 	extends Resource
-
-
 
 	signal keymap_event_bounded(group, event)
 
@@ -371,11 +387,11 @@ class KeyChainAction:
 			InputMap.action_erase_events(key)
 
 
-	func count_events():
+	func count_events() -> int:
 		return events.size()
 
 
-	func has_event(event:InputEventWithModifiers):
+	func has_event(event:InputEventWithModifiers) -> bool:
 		for evt in events:
 			if KeyChain.is_equal_input(evt, event):
 				return true
