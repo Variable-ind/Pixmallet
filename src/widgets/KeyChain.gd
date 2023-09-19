@@ -79,7 +79,7 @@ func pack_actions_tree(as_list :bool = true) -> Variant:
 		return output
 
 
-func search_actions_by_tag(by_tag :StringName = '') -> Array[KeyChainAction]:
+func search_actions_by_tag(by_tag :StringName = '') -> Array:
 	var output :Array = []
 	for action in actions:
 		if by_tag:
@@ -162,7 +162,7 @@ func del_action(action_key :StringName):
 			InputMap.erase_action(action.key)
 		
 
-func add_tag(tag :StringName) -> Array[StringName]:
+func add_tag(tag :StringName) -> Array:
 	if tag and (not tags.has(tag)):
 		tags.append(tag)
 	return tags
@@ -217,7 +217,7 @@ func reset_action_tags():
 
 
 func find_event_exists(event :InputEvent, 
-					   by_tags = false) -> Array[KeyChainAction]:
+					   by_tags = false) -> Array:
 						
 	var confilicts :Array = []
 	
@@ -265,7 +265,7 @@ func _on_keymap_event_bounded(action_key, event, action_tags):
 
 # static functions
 
-static func makeEventMouseButton(event_key :int, 
+static func makeEventMouseButton(event_key :MouseButton, 
 								 cmd :bool=false,
 								 shift :bool=false,
 								 alt :bool=false) -> InputEventMouseButton:
@@ -278,7 +278,7 @@ static func makeEventMouseButton(event_key :int,
 	return event
 
 
-static func makeEventKey(event_key :int,
+static func makeEventKey(event_key :Key,
 						 cmd :bool=false,
 						 shift :bool=false,
 						 alt :bool=false) -> InputEventKey:
