@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cnv2wo1wwsfyu"]
 
-[ext_resource type="Script" path="res://src/widget/ValSlider/ValSlider.gd" id="1_07xlp"]
+[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="1_07xlp"]
 
 [node name="Selection" type="VBoxContainer"]
 anchors_preset = 15

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bf5l8tq7g6k37"]
 
-[ext_resource type="Script" path="res://src/widget/ValSlider/ValSlider.gd" id="1_hwtdy"]
+[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="1_hwtdy"]
 [ext_resource type="Texture2D" uid="uid://dodq3378qymnc" path="res://assets/brushes/bars.png" id="1_jedl5"]
 
 [node name="Shading" type="VBoxContainer"]

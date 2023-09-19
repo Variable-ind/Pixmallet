@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://buv4yejvagx6u" path="res://assets/icons/rotate-ccw.png" id="4_b12nu"]
 [ext_resource type="Texture2D" uid="uid://c18wh8glajtor" path="res://assets/icons/rotate-cw.png" id="5_omdwd"]
 [ext_resource type="Texture2D" uid="uid://t4x3p6bxgvxw" path="res://assets/icons/draw-mirror-h.png" id="6_45we1"]
-[ext_resource type="Script" path="res://src/widget/ToggleButton/IconToggleBtn.gd" id="7_8qvig"]
+[ext_resource type="Script" path="res://src/widgets/IconToggleBtn.gd" id="7_8qvig"]
 [ext_resource type="Texture2D" uid="uid://eeyothb5y4ag" path="res://assets/icons/draw-mirror-v.png" id="7_530ix"]
 [ext_resource type="Texture2D" uid="uid://cnn5f7do2gre8" path="res://assets/icons/prefect-pixel.png" id="8_d7txu"]
 

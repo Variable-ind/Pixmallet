@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2jmndg28bimn"]
 
 [ext_resource type="Texture2D" uid="uid://dodq3378qymnc" path="res://assets/brushes/bars.png" id="1_jvnfr"]
-[ext_resource type="Script" path="res://src/widget/ValSlider/ValSlider.gd" id="2_j33j5"]
+[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="2_j33j5"]
 
 [node name="Pencil" type="VBoxContainer"]
 anchors_preset = 15

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbsb1l7cp4rg7"]
 
 [ext_resource type="Texture2D" uid="uid://dodq3378qymnc" path="res://assets/brushes/bars.png" id="1_pktke"]
-[ext_resource type="Script" path="res://src/widget/ValSlider/ValSlider.gd" id="2_ny86e"]
+[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="2_ny86e"]
 
 [node name="Eraser" type="VBoxContainer"]
 anchors_preset = 15

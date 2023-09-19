@@ -90,8 +90,8 @@ func search_actions_by_tag(by_tag :StringName = ''):
 	return output
 
 
-func add_action(action_key :StringName, action_name :String = '' , tag :StringName = '',
-				deadzone: float = 0.5):
+func add_action(action_key :StringName, action_name :String = '' ,
+				tag :StringName = '', deadzone: float = 0.5):
 	if not action_name:
 		action_name = action_key.capitalize()
 	
@@ -118,8 +118,8 @@ func add_action(action_key :StringName, action_name :String = '' , tag :StringNa
 	return action
 
 
-func update_action(action_key :StringName, action_name :String = '' , tag :StringName = '',
-				   deadzone: float = 0.5):
+func update_action(action_key :StringName, action_name :String = '' ,
+				   tag :StringName = '', deadzone: float = 0.5):
 	if not action_name:
 		action_name = action_key.capitalize()
 	
@@ -273,7 +273,8 @@ static func makeEventKey(event_key, cmd=false, shift=false, alt=false):
 	return event
 	
 
-static func is_equal_input(evt_1 :Variant, evt_2 :Variant, not_strict :bool = true):
+static func is_equal_input(evt_1 :Variant, evt_2 :Variant, 
+						   not_strict :bool = true):
 	# its possible to check event as `null`.
 	if evt_1 is InputEventWithModifiers and evt_2 is InputEventWithModifiers:
 		if evt_1 == evt_2:
@@ -290,12 +291,20 @@ static func is_equal_input(evt_1 :Variant, evt_2 :Variant, not_strict :bool = tr
 					return false
 				elif evt_1.unicode != evt_2.unicode:
 					return false
-			elif evt_1 is InputEventMouseButton and evt_2 is InputEventMouseButton:
+			elif (evt_1 is InputEventMouseButton and 
+				  evt_2 is InputEventMouseButton):
 				if evt_1.button_index != evt_2.button_index:
 					return false
+			
+			# use those for save line width only.
+			var evt_1_command_automap = evt_1.command_or_control_autoremap
+			var evt_2_command_automap = evt_2.command_or_control_autoremap
+			var evt_1_cmd_pressed = evt_1.is_command_or_control_pressed()
+			var evt_2_cmd_pressed = evt_2.is_command_or_control_pressed()
+			
 			return [
-				evt_1.command_or_control_autoremap == evt_2.command_or_control_autoremap,
-				evt_1.is_command_or_control_pressed() == evt_2.is_command_or_control_pressed(),
+				evt_1_command_automap == evt_2_command_automap,
+				evt_1_cmd_pressed == evt_2_cmd_pressed,
 				evt_1.alt_pressed == evt_2.alt_pressed,
 				evt_1.shift_pressed == evt_2.shift_pressed,
 				evt_1.ctrl_pressed == evt_2.ctrl_pressed,
@@ -303,3 +312,114 @@ static func is_equal_input(evt_1 :Variant, evt_2 :Variant, not_strict :bool = tr
 			].all(func(val): return val == true)
 	else:
 		return false
+
+
+# Key Actions
+
+class KeyChainAction:
+
+	extends Resource
+
+
+
+	signal keymap_event_bounded(group, event)
+
+	const ERR_ACTION_NOT_EXIST = 'Keymap action dose not exist.'
+
+	@export var key :StringName = ''
+	@export var name :String = ''
+	@export var deadzone :float = 0.5
+	@export var tags :Array = []
+	@export var events :Array[InputEvent] = []
+
+	@export var single_event_mode :bool = false :
+		set(val):
+			if single_event_mode != val:
+				single_event_mode = val
+				if single_event_mode:
+					var removes :Array = []
+					for i in events.size():
+						if i > 0:
+							removes.append(events[i])
+					for r in removes:
+						# events size might change. that's why use `removes`.
+						unbind_event(r)
+
+
+	func sync():
+		# NO NEED clear current InputMap. the InputMap is reset anyway.
+		if not InputMap.has_action(key):
+			InputMap.add_action(key)
+		
+		InputMap.action_set_deadzone(key, deadzone)
+		if InputMap.action_get_events(key).size() > 0:
+			InputMap.action_erase_events(key)
+		for evt in events:
+			InputMap.action_add_event(key, evt)
+
+
+	func clear():
+		if InputMap.has_action(key):
+			InputMap.erase_action(key)
+		events.clear()
+		tags.clear()
+
+
+	func clear_events():
+		events.clear()
+		if InputMap.has_action(key):
+			InputMap.action_erase_events(key)
+
+
+	func count_events():
+		return events.size()
+
+
+	func has_event(event:InputEventWithModifiers):
+		for evt in events:
+			if KeyChain.is_equal_input(evt, event):
+				return true
+		return false
+
+
+	func bind_event(event:InputEventWithModifiers, old_event:Variant = null):
+		var insert_index = 0
+		
+		if single_event_mode:
+			# clear up other events before append new one.
+			for evt in events:
+				unbind_event(evt)
+			# NO NEED events.clear(), already removed all in unbind_event().
+		else:
+			if old_event is InputEventWithModifiers:
+				# remove old event and take the place.
+				for i in events.size():
+					if old_event == events[i]:
+						unbind_event(old_event)
+						insert_index = i
+						break
+			# make sure event not duplicated.
+			unbind_event(event)
+		# append new event to action events.
+		if not events.has(event):
+			events.insert(insert_index, event)
+			keymap_event_bounded.emit(key, event, tags)
+			if InputMap.has_action(key):
+				InputMap.action_add_event(key, event)
+
+
+	func unbind_event(event:InputEventWithModifiers):
+		var removes :Array = []
+
+		for evt in events:
+			if KeyChain.is_equal_input(event, evt):
+				removes.append(evt)
+		
+		# remove event it self or equals once for all.
+		for r in removes:
+			events.erase(r)
+			
+		if InputMap.has_action(key):
+			for r in removes:
+				if InputMap.action_has_event(key, r):
+					InputMap.action_erase_event(key, r)
