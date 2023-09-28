@@ -1,6 +1,4 @@
-extends PopupMenu
-
-class_name NavSubmenu
+class_name NavSubmenu extends PopupMenu
 
 signal item_pressed(item_data)
 

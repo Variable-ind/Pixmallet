@@ -1,6 +1,4 @@
-extends Panel
-
-class_name Navbar
+class_name Navbar extends Panel
 
 signal navigation_to(navId, data)
 

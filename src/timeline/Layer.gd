@@ -1,6 +1,4 @@
-extends Panel
-
-class_name Layer
+class_name Layer extends Panel
 
 enum LayerState {
 	VISIBLE,

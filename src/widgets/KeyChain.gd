@@ -1,6 +1,4 @@
-extends Resource
-
-class_name KeyChain
+class_name KeyChain extends Resource
 
 enum UniqueEventMode {
 	NONE,

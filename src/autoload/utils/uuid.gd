@@ -1,8 +1,6 @@
+class_name uuid extends Node
 # Note: The code might not be as pretty it could be, since it's written
 # in a way that maximizes performance. Methods are inlined and loops are avoided.
-extends Node
-
-class_name uuid
 
 const BYTE_MASK: int = 0b11111111
 

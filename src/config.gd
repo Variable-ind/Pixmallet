@@ -1,4 +1,4 @@
-extends Node
+class_name Config extends Node
 
 
 const PATH_PROFILE = 'user://profile'

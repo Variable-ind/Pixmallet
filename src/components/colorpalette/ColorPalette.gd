@@ -1,6 +1,4 @@
-extends Panel
-
-class_name ColorPalette
+class_name ColorPalette extends Panel
 
 signal modal_toggled(state:int)
 

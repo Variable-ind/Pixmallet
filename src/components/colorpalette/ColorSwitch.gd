@@ -1,6 +1,4 @@
-extends ColorRect
-
-class_name ColorSwitch
+class_name ColorSwitch extends ColorRect
 
 const TOOLTIP_TMPL = 'RGBa: ({r},{g},{b},{a})\nHEX: #{hex}\n\nRight click to remove'
 

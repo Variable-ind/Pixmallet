@@ -1,7 +1,5 @@
 @tool
-extends Button
-
-class_name IconToogleBtn
+class_name IconToogleBtn extends Button
 
 signal layer_btn_toggled(toggled_state, is_triggered)
 

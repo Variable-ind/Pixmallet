@@ -1,6 +1,4 @@
-extends HBoxContainer
-
-class_name AdjustmentTool
+class_name AdjustmentTool extends HBoxContainer
 
 signal active_adjust_tool(adjustId)
 

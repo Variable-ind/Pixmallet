@@ -1,6 +1,4 @@
-extends GridContainer
-
-class_name ColorSwitchGrid
+class_name ColorSwitchGrid extends GridContainer
 
 signal add_color_switch
 signal select_color_switch(index)

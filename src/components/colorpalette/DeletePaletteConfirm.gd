@@ -1,7 +1,5 @@
 extends ConfirmationDialog
 
-
-
 @onready var delete_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()
 @onready var hint:Label = $MarginContainer/hint

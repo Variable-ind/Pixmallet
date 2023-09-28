@@ -1,6 +1,4 @@
-extends Resource
-
-class_name ColorPaletteRes
+class_name ColorPaletteRes extends Resource
 
 const PLAETTE_FILE_NAME_TMPL = 'color-palette-{}-{}.tres'
 

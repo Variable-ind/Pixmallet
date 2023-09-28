@@ -1,6 +1,4 @@
-extends Button
-
-class_name ExtendableButton
+class_name ExtendableButton extends Button
 # THIS CLASS MIGHT USE FOR MULTIPLE TOOLBAR BUTTONS.
 
 const CELL_WIDTH :int = 36

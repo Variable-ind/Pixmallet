@@ -1,6 +1,4 @@
-extends ScrollContainer
-
-class_name Toolbar
+class_name Toolbar extends ScrollContainer
 
 signal active_tool(toolId)
 
