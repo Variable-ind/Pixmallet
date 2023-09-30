@@ -1,3 +1,7 @@
+# version: 0.1.0
+# https://github.com/redyyu/godot-4-keymap-manager
+# redy.ru@gmail.com
+
 class_name KeyChain extends Resource
 
 enum UniqueEventMode {
@@ -332,9 +336,7 @@ static func is_equal_input(evt_1, evt_2, not_strict :bool = true) -> bool:
 
 # Key Actions
 
-class KeyChainAction:
-
-	extends Resource
+class KeyChainAction extends Resource:
 
 	signal keymap_event_bounded(group, event)
 
