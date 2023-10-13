@@ -38,6 +38,7 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="Navbar" parent="main_area" instance=ExtResource("3_iv05c")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="mainborad" type="PanelContainer" parent="main_area"]
@@ -110,6 +111,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="ColorPalette" parent="main_area/mainborad/workspace/right-sider/split/split" instance=ExtResource("9_igahc")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 
@@ -158,6 +160,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="overlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 15

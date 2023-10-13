@@ -141,6 +141,12 @@ func save_palette(palette:ColorPaletteRes):
 					   config.PATH_PALETTE_DIR.path_join(palette.file))	
 	
 
+func set_colors(foreground_color :Color, background_color :Color):
+	colorForeground.color = foreground_color
+	colorBackground.color = background_color
+	colorSwitchGrid.current_color = colorForeground.color
+
+
 func set_color_picker(picker):
 	picker.can_add_swatches = false
 	picker.color_mode = ColorPicker.MODE_RGB

@@ -3,10 +3,13 @@ extends Control
 var camera :CanvasCamera
 var canvas :Canvas
 
-var current_color :Color
+var foreground_color := Color.WHITE
+var background_color := Color.BLACK
 
 @onready var artboard := %Artboard
-@onready var overlay := $overlay
+@onready var overlay := %overlay
+@onready var navbar := %Navbar
+@onready var color_palette := %ColorPalette
 
 
 func _ready():
@@ -16,6 +19,9 @@ func _ready():
 	artboard.load_project(project)
 	camera = artboard.camera
 	canvas = artboard.canvas
+	
+	navbar.launch()
+	color_palette.set_colors(foreground_color, background_color)
 	
 	# ensure modal background overlay is hide
 	overlay.hide()
@@ -42,7 +48,7 @@ func _on_navigation_to(navId, data):
 		Navbar.SHOW_GUIDES:
 			artboard.show_guides = data.get('checked')
 		Navbar.SHOW_MOUSE_GUIDES:
-			artboard.show_mouse_guides = data.get('checked')
+			artboard.show_mouse_guide = data.get('checked')
 		Navbar.SHOW_SYMMETRY_GRID:
 			if data.get('checked'):
 				artboard.show_symmetry_guide_state = SymmetryGuide.CROSS_AXIS
@@ -70,4 +76,4 @@ func _on_modal_toggled(state:bool):
 
 
 func _on_color_palette_color_changed(color):
-	current_color = color
+	foreground_color = color

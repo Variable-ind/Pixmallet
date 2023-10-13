@@ -18,7 +18,8 @@ func _ready():
 	# https://github.com/godotengine/godot/issues/73413
 	# https://github.com/godotengine/godot/issues/76480
 	# Error:
-	# E 0:00:03:0055   window_get_popup_safe_rect: Condition "!windows.has(p_window)" 
+	# E 0:00:03:0055   window_get_popup_safe_rect: Condition "!
+	# windows.has(p_window)" 
 	# is true. Returning: Rect2i()
 	# <C++ Source>   platform/macos/display_server_macos.mm:3706 @ 
 	# window_get_popup_safe_rect()
