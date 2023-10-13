@@ -18,6 +18,10 @@ var h_symmetry_guide := Line2D.new()
 var v_symmetry_guide := Line2D.new()
 
 
+func _init():
+	hide()
+	
+
 func _ready():
 	h_symmetry_guide.width = 1
 	h_symmetry_guide.default_color = guide_color

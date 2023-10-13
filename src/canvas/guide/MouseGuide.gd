@@ -17,6 +17,10 @@ var h_mouse_guide := Line2D.new()
 var v_mouse_guide := Line2D.new()
 
 
+func _init():
+	visible = false
+	
+
 func _ready():
 	h_mouse_guide.width = 1
 	v_mouse_guide.width = 1
