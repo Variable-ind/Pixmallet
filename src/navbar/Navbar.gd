@@ -5,7 +5,7 @@ signal navigation_to(navId, data)
 enum {
 	NEW_FILE, OPEN_FILE, RECENT_FILE, SAVE_FILE, SAVE_FILE_AS, EXPORT_FILE, QUIT,
 	
-	UNDO, REDO, COPY, PASTE, DELETE, PREFERENCES, 
+	UNDO, REDO, COPY, PASTE, DELETE, ZOOM_IN, ZOOM_OUT, PREFERENCES, 
 	
 	SELECT_ALL, CLEAR_SEL, INVERT_SEL,
 	
@@ -63,6 +63,12 @@ var menu_item_map: Dictionary = {}
 			 'event': KeyChain.makeEventKey(KEY_V, true)},
 			{'id': DELETE, 'label': 'Delete', 'action': 'delete',
 			 'event': KeyChain.makeEventKey(KEY_BACKSPACE)},
+			{'separate': true},
+			{'id': ZOOM_IN, 'label': 'Zoom In', 'action': 'zoom_in',
+			 'event': KeyChain.makeEventKey(KEY_EQUAL, true)},
+			{'id': ZOOM_OUT, 'label': 'Zoom Out', 'action': 'zoom_out',
+			 'event': KeyChain.makeEventKey(KEY_MINUS, true)},
+			{'separate': true},
 			{'id': PREFERENCES, 'label': 'Preferences'},
 		]
 	},
@@ -71,7 +77,7 @@ var menu_item_map: Dictionary = {}
 		'popmenus': [
 			{'id': SELECT_ALL, 'label': 'All', 'action': 'select_all',
 			 'event': KeyChain.makeEventKey(KEY_A, true)},
-			{'id': CLEAR_SEL, 'label':'Clear', 'action': 'clear_selection',
+			{'id': CLEAR_SEL, 'label':'Clear', 'action': 'deselect_all',
 			 'event': KeyChain.makeEventKey(KEY_D, true)},
 			{'id': INVERT_SEL, 'label': 'Invert', 'action': 'invert_selection',
 			 'event': KeyChain.makeEventKey(KEY_I, true, true)},
@@ -159,7 +165,10 @@ func set_menu_items(menu:MenuButton, structure:Array):
 			var rediect_id = item['id'] if item.get('unified') else -1
 			item['submenu'].register(item['label'], item.get('data', []),
 									 menu_popup, rediect_id)
-		else:
+		elif item.get('separate'):
+			menu_popup.add_separator()
+			continue
+		elif item.has('id'):
 			if item.has('check'):
 				menu_popup.add_check_item(item['label'], item['id'])
 				menu_popup.set_item_checked(i, bool(item['check']))
