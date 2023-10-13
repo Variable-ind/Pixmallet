@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://kdbaytc0h8gy"]
+
+[ext_resource type="Script" path="res://src/transform/TransformPanel.gd" id="1_rjbfa"]
+[ext_resource type="Script" path="res://src/widgets/PivotSelector.gd" id="2_1uiln"]
+
+[node name="TransformPanel" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rjbfa")
+
+[node name="column" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="row" type="HBoxContainer" parent="column"]
+layout_mode = 2
+
+[node name="position" type="VBoxContainer" parent="column/row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InputPosX" type="SpinBox" parent="column/row/position"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+max_value = 12000.0
+prefix = "X"
+custom_arrow_step = 10.0
+
+[node name="InputPosY" type="SpinBox" parent="column/row/position"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+max_value = 12000.0
+prefix = "Y"
+custom_arrow_step = 10.0
+
+[node name="size" type="VBoxContainer" parent="column/row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InputWidth" type="SpinBox" parent="column/row/size"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+max_value = 12000.0
+prefix = "W"
+custom_arrow_step = 10.0
+
+[node name="InputHeight" type="SpinBox" parent="column/row/size"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+max_value = 12000.0
+prefix = "H"
+custom_arrow_step = 10.0
+
+[node name="row2" type="HBoxContainer" parent="column"]
+layout_mode = 2
+alignment = 1
+
+[node name="OptPivot" type="Control" parent="column/row2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+script = ExtResource("2_1uiln")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="column/row2"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2

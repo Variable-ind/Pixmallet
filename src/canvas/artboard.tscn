@@ -1,0 +1,134 @@
+[gd_scene load_steps=21 format=3 uid="uid://c08qtjj7x8pnk"]
+
+[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="1_d8lm1"]
+[ext_resource type="Script" path="res://src/canvas/Artboard.gd" id="1_fg2jv"]
+[ext_resource type="Shader" path="res://src/shaders/Greyscale.gdshader" id="2_s2kkr"]
+[ext_resource type="Script" path="res://src/canvas/TransChecker.gd" id="3_dvs3t"]
+[ext_resource type="Script" path="res://src/canvas/Canvas.gd" id="4_1y3pt"]
+[ext_resource type="Script" path="res://src/canvas/ReferenceImage.gd" id="4_ooelk"]
+[ext_resource type="Script" path="res://src/canvas/Indicator.gd" id="5_d6712"]
+[ext_resource type="Script" path="res://src/canvas/CanvasCamera.gd" id="5_ghk1k"]
+[ext_resource type="Script" path="res://src/canvas/guide/Grid.gd" id="6_qakk7"]
+[ext_resource type="Script" path="res://src/canvas/selection/Selection.gd" id="7_u15up"]
+[ext_resource type="Script" path="res://src/canvas/silhouette/Silhouette.gd" id="7_xeh1s"]
+[ext_resource type="Script" path="res://src/canvas/CropSizer.gd" id="9_jix6q"]
+[ext_resource type="Shader" path="res://src/shaders/MarchingAntsOutline.gdshader" id="9_y3e15"]
+[ext_resource type="Script" path="res://src/canvas/MoveSizer.gd" id="10_e8gjq"]
+[ext_resource type="Script" path="res://src/canvas/guide/SymmetryGuide.gd" id="10_xpo1w"]
+[ext_resource type="Script" path="res://src/canvas/guide/Ruler.gd" id="12_o861q"]
+[ext_resource type="Script" path="res://src/canvas/guide/MouseGuide.gd" id="13_xksjp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fwpdp"]
+shader = ExtResource("1_d8lm1")
+shader_parameter/size = 10.0
+shader_parameter/alpha = 1.0
+shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
+shader_parameter/color2 = Color(1, 1, 1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/scale = Vector2(0, 0)
+shader_parameter/rect_size = Vector2(0, 0)
+shader_parameter/follow_movement = false
+shader_parameter/follow_scale = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_paxfm"]
+shader = ExtResource("9_y3e15")
+shader_parameter/first_color = Color(1, 1, 1, 1)
+shader_parameter/second_color = Color(0, 0, 0, 1)
+shader_parameter/animated = true
+shader_parameter/width = 0.05
+shader_parameter/frequency = 50.0
+shader_parameter/stripe_direction = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ib7er"]
+shader = ExtResource("2_s2kkr")
+
+[node name="Artboard" type="SubViewportContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+stretch = true
+script = ExtResource("1_fg2jv")
+
+[node name="Viewport" type="SubViewport" parent="."]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+gui_snap_controls_to_pixels = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="TransChecker" type="ColorRect" parent="Viewport"]
+material = SubResource("ShaderMaterial_fwpdp")
+mouse_filter = 2
+script = ExtResource("3_dvs3t")
+
+[node name="ReferenceImage" type="Sprite2D" parent="Viewport"]
+visible = false
+script = ExtResource("4_ooelk")
+
+[node name="Canvas" type="Node2D" parent="Viewport"]
+script = ExtResource("4_1y3pt")
+
+[node name="Indicator" type="Node2D" parent="Viewport/Canvas"]
+script = ExtResource("5_d6712")
+
+[node name="Silhouette" type="Node2D" parent="Viewport/Canvas"]
+script = ExtResource("7_xeh1s")
+
+[node name="Selection" type="Sprite2D" parent="Viewport/Canvas"]
+material = SubResource("ShaderMaterial_paxfm")
+centered = false
+script = ExtResource("7_u15up")
+
+[node name="CropSizer" type="Node2D" parent="Viewport/Canvas"]
+script = ExtResource("9_jix6q")
+gizmo_color = Color(1, 1, 1, 1)
+line_color = Color(1, 1, 1, 1)
+
+[node name="MoveSizer" type="Node2D" parent="Viewport/Canvas"]
+script = ExtResource("10_e8gjq")
+gizmo_color = Color(0.2, 0.0666667, 0.666667, 1)
+gizmo_bgcolor = Color(0.2, 0.266667, 0.666667, 1)
+line_width = 2.0
+line_color = Color(0.2, 0.0666667, 0.666667, 1)
+
+[node name="Grid" type="Node2D" parent="Viewport"]
+script = ExtResource("6_qakk7")
+
+[node name="Camera" type="Camera2D" parent="Viewport"]
+script = ExtResource("5_ghk1k")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Viewport"]
+visible = false
+
+[node name="GreyscaleVision" type="ColorRect" parent="Viewport/CanvasLayer"]
+material = SubResource("ShaderMaterial_ib7er")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HRuler" type="Button" parent="."]
+visible = false
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 14
+script = ExtResource("12_o861q")
+
+[node name="VRuler" type="Button" parent="."]
+visible = false
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 15
+script = ExtResource("12_o861q")
+orientation = 1
+
+[node name="SymmetryGuide" type="Node2D" parent="."]
+script = ExtResource("10_xpo1w")
+
+[node name="MouseGuide" type="Node2D" parent="."]
+script = ExtResource("13_xksjp")

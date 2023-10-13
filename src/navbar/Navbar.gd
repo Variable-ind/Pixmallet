@@ -146,10 +146,10 @@ var menu_item_map: Dictionary = {}
 
 func _ready():
 	for menu in navbar_keymaps:
-		_set_menu_items(menu['menu'], menu['popmenus'])
+		set_menu_items(menu['menu'], menu['popmenus'])
 
 
-func _set_menu_items(menu:MenuButton, structure:Array):
+func set_menu_items(menu:MenuButton, structure:Array):
 	var menu_popup = menu.get_popup()
 	menu_popup.id_pressed.connect(_on_menu_id_pressed)
 	
