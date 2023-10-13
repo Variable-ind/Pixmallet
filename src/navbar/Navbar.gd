@@ -206,6 +206,9 @@ func set_menu_items(menu:MenuButton, structure:Array):
 				menu_popup.add_check_item(item['label'], item['id'])
 				menu_popup.set_item_checked(i, bool(item['checked']))
 				menu_popup.hide_on_checkable_item_selection = false
+				if item.get('checked') == true:
+					# emit singal to trigger the checked
+					navigation_to.emit(item['id'], item)
 			else:
 				menu_popup.add_item(item['label'], item['id'])
 				

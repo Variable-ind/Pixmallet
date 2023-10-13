@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=67 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=71 format=3 uid="uid://bnvbwu202rx6u"]
 
 [ext_resource type="FontFile" uid="uid://c8xuja0cdkq51" path="res://assets/fonts/OpenSans-Bold.ttf" id="FontBold"]
 [ext_resource type="FontFile" uid="uid://cllbhityges65" path="res://assets/fonts/OpenSans-Regular.ttf" id="FontRegular"]
@@ -193,7 +193,6 @@ bg_color = Color(0.2, 0.2, 0.2, 0.7)
 
 [sub_resource type="StyleBoxFlat" id="RulerPressed"]
 bg_color = Color(0.6, 0.33, 0.26, 1)
-
 
 [sub_resource type="StyleBoxFlat" id="TabDisabled"]
 content_margin_left = 12.0
@@ -442,8 +441,8 @@ PopupPanel/styles/panel = SubResource("PopupPanel")
 Ruler/base_type = &"Button"
 Ruler/styles/disabled = SubResource("RulerDisabled")
 Ruler/styles/focus = SubResource("RulerFocus")
-Ruler/styles/normal = SubResource("RulerNormal")
 Ruler/styles/hovar = SubResource("RulerHover")
+Ruler/styles/normal = SubResource("RulerNormal")
 Ruler/styles/pressed = SubResource("RulerPressed")
 TabBar/constants/h_separation = 6
 TabBar/font_sizes/font_size = 12
