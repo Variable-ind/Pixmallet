@@ -1,12 +1,20 @@
 class_name ColorPalette extends Panel
 
 signal modal_toggled(state:int)
+signal color_changed(color)
 
 const PALETTE_ROW_NUM = 12
-	
+
 var current_palette : ColorPaletteRes
 var palettes_stack :Array[ColorPaletteRes] = []
 var current_palette_index: int = -1
+
+var keymap := {
+	'FlipColor': {
+		'action': 'flip_color', 
+		'event': KeyChain.makeEventKey(KEY_X)
+	},
+}
 
 @onready var colorForeground :ColorPickerButton = %Foreground
 @onready var colorBackground :ColorPickerButton = %Background
@@ -22,8 +30,10 @@ var current_palette_index: int = -1
 func _ready():
 	createDialog.hide()
 	deleteDialog.hide()
-	createDialog.visibility_changed.connect(_on_dialog_toggled.bind(createDialog))
-	deleteDialog.visibility_changed.connect(_on_dialog_toggled.bind(deleteDialog))
+	createDialog.visibility_changed.connect(
+		_on_dialog_toggled.bind(createDialog))
+	deleteDialog.visibility_changed.connect(
+		_on_dialog_toggled.bind(deleteDialog))
 	
 	set_color_picker(colorForeground.get_picker())
 	set_color_picker(colorBackground.get_picker())
@@ -32,8 +42,8 @@ func _ready():
 	
 	# set shortcuts X.
 	colorSwitchBtn.shortcut = Shortcut.new()
-	var event:InputEventAction = InputEventAction.new()
-	event.action = 'switch_color'
+	var event := InputEventAction.new()
+	event.action = 'flip_color'
 	colorSwitchBtn.shortcut.events.append(event)
 	var action = g.keyChain.add_action(event.action, 
 									   colorSwitchBtn.name, 
@@ -92,7 +102,7 @@ func switch_palette(index:int=0):
 	current_palette_index = index
 	
 	removePaletteBtn.disabled = current_palette.as_default
-		
+
 
 func create_palette(palette_name:String):
 	var new_palette :ColorPaletteRes = ColorPaletteRes.new(palette_name)
@@ -113,22 +123,22 @@ func delete_palette(index:int=0):
 		return
 
 	palettes_stack.remove_at(index)
-	DirAccess.remove_absolute(config.PATH_PALETTE_DIR.path_join(rm_palette.file))
+	DirAccess.remove_absolute(
+		config.PATH_PALETTE_DIR.path_join(rm_palette.file))
 	
 	var popmenu = paletteSelector.get_popup()
 	popmenu.remove_item(index)
 	if current_palette_index == index:
 		current_palette_index = -1
 	switch_palette(palettes_stack.size()-1)
-	
-	rm_palette.destroy()
-	
+
 
 func save_palette(palette:ColorPaletteRes):
 	if palette.as_default and palette.colors.size() <= 0:
 		palette.set_to_default()
 		colorSwitchGrid.set_switches(palette.colors, colorForeground.color)
-	ResourceSaver.save(palette, config.PATH_PALETTE_DIR.path_join(palette.file))	
+	ResourceSaver.save(palette,
+					   config.PATH_PALETTE_DIR.path_join(palette.file))	
 	
 
 func set_color_picker(picker):
@@ -198,3 +208,4 @@ func _on_select_color_switch(index):
 
 func _on_foreground_color_changed(color):
 	colorSwitchGrid.current_color = color
+	color_changed.emit(color)

@@ -14,8 +14,9 @@ enum {
 	GRADIENT,
 	
 	TILE_MODE, TILE_MODE_OFFSET, GRAYSCALE_VIEW, MIRROR_VIEW,
-	SHOW_GRID, SHOW_PIX_GRID, SHOW_RULERS, SHOW_GUIDES, SHOW_MOUSE_GUIDES,
-	SNAP_GROUP, SNAP_GRID,SNAP_GUIDES,SNAP_PRESPECTIVE,
+	SHOW_CARTESIAN_GRID, SHOW_ISOMETRIC_GRID, SHOW_PIX_GRID, SHOW_RULERS, SHOW_GUIDES, SHOW_MOUSE_GUIDES,
+	SHOW_SYMMETRY_GRID, 
+	SNAP_GROUP, SNAP_GRID, SNAP_GUIDES, SNAP_PRESPECTIVE,
 	
 	TOOLBAR, TIMELINE, CANVAS_PREVIEW,
 	COLOR_PICKER, TOOL_OPTION, REFERENCE, PRESPECTIVE,
@@ -122,26 +123,38 @@ var menu_item_map: Dictionary = {}
 			{'id': TILE_MODE_OFFSET, 'label':'Tile Mode Offset', 
 			 'action': 'tile_mode_offset'},
 			{'id': GRAYSCALE_VIEW, 'label': 'Grayscale View',
-			 'action': 'grayscale_view'},
+			 'action': 'grayscale_view', 'checked': false},
 			{'id': MIRROR_VIEW, 'label': 'Mirror View',
-			 'action': 'mirror_view'},
-			{'id': SHOW_GRID, 'label': 'Show Grid',
-			 'action': 'show_grid'},
+			 'action': 'mirror_view', 'checked': false},
+			{'id': SHOW_CARTESIAN_GRID, 'label': 'Show Cartesian Grid',
+			 'action': 'show_cartesian_grid', 'checked': false,
+			 'event': KeyChain.makeEventKey(KEY_COMMA, true)},
+			{'id': SHOW_ISOMETRIC_GRID, 'label': 'Show Isometric Grid', 
+			 'action': 'show_isometric_grid', 'checked': false,
+			 'event': KeyChain.makeEventKey(KEY_STOP, true)},
 			{'id': SHOW_PIX_GRID, 'label': 'Show Pixel Grid',
-			 'action': 'show_pixel_grid'},
+			 'action': 'show_pixel_grid', 'checked': false,
+			 'event': KeyChain.makeEventKey(KEY_SLASH, true)},
 			{'id': SHOW_RULERS, 'label': 'Show Rulers',
-			 'action': 'show_rulerss'},
-			{'id': SHOW_GUIDES, 'label': 'Show Guides',
-			 'action': 'show_guides'},
+			 'action': 'show_rulerss', 'checked': true,
+			 'event': KeyChain.makeEventKey(KEY_R, true)},
+			{'id': SHOW_GUIDES, 'label': 'Show Guides', 
+			 'action': 'show_guides', 'checked': true,
+			 'event': KeyChain.makeEventKey(KEY_SEMICOLON, true)},
+			{'id': SHOW_SYMMETRY_GRID, 'label': 'Show Symmetry Guides', 
+			 'action': 'show_sysmmetry_grid', 'checked': false,
+			 'event': KeyChain.makeEventKey(KEY_APOSTROPHE, true)},
 			{'id': SHOW_MOUSE_GUIDES, 'label': 'Show Mouse Guides',
-			 'action': 'show_mouse_guides'},
+			 'action': 'show_mouse_guides', 'checked': false},
 			{'id': SNAP_GROUP, 'label': 'Snap To', 
 			 'submenu': $Submenu.duplicate(),
 			 'data': [
-				{'id': SNAP_GRID, 'label':'Grids', 'check': false},
-				{'id': SNAP_GUIDES, 'label':'Guides', 'check': false},
-				{'id': SNAP_PRESPECTIVE, 'label':'Perspective Guides',
-				 'check': false}
+				{'id': SNAP_GRID, 'label':'Grids', 'checked': false,
+				 'action': 'snap_to_grids'},
+				{'id': SNAP_GUIDES, 'label':'Guides', 'checked': false,
+				 'action': 'snap_to_guides'},
+#				{'id': SNAP_PRESPECTIVE, 'label':'Perspective Guides',
+#				 'checked': false, 'action': 'snap_to_perspective'}
 			]},
 		]
 	},
@@ -149,13 +162,13 @@ var menu_item_map: Dictionary = {}
 		'menu': $MenuItems/Window,
 		'popmenus': [
 #			{'key': 'toogle_canvas_only', 'label': 'Toogle Canvas Only'},
-			{'id': TOOLBAR, 'label': 'Tools', 'check': true},
-			{'id': TIMELINE, 'label': 'Animation Timeline', 'check': true},
-			{'id': CANVAS_PREVIEW, 'label': 'Canvas Preview', 'check': true},
-			{'id': COLOR_PICKER, 'label': 'Color Pickers', 'check': true},
-			{'id': TOOL_OPTION, 'label': 'Tool Options', 'check': true},
-			{'id': REFERENCE, 'label': 'Reference Images', 'check': false},
-			{'id': PRESPECTIVE, 'label': 'Perspective Editor', 'check': false},
+			{'id': TOOLBAR, 'label': 'Tools', 'checked': true},
+			{'id': TIMELINE, 'label': 'Animation Timeline', 'checked': true},
+			{'id': CANVAS_PREVIEW, 'label': 'Canvas Preview', 'checked': true},
+			{'id': COLOR_PICKER, 'label': 'Color Pickers', 'checked': true},
+			{'id': TOOL_OPTION, 'label': 'Tool Options', 'checked': true},
+			{'id': REFERENCE, 'label': 'Reference Images', 'checked': false},
+			{'id': PRESPECTIVE, 'label': 'Perspective Editor', 'checked': false},
 		]
 	},
 	{
@@ -189,9 +202,9 @@ func set_menu_items(menu:MenuButton, structure:Array):
 			menu_popup.add_separator()
 			continue
 		elif item.has('id'):
-			if item.has('check'):
+			if item.has('checked'):
 				menu_popup.add_check_item(item['label'], item['id'])
-				menu_popup.set_item_checked(i, bool(item['check']))
+				menu_popup.set_item_checked(i, bool(item['checked']))
 				menu_popup.hide_on_checkable_item_selection = false
 			else:
 				menu_popup.add_item(item['label'], item['id'])
@@ -219,9 +232,9 @@ func _on_menu_id_pressed(item_id):
 	var menu_popup = item_data['popup']
 	var idx = item_data['index']
 	
-	if item_data.has('check'):
-		item_data['check'] = not item_data.get('check')
-		menu_popup.set_item_checked(idx, item_data['check'])
+	if item_data.has('checked'):
+		item_data['checked'] = not item_data.get('checked')
+		menu_popup.set_item_checked(idx, item_data['checked'])
 	
 	navigation_to.emit(item_id, item_data)
 

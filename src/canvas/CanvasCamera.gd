@@ -47,15 +47,16 @@ func _input(event: InputEvent):
 		offset = offset + event.delta * 7.0 / zoom
 		dragged.emit()
 	
-	# hit the hot key directly.
-	elif event.is_action_pressed("zoom_in"):
-		zoom_center_point = canvas_size * 0.5 
-		zoom_camera(1)
-		zoomed.emit()
-	elif event.is_action_released("zoom_out"):
-		zoom_center_point = canvas_size * 0.5
-		zoom_camera(-1)
-		zoomed.emit()
+	# DO NOT need those, hit key from shortcuts
+	# hit the hot key directly. 
+#	elif event.is_action_pressed("zoom_in"):
+#		zoom_center_point = canvas_size * 0.5 
+#		zoom_camera(1)
+#		zoomed.emit()
+#	elif event.is_action_released("zoom_out"):
+#		zoom_center_point = canvas_size * 0.5
+#		zoom_camera(-1)
+#		zoomed.emit()
 	
 	if event is InputEventMouseButton:
 		btn_pressed = event.pressed
@@ -104,6 +105,17 @@ func zoom_camera(direction: int):
 #		tween.step_finished.connect(_on_zoom_step_finished)
 #		tween.tween_property(self, "zoom", new_zoom, 0.05)
 #		tween.tween_property(self, "offset", zoom_center_point, 0.05)
+
+func zoom_in():
+	zoom_center_point = canvas_size * 0.5 
+	zoom_camera(1)
+	zoomed.emit()
+
+
+func zoom_out():
+	zoom_center_point = canvas_size * 0.5
+	zoom_camera(-1)
+	zoomed.emit()
 
 
 func zoom_100():

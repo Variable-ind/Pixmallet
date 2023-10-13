@@ -38,10 +38,23 @@ var show_guides := false :
 		h_ruler.set_activate(show_guides)
 		place_guides()
 
-var show_grid_state := Grid.NONE :
-	set(val):
-		show_grid_state = val
-		grid.state = show_grid_state
+
+var show_pixel_grid :bool :
+	get: return grid.show_pixel_grid
+	set(val): 
+		grid.show_pixel_grid = val
+		place_grid()
+
+var show_cartesian_grid :bool :
+	get: return grid.show_cartesian_grid
+	set(val): 
+		grid.show_cartesian_grid = val
+		place_grid()
+		
+var show_isometric_grid :bool :
+	get: return grid.show_isometric_grid
+	set(val): 
+		grid.show_isometric_grid = val
 		place_grid()
 
 var show_symmetry_guide_state := SymmetryGuide.NONE :
@@ -160,7 +173,9 @@ func change_state_cursor(curr_state):
 # place lines
 
 func place_grid():
-	if project and show_grid_state != Grid.NONE:
+	if project and [show_cartesian_grid, 
+					show_isometric_grid,
+					show_pixel_grid].any(func(s): return s == true):
 		grid.zoom_at = camera.zoom.x
 
 
