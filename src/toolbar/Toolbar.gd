@@ -1,47 +1,27 @@
 class_name Toolbar extends ScrollContainer
 
-signal active_tool(toolId)
-
-enum {
-	SEL_RECT,
-	SEL_ELLIPSE,
-	SEL_POLYGON,
-	SEL_COLOR,
-	SEL_MAGIC,
-	SEL_LASSO,
-	SHAPE_LINE,
-	SHAPE_RECT,
-	SHAPE_ELLIPSE,
-	PENCIL,
-	ERASER,
-	FILL,
-	PAN,
-	MOVE,
-	COLOR_PICKER,
-	CROP,
-	ZOOM,
-	SHADING,
-}
+signal activated(operate_id)
 
 const TOOL_ID_MAP: Dictionary = {
-	'SelRect': SEL_RECT,
-	'SelEllipse': SEL_ELLIPSE,
-	'SelPolygon': SEL_POLYGON,
-	'SelColor': SEL_COLOR,
-	'SelMagic': SEL_MAGIC,
-	'SelLasso': SEL_LASSO,
-	'ShapeLine': SHAPE_LINE,
-	'ShapeRect': SHAPE_RECT,
-	'ShapeEllipse': SHAPE_ELLIPSE,
-	'Pencil': PENCIL,
-	'Eraser': ERASER,
-	'Fill': FILL,
-	'Pan': PAN,
-	'Move': MOVE,
-	'ColorPicker': COLOR_PICKER,
-	'Crop': CROP,
-	'Zoom': ZOOM,
-	'Shading': SHADING,
+	'SelRect': Operate.SELECT_RECTANGLE,
+	'SelEllipse': Operate.SELECT_ELLIPSE,
+	'SelPolygon': Operate.SELECT_POLYGON,
+	'SelLasso': Operate.SELECT_LASSO,
+	'SelMagic': Operate.SELECT_MAGIC,
+	'ShapeLine': Operate.SHAPE_LINE,
+	'ShapeRect': Operate.SHAPE_RECTANGLE,
+	'ShapeEllipse': Operate.SHAPE_ELLIPSE,
+	'ShapePolygon': Operate.SHAPE_POLYGON,
+	'Pencil': Operate.PENCIL,
+	'Brush': Operate.BRUSH,
+	'Erase': Operate.ERASE,
+	'Bucket': Operate.BUCKET,
+	'Move': Operate.MOVE,
+	'PickColor': Operate.COLOR_PICK,
+	'Crop': Operate.CROP,
+	'Zoom': Operate.ZOOM,
+	'Pan': Operate.PAN,
+	'Shading': Operate.SHADING,
 }
 
 @onready var toolbtns = $ToolBtns
@@ -49,12 +29,11 @@ const TOOL_ID_MAP: Dictionary = {
 	'Select': {'action': 'select', 'event': KeyChain.makeEventKey(KEY_W)},
 	'Shape': {'action': 'shape', 'event': KeyChain.makeEventKey(KEY_A)},
 	'Pencil': {'action': 'pencil', 'event': KeyChain.makeEventKey(KEY_B)},
-	'Eraser': {'action': 'eraser', 'event': KeyChain.makeEventKey(KEY_E)},
-	'Fill': {'action': 'fill', 'event': KeyChain.makeEventKey(KEY_G)},
+	'Erase': {'action': 'erase', 'event': KeyChain.makeEventKey(KEY_E)},
+	'Bucket': {'action': 'bucket', 'event': KeyChain.makeEventKey(KEY_G)},
 	'Pan': {'action': 'pan', 'event': KeyChain.makeEventKey(KEY_SPACE)},
 	'Move': {'action': 'move', 'event': KeyChain.makeEventKey(KEY_V)},
-	'ColorPicker': {'action': 'color_picker', 
-					'event': KeyChain.makeEventKey(KEY_I)},
+	'PickColor': {'action':'pick_color', 'event': KeyChain.makeEventKey(KEY_I)},
 	'Crop': {'action': 'crop', 'event': KeyChain.makeEventKey(KEY_C)},
 	'Zoom': {'action': 'zoom', 'event': KeyChain.makeEventKey(KEY_Z)},
 	'Shading': {'action': 'shading', 'event': KeyChain.makeEventKey(KEY_S)},
@@ -83,7 +62,7 @@ func _ready():
 
 func _on_button_pressed(btn):
 	var btn_name :String = btn.sel_name if btn is ExtendableButton else btn.name
-	active_tool.emit(TOOL_ID_MAP.get(btn_name, -1))
+	activated.emit(TOOL_ID_MAP.get(btn_name, -1))
 
 	# toogle mode button must switch `Action Mode` to `Button Press`
 	# to prevent mouse up outside switch to pressed style but not really pressed.

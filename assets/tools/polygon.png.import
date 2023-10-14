@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g17xxuwxdcbp"
-path="res://.godot/imported/fill.png-def96712107f912d7c0b42a30e4e652f.ctex"
+uid="uid://bkhnbi64y5slp"
+path="res://.godot/imported/polygon.png-873331a7a1071814742e9d9e667c12e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tools/fill.png"
-dest_files=["res://.godot/imported/fill.png-def96712107f912d7c0b42a30e4e652f.ctex"]
+source_file="res://assets/tools/polygon.png"
+dest_files=["res://.godot/imported/polygon.png-873331a7a1071814742e9d9e667c12e2.ctex"]
 
 [params]
 

@@ -63,7 +63,7 @@ func _input(event: InputEvent):
 		press_updated.emit(btn_pressed)
 		
 	match state:
-		Operate.DRAG:
+		Operate.PAN:
 			process_dragging(event)
 		Operate.ZOOM:
 			process_zooming(event)

@@ -1,6 +1,6 @@
 class_name Navbar extends Panel
 
-signal navigation_to(navId, data)
+signal navigation_to(nav_id, data)
 
 enum {
 	NEW_FILE, OPEN_FILE, RECENT_FILE, SAVE_FILE, SAVE_FILE_AS, EXPORT_FILE, QUIT,

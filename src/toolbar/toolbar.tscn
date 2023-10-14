@@ -6,15 +6,15 @@
 [ext_resource type="Script" path="res://src/toolbar/ToolExtBtn.gd" id="4_03cbi"]
 [ext_resource type="Texture2D" uid="uid://8jggqkk5iia3" path="res://assets/tools/select-ellipse.png" id="5_so0br"]
 [ext_resource type="Texture2D" uid="uid://psqjer7k7bk6" path="res://assets/tools/select-polygan.png" id="6_12lcf"]
-[ext_resource type="Texture2D" uid="uid://hujnof5oxaa6" path="res://assets/tools/select-color.png" id="7_u80ca"]
 [ext_resource type="Texture2D" uid="uid://6ldiuvx5mor5" path="res://assets/tools/select-magic.png" id="8_2jlql"]
 [ext_resource type="Texture2D" uid="uid://deiybbeovgddn" path="res://assets/tools/select-lasso.png" id="9_fp51h"]
 [ext_resource type="Texture2D" uid="uid://d1tln60blrobh" path="res://assets/tools/rect.png" id="10_kfktx"]
 [ext_resource type="Texture2D" uid="uid://m8mw5uftt0jo" path="res://assets/tools/ellipse.png" id="11_lib62"]
+[ext_resource type="Texture2D" uid="uid://bkhnbi64y5slp" path="res://assets/tools/polygon.png" id="12_8mthv"]
 [ext_resource type="Texture2D" uid="uid://dn2nay50eaoqr" path="res://assets/tools/line.png" id="12_a8imr"]
 [ext_resource type="Texture2D" uid="uid://5gpo44fntnjs" path="res://assets/tools/pencil.png" id="13_y0q6n"]
 [ext_resource type="Texture2D" uid="uid://curtw7fjt77e" path="res://assets/tools/erase.png" id="14_audbp"]
-[ext_resource type="Texture2D" uid="uid://g17xxuwxdcbp" path="res://assets/tools/fill.png" id="15_qr25w"]
+[ext_resource type="Texture2D" uid="uid://dsh6lsk06w5bf" path="res://assets/tools/bucket.png" id="14_fjpfw"]
 [ext_resource type="Texture2D" uid="uid://bo23pia3e48yq" path="res://assets/tools/pan.png" id="16_ud7g6"]
 [ext_resource type="Texture2D" uid="uid://kcnpbwocu06f" path="res://assets/tools/move.png" id="17_6o88h"]
 [ext_resource type="Texture2D" uid="uid://cewfw5f4rigl1" path="res://assets/tools/color-picker.png" id="18_8e01v"]
@@ -44,6 +44,30 @@ layout_mode = 2
 theme_override_constants/v_separation = 6
 alignment = 1
 
+[node name="Pan" type="Button" parent="ToolBtns"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("16_ud7g6")
+icon_alignment = 1
+
+[node name="Move" type="Button" parent="ToolBtns"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("17_6o88h")
+icon_alignment = 1
+
 [node name="Select" type="Button" parent="ToolBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -66,8 +90,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 264.0
+offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -102,17 +126,6 @@ theme_type_variation = &"IconButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_bofa6")
 icon = ExtResource("6_12lcf")
-icon_alignment = 1
-
-[node name="SelColor" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-button_group = SubResource("ButtonGroup_bofa6")
-icon = ExtResource("7_u80ca")
 icon_alignment = 1
 
 [node name="SelMagic" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
@@ -159,8 +172,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 176.0
+offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -197,6 +210,17 @@ button_group = SubResource("ButtonGroup_pjl1d")
 icon = ExtResource("12_a8imr")
 icon_alignment = 1
 
+[node name="ShapePolygon" type="Button" parent="ToolBtns/Shape/Popup/ExtendBtns"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pjl1d")
+icon = ExtResource("12_8mthv")
+icon_alignment = 1
+
 [node name="Pencil" type="Button" parent="ToolBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -209,7 +233,7 @@ button_group = ExtResource("2_qba0t")
 icon = ExtResource("13_y0q6n")
 icon_alignment = 1
 
-[node name="Eraser" type="Button" parent="ToolBtns"]
+[node name="Erase" type="Button" parent="ToolBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -221,7 +245,7 @@ button_group = ExtResource("2_qba0t")
 icon = ExtResource("14_audbp")
 icon_alignment = 1
 
-[node name="Fill" type="Button" parent="ToolBtns"]
+[node name="Bucket" type="Button" parent="ToolBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -230,31 +254,7 @@ theme_type_variation = &"IconButton"
 toggle_mode = true
 action_mode = 0
 button_group = ExtResource("2_qba0t")
-icon = ExtResource("15_qr25w")
-icon_alignment = 1
-
-[node name="Pan" type="Button" parent="ToolBtns"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-action_mode = 0
-button_group = ExtResource("2_qba0t")
-icon = ExtResource("16_ud7g6")
-icon_alignment = 1
-
-[node name="Move" type="Button" parent="ToolBtns"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-action_mode = 0
-button_group = ExtResource("2_qba0t")
-icon = ExtResource("17_6o88h")
+icon = ExtResource("14_fjpfw")
 icon_alignment = 1
 
 [node name="ColorPicker" type="Button" parent="ToolBtns"]

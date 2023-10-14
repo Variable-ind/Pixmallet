@@ -162,7 +162,7 @@ func set_state(val):
 func change_state_cursor(curr_state):
 	if curr_state == Operate.MOVE:
 		mouse_default_cursor_shape = Control.CURSOR_MOVE
-	elif curr_state == Operate.DRAG: 
+	elif curr_state == Operate.PAN: 
 		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	elif curr_state in [Operate.BRUSH, Operate.PENCIL, Operate.ERASE]:
 		mouse_default_cursor_shape = Control.CURSOR_CROSS
@@ -230,7 +230,7 @@ func _on_camera_updated():
 	
 
 func _on_camera_pressing(is_pressed):
-	if state == Operate.DRAG:
+	if state == Operate.PAN:
 		if is_pressed:
 			mouse_default_cursor_shape = Control.CURSOR_DRAG
 		else:

@@ -3,7 +3,7 @@ class_name Operate extends RefCounted
 enum {
 	NONE,
 	MOVE,
-	DRAG,
+	PAN,
 	ZOOM,
 	PENCIL,
 	BRUSH,

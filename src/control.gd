@@ -27,8 +27,8 @@ func _ready():
 	overlay.hide()
 
 
-func _on_navigation_to(navId, data):
-	match navId:
+func _on_navigation_to(nav_id, data):
+	match nav_id:
 		Navbar.NEW_FILE:
 			pass
 		Navbar.OPEN_FILE:
@@ -58,10 +58,48 @@ func _on_navigation_to(navId, data):
 			artboard.show_rulers = data.get('checked')
 
 
-func _on_active_tool(toolId):
-	print(toolId)
-	match toolId:
-		Toolbar.COLOR_PICKER:
+func _on_toolbar_activated(operate_id):
+	print(operate_id)
+	match operate_id:
+		Operate.MOVE:
+			artboard.state = Operate.MOVE
+		Operate.PAN:
+			artboard.state = Operate.PAN
+		Operate.ZOOM:
+			artboard.state = Operate.ZOOM
+		Operate.PENCIL:
+			artboard.state = Operate.PENCIL
+		Operate.BRUSH:
+			artboard.state = Operate.BRUSH
+		Operate.ERASE:
+			pass
+		Operate.SHADING:
+			pass
+		Operate.CROP:
+			pass
+		Operate.COLOR_PICK:
+			pass
+		Operate.BUCKET:
+			pass
+		Operate.SELECT_RECTANGLE:
+			pass
+		Operate.SELECT_ELLIPSE:
+			pass
+		Operate.SELECT_POLYGON:
+			pass
+		Operate.SELECT_LASSO:
+			pass
+		Operate.SELECT_MAGIC:
+			pass
+		Operate.SHAPE_RECTANGLE:
+			pass
+		Operate.SHAPE_ELLIPSE:
+			pass
+		Operate.SHAPE_POLYGON:
+			pass
+		Operate.SHAPE_LINE:
+			pass
+		_:
 			pass
 
 
