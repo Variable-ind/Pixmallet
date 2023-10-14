@@ -68,8 +68,10 @@ func _on_toolbar_activated(operate_id):
 			artboard.state = Operate.ZOOM
 		Operate.PENCIL:
 			artboard.state = Operate.PENCIL
+			artboard.set_current_color(foreground_color)
 		Operate.BRUSH:
 			artboard.state = Operate.BRUSH
+			artboard.set_current_color(foreground_color)
 		Operate.ERASE:
 			artboard.state = Operate.ERASE
 		Operate.SHADING:
@@ -80,6 +82,7 @@ func _on_toolbar_activated(operate_id):
 			artboard.state = Operate.COLORPICK
 		Operate.BUCKET:
 			artboard.state = Operate.BUCKET
+			artboard.set_current_color(foreground_color)
 		Operate.SELECT_RECTANGLE:
 			artboard.state = Operate.SELECT_RECTANGLE
 		Operate.SELECT_ELLIPSE:
@@ -92,12 +95,16 @@ func _on_toolbar_activated(operate_id):
 			artboard.state = Operate.SELECT_MAGIC
 		Operate.SHAPE_RECTANGLE:
 			artboard.state = Operate.SHAPE_RECTANGLE
+			artboard.set_current_color(foreground_color)
 		Operate.SHAPE_ELLIPSE:
 			artboard.state = Operate.SHAPE_ELLIPSE
+			artboard.set_current_color(foreground_color)
 		Operate.SHAPE_POLYGON:
 			artboard.state = Operate.SHAPE_POLYGON
+			artboard.set_current_color(foreground_color)
 		Operate.SHAPE_LINE:
 			artboard.state = Operate.SHAPE_LINE
+			artboard.set_current_color(foreground_color)
 		_:
 			pass
 
@@ -112,5 +119,7 @@ func _on_modal_toggled(state:bool):
 		overlay.visible = state
 
 
-func _on_color_palette_color_changed(color):
-	foreground_color = color
+func _on_color_palette_color_changed(color_foreground, color_background):
+	foreground_color = color_foreground
+	background_color = color_background
+	artboard.set_current_color(foreground_color)

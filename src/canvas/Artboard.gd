@@ -170,6 +170,13 @@ func change_state_cursor(curr_state):
 		mouse_default_cursor_shape = Control.CURSOR_ARROW
 
 
+func set_current_color(color :Color):
+	canvas.silhouette.shape_color = color
+	canvas.bucket.fill_color = color
+	canvas.drawer_pencil.stroke_color = color
+	canvas.drawer_brush.stroke_color = color
+
+
 # place lines
 
 func place_grid():

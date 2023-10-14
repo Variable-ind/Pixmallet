@@ -60,7 +60,7 @@ var color_pick := ColorPick.new()
 
 @onready var bucket := Bucket.new(selection.mask)
 
-@onready var shaper_rect := RectShaper.new(silhouette)
+@onready var shaper_rectangle := RectShaper.new(silhouette)
 @onready var shaper_ellipse := EllipseShaper.new(silhouette)
 @onready var shaper_line := LineShaper.new(silhouette)
 @onready var shaper_polygon := PolygonShaper.new(silhouette)
@@ -343,7 +343,7 @@ func _input(event :InputEvent):
 		Operate.SELECT_MAGIC:
 			process_selection_magic(event, selector_magic)
 		Operate.SHAPE_RECTANGLE:
-			process_shape(event, shaper_rect)
+			process_shape(event, shaper_rectangle)
 		Operate.SHAPE_ELLIPSE:
 			process_shape(event, shaper_ellipse)
 		Operate.SHAPE_LINE:

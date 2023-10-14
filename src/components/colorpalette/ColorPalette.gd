@@ -1,7 +1,7 @@
 class_name ColorPalette extends Panel
 
 signal modal_toggled(state:int)
-signal color_changed(color)
+signal color_changed(color_foreground, color_background)
 
 const PALETTE_ROW_NUM = 12
 
@@ -164,6 +164,7 @@ func _on_switch_color():
 	colorForeground.color = colorBackground.color
 	colorBackground.color = tmp_color
 	colorSwitchGrid.current_color = colorForeground.color
+	color_changed.emit(colorForeground.color, colorBackground.color)
 
 
 func _on_create_dialog_confirmed(new_palette_name):
@@ -210,8 +211,9 @@ func _on_move_color_switch(index, to_index):
 func _on_select_color_switch(index):
 	colorForeground.color = current_palette.colors[index]
 	colorSwitchGrid.current_color = colorForeground.color
+	color_changed.emit(colorForeground.color, colorBackground.color)
 
 
 func _on_foreground_color_changed(color):
 	colorSwitchGrid.current_color = color
-	color_changed.emit(color)
+	color_changed.emit(colorForeground.color, colorBackground.color)
