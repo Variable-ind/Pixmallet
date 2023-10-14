@@ -1,11 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://2dfuv5bk0ahw"]
+[gd_scene load_steps=25 format=3 uid="uid://2dfuv5bk0ahw"]
 
 [ext_resource type="Script" path="res://src/toolbar/Toolbar.gd" id="1_k08cc"]
 [ext_resource type="ButtonGroup" uid="uid://to2t0cm101ui" path="res://assets/tools/tool_btns_group.tres" id="2_qba0t"]
 [ext_resource type="Texture2D" uid="uid://2xg57xeeqje3" path="res://assets/tools/select-rect.png" id="3_cnba6"]
-[ext_resource type="Script" path="res://src/toolbar/ToolExtBtn.gd" id="4_03cbi"]
 [ext_resource type="Texture2D" uid="uid://8jggqkk5iia3" path="res://assets/tools/select-ellipse.png" id="5_so0br"]
 [ext_resource type="Texture2D" uid="uid://psqjer7k7bk6" path="res://assets/tools/select-polygan.png" id="6_12lcf"]
+[ext_resource type="Script" path="res://src/toolbar/ToolBtnGroup.gd" id="6_cp257"]
 [ext_resource type="Texture2D" uid="uid://6ldiuvx5mor5" path="res://assets/tools/select-magic.png" id="8_2jlql"]
 [ext_resource type="Texture2D" uid="uid://deiybbeovgddn" path="res://assets/tools/select-lasso.png" id="9_fp51h"]
 [ext_resource type="Texture2D" uid="uid://d1tln60blrobh" path="res://assets/tools/rect.png" id="10_kfktx"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://5gpo44fntnjs" path="res://assets/tools/pencil.png" id="13_y0q6n"]
 [ext_resource type="Texture2D" uid="uid://curtw7fjt77e" path="res://assets/tools/erase.png" id="14_audbp"]
 [ext_resource type="Texture2D" uid="uid://dsh6lsk06w5bf" path="res://assets/tools/bucket.png" id="14_fjpfw"]
+[ext_resource type="Texture2D" uid="uid://bucp56qypuyk5" path="res://assets/tools/brush.png" id="16_1k8rg"]
 [ext_resource type="Texture2D" uid="uid://bo23pia3e48yq" path="res://assets/tools/pan.png" id="16_ud7g6"]
 [ext_resource type="Texture2D" uid="uid://kcnpbwocu06f" path="res://assets/tools/move.png" id="17_6o88h"]
 [ext_resource type="Texture2D" uid="uid://cewfw5f4rigl1" path="res://assets/tools/color-picker.png" id="18_8e01v"]
@@ -79,7 +80,7 @@ action_mode = 0
 button_group = ExtResource("2_qba0t")
 icon = ExtResource("3_cnba6")
 icon_alignment = 1
-script = ExtResource("4_03cbi")
+script = ExtResource("6_cp257")
 
 [node name="Popup" type="PopupPanel" parent="ToolBtns/Select"]
 size = Vector2i(268, 48)
@@ -90,8 +91,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 264.0
-offset_bottom = 44.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -161,7 +162,7 @@ action_mode = 0
 button_group = ExtResource("2_qba0t")
 icon = ExtResource("10_kfktx")
 icon_alignment = 1
-script = ExtResource("4_03cbi")
+script = ExtResource("6_cp257")
 
 [node name="Popup" type="PopupPanel" parent="ToolBtns/Shape"]
 size = Vector2i(136, 48)
@@ -172,8 +173,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 176.0
-offset_bottom = 44.0
+offset_right = 40.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -221,7 +222,34 @@ button_group = SubResource("ButtonGroup_pjl1d")
 icon = ExtResource("12_8mthv")
 icon_alignment = 1
 
-[node name="Pencil" type="Button" parent="ToolBtns"]
+[node name="Draw" type="Button" parent="ToolBtns"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("10_kfktx")
+icon_alignment = 1
+script = ExtResource("6_cp257")
+
+[node name="Popup" type="PopupPanel" parent="ToolBtns/Draw"]
+size = Vector2i(136, 48)
+
+[node name="ExtendBtns" type="HBoxContainer" parent="ToolBtns/Draw/Popup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pencil" type="Button" parent="ToolBtns/Draw/Popup/ExtendBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -231,6 +259,18 @@ toggle_mode = true
 action_mode = 0
 button_group = ExtResource("2_qba0t")
 icon = ExtResource("13_y0q6n")
+icon_alignment = 1
+
+[node name="Brush" type="Button" parent="ToolBtns/Draw/Popup/ExtendBtns"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("2_qba0t")
+icon = ExtResource("16_1k8rg")
 icon_alignment = 1
 
 [node name="Erase" type="Button" parent="ToolBtns"]
@@ -309,3 +349,5 @@ icon_alignment = 1
 [connection signal="button_up" from="ToolBtns/Select" to="ToolBtns/Select" method="_on_button_up"]
 [connection signal="button_down" from="ToolBtns/Shape" to="ToolBtns/Shape" method="_on_button_down"]
 [connection signal="button_up" from="ToolBtns/Shape" to="ToolBtns/Shape" method="_on_button_up"]
+[connection signal="button_down" from="ToolBtns/Draw" to="ToolBtns/Draw" method="_on_button_down"]
+[connection signal="button_up" from="ToolBtns/Draw" to="ToolBtns/Draw" method="_on_button_up"]

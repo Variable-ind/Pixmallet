@@ -17,18 +17,20 @@ const TOOL_ID_MAP: Dictionary = {
 	'Erase': Operate.ERASE,
 	'Bucket': Operate.BUCKET,
 	'Move': Operate.MOVE,
-	'PickColor': Operate.COLOR_PICK,
+	'ColorPick': Operate.COLORPICK,
 	'Crop': Operate.CROP,
 	'Zoom': Operate.ZOOM,
 	'Pan': Operate.PAN,
 	'Shading': Operate.SHADING,
 }
 
+var current_tool_name := ''
+
 @onready var toolbtns = $ToolBtns
 @onready var toolbar_keymaps = {
 	'Select': {'action': 'select', 'event': KeyChain.makeEventKey(KEY_W)},
 	'Shape': {'action': 'shape', 'event': KeyChain.makeEventKey(KEY_A)},
-	'Pencil': {'action': 'pencil', 'event': KeyChain.makeEventKey(KEY_B)},
+	'Draw': {'action': 'pencil', 'event': KeyChain.makeEventKey(KEY_B)},
 	'Erase': {'action': 'erase', 'event': KeyChain.makeEventKey(KEY_E)},
 	'Bucket': {'action': 'bucket', 'event': KeyChain.makeEventKey(KEY_G)},
 	'Pan': {'action': 'pan', 'event': KeyChain.makeEventKey(KEY_SPACE)},
@@ -61,9 +63,14 @@ func _ready():
 
 
 func _on_button_pressed(btn):
-	var btn_name :String = btn.sel_name if btn is ExtendableButton else btn.name
-	activated.emit(TOOL_ID_MAP.get(btn_name, -1))
-
+	var btn_name :String = btn.name
+	if btn is ToolBtnGroup:
+		btn_name = btn.current_name
+		if current_tool_name == btn_name:
+			btn.next_btn()
+			btn_name = btn.current_name
+	current_tool_name = btn_name
+	activated.emit(TOOL_ID_MAP.get(current_tool_name, -1))
 	# toogle mode button must switch `Action Mode` to `Button Press`
 	# to prevent mouse up outside switch to pressed style but not really pressed.
 	

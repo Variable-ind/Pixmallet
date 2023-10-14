@@ -59,7 +59,6 @@ func _on_navigation_to(nav_id, data):
 
 
 func _on_toolbar_activated(operate_id):
-	print(operate_id)
 	match operate_id:
 		Operate.MOVE:
 			artboard.state = Operate.MOVE
@@ -72,33 +71,33 @@ func _on_toolbar_activated(operate_id):
 		Operate.BRUSH:
 			artboard.state = Operate.BRUSH
 		Operate.ERASE:
-			pass
+			artboard.state = Operate.ERASE
 		Operate.SHADING:
-			pass
+			artboard.state = Operate.SHADING
 		Operate.CROP:
-			pass
-		Operate.COLOR_PICK:
-			pass
+			artboard.state = Operate.CROP
+		Operate.COLORPICK:
+			artboard.state = Operate.COLORPICK
 		Operate.BUCKET:
-			pass
+			artboard.state = Operate.BUCKET
 		Operate.SELECT_RECTANGLE:
-			pass
+			artboard.state = Operate.SELECT_RECTANGLE
 		Operate.SELECT_ELLIPSE:
-			pass
+			artboard.state = Operate.SELECT_ELLIPSE
 		Operate.SELECT_POLYGON:
-			pass
+			artboard.state = Operate.SELECT_POLYGON
 		Operate.SELECT_LASSO:
-			pass
+			artboard.state = Operate.SELECT_LASSO
 		Operate.SELECT_MAGIC:
-			pass
+			artboard.state = Operate.SELECT_MAGIC
 		Operate.SHAPE_RECTANGLE:
-			pass
+			artboard.state = Operate.SHAPE_RECTANGLE
 		Operate.SHAPE_ELLIPSE:
-			pass
+			artboard.state = Operate.SHAPE_ELLIPSE
 		Operate.SHAPE_POLYGON:
-			pass
+			artboard.state = Operate.SHAPE_POLYGON
 		Operate.SHAPE_LINE:
-			pass
+			artboard.state = Operate.SHAPE_LINE
 		_:
 			pass
 

@@ -350,7 +350,7 @@ func _input(event :InputEvent):
 			process_shape(event, shaper_line)
 		Operate.SHAPE_POLYGON:
 			process_shape(event, shaper_polygon)
-		Operate.COLOR_PICK:
+		Operate.COLORPICK:
 			process_color_pick(event)
 		Operate.BUCKET:
 			process_bucket_fill(event)

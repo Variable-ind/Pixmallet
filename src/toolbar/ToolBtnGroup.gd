@@ -1,15 +1,14 @@
-class_name ExtendableButton extends Button
+class_name ToolBtnGroup extends Button
 # THIS CLASS MIGHT USE FOR MULTIPLE TOOLBAR BUTTONS.
 
 const CELL_WIDTH :int = 36
 const LONG_PRESS_DELAY :float = 0.6
 var long_press_timer :Timer = Timer.new()
 var arrow_icon_color :Color = Color(1, 1, 1, 0.66)
-var sel_name: StringName = ''
+var current_name: StringName = ''
 
 @onready var popup :PopupPanel = $Popup
 @onready var extend_btns = $Popup/ExtendBtns.get_children()
-
 
 
 func _ready():
@@ -27,6 +26,7 @@ func _ready():
 	
 	for er in erase_list:
 		extend_btns.erase(er)
+		er.queue_free()
 		
 	# set current btn
 	change_btn(extend_btns[0].name, extend_btns[0].icon)
@@ -43,9 +43,20 @@ func _draw():
 	draw_colored_polygon([Vector2(36, 16), Vector2(32, 12), Vector2(32, 20)],
 						 arrow_icon_color)
 
+func next_btn():
+	var next_index := 0
+	for i in extend_btns.size():
+		var btn = extend_btns[i]
+		if current_name == btn.name:
+			if i >= extend_btns.size() -1:
+				next_index = 0
+			else:
+				next_index = i + 1
+	change_btn(extend_btns[next_index].name, extend_btns[next_index].icon)
+	
 
 func change_btn(btn_name:StringName, btn_icon:Texture2D):
-	sel_name = btn_name
+	current_name = btn_name
 	icon = btn_icon
 
 
