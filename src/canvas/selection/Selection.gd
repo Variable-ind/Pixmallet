@@ -137,6 +137,7 @@ func deselect():
 func move_to(to_pos :Vector2i, use_pivot := true):
 	var _offset := pivot_offset if use_pivot else Vector2i.ZERO
 	
+	# to_pos usually relative_position, might not the position of selected_rect.
 	var target_pos := to_pos - _offset
 	var target_edge := target_pos + selected_rect.size
 	if target_pos.x < 0:
@@ -162,6 +163,19 @@ func drag_to(pos, drag_offset):
 	# convert to local pos from the rect zero pos. 
 	# DO NOT use get_local_mouse_position, because bound_rect is not zero pos.
 	pos = snapping(selected_rect, pos)
+	
+	# limit not move out the edge. prevent selection lose size.
+	if pos.x < 0:
+		pos.x = 0
+	if pos.y < 0:
+		pos.y = 0
+
+	var pos_end :Vector2i = pos + selected_rect.size
+	if pos_end.x > size.x:
+		pos.x -= pos_end.x - size.x
+	if pos_end.y > size.y:
+		pos.y -= pos_end.y - size.y
+
 	selection_map.move_to(pos)
 	update_selection()
 

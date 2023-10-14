@@ -85,18 +85,18 @@ script = ExtResource("6_cp257")
 [node name="Popup" type="PopupPanel" parent="ToolBtns/Select"]
 size = Vector2i(268, 48)
 
-[node name="ExtendBtns" type="HBoxContainer" parent="ToolBtns/Select/Popup"]
+[node name="GroupBtns" type="HBoxContainer" parent="ToolBtns/Select/Popup"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 264.0
+offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SelRect" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
+[node name="SelRect" type="Button" parent="ToolBtns/Select/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -107,7 +107,7 @@ button_group = SubResource("ButtonGroup_bofa6")
 icon = ExtResource("3_cnba6")
 icon_alignment = 1
 
-[node name="SelEllipse" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
+[node name="SelEllipse" type="Button" parent="ToolBtns/Select/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -118,7 +118,7 @@ button_group = SubResource("ButtonGroup_bofa6")
 icon = ExtResource("5_so0br")
 icon_alignment = 1
 
-[node name="SelPolygon" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
+[node name="SelPolygon" type="Button" parent="ToolBtns/Select/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -129,7 +129,7 @@ button_group = SubResource("ButtonGroup_bofa6")
 icon = ExtResource("6_12lcf")
 icon_alignment = 1
 
-[node name="SelMagic" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
+[node name="SelMagic" type="Button" parent="ToolBtns/Select/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -140,7 +140,7 @@ button_group = SubResource("ButtonGroup_bofa6")
 icon = ExtResource("8_2jlql")
 icon_alignment = 1
 
-[node name="SelLasso" type="Button" parent="ToolBtns/Select/Popup/ExtendBtns"]
+[node name="SelLasso" type="Button" parent="ToolBtns/Select/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -167,18 +167,18 @@ script = ExtResource("6_cp257")
 [node name="Popup" type="PopupPanel" parent="ToolBtns/Shape"]
 size = Vector2i(136, 48)
 
-[node name="ExtendBtns" type="HBoxContainer" parent="ToolBtns/Shape/Popup"]
+[node name="GroupBtns" type="HBoxContainer" parent="ToolBtns/Shape/Popup"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 40.0
-offset_bottom = -4.0
+offset_right = 176.0
+offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ShapeRect" type="Button" parent="ToolBtns/Shape/Popup/ExtendBtns"]
+[node name="ShapeRect" type="Button" parent="ToolBtns/Shape/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -189,7 +189,7 @@ button_group = SubResource("ButtonGroup_pjl1d")
 icon = ExtResource("10_kfktx")
 icon_alignment = 1
 
-[node name="ShapeEllipse" type="Button" parent="ToolBtns/Shape/Popup/ExtendBtns"]
+[node name="ShapeEllipse" type="Button" parent="ToolBtns/Shape/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -200,7 +200,7 @@ button_group = SubResource("ButtonGroup_pjl1d")
 icon = ExtResource("11_lib62")
 icon_alignment = 1
 
-[node name="ShapeLine" type="Button" parent="ToolBtns/Shape/Popup/ExtendBtns"]
+[node name="ShapeLine" type="Button" parent="ToolBtns/Shape/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -211,7 +211,7 @@ button_group = SubResource("ButtonGroup_pjl1d")
 icon = ExtResource("12_a8imr")
 icon_alignment = 1
 
-[node name="ShapePolygon" type="Button" parent="ToolBtns/Shape/Popup/ExtendBtns"]
+[node name="ShapePolygon" type="Button" parent="ToolBtns/Shape/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -238,18 +238,18 @@ script = ExtResource("6_cp257")
 [node name="Popup" type="PopupPanel" parent="ToolBtns/Draw"]
 size = Vector2i(136, 48)
 
-[node name="ExtendBtns" type="HBoxContainer" parent="ToolBtns/Draw/Popup"]
+[node name="GroupBtns" type="HBoxContainer" parent="ToolBtns/Draw/Popup"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 132.0
+offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Pencil" type="Button" parent="ToolBtns/Draw/Popup/ExtendBtns"]
+[node name="Pencil" type="Button" parent="ToolBtns/Draw/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -261,7 +261,7 @@ button_group = ExtResource("2_qba0t")
 icon = ExtResource("13_y0q6n")
 icon_alignment = 1
 
-[node name="Brush" type="Button" parent="ToolBtns/Draw/Popup/ExtendBtns"]
+[node name="Brush" type="Button" parent="ToolBtns/Draw/Popup/GroupBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
