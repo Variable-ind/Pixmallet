@@ -22,6 +22,8 @@ func _ready():
 	cancel_btn.focus_mode = Control.FOCUS_NONE
 	cancel_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	
+	confirmed.connect(_on_confirmed)
+	inputName.text_changed.connect(_on_input_name_text_changed)
 	
 
 func _on_confirmed():

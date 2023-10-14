@@ -24,6 +24,7 @@ var keymap := {
 @onready var createDialog :Window = $CreateDialog
 @onready var deleteDialog :Window = $DeleteDialog
 
+@onready var createPaletteBtn :Button = %CreatePaletteBtn
 @onready var removePaletteBtn :Button = %RemovePaletteBtn
 
 
@@ -40,6 +41,10 @@ func _ready():
 	var stylebox = colorForeground.get_theme_stylebox('pressed').duplicate()
 	colorForeground.add_theme_stylebox_override('normal', stylebox)
 	
+	colorForeground.color_changed.connect(_on_foreground_color_changed)
+	colorBackground.color_changed.connect(_on_background_color_changed)
+	colorSwitchBtn.pressed.connect(_on_switch_color)
+	
 	# set shortcuts X.
 	colorSwitchBtn.shortcut = Shortcut.new()
 	var event := InputEventAction.new()
@@ -52,6 +57,24 @@ func _ready():
 	
 	# palettes
 	load_palettes()
+	
+	# signal handlers
+	createDialog.confirmed.connect(_on_create_dialog_confirmed)
+	deleteDialog.confirmed.connect(_on_delete_dialog_confirmed)
+	
+	createPaletteBtn.pressed.connect(_on_create_palette_btn_pressed)
+	removePaletteBtn.pressed.connect(_on_del_palette_btn_pressed)
+	
+	colorSwitchGrid.add_color_switch.connect(_on_add_color_switch)
+	colorSwitchGrid.move_color_switch.connect(_on_move_color_switch)
+	colorSwitchGrid.remove_color_switch.connect(_on_remove_color_switch)
+	colorSwitchGrid.select_color_switch.connect(_on_select_color_switch)
+
+
+func launch(foreground_color :Color, background_color :Color):
+	colorForeground.color = foreground_color
+	colorBackground.color = background_color
+	colorSwitchGrid.current_color = colorForeground.color
 
 
 func load_palettes():
@@ -139,12 +162,6 @@ func save_palette(palette:ColorPaletteRes):
 		colorSwitchGrid.set_switches(palette.colors, colorForeground.color)
 	ResourceSaver.save(palette,
 					   config.PATH_PALETTE_DIR.path_join(palette.file))	
-	
-
-func set_colors(foreground_color :Color, background_color :Color):
-	colorForeground.color = foreground_color
-	colorBackground.color = background_color
-	colorSwitchGrid.current_color = colorForeground.color
 
 
 func set_color_picker(picker):
@@ -216,4 +233,9 @@ func _on_select_color_switch(index):
 
 func _on_foreground_color_changed(color):
 	colorSwitchGrid.current_color = color
-	color_changed.emit(colorForeground.color, colorBackground.color)
+	color_changed.emit(color, colorBackground.color)
+
+
+func _on_background_color_changed(color):
+	color_changed.emit(colorForeground.color, color)
+	

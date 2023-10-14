@@ -9,7 +9,8 @@ var background_color := Color.BLACK
 @onready var artboard := %Artboard
 @onready var overlay := %overlay
 @onready var navbar := %Navbar
-@onready var color_palette := %ColorPalette
+@onready var toolbar := %Toolbar
+@onready var colorPalette := %ColorPalette
 
 
 func _ready():
@@ -21,13 +22,13 @@ func _ready():
 	canvas = artboard.canvas
 	
 	navbar.launch()
-	color_palette.set_colors(foreground_color, background_color)
+	colorPalette.launch(foreground_color, background_color)
 	
 	# ensure modal background overlay is hide
 	overlay.hide()
 
 
-func _on_navigation_to(nav_id, data):
+func _on_navbar_navigation_to(nav_id, data):
 	match nav_id:
 		Navbar.NEW_FILE:
 			pass
@@ -123,3 +124,4 @@ func _on_color_palette_color_changed(color_foreground, color_background):
 	foreground_color = color_foreground
 	background_color = color_background
 	artboard.set_current_color(foreground_color)
+

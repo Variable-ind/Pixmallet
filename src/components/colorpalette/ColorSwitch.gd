@@ -17,7 +17,9 @@ func _init():
 	size_flags_vertical = Control.SIZE_FILL
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	tooltip_text = TOOLTIP_TMPL.format({
-		'r': color.r8, 'g': color.g8, 'b': color.b8, 'a': color.a8, 'hex': color.to_html()})
+		'r': color.r8, 'g': color.g8, 'b': color.b8, 'a': color.a8,
+		'hex': color.to_html()
+	})
 	
 	# The ColorRect-nodes will "steal" the input if they overlap with 
 	# the Control-node if the default mouse_filter is used. 
@@ -27,4 +29,7 @@ func _init():
 
 func _draw():
 	if selected:
-		draw_rect(Rect2(Vector2.ZERO, size), Color.WHITE, false, 1)
+		var outline_rect := Rect2(Vector2.ONE, size - Vector2.ONE)
+		var outline_color := Color.WHITE
+		draw_rect(outline_rect.grow(-1), outline_color.inverted(), false, 1)
+		draw_rect(outline_rect, outline_color, false, 1)

@@ -43,9 +43,9 @@ func register(label, data, parent_menu, redirect_id:int=-1):
 			dynamic_data_stack.append(item)
 			continue
 			
-		if item.has('check'):
+		if item.has('checked'):
 			add_check_item(item['label'], item['id'])
-			set_item_checked(i, bool(item['check']))
+			set_item_checked(i, bool(item['checked']))
 		else:
 			add_item(item['label'], item['id'])
 		
@@ -74,9 +74,9 @@ func append_item(item, redirect_id:int = -1):
 		
 	item['index'] = item_count
 	
-	if item.has('check'):
+	if item.has('checked'):
 		add_check_item(item['label'], item['id'])
-		set_item_checked(item['index'], bool(item['check']))
+		set_item_checked(item['index'], bool(item['checked']))
 	else:
 		add_item(item['label'], item['id'])
 	
@@ -99,9 +99,9 @@ func _on_id_pressed(item_id):
 	var item_data = data_dict.get(item_id)
 	if item_data:		
 		# change ui element display
-		if item_data.has('check'):
-			item_data['check'] = not item_data.get('check')
-			set_item_checked(item_data['index'], item_data['check'])
+		if item_data.has('checked'):
+			item_data['checked'] = not item_data.get('checked')
+			set_item_checked(item_data['index'], item_data['checked'])
 		else:
 			hide()
 			get_parent().hide()

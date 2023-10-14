@@ -16,9 +16,12 @@ var current_color :Color = Color.BLACK :
 		for switch in get_switches():
 			switch.selected = switch.color == color
 
-
 @onready var addSwitchBtn:Button = $AddSwitchBtn
 
+
+func _ready():
+	addSwitchBtn.pressed.connect(_on_add_switch_btn_pressed)
+	
 
 func get_switches() -> Array:
 	var switches = []
@@ -49,9 +52,11 @@ func set_switches(colors: PackedColorArray, color:Color):
 		# append color switch matches with index of colors list.
 		append_color_switch(colors[i], i)
 		
-	move_child(addSwitchBtn, get_child_count() -1)  # move add button after switches.
+	move_child(addSwitchBtn, get_child_count() -1)
+	# move add button after switches.
 	
-	# to hit current switch, must change current_color after switch is appended.
+	# to hit current switch, 
+	# must change current_color after switch is appended.
 	current_color = color
 
 
@@ -92,10 +97,6 @@ func _drop_data(at_position:Vector2, data):
 
 func _on_add_switch_btn_pressed():
 	add_color_switch.emit()
-
-
-func _on_switch_selected(index):
-	select_color_switch.emit(index)
 
 
 func _on_switch_input(event, switch_index):
