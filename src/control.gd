@@ -18,10 +18,14 @@ func _ready():
 	
 	var project = Project.new(Vector2i(400, 300))
 	artboard.load_project(project)
+	
 	camera = artboard.camera
 	canvas = artboard.canvas
 	
 	navbar.launch()
+	
+	# color
+	artboard.set_current_color(foreground_color)
 	colorPalette.launch(foreground_color, background_color)
 	
 	# ensure modal background overlay is hide
@@ -96,16 +100,12 @@ func _on_toolbar_activated(operate_id):
 			artboard.state = Operate.SELECT_MAGIC
 		Operate.SHAPE_RECTANGLE:
 			artboard.state = Operate.SHAPE_RECTANGLE
-			artboard.set_current_color(foreground_color)
 		Operate.SHAPE_ELLIPSE:
 			artboard.state = Operate.SHAPE_ELLIPSE
-			artboard.set_current_color(foreground_color)
 		Operate.SHAPE_POLYGON:
 			artboard.state = Operate.SHAPE_POLYGON
-			artboard.set_current_color(foreground_color)
 		Operate.SHAPE_LINE:
 			artboard.state = Operate.SHAPE_LINE
-			artboard.set_current_color(foreground_color)
 		_:
 			pass
 
