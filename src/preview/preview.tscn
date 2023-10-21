@@ -1,0 +1,116 @@
+[gd_scene load_steps=12 format=3 uid="uid://cmvmaqhuqm0ak"]
+
+[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="1_a1i2p"]
+[ext_resource type="Script" path="res://src/canvas/TransChecker.gd" id="2_bjswj"]
+[ext_resource type="Texture2D" uid="uid://uohtqwqtftyp" path="res://assets/icons/smaller.png" id="3_0j11f"]
+[ext_resource type="Texture2D" uid="uid://ce8lwdmka8oer" path="res://assets/icons/stop.png" id="3_8x8we"]
+[ext_resource type="Texture2D" uid="uid://cccej3fua0q7w" path="res://assets/icons/play-reverse.png" id="3_s50cf"]
+[ext_resource type="Script" path="res://src/widgets/IconToggleBtn.gd" id="3_vs8kd"]
+[ext_resource type="Script" path="res://src/preview/PreviewCanvas.gd" id="3_y18cb"]
+[ext_resource type="Script" path="res://src/preview/PreviewCamera.gd" id="4_mk48y"]
+[ext_resource type="Texture2D" uid="uid://b173rb3gefnb" path="res://assets/icons/larger.png" id="4_wstss"]
+[ext_resource type="Texture2D" uid="uid://b1wg3bnpb74gy" path="res://assets/icons/play.png" id="5_7kfj5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6qij1"]
+shader = ExtResource("1_a1i2p")
+shader_parameter/size = 10.0
+shader_parameter/alpha = 1.0
+shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
+shader_parameter/color2 = Color(1, 1, 1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/scale = Vector2(0, 0)
+shader_parameter/rect_size = Vector2(0, 0)
+shader_parameter/follow_movement = false
+shader_parameter/follow_scale = false
+
+[node name="Preview" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="column" type="VBoxContainer" parent="margin"]
+layout_mode = 2
+
+[node name="PreviewViewportContainer" type="SubViewportContainer" parent="margin/column"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PreviewViewport" type="SubViewport" parent="margin/column/PreviewViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+gui_snap_controls_to_pixels = false
+render_target_update_mode = 4
+
+[node name="TransChecker" type="ColorRect" parent="margin/column/PreviewViewportContainer/PreviewViewport"]
+material = SubResource("ShaderMaterial_6qij1")
+mouse_filter = 2
+script = ExtResource("2_bjswj")
+
+[node name="PreviewCanvas" type="Node2D" parent="margin/column/PreviewViewportContainer/PreviewViewport"]
+script = ExtResource("3_y18cb")
+
+[node name="PreviewCamera" type="Camera2D" parent="margin/column/PreviewViewportContainer/PreviewViewport"]
+script = ExtResource("4_mk48y")
+
+[node name="row" type="HBoxContainer" parent="margin/column"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="BtnPlayReverse" type="Button" parent="margin/column/row"]
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("3_s50cf")
+icon_alignment = 1
+script = ExtResource("3_vs8kd")
+ico_on = ExtResource("3_8x8we")
+ico_off = ExtResource("3_s50cf")
+
+[node name="BtnPlay" type="Button" parent="margin/column/row"]
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("5_7kfj5")
+icon_alignment = 1
+script = ExtResource("3_vs8kd")
+ico_on = ExtResource("3_8x8we")
+ico_off = ExtResource("5_7kfj5")
+
+[node name="divider" type="VSeparator" parent="margin/column/row"]
+layout_mode = 2
+
+[node name="BtnSmaller" type="Button" parent="margin/column/row"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("3_0j11f")
+icon_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="margin/column/row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="BtnLarger" type="Button" parent="margin/column/row"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("4_wstss")
+icon_alignment = 1
