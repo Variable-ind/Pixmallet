@@ -148,11 +148,11 @@ func load_project(proj :Project):
 
 
 func set_state(val):
-		# allow change without really changed val, trigger funcs in setter.
-		state = val
-		canvas.state = state
-		camera.state = state
-		change_state_cursor(state)
+	# allow change without really changed val, trigger funcs in setter.
+	state = val
+	canvas.state = state
+	camera.state = state
+	change_state_cursor(state)
 #		# NO NEED it
 #		if state == Operate.MOVE:
 #			_lock_guides(guides_locked)
@@ -165,7 +165,13 @@ func change_state_cursor(curr_state):
 		mouse_default_cursor_shape = Control.CURSOR_MOVE
 	elif curr_state == Operate.PAN: 
 		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	elif curr_state in [Operate.BRUSH, Operate.PENCIL, Operate.ERASE]:
+	elif curr_state in [Operate.BRUSH, Operate.PENCIL, Operate.ERASE,
+						Operate.COLORPICK, Operate.SHADING,
+						Operate.SELECT_ELLIPSE, Operate.SELECT_RECTANGLE,
+						Operate.SELECT_LASSO, Operate.SELECT_POLYGON,
+						Operate.SELECT_MAGIC,
+						Operate.SHAPE_ELLIPSE, Operate.SHAPE_LINE,
+						Operate.SHAPE_POLYGON, Operate.SHAPE_RECTANGLE]:
 		mouse_default_cursor_shape = Control.CURSOR_CROSS
 	else:
 		mouse_default_cursor_shape = Control.CURSOR_ARROW

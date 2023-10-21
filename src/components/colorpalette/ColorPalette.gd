@@ -78,7 +78,10 @@ func launch(foreground_color :Color, background_color :Color):
 
 
 func set_color(color :Color, as_foreground := true):
-	colorForeground.color = color
+	if as_foreground:
+		colorForeground.color = color
+	else:
+		colorBackground.color = color
 
 
 func load_palettes():

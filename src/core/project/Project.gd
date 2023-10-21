@@ -1,5 +1,7 @@
 class_name Project extends Resource
 
+signal updated
+
 const CEL_SIZE = 36
 
 var name := ""
@@ -64,6 +66,8 @@ func remove():
 	for frame in frames:
 		for l in layers.size():
 			var cel: BaseCel = frame.cels[l]
+			for conn in cel.texture_updated.get_connections():
+				conn['callable'].disconnect()
 			cel.on_remove()
 	# Prevents memory leak (due to the layers' project 
 	# reference stopping ref counting from freeing)
@@ -76,7 +80,7 @@ func save():
 
 func crop_to(rect :Rect2i):
 	print('Crop:', rect)
-	
+
 
 func change_size(value: Vector2i):
 	value = value.clamp(Vector2i.ONE, Vector2i(12000, 12000))
@@ -134,6 +138,7 @@ func create_pixel_layer(index := 0) -> PixelLayer:
 	var layer = PixelLayer.new()
 	for f in frames.size():
 		var cel = layer.new_empty_cel(size)
+		cel.texture_updated.connect(_on_cel_updated)
 		frames[f].cels.insert(index, cel)
 	layers.insert(index, layer)
 	return layer
@@ -142,6 +147,9 @@ func create_pixel_layer(index := 0) -> PixelLayer:
 func remove_layer(index):
 	layers.remove_at(index)
 	for frame in frames:
+		var cel := frame.cels[index]
+		for conn in cel.texture_updated.get_connections():
+			conn['callable'].disconnect()
 		frame.cels.remove_at(index)
 			
 
@@ -184,6 +192,7 @@ func add_empty_frame(index :=0) -> Frame:
 	var bottom_layer := true
 	for l in layers:  # Create as many cels as there are layers
 		var cel = l.new_empty_cel()
+		cel.texture_updated.connect(_on_cel_updated)
 		if cel is PixelCel and bottom_layer and fill_color.a > 0:
 			cel.image.fill(fill_color)
 		frame.append_cel(cel)
@@ -199,6 +208,8 @@ func remove_frame(index :int):
 			cel.link_set["cels"].erase(cel)
 			if cel.link_set["cels"].is_empty():
 				layers[l].cel_link_sets.erase(cel.link_set)
+		for conn in cel.texture_updated.get_connections():
+			conn['callable'].disconnect()
 	# Remove frame
 	frames.remove_at(index)
 
@@ -254,3 +265,8 @@ func swap_cel(a_frame: int, a_layer: int, b_frame: int, b_layer: int):
 	var temp := frames[a_frame].cels[a_layer]
 	frames[a_frame].cels[a_layer] = frames[b_frame].cels[b_layer]
 	frames[b_frame].cels[b_layer] = temp
+
+
+# signal handler
+func _on_cel_updated():
+	updated.emit()
