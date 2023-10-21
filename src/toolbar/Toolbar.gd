@@ -35,7 +35,7 @@ var current_tool_name := ''
 	'Bucket': {'action': 'bucket', 'event': KeyChain.makeEventKey(KEY_G)},
 	'Pan': {'action': 'pan', 'event': KeyChain.makeEventKey(KEY_SPACE)},
 	'Move': {'action': 'move', 'event': KeyChain.makeEventKey(KEY_V)},
-	'PickColor': {'action':'pick_color', 'event': KeyChain.makeEventKey(KEY_I)},
+	'ColorPick': {'action':'colorpick', 'event': KeyChain.makeEventKey(KEY_I)},
 	'Crop': {'action': 'crop', 'event': KeyChain.makeEventKey(KEY_C)},
 	'Zoom': {'action': 'zoom', 'event': KeyChain.makeEventKey(KEY_Z)},
 	'Shading': {'action': 'shading', 'event': KeyChain.makeEventKey(KEY_S)},

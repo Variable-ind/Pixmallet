@@ -124,6 +124,7 @@ func _ready():
 	
 	canvas.cursor_changed.connect(_on_canvas_cursor_changed)
 	canvas.operating.connect(_on_canvas_operating)
+	canvas.color_picked.connect(_on_canvas_color_picked)
 	
 	mouse_guide.set_guide(size)
 	symmetry_guide.set_guide(size)
@@ -256,6 +257,10 @@ func _on_canvas_cursor_changed(cursor):
 		mouse_default_cursor_shape = cursor
 	else:
 		change_state_cursor(state)
+
+
+func _on_canvas_color_picked(color):
+	color_picked.emit(color)
 
 
 func _on_mouse_entered():

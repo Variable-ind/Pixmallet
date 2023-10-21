@@ -1,5 +1,6 @@
 class_name Canvas extends Node2D
 
+signal color_picked(color)
 signal cropped(crop_rect)
 signal cursor_changed(cursor)
 signal operating(operate_state, is_finished)
@@ -99,6 +100,7 @@ func _ready():
 	move_sizer.inject_snapping(snapping_hook)
 	
 	bucket.color_filled.connect(refresh)
+	color_pick.color_picked.connect(_on_color_picked)
 	
 	silhouette.refresh_canvas.connect(refresh)
 	silhouette.inject_snapping(snapping_hook)
@@ -153,10 +155,8 @@ func set_state(val):  # triggered when state changing.
 		# selection must clear after mover setted, 
 		# mover still need it once.
 		selection.deselect()
-	elif state in [Operate.SHAPE_ELLIPSE, Operate.SHAPE_LINE,
-				   Operate.SHAPE_POLYGON, Operate.SHAPE_RECTANGLE]:
-		silhouette.apply()
 	else:
+		silhouette.apply()
 		move_sizer.apply()
 		crop_sizer.cancel()
 
@@ -379,6 +379,11 @@ func get_relative_mouse_position() -> Vector2i: # mouse location of canvas.
 # cursor
 func _on_cursor_changed(cursor):
 	cursor_changed.emit(cursor)
+
+
+# color
+func _on_color_picked(color):
+	color_picked.emit(color)
 
 
 # snapping

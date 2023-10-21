@@ -77,6 +77,10 @@ func launch(foreground_color :Color, background_color :Color):
 	colorSwitchGrid.current_color = colorForeground.color
 
 
+func set_color(color :Color, as_foreground := true):
+	colorForeground.color = color
+
+
 func load_palettes():
 	# ensure default palette
 	var default_palette_tres_file = config.PATH_PALETTE_DIR.path_join(

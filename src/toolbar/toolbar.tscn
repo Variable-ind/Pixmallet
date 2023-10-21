@@ -91,8 +91,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 264.0
-offset_bottom = 44.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -173,8 +173,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 176.0
-offset_bottom = 44.0
+offset_right = 40.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -244,8 +244,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 132.0
-offset_bottom = 44.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -297,7 +297,7 @@ button_group = ExtResource("2_qba0t")
 icon = ExtResource("14_fjpfw")
 icon_alignment = 1
 
-[node name="ColorPicker" type="Button" parent="ToolBtns"]
+[node name="ColorPick" type="Button" parent="ToolBtns"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0

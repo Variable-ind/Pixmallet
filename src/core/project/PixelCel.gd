@@ -31,7 +31,10 @@ func get_image():
 	# generally, `get_image` is for get the visual of this cel,
 	# ex., for a 3DCel, content might be 3D mesh, 
 	# but still need a image to rendering.
-	return image
+	if image.is_empty():
+		return Image.create(width, height, true, IMAGE_FORMAT)
+	else:
+		return image
 
 
 func get_content():

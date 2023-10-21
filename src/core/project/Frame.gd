@@ -20,6 +20,7 @@ func get_images():
 	for cel in cels:
 		if cel is PixelCel:
 			var img :Image = cel.get_image()
-			if not img.is_empty() and not img.is_invisible():
+			# cel img will never be true of is_empty().
+			if not img.is_invisible() or images.size() < 1:
 				images.append(cel.get_image())
 	return images

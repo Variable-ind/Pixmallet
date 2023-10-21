@@ -110,18 +110,21 @@ func _on_toolbar_activated(operate_id):
 			pass
 
 
-func _on_active_adjust_tool(adjustId):
-	print(adjustId)
-	
+func _on_active_adjust_tool(adjust_id):
+	print(adjust_id)
 
 
-func _on_modal_toggled(state:bool):
-	if overlay:
-		overlay.visible = state
+func _on_modal_toggled(state :bool):
+	overlay.visible = state
 
 
-func _on_color_palette_color_changed(color_foreground, color_background):
+func _on_color_palette_color_changed(color_foreground :Color,
+									 color_background :Color):
 	foreground_color = color_foreground
 	background_color = color_background
 	artboard.set_current_color(foreground_color)
 
+
+
+func _on_artboard_color_picked(color :Color):
+	colorPalette.set_color(color)

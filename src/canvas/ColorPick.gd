@@ -11,9 +11,8 @@ func pick(pos :Vector2i):
 	var img_rect = Rect2i(Vector2i.ZERO, image.get_size())
 	var picked_color := DEFAULT_COLOR
 	if img_rect.has_point(pos):
-		var c = image.get_pixelv(pos)
-		picked_color = Color(c.r, c.g, c.b, 1)
-	color_picked.emit(picked_color)
+		picked_color = image.get_pixelv(pos)
+		color_picked.emit(picked_color)
 
 
 # merge image temporary, for pick up one color later.
