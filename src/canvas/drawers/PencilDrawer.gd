@@ -18,7 +18,7 @@ var last_pixels := [null, null]
 var pixel_perfect := true
 
 var drawn_points :PackedVector2Array = []
-var fill_inside := false
+var opt_fill_inside := false
 
 var i:= 0
 
@@ -77,21 +77,21 @@ func draw_pixel(position: Vector2i):
 func draw_start(pos: Vector2i):
 	reset()
 	super.draw_start(pos)
-	if fill_inside:
+	if opt_fill_inside:
 		drawn_points.append(pos)
 
 
 func draw_move(pos: Vector2i):
 	super.draw_move(pos)
 	
-	if fill_inside:
+	if opt_fill_inside:
 		drawn_points.append(pos)
 
 
 func draw_end(pos: Vector2i):
 	super.draw_end(pos)
 	
-	if fill_inside:
+	if opt_fill_inside:
 		drawn_points.append(pos)
 		if drawn_points.size() <= 3:
 			return

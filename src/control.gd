@@ -12,6 +12,7 @@ var background_color := Color.BLACK
 @onready var navbar := %Navbar
 @onready var toolbar := %Toolbar
 @onready var colorPalette := %ColorPalette
+@onready var properties := %Properties
 
 
 func _ready():
@@ -29,6 +30,9 @@ func _ready():
 	# color
 	artboard.set_current_color(foreground_color)
 	colorPalette.launch(foreground_color, background_color)
+	
+	# properties
+	properties.propPencil.subscribe(artboard.canvas.drawer_pencil)
 	
 	# ensure modal background overlay is hide
 	overlay.hide()
@@ -75,10 +79,9 @@ func _on_toolbar_activated(operate_id):
 			artboard.state = Operate.ZOOM
 		Operate.PENCIL:
 			artboard.state = Operate.PENCIL
-			artboard.set_current_color(foreground_color)
+			properties.state = Operate.PENCIL
 		Operate.BRUSH:
 			artboard.state = Operate.BRUSH
-			artboard.set_current_color(foreground_color)
 		Operate.ERASE:
 			artboard.state = Operate.ERASE
 		Operate.SHADING:
@@ -89,7 +92,6 @@ func _on_toolbar_activated(operate_id):
 			artboard.state = Operate.COLORPICK
 		Operate.BUCKET:
 			artboard.state = Operate.BUCKET
-			artboard.set_current_color(foreground_color)
 		Operate.SELECT_RECTANGLE:
 			artboard.state = Operate.SELECT_RECTANGLE
 		Operate.SELECT_ELLIPSE:

@@ -1,5 +1,7 @@
 class_name PixelDrawer extends BaseDrawer
 
+const STROKE_WIDTH_MIN := 1
+const STROKE_WIDTH_MAX := 100
 
 var image := Image.new() :
 	set(img):
@@ -23,7 +25,7 @@ var stroke_color := Color.WHEAT
 var stroke_width := 1 :
 	set(val):
 		# weight must less 1, and not greater than 600
-		stroke_width = clampi(val, 1, 100)
+		stroke_width = clampi(val, STROKE_WIDTH_MIN, STROKE_WIDTH_MAX)
 		stroke_width_dynamics = stroke_width
 
 var stroke_width_dynamics :int = stroke_width

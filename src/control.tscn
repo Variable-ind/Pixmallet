@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=11 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_hk23w"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -9,13 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cmvmaqhuqm0ak" path="res://src/preview/preview.tscn" id="8_h03xi"]
 [ext_resource type="PackedScene" uid="uid://41uljc4y6ch0" path="res://src/timeline/timeline.tscn" id="9_esciw"]
 [ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/components/colorpalette/color_palette.tscn" id="9_igahc"]
-[ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/components/opt-selection/selection.tscn" id="10_m4bfb"]
-[ext_resource type="PackedScene" uid="uid://d2jmndg28bimn" path="res://src/components/opt-pencil/pencil.tscn" id="11_gpkqv"]
-[ext_resource type="PackedScene" uid="uid://codf6k0w3eg3b" path="res://src/components/opt-shape/shape.tscn" id="12_54orb"]
-[ext_resource type="PackedScene" uid="uid://co7ihfd12up3b" path="res://src/components/opt-zoom/zoom.tscn" id="13_2sjc7"]
-[ext_resource type="PackedScene" uid="uid://cbuijs3m885d6" path="res://src/components/opt-crop/crop.tscn" id="14_coayu"]
-[ext_resource type="PackedScene" uid="uid://dbsb1l7cp4rg7" path="res://src/components/opt-eraser/eraser.tscn" id="15_mjhfc"]
-[ext_resource type="PackedScene" uid="uid://cih65rgsgsl3u" path="res://src/components/opt-fill/fill.tscn" id="16_4iq6d"]
+[ext_resource type="PackedScene" uid="uid://br0pl1uwvg3v8" path="res://src/components/properties/properties.tscn" id="10_reykc"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -119,48 +113,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 
-[node name="Panel" type="Panel" parent="main_area/mainborad/workspace/right-sider/split/split"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="scroll" type="ScrollContainer" parent="main_area/mainborad/workspace/right-sider/split/split/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_scroll_mode = 0
-
-[node name="margin" type="MarginContainer" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Selection" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("10_m4bfb")]
-visible = false
-layout_mode = 2
-
-[node name="Pencil" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("11_gpkqv")]
-visible = false
-layout_mode = 2
-
-[node name="Shape" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("12_54orb")]
-visible = false
-layout_mode = 2
-
-[node name="Zoom" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("13_2sjc7")]
-visible = false
-layout_mode = 2
-
-[node name="Crop" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("14_coayu")]
-visible = false
-layout_mode = 2
-
-[node name="Eraser" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("15_mjhfc")]
-visible = false
-layout_mode = 2
-
-[node name="Fill" parent="main_area/mainborad/workspace/right-sider/split/split/Panel/scroll/margin" instance=ExtResource("16_4iq6d")]
+[node name="Properties" parent="main_area/mainborad/workspace/right-sider/split/split" instance=ExtResource("10_reykc")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="overlay" type="ColorRect" parent="."]
