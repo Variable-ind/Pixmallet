@@ -3,8 +3,15 @@ class_name PreviewCanvas extends Node2D
 var project: Project
 
 
+func attach_project(proj):
+	if project != null and project.updated.is_connected(queue_redraw):
+		project.updated.disconnect(queue_redraw)
+	project = proj
+	project.updated.connect(queue_redraw)
+
+
 func _draw():
-	if not project.current_cel:
+	if not project or not project.current_cel:
 		return
 
 	# Draw current frame layers

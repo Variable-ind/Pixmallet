@@ -357,7 +357,7 @@ func _input(event :InputEvent):
 
 
 func _draw():
-	if not project.current_cel:
+	if not project or not project.current_cel:
 		return
 
 	# Draw current frame layers

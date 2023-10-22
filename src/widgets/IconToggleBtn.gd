@@ -1,8 +1,6 @@
 @tool
 class_name IconToogleBtn extends Button
 
-signal layer_btn_toggled(toggled_state, is_triggered)
-
 
 @export var is_pressed = false :
 	set(val):
@@ -23,6 +21,7 @@ signal layer_btn_toggled(toggled_state, is_triggered)
 
 func _init():
 	toggle_mode = true
+
 
 func _ready():
 	set_icon()

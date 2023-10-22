@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://cmvmaqhuqm0ak"]
+[gd_scene load_steps=14 format=3 uid="uid://cmvmaqhuqm0ak"]
 
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="1_a1i2p"]
+[ext_resource type="Script" path="res://src/preview/Preview.gd" id="1_e67or"]
 [ext_resource type="Script" path="res://src/canvas/TransChecker.gd" id="2_bjswj"]
 [ext_resource type="Texture2D" uid="uid://uohtqwqtftyp" path="res://assets/icons/smaller.png" id="3_0j11f"]
 [ext_resource type="Texture2D" uid="uid://ce8lwdmka8oer" path="res://assets/icons/stop.png" id="3_8x8we"]
@@ -23,12 +24,15 @@ shader_parameter/rect_size = Vector2(0, 0)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_lmi3l"]
+
 [node name="Preview" type="Panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_e67or")
 
 [node name="margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -58,9 +62,11 @@ mouse_filter = 2
 script = ExtResource("2_bjswj")
 
 [node name="PreviewCanvas" type="Node2D" parent="margin/column/PreviewViewportContainer/PreviewViewport"]
+unique_name_in_owner = true
 script = ExtResource("3_y18cb")
 
 [node name="PreviewCamera" type="Camera2D" parent="margin/column/PreviewViewportContainer/PreviewViewport"]
+unique_name_in_owner = true
 script = ExtResource("4_mk48y")
 
 [node name="row" type="HBoxContainer" parent="margin/column"]
@@ -68,11 +74,13 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="BtnPlayReverse" type="Button" parent="margin/column/row"]
+unique_name_in_owner = true
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_lmi3l")
 icon = ExtResource("3_s50cf")
 icon_alignment = 1
 script = ExtResource("3_vs8kd")
@@ -80,11 +88,13 @@ ico_on = ExtResource("3_8x8we")
 ico_off = ExtResource("3_s50cf")
 
 [node name="BtnPlay" type="Button" parent="margin/column/row"]
+unique_name_in_owner = true
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_lmi3l")
 icon = ExtResource("5_7kfj5")
 icon_alignment = 1
 script = ExtResource("3_vs8kd")
@@ -94,7 +104,8 @@ ico_off = ExtResource("5_7kfj5")
 [node name="divider" type="VSeparator" parent="margin/column/row"]
 layout_mode = 2
 
-[node name="BtnSmaller" type="Button" parent="margin/column/row"]
+[node name="BtnZoomOut" type="Button" parent="margin/column/row"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
@@ -102,12 +113,19 @@ toggle_mode = true
 icon = ExtResource("3_0j11f")
 icon_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="margin/column/row"]
+[node name="ZoomSlider" type="HSlider" parent="margin/column/row"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+min_value = 1.0
+max_value = 10.0
+step = 0.5
+value = 1.0
+editable = false
+scrollable = false
 
-[node name="BtnLarger" type="Button" parent="margin/column/row"]
+[node name="BtnZoomIn" type="Button" parent="margin/column/row"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
