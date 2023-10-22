@@ -4,6 +4,8 @@ var operator :Variant
 	
 @onready var eraser_width := $EraserWidth
 @onready var opacity := $Opacity
+@onready var dynamics_stroke_width := %DynamicsStrokeWidth
+@onready var dynamics_stroke_alpha := %DynamicsStrokeAlpha
 
 
 func subscribe(new_operator:EraseDrawer):
@@ -16,6 +18,8 @@ func subscribe(new_operator:EraseDrawer):
 	
 	eraser_width.value_changed.connect(_on_eraser_width_changed)
 	opacity.value_changed.connect(_on_opacity_changed)
+	dynamics_stroke_width.item_selected.connect(_on_stroke_dynamics)
+	dynamics_stroke_alpha.item_selected.connect(_on_alpha_dynamics)
 
 
 func unsubscribe():
@@ -23,6 +27,11 @@ func unsubscribe():
 		eraser_width.value_changed.disconnect(_on_eraser_width_changed)
 	if opacity.value_changed.is_connected(_on_opacity_changed):
 		opacity.value_changed.disconnect(_on_opacity_changed)
+	if dynamics_stroke_width.item_selected.is_connected(_on_stroke_dynamics):
+		dynamics_stroke_width.item_selected.disconnect(_on_stroke_dynamics)
+	if dynamics_stroke_alpha.item_selected.is_connected(_on_alpha_dynamics):
+		dynamics_stroke_alpha.item_selected.disconnect(_on_alpha_dynamics)
+
 	operator = null
 
 
@@ -32,3 +41,17 @@ func _on_eraser_width_changed(value):
 
 func _on_opacity_changed(value):
 	operator.alpha = value / 100.0
+
+
+func _on_stroke_dynamics(index):
+	match index:
+		0 : operator.dynamics_stroke_width = Dynamics.NONE
+		1 : operator.dynamics_stroke_width = Dynamics.PRESSURE
+		2 : operator.dynamics_stroke_width = Dynamics.VELOCITY
+
+
+func _on_alpha_dynamics(index):
+	match index:
+		0 : operator.dynamics_stroke_alpha = Dynamics.NONE
+		1 : operator.dynamics_stroke_alpha = Dynamics.PRESSURE
+		2 : operator.dynamics_stroke_alpha = Dynamics.VELOCITY

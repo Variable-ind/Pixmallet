@@ -46,3 +46,53 @@ value = 100.0
 show_percentage = false
 script = ExtResource("2_s1t3s")
 prefix = "Opacity:"
+
+[node name="holder2" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="row" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="column" type="VBoxContainer" parent="row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label-stroke-width" type="Label" parent="row/column"]
+layout_mode = 2
+text = "Dynamics Stroke Width by"
+autowrap_mode = 2
+
+[node name="DynamicsStrokeWidth" type="OptionButton" parent="row/column"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Pressure"
+popup/item_1/id = 1
+popup/item_2/text = "Velocity"
+popup/item_2/id = 2
+
+[node name="column2" type="VBoxContainer" parent="row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label-stroke-alpha" type="Label" parent="row/column2"]
+layout_mode = 2
+text = "Dynamics Stroke Opacity by"
+autowrap_mode = 2
+
+[node name="DynamicsStrokeAlpha" type="OptionButton" parent="row/column2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Pressure"
+popup/item_1/id = 1
+popup/item_2/text = "Velocity"
+popup/item_2/id = 2

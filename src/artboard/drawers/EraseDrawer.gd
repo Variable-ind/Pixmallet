@@ -15,8 +15,6 @@ class EraseOp extends BaseDrawer.ColorOp:
 func _init(sel_mask :Image):
 	mask = sel_mask
 	color_op = EraseOp.new()
-	allow_dyn_stroke_width = true
-	allow_dyn_stroke_alpha = true
 
 
 func reset():

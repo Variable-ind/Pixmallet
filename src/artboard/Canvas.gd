@@ -28,9 +28,6 @@ var pressure_max_thres := 1.0
 var velocity_min_thres := 0.0
 var velocity_max_thres := 1.0
 
-var dynamics_stroke_width := Dynamics.NONE
-var dynamics_stroke_alpha := Dynamics.NONE
-
 var snapper := Snapper.new()
 
 var is_pressed := false
@@ -200,7 +197,7 @@ func process_drawing_or_erasing(event, drawer):
 			return
 			
 		if is_pressed:
-			match dynamics_stroke_width:
+			match drawer.dynamics_stroke_width:
 				Dynamics.PRESSURE:
 					drawer.set_stroke_width_dynamics(
 						prepare_pressure(event.pressure))
@@ -209,7 +206,7 @@ func process_drawing_or_erasing(event, drawer):
 						prepare_velocity(event.velocity))
 				_:
 					drawer.set_stroke_width_dynamics() # back to default
-			match dynamics_stroke_alpha:
+			match drawer.dynamics_stroke_alpha:
 				Dynamics.PRESSURE:
 					drawer.set_stroke_alpha_dynamics(
 						prepare_pressure(event.pressure))
