@@ -35,6 +35,7 @@ func _ready():
 	properties.propPencil.subscribe(artboard.canvas.drawer_pencil)
 	properties.propBrush.subscribe(artboard.canvas.drawer_brush)
 	properties.propEraser.subscribe(artboard.canvas.drawer_eraser)
+	properties.propBucket.subscribe(artboard.canvas.bucket)
 	
 	# ensure modal background overlay is hide
 	overlay.hide()
@@ -96,6 +97,7 @@ func _on_toolbar_activated(operate_id):
 			artboard.state = Operate.COLORPICK
 		Operate.BUCKET:
 			artboard.state = Operate.BUCKET
+			properties.state = Operate.BUCKET
 		Operate.SELECT_RECTANGLE:
 			artboard.state = Operate.SELECT_RECTANGLE
 		Operate.SELECT_ELLIPSE:

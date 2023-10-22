@@ -17,9 +17,9 @@ var mask := Image.new()
 
 var fill_color := Color.BLACK
 
-var tolerance := 0 :
+var similarity := 100 :
 	set(val):
-		tolerance = clampi(val, 0, 100)
+		similarity = clampi(val, 0, 100)
 
 var opt_contiguous := true
 
@@ -93,11 +93,11 @@ func fill_to_color_contiguous(pos :Vector2i, target_color :Color):
 func is_matched(img_color :Color, target_color :Color):
 	if target_color.is_equal_approx(img_color):
 		return true
-	elif tolerance > 0:
+	elif similarity < 100:
 		var diff = target_color - img_color
-		var t = tolerance / 100.0
+		var t = similarity / 100.0
 		diff.r = abs(diff.r)
 		diff.g = abs(diff.g)
 		diff.b = abs(diff.b)
 		diff.a = abs(diff.a)
-		return diff.r < t and diff.g < t and diff.b < t and diff.a < t
+		return diff.r > t and diff.g > t and diff.b > t and diff.a > t

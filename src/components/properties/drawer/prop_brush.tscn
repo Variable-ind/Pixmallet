@@ -54,7 +54,6 @@ layout_mode = 2
 [node name="OptSpacing" type="CheckButton" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-focus_mode = 0
 text = "Use Spacing"
 
 [node name="SpacingX" type="ProgressBar" parent="."]
