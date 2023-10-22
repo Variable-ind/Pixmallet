@@ -1,8 +1,6 @@
-class_name PropPencil extends VBoxContainer
+class_name PropBrush extends VBoxContainer
 
 var operator :Variant
-var stroke_width_min := 1
-var stroke_width_max := 100
 	
 @onready var stroke_width := $StrokeWidth
 

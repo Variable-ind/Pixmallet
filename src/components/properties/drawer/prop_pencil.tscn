@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="2_j33j5"]
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="2_jh5py"]
-[ext_resource type="Script" path="res://src/components/properties/pencil/PropPencil.gd" id="2_pplca"]
+[ext_resource type="Script" path="res://src/components/properties/drawer/PropPencil.gd" id="2_pplca"]
 
 [node name="Pencil" type="VBoxContainer"]
 anchors_preset = 15

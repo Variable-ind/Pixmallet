@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=3 uid="uid://u8uu8q1ivt7"]
+
+[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_l2uvo"]
+[ext_resource type="Script" path="res://src/components/properties/drawer/PropBrush.gd" id="2_iql60"]
+[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="3_g0hk7"]
+
+[node name="Brush" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.15247e-05
+theme = ExtResource("1_l2uvo")
+script = ExtResource("2_iql60")
+
+[node name="title" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"title"
+text = "Pencil"
+horizontal_alignment = 1
+
+[node name="divider" type="HSeparator" parent="."]
+layout_mode = 2
+theme_type_variation = &"HDivider"
+
+[node name="StrokeWidth" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(85, 32)
+layout_mode = 2
+min_value = 1.0
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("3_g0hk7")
+prefix = "Size:"
+suffix = "px"
+
+[node name="holder" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="OptFillInside" type="CheckButton" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+text = "Fill inside"
+
+[node name="holder2" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="OptSpacing" type="CheckButton" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+text = "Use Spacing"
+
+[node name="SpacingX" type="ProgressBar" parent="."]
+visible = false
+custom_minimum_size = Vector2(85, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+show_percentage = false
+script = ExtResource("3_g0hk7")
+prefix = "Spacing X:"
+suffix = "px"
+
+[node name="SpacingY" type="ProgressBar" parent="."]
+visible = false
+custom_minimum_size = Vector2(85, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+show_percentage = false
+script = ExtResource("3_g0hk7")
+prefix = "Spacing Y:"
+suffix = "px"

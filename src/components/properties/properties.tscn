@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://br0pl1uwvg3v8"]
 
-[ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/components/properties/selection/selection.tscn" id="1_cep6f"]
+[ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/components/properties/selection/prop_selection.tscn" id="1_cep6f"]
 [ext_resource type="Script" path="res://src/components/properties/Properties.gd" id="1_pq1ji"]
-[ext_resource type="PackedScene" uid="uid://d2jmndg28bimn" path="res://src/components/properties/pencil/pencil.tscn" id="2_525qn"]
-[ext_resource type="PackedScene" uid="uid://codf6k0w3eg3b" path="res://src/components/properties/shape/shape.tscn" id="3_a5f3m"]
-[ext_resource type="PackedScene" uid="uid://co7ihfd12up3b" path="res://src/components/properties/zoom/zoom.tscn" id="4_jo2l4"]
-[ext_resource type="PackedScene" uid="uid://cbuijs3m885d6" path="res://src/components/properties/crop/crop.tscn" id="5_rfh3t"]
-[ext_resource type="PackedScene" uid="uid://dbsb1l7cp4rg7" path="res://src/components/properties/eraser/eraser.tscn" id="6_wawwn"]
-[ext_resource type="PackedScene" uid="uid://cih65rgsgsl3u" path="res://src/components/properties/bucket/fill.tscn" id="7_k02yp"]
+[ext_resource type="PackedScene" uid="uid://d2jmndg28bimn" path="res://src/components/properties/drawer/prop_pencil.tscn" id="2_525qn"]
+[ext_resource type="PackedScene" uid="uid://dbsb1l7cp4rg7" path="res://src/components/properties/drawer/prop_eraser.tscn" id="6_wawwn"]
+[ext_resource type="PackedScene" uid="uid://codf6k0w3eg3b" path="res://src/components/properties/shape/prop_shape.tscn" id="3_a5f3m"]
+[ext_resource type="PackedScene" uid="uid://co7ihfd12up3b" path="res://src/components/properties/zoom/prop_zoom.tscn" id="4_jo2l4"]
+[ext_resource type="PackedScene" uid="uid://cbuijs3m885d6" path="res://src/components/properties/crop/prop_crop.tscn" id="5_rfh3t"]
+[ext_resource type="PackedScene" uid="uid://cih65rgsgsl3u" path="res://src/components/properties/bucket/prop_bucket.tscn" id="7_k02yp"]
 
 [node name="Properties" type="Panel"]
 anchors_preset = 15

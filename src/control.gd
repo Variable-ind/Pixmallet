@@ -33,6 +33,7 @@ func _ready():
 	
 	# properties
 	properties.propPencil.subscribe(artboard.canvas.drawer_pencil)
+	properties.propEraser.subscribe(artboard.canvas.drawer_eraser)
 	
 	# ensure modal background overlay is hide
 	overlay.hide()
@@ -82,8 +83,10 @@ func _on_toolbar_activated(operate_id):
 			properties.state = Operate.PENCIL
 		Operate.BRUSH:
 			artboard.state = Operate.BRUSH
+			properties.state = Operate.BRUSH
 		Operate.ERASE:
 			artboard.state = Operate.ERASE
+			properties.state = Operate.ERASE
 		Operate.SHADING:
 			artboard.state = Operate.SHADING
 		Operate.CROP:

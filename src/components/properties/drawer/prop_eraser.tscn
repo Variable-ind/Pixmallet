@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbsb1l7cp4rg7"]
+[gd_scene load_steps=3 format=3 uid="uid://dbsb1l7cp4rg7"]
 
-[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="2_ny86e"]
+[ext_resource type="Script" path="res://src/components/properties/drawer/PropEraser.gd" id="1_4ue7h"]
+[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="2_giqif"]
 
 [node name="Eraser" type="VBoxContainer"]
 anchors_preset = 15
@@ -9,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -1.15247e-05
+script = ExtResource("1_4ue7h")
 
 [node name="title" type="Label" parent="."]
 layout_mode = 2
@@ -20,30 +22,27 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_type_variation = &"HDivider"
 
-[node name="EraserSize" type="ProgressBar" parent="."]
+[node name="EraserWidth" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(85, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
-max_value = 30.0
 step = 1.0
 value = 1.0
 show_percentage = false
-script = ExtResource("2_ny86e")
+script = ExtResource("2_giqif")
 prefix = "Size:"
 suffix = "px"
 
 [node name="holder" type="HSeparator" parent="."]
 layout_mode = 2
 
-[node name="Opacity" type="ProgressBar" parent="."]
+[node name="Alpha" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(85, 32)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = 1.0
-max_value = 255.0
 step = 1.0
-value = 1.0
+value = 100.0
 show_percentage = false
-script = ExtResource("2_ny86e")
+script = ExtResource("2_giqif")
 prefix = "Opacity:"

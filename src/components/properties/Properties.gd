@@ -38,6 +38,12 @@ func set_state(val):
 		elif state == Operate.PENCIL:
 			propPencil.visible = true
 		
+		elif state == Operate.ERASE:
+			propEraser.visible = true
+		
+		elif state == Operate.BRUSH:
+			propEraser.visible = true
+		
 		elif state == Operate.BUCKET:
 			propBucket.visible = true
 		

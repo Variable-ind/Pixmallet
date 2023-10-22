@@ -2,7 +2,6 @@ class_name EraseDrawer extends PixelDrawer
 
 var shadow_image := Image.new()
 
-
 class EraseOp extends BaseDrawer.ColorOp:
 	
 	const ERASE_COLOR := Color.TRANSPARENT
