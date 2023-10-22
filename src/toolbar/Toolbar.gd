@@ -65,7 +65,7 @@ func _on_button_pressed(btn):
 	if btn is ToolBtnGroup:
 		btn_name = btn.current_name
 	activated.emit(TOOL_ID_MAP.get(btn_name, -1))
-	print('pressed')
+	print(btn_name)
 	# tool buttons must switch `Action Mode` to `Button Press`
 	# to prevent ToolBtnGroup long pressed switch to pressed style,
 	# but not really pressed.
