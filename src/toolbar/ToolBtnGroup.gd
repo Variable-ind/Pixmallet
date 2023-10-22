@@ -17,6 +17,8 @@ func _ready():
 	long_press_timer.wait_time = LONG_PRESS_DELAY
 	long_press_timer.timeout.connect(show_popup)
 	
+	gui_input.connect(_on_gui_input)
+	
 	var erase_list: Array = []
 	for btn in group_btns:
 		if btn is Button:
@@ -43,6 +45,7 @@ func _draw():
 	draw_colored_polygon([Vector2(36, 16), Vector2(32, 12), Vector2(32, 20)],
 						 arrow_icon_color)
 
+
 func next_btn():
 	var next_index := 0
 	for i in group_btns.size():
@@ -65,20 +68,28 @@ func show_popup():
 	popup.show()
 
 
-func _on_button_down():
-	if long_press_timer.is_stopped():
-		long_press_timer.start()
+func _on_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.pressed and long_press_timer.is_stopped():
+			long_press_timer.start()
+		elif not long_press_timer.is_stopped():
+			long_press_timer.stop()
 
 
-func _on_button_up():
-	if not long_press_timer.is_stopped():
-		long_press_timer.stop()
+#func _on_button_down():
+#	if long_press_timer.is_stopped():
+#		long_press_timer.start()
+#
+#
+#func _on_button_up():
+#	if not long_press_timer.is_stopped():
+#		long_press_timer.stop()
 
 
 func _on_select_extend_btn(btn):
 	change_btn(btn.name, btn.icon)
 	popup.hide()
 	await get_tree().create_timer(0.1).timeout
+	for b in group_btns:
+		b.button_pressed = false
 	pressed.emit()
-	# toogle mode button must switch `Action Mode` to `Button Press`
-	# to prevent mouse up outside switch to pressed style but not really pressed.

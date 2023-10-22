@@ -71,6 +71,6 @@ func _on_button_pressed(btn):
 			btn_name = btn.current_name
 	current_tool_name = btn_name
 	activated.emit(TOOL_ID_MAP.get(current_tool_name, -1))
-	# toogle mode button must switch `Action Mode` to `Button Press`
+	# tool buttons must switch `Action Mode` to `Button Press`
 	# to prevent mouse up outside switch to pressed style but not really pressed.
 	
