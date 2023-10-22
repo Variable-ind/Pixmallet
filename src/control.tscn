@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://c08qtjj7x8pnk" path="res://src/artboard/artboard.tscn" id="6_luslt"]
 [ext_resource type="PackedScene" uid="uid://cmvmaqhuqm0ak" path="res://src/preview/preview.tscn" id="8_h03xi"]
 [ext_resource type="PackedScene" uid="uid://41uljc4y6ch0" path="res://src/timeline/timeline.tscn" id="9_esciw"]
-[ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/components/colorpalette/color_palette.tscn" id="9_igahc"]
-[ext_resource type="PackedScene" uid="uid://br0pl1uwvg3v8" path="res://src/components/properties/properties.tscn" id="10_reykc"]
+[ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/colorpalette/color_palette.tscn" id="9_igahc"]
+[ext_resource type="PackedScene" uid="uid://br0pl1uwvg3v8" path="res://src/properties/properties.tscn" id="10_reykc"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)

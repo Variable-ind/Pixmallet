@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://u8uu8q1ivt7"]
+[gd_scene load_steps=3 format=3 uid="uid://u8uu8q1ivt7"]
 
-[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_l2uvo"]
-[ext_resource type="Script" path="res://src/components/properties/drawer/PropBrush.gd" id="2_iql60"]
+[ext_resource type="Script" path="res://src/properties/drawer/PropBrush.gd" id="2_iql60"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="3_g0hk7"]
 
 [node name="Brush" type="VBoxContainer"]
@@ -11,7 +10,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -1.15247e-05
-theme = ExtResource("1_l2uvo")
 script = ExtResource("2_iql60")
 
 [node name="title" type="Label" parent="."]

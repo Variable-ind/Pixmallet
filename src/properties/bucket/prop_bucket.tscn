@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cih65rgsgsl3u"]
 
-[ext_resource type="Script" path="res://src/components/properties/bucket/PropBucket.gd" id="1_80vgj"]
+[ext_resource type="Script" path="res://src/properties/bucket/PropBucket.gd" id="1_80vgj"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="1_fn3rh"]
 
 [node name="Bucket" type="VBoxContainer"]

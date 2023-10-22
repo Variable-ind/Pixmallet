@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbsb1l7cp4rg7"]
 
-[ext_resource type="Script" path="res://src/components/properties/drawer/PropEraser.gd" id="1_oioqe"]
+[ext_resource type="Script" path="res://src/properties/drawer/PropEraser.gd" id="1_oioqe"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="2_s1t3s"]
 
 [node name="Eraser" type="VBoxContainer"]
