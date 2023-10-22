@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="1_a1i2p"]
 [ext_resource type="Script" path="res://src/preview/Preview.gd" id="1_e67or"]
-[ext_resource type="Script" path="res://src/canvas/TransChecker.gd" id="2_bjswj"]
+[ext_resource type="Script" path="res://src/artboard/TransChecker.gd" id="2_bjswj"]
 [ext_resource type="Texture2D" uid="uid://uohtqwqtftyp" path="res://assets/icons/smaller.png" id="3_0j11f"]
 [ext_resource type="Texture2D" uid="uid://ce8lwdmka8oer" path="res://assets/icons/stop.png" id="3_8x8we"]
 [ext_resource type="Texture2D" uid="uid://cccej3fua0q7w" path="res://assets/icons/play-reverse.png" id="3_s50cf"]

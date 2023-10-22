@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://btjv6kteur8ff" path="res://src/navbar/navbar.tscn" id="3_iv05c"]
 [ext_resource type="PackedScene" uid="uid://2dfuv5bk0ahw" path="res://src/toolbar/toolbar.tscn" id="4_7tfkl"]
 [ext_resource type="PackedScene" uid="uid://dkkj62x4hs764" path="res://src/adjustment/adjustment_tool.tscn" id="5_cd782"]
-[ext_resource type="PackedScene" uid="uid://c08qtjj7x8pnk" path="res://src/canvas/artboard.tscn" id="6_luslt"]
+[ext_resource type="PackedScene" uid="uid://c08qtjj7x8pnk" path="res://src/artboard/artboard.tscn" id="6_luslt"]
 [ext_resource type="PackedScene" uid="uid://cmvmaqhuqm0ak" path="res://src/preview/preview.tscn" id="8_h03xi"]
 [ext_resource type="PackedScene" uid="uid://41uljc4y6ch0" path="res://src/timeline/timeline.tscn" id="9_esciw"]
 [ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/components/colorpalette/color_palette.tscn" id="9_igahc"]
@@ -78,6 +78,7 @@ tab_2/title = "test"
 tab_2/disabled = true
 
 [node name="Adjustment" parent="main_area/mainborad/workspace/canvas/funcbar/split" instance=ExtResource("5_cd782")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="VSplitContainer" type="VSplitContainer" parent="main_area/mainborad/workspace/canvas"]
