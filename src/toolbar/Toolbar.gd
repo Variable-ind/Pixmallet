@@ -64,11 +64,8 @@ func _on_button_pressed(btn):
 	var btn_name :String = btn.name
 	if btn is ToolBtnGroup:
 		btn_name = btn.current_name
-		btn.activated = true
-		for b in toolbtns:
-			if b is ToolBtnGroup and b != btn:
-				b.activated = false
 	activated.emit(TOOL_ID_MAP.get(btn_name, -1))
+	print('pressed')
 	# tool buttons must switch `Action Mode` to `Button Press`
 	# to prevent ToolBtnGroup long pressed switch to pressed style,
 	# but not really pressed.
