@@ -42,19 +42,8 @@ func _ready():
 
 func update_bounds(bounds_size :Vector2i):
 	# Set the size to be the same as the project size.
-	set_bounds(bounds_size)
-
-
-func set_bounds(bounds: Vector2) -> void:
-	offset_right = bounds.x
-	offset_bottom = bounds.y
-#
-#
-func fit_rect(rect: Rect2) -> void:
-	offset_left = rect.position.x
-	offset_right = rect.end.x
-	offset_top = rect.position.y
-	offset_bottom = rect.end.y
+	offset_right = bounds_size.x
+	offset_bottom = bounds_size.y
 
 
 func _on_resized():

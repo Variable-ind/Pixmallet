@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cmvmaqhuqm0ak"]
+[gd_scene load_steps=13 format=3 uid="uid://cmvmaqhuqm0ak"]
 
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="1_a1i2p"]
 [ext_resource type="Script" path="res://src/preview/Preview.gd" id="1_e67or"]
@@ -23,8 +23,6 @@ shader_parameter/scale = Vector2(0, 0)
 shader_parameter/rect_size = Vector2(0, 0)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_lmi3l"]
 
 [node name="Preview" type="Panel"]
 anchors_preset = 15
@@ -56,10 +54,11 @@ transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 gui_snap_controls_to_pixels = false
-size = Vector2i(1280, 676)
+size = Vector2i(1280, 692)
 render_target_update_mode = 4
 
-[node name="TransChecker" type="ColorRect" parent="margin/column/PreviewViewportContainer/PreviewViewport"]
+[node name="PreviewTransChecker" type="ColorRect" parent="margin/column/PreviewViewportContainer/PreviewViewport"]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_6qij1")
 mouse_filter = 2
 script = ExtResource("2_bjswj")
@@ -73,7 +72,7 @@ unique_name_in_owner = true
 script = ExtResource("4_mk48y")
 
 [node name="row" type="HBoxContainer" parent="margin/column"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
 [node name="BtnPlayReverse" type="Button" parent="margin/column/row"]
@@ -83,7 +82,6 @@ custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 toggle_mode = true
-button_group = SubResource("ButtonGroup_lmi3l")
 icon = ExtResource("3_s50cf")
 icon_alignment = 1
 script = ExtResource("3_vs8kd")
@@ -97,7 +95,6 @@ custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
 toggle_mode = true
-button_group = SubResource("ButtonGroup_lmi3l")
 icon = ExtResource("5_7kfj5")
 icon_alignment = 1
 script = ExtResource("3_vs8kd")
@@ -113,7 +110,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
-toggle_mode = true
 icon = ExtResource("3_0j11f")
 icon_alignment = 1
 
@@ -126,14 +122,11 @@ min_value = 1.0
 max_value = 10.0
 step = 0.5
 value = 1.0
-editable = false
-scrollable = false
 
 [node name="BtnZoomIn" type="Button" parent="margin/column/row"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
-toggle_mode = true
 icon = ExtResource("4_wstss")
 icon_alignment = 1
