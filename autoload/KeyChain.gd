@@ -1,4 +1,4 @@
-# version: 0.1.0
+# version: 0.1.1
 # https://github.com/redyyu/godot-4-keymap-manager
 # redy.ru@gmail.com
 
