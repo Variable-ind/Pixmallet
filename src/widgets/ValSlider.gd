@@ -208,8 +208,14 @@ func _on_line_edit_gui_input(event: InputEvent):
 				overlayer.hide()
 				state = TYPING
 		TYPING:
-			if event is InputEventKey and event.keycode == KEY_ESCAPE:
-				valueLineEdit.release_focus()
+			if event is InputEventKey:
+				if event.keycode == KEY_ESCAPE:
+					valueLineEdit.release_focus()
+#					valueSpinBox.release_focus()  # cause hiden prefix suffix.
+				elif event.keycode == KEY_ENTER:
+					valueLineEdit.release_focus()
+					valueSpinBox.apply()
+#					valueSpinBox.release_focus()  # cause hiden prefix suffix.
 
 
 func _on_line_edit_focus_exit():

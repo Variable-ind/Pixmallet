@@ -41,18 +41,23 @@ func fill(pos :Vector2i):
 			fill_to_color_contiguous(pos, target_color)
 		else:
 			fill_to_color(target_color)
+		color_filled.emit()
 	else:
-		fill_selection()
-	
-	color_filled.emit()
-	
+		fill_selection(pos)
+		color_filled.emit()
 
-func fill_selection():
-	var fill_rect = mask.get_used_rect()
-	for x in range(fill_rect.position.x, fill_rect.end.x):
-		for y in range(fill_rect.position.y, fill_rect.end.y):
+
+func fill_selection(pos :Vector2i):
+	var fill_in_selection = mask.get_pixelv(pos).a > 0
+	for x in image.get_width():
+		for y in image.get_height():
 			var p := Vector2i(x, y)
-			image.set_pixelv(p, fill_color)
+			if fill_in_selection:
+				if mask.get_pixelv(p).a > 0:
+					image.set_pixelv(p, fill_color)
+			else:
+				if mask.get_pixelv(p).a <= 0:
+					image.set_pixelv(p, fill_color)
 
 
 func fill_to_color(target_color :Color):

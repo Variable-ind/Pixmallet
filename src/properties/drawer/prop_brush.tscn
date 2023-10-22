@@ -75,3 +75,23 @@ show_percentage = false
 script = ExtResource("3_g0hk7")
 prefix = "Spacing Y:"
 suffix = "px"
+
+[node name="holder3" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="label-stroke" type="Label" parent="."]
+layout_mode = 2
+text = "Dynamics Stroke by"
+autowrap_mode = 2
+
+[node name="DynamicsStroke" type="OptionButton" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Pressure"
+popup/item_1/id = 1
+popup/item_2/text = "Velocity"
+popup/item_2/id = 2

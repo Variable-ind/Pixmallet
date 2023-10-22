@@ -20,7 +20,6 @@ var pixel_perfect := true
 var drawn_points :PackedVector2Array = []
 var opt_fill_inside := false
 
-var i:= 0
 
 class PencilOp extends BaseDrawer.ColorOp:
 	func process(src: Color) -> Color:

@@ -23,6 +23,7 @@ func _ready():
 	property_panels.append(propZoom)
 	property_panels.append(propCrop)
 	property_panels.append(propBucket)
+	property_panels.append(propSelection)
 	
 	for prop in property_panels:
 		prop.visible = false

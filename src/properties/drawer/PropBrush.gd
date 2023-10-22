@@ -10,6 +10,8 @@ var operator :Variant
 @onready var spacing_x := $SpacingX
 @onready var spacing_y := $SpacingY
 
+@onready var dynamics_stroke := $DynamicsStroke
+
 
 func subscribe(new_operator:BrushDrawer):
 	unsubscribe()
@@ -30,6 +32,8 @@ func subscribe(new_operator:BrushDrawer):
 	spacing_x.value_changed.connect(_on_spacing_x_changed)
 	spacing_y.value_changed.connect(_on_spacing_y_changed)
 
+	dynamics_stroke.item_selected.connect(_on_stroke_dynamics)
+	
 
 func unsubscribe():
 	if stroke_width.value_changed.is_connected(_on_stroke_width_changed):
@@ -42,6 +46,8 @@ func unsubscribe():
 		spacing_x.value_changed.disconnect(_on_spacing_x_changed)
 	if spacing_y.value_changed.is_connected(_on_spacing_y_changed):
 		spacing_y.value_changed.disconnect(_on_spacing_y_changed)
+	if dynamics_stroke.item_selected.is_connected(_on_stroke_dynamics):
+		dynamics_stroke.item_selected.disconnect(_on_stroke_dynamics)
 	operator = null
 
 
@@ -73,3 +79,16 @@ func _on_spacing_toggled(btn_pressed):
 	
 	operator.stroke_spacing.x = spacing_x.value
 	operator.stroke_spacing.y = spacing_y.value
+
+
+func _on_stroke_dynamics(index):
+	match index:
+		0:
+			operator.dynamics_stroke_width = Dynamics.NONE
+			operator.dynamics_stroke_alpha = Dynamics.NONE
+		1:
+			operator.dynamics_stroke_width = Dynamics.PRESSURE
+			operator.dynamics_stroke_alpha = Dynamics.PRESSURE
+		2:
+			operator.dynamics_stroke_width = Dynamics.VELOCITY
+			operator.dynamics_stroke_alpha = Dynamics.VELOCITY
