@@ -6,7 +6,6 @@ const LONG_PRESS_DELAY :float = 0.6
 var long_press_timer :Timer = Timer.new()
 var arrow_icon_color :Color = Color(1, 1, 1, 0.66)
 var current_name: StringName = ''
-var is_activated := false
 
 @onready var popup :PopupPanel = $Popup
 @onready var group_btns = $Popup/GroupBtns.get_children()
@@ -21,16 +20,9 @@ func _ready():
 	button_up.connect(_on_button_up)
 	toggled.connect(_on_toggled)
 	
-	var erase_list: Array = []
 	for btn in group_btns:
 		if btn is Button:
 			btn.pressed.connect(_on_select_extend_btn.bind(btn))
-		else:
-			erase_list.append(btn)
-	
-	for er in erase_list:
-		group_btns.erase(er)
-		er.queue_free()
 		
 	# set current btn
 	change_btn(group_btns[0].name, group_btns[0].icon)
@@ -81,18 +73,14 @@ func _on_button_up():
 
 
 func _on_toggled(btn_pressed):
-	if is_activated and btn_pressed:
+	if Input.is_key_pressed(KEY_SHIFT) and btn_pressed:
 		next_btn()
-	elif btn_pressed:
-		is_activated = true
-	else:
-		is_activated = false
 
 
 func _on_select_extend_btn(btn):
 	change_btn(btn.name, btn.icon)
 	popup.hide()
-	await get_tree().create_timer(0.1).timeout
+#	await get_tree().create_timer(0.1).timeout
 	for b in group_btns:
 		b.button_pressed = false
 	pressed.emit()

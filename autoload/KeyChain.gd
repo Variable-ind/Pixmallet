@@ -2,7 +2,7 @@
 # https://github.com/redyyu/godot-4-keymap-manager
 # redy.ru@gmail.com
 
-class_name KeyChain extends Resource
+class_name KeyChain extends Node
 
 enum UniqueEventMode {
 	NONE,
@@ -12,14 +12,20 @@ enum UniqueEventMode {
 
 signal keymap_bounded(group_key, event)
 
-@export var actions :Array[KeyChainAction] = []
-@export var tags :Array = []
+var actions :Array[KeyChainAction] = []
+var tags :Array = []
 
 # same event only exist in one action.
-@export var unique_event_mode = UniqueEventMode.ALL
+var unique_event_mode = UniqueEventMode.ALL
 # BTW, event always be unique in group.
 
-@export var single_event_mode = false
+# same action can only bind one event or not.
+var single_event_mode = false :
+	set(val):
+		if single_event_mode != val:
+			single_event_mode = val
+			for action in actions:
+				action.single_event_mode = single_event_mode
 
 
 func _ready():
@@ -336,19 +342,18 @@ static func is_equal_input(evt_1, evt_2, not_strict :bool = true) -> bool:
 
 # Key Actions
 
-class KeyChainAction extends Resource:
+class KeyChainAction extends Node:
 
 	signal keymap_event_bounded(group, event)
 
 	const ERR_ACTION_NOT_EXIST = 'Keymap action dose not exist.'
 
-	@export var key :StringName = ''
-	@export var name :String = ''
-	@export var deadzone :float = 0.5
-	@export var tags :Array = []
-	@export var events :Array[InputEvent] = []
+	var key :StringName = ''
+	var deadzone :float = 0.5
+	var tags :Array = []
+	var events :Array[InputEvent] = []
 
-	@export var single_event_mode :bool = false :
+	var single_event_mode :bool = false :
 		set(val):
 			if single_event_mode != val:
 				single_event_mode = val

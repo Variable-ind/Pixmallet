@@ -23,6 +23,7 @@ config/windows_native_icon="res://assets/logos/icon.ico"
 g="*res://autoload/g.gd"
 utils="*res://autoload/utils.gd"
 config="*res://src/config.gd"
+keyChain="*res://autoload/KeyChain.gd"
 
 [display]
 

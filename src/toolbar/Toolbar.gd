@@ -26,9 +26,21 @@ const TOOL_ID_MAP: Dictionary = {
 
 @onready var toolbtns = $ToolBtns.get_children()
 @onready var toolbar_keymaps = {
-	'Select': {'action': 'select', 'event': KeyChain.makeEventKey(KEY_W)},
-	'Shape': {'action': 'shape', 'event': KeyChain.makeEventKey(KEY_A)},
-	'Draw': {'action': 'draw', 'event': KeyChain.makeEventKey(KEY_B)},
+	'Select': {
+		'group': true,
+		'action': 'select',
+		'event': KeyChain.makeEventKey(KEY_W)
+	},
+	'Shape': {
+		'group': true,
+		'action': 'shape', 
+		'event': KeyChain.makeEventKey(KEY_A)
+	},
+	'Draw': {
+		'group': true,
+		'action': 'draw', 
+		'event': KeyChain.makeEventKey(KEY_B)
+	},
 	'Erase': {'action': 'erase', 'event': KeyChain.makeEventKey(KEY_E)},
 	'Bucket': {'action': 'bucket', 'event': KeyChain.makeEventKey(KEY_G)},
 	'Pan': {'action': 'pan', 'event': KeyChain.makeEventKey(KEY_SPACE)},
@@ -53,11 +65,15 @@ func _ready():
 				var event:InputEventAction = InputEventAction.new()
 				event.action = keymap['action']
 				btn.shortcut.events.append(event)
-				var action = g.keyChain.add_action(keymap['action'], 
-												   btn.name, 
-												   name)
+				var action = keyChain.add_action(keymap['action'], 
+												 btn.name, 
+												 name)
 				if keymap.get('event'):
 					action.bind_event(keymap['event'])
+					if keymap.get('group'):
+						# add key for shift grouped buttons.
+						action.bind_event(KeyChain.makeEventKey(
+							keymap['event'].keycode, false, true, false))
 
 
 func _on_button_pressed(btn):

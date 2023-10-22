@@ -50,9 +50,7 @@ func _ready():
 	var event := InputEventAction.new()
 	event.action = 'flip_color'
 	colorSwitchBtn.shortcut.events.append(event)
-	var action = g.keyChain.add_action(event.action, 
-									   colorSwitchBtn.name, 
-									   name)
+	var action = keyChain.add_action(event.action, colorSwitchBtn.name, name)
 	action.bind_event(KeyChain.makeEventKey(KEY_X))
 	
 	# palettes

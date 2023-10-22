@@ -217,9 +217,9 @@ func set_menu_items(menu:MenuButton, structure:Array):
 				var event:InputEventAction = InputEventAction.new()
 				event.action = item['action']
 				shortcut.events.append(event)
-				var action = g.keyChain.add_action(item['action'], 
-												   item['label'], 
-												   name)
+				var action = keyChain.add_action(item['action'], 
+												 item['label'], 
+												 name)
 				if item.get('event'):
 					action.bind_event(item['event'])
 				menu_popup.set_item_shortcut(i, shortcut)
