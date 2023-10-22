@@ -52,7 +52,7 @@ func _on_navbar_navigation_to(nav_id, data):
 			camera.zoom_in()
 		Navbar.ZOOM_OUT:
 			camera.zoom_out()
-		
+			
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')
 		Navbar.SHOW_ISOMETRIC_GRID:
@@ -73,51 +73,8 @@ func _on_navbar_navigation_to(nav_id, data):
 
 
 func _on_toolbar_activated(operate_id):
-	match operate_id:
-		Operate.MOVE:
-			artboard.state = Operate.MOVE
-		Operate.PAN:
-			artboard.state = Operate.PAN
-		Operate.ZOOM:
-			artboard.state = Operate.ZOOM
-		Operate.PENCIL:
-			artboard.state = Operate.PENCIL
-			properties.state = Operate.PENCIL
-		Operate.BRUSH:
-			artboard.state = Operate.BRUSH
-			properties.state = Operate.BRUSH
-		Operate.ERASE:
-			artboard.state = Operate.ERASE
-			properties.state = Operate.ERASE
-		Operate.SHADING:
-			artboard.state = Operate.SHADING
-		Operate.CROP:
-			artboard.state = Operate.CROP
-		Operate.COLORPICK:
-			artboard.state = Operate.COLORPICK
-		Operate.BUCKET:
-			artboard.state = Operate.BUCKET
-			properties.state = Operate.BUCKET
-		Operate.SELECT_RECTANGLE:
-			artboard.state = Operate.SELECT_RECTANGLE
-		Operate.SELECT_ELLIPSE:
-			artboard.state = Operate.SELECT_ELLIPSE
-		Operate.SELECT_POLYGON:
-			artboard.state = Operate.SELECT_POLYGON
-		Operate.SELECT_LASSO:
-			artboard.state = Operate.SELECT_LASSO
-		Operate.SELECT_MAGIC:
-			artboard.state = Operate.SELECT_MAGIC
-		Operate.SHAPE_RECTANGLE:
-			artboard.state = Operate.SHAPE_RECTANGLE
-		Operate.SHAPE_ELLIPSE:
-			artboard.state = Operate.SHAPE_ELLIPSE
-		Operate.SHAPE_POLYGON:
-			artboard.state = Operate.SHAPE_POLYGON
-		Operate.SHAPE_LINE:
-			artboard.state = Operate.SHAPE_LINE
-		_:
-			pass
+	artboard.state = operate_id
+	properties.state = operate_id
 
 
 func _on_active_adjust_tool(adjust_id):
