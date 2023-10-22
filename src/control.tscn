@@ -106,7 +106,7 @@ theme_type_variation = &"sider_right"
 layout_mode = 2
 
 [node name="Preview" parent="main_area/mainborad/workspace/right-sider/split" instance=ExtResource("8_h03xi")]
-clip_contents = true
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 

@@ -7,7 +7,7 @@ class_name Preview extends Panel
 @onready var btn_play := %BtnPlay
 @onready var btn_play_reverse := %BtnPlayReverse
 @onready var btn_zoom_out := %BtnZoomOut
-@onready var btn_zoom_in := %BtnZoomInt
+@onready var btn_zoom_in := %BtnZoomIn
 @onready var zoom_slider := %ZoomSlider
 
 
@@ -16,12 +16,13 @@ func _ready():
 	btn_play_reverse.toggled.connect(_on_play_toggled.bind(false))
 	btn_zoom_out.pressed.connect(_on_zoom_out)
 	btn_zoom_in.pressed.connect(_on_zoom_in)
-	zoom_slider.value_changed(_on_zoom_slid)
+	zoom_slider.value_changed.connect(_on_zoom_slid)
 	
 
 func load_project(proj):
 	preview_canvas.attach_project(proj)
 	preview_camera.canvas_size = proj.size
+	
 
 
 func _on_play_toggled(btn_pressed, forward):

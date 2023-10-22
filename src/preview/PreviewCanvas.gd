@@ -8,7 +8,8 @@ func attach_project(proj):
 		project.updated.disconnect(queue_redraw)
 	project = proj
 	project.updated.connect(queue_redraw)
-
+	queue_redraw()
+	
 
 func _draw():
 	if not project or not project.current_cel:

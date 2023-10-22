@@ -7,6 +7,7 @@ var foreground_color := Color.WHITE
 var background_color := Color.BLACK
 
 @onready var artboard := %Artboard
+@onready var preview := %Preview
 @onready var overlay := %overlay
 @onready var navbar := %Navbar
 @onready var toolbar := %Toolbar
@@ -18,6 +19,7 @@ func _ready():
 	
 	var project = Project.new(Vector2i(400, 300))
 	artboard.load_project(project)
+	preview.load_project(project)
 	
 	camera = artboard.camera
 	canvas = artboard.canvas
