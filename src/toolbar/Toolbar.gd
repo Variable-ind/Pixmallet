@@ -24,13 +24,11 @@ const TOOL_ID_MAP: Dictionary = {
 	'Shading': Operate.SHADING,
 }
 
-var current_tool_name := ''
-
-@onready var toolbtns = $ToolBtns
+@onready var toolbtns = $ToolBtns.get_children()
 @onready var toolbar_keymaps = {
 	'Select': {'action': 'select', 'event': KeyChain.makeEventKey(KEY_W)},
 	'Shape': {'action': 'shape', 'event': KeyChain.makeEventKey(KEY_A)},
-	'Draw': {'action': 'pencil', 'event': KeyChain.makeEventKey(KEY_B)},
+	'Draw': {'action': 'draw', 'event': KeyChain.makeEventKey(KEY_B)},
 	'Erase': {'action': 'erase', 'event': KeyChain.makeEventKey(KEY_E)},
 	'Bucket': {'action': 'bucket', 'event': KeyChain.makeEventKey(KEY_G)},
 	'Pan': {'action': 'pan', 'event': KeyChain.makeEventKey(KEY_SPACE)},
@@ -43,7 +41,7 @@ var current_tool_name := ''
 
 
 func _ready():
-	for btn in toolbtns.get_children():
+	for btn in toolbtns:
 		if btn is Button:
 			btn.pressed.connect(_on_button_pressed.bind(btn))
 			btn.focus_mode = Control.FOCUS_NONE
@@ -66,11 +64,12 @@ func _on_button_pressed(btn):
 	var btn_name :String = btn.name
 	if btn is ToolBtnGroup:
 		btn_name = btn.current_name
-		if current_tool_name == btn_name:
-			btn.next_btn()
-			btn_name = btn.current_name
-	current_tool_name = btn_name
-	activated.emit(TOOL_ID_MAP.get(current_tool_name, -1))
+		btn.activated = true
+		for b in toolbtns:
+			if b is ToolBtnGroup and b != btn:
+				b.activated = false
+	activated.emit(TOOL_ID_MAP.get(btn_name, -1))
 	# tool buttons must switch `Action Mode` to `Button Press`
-	# to prevent mouse up outside switch to pressed style but not really pressed.
+	# to prevent ToolBtnGroup long pressed switch to pressed style,
+	# but not really pressed.
 	

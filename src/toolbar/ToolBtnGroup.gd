@@ -6,6 +6,7 @@ const LONG_PRESS_DELAY :float = 0.6
 var long_press_timer :Timer = Timer.new()
 var arrow_icon_color :Color = Color(1, 1, 1, 0.66)
 var current_name: StringName = ''
+var activated := false
 
 @onready var popup :PopupPanel = $Popup
 @onready var group_btns = $Popup/GroupBtns.get_children()
@@ -84,5 +85,4 @@ func _on_select_extend_btn(btn):
 	await get_tree().create_timer(0.1).timeout
 	for b in group_btns:
 		b.button_pressed = false
-	button_pressed = true
 	pressed.emit()
