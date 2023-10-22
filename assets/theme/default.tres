@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=71 format=3 uid="uid://bnvbwu202rx6u"]
+[gd_resource type="Theme" load_steps=76 format=3 uid="uid://bnvbwu202rx6u"]
 
 [ext_resource type="FontFile" uid="uid://c8xuja0cdkq51" path="res://assets/fonts/OpenSans-Bold.ttf" id="FontBold"]
 [ext_resource type="FontFile" uid="uid://cllbhityges65" path="res://assets/fonts/OpenSans-Regular.ttf" id="FontRegular"]
@@ -51,6 +51,41 @@ draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="CaptionEditReadyOnly"]
 draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="CheckButtonDisabled"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="CheckButtonFocus"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.2, 0.2, 0.2, 0.7)
+
+[sub_resource type="StyleBoxFlat" id="CheckButtonHover"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.6, 0.33, 0.26, 0.4)
+
+[sub_resource type="StyleBoxFlat" id="CheckButtonNormal"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="CheckButtonPressed"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.6, 0.33, 0.26, 1)
 
 [sub_resource type="StyleBoxFlat" id="ColorPickerDisabled"]
 draw_center = false
@@ -378,9 +413,12 @@ CaptionEdit/font_sizes/font_size = 10
 CaptionEdit/styles/focus = SubResource("CaptionEditFocus")
 CaptionEdit/styles/normal = SubResource("CaptionEditNormal")
 CaptionEdit/styles/read_only = SubResource("CaptionEditReadyOnly")
-CheckButton/styles/hover_pressed = SubResource("ButtonHover")
-CheckButton/styles/normal = SubResource("ButtonNormal")
-CheckButton/styles/pressed = SubResource("ButtonPressed")
+CheckButton/styles/disabled = SubResource("CheckButtonDisabled")
+CheckButton/styles/focus = SubResource("CheckButtonFocus")
+CheckButton/styles/hover = SubResource("CheckButtonHover")
+CheckButton/styles/hover_pressed = SubResource("CheckButtonHover")
+CheckButton/styles/normal = SubResource("CheckButtonNormal")
+CheckButton/styles/pressed = SubResource("CheckButtonPressed")
 ColorPickerButton/styles/disabled = SubResource("ColorPickerDisabled")
 ColorPickerButton/styles/focus = SubResource("ColorPickerFocus")
 ColorPickerButton/styles/hover = SubResource("ColorPickerHover")

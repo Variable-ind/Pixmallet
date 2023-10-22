@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbsb1l7cp4rg7"]
+[gd_scene load_steps=2 format=3 uid="uid://dbsb1l7cp4rg7"]
 
-[ext_resource type="Texture2D" uid="uid://dodq3378qymnc" path="res://assets/brushes/bars.png" id="1_pktke"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="2_ny86e"]
 
 [node name="Eraser" type="VBoxContainer"]
@@ -21,19 +20,8 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_type_variation = &"HDivider"
 
-[node name="row" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="BrushSel" type="Button" parent="row"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-theme_type_variation = &"TextureBtn"
-icon = ExtResource("1_pktke")
-icon_alignment = 1
-expand_icon = true
-
-[node name="BrushSize" type="ProgressBar" parent="row"]
-custom_minimum_size = Vector2(30, 64)
+[node name="EraserSize" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(85, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
@@ -42,7 +30,6 @@ step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("2_ny86e")
-text_alignment = 1
 prefix = "Size:"
 suffix = "px"
 
@@ -50,7 +37,7 @@ suffix = "px"
 layout_mode = 2
 
 [node name="Opacity" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(85, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
@@ -59,5 +46,4 @@ step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("2_ny86e")
-text_alignment = 1
 prefix = "Opacity:"
