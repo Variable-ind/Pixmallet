@@ -5,20 +5,23 @@ var state := Operate.NONE :
 var property_panels := []
 
 @onready var propPencil := %Pencil
+@onready var propBrush := %Brush
+@onready var propEraser := %Eraser
+
 @onready var propShape := %Shape
 @onready var propZoom := %Zoom
 @onready var propCrop := %Zoom
-@onready var propEraser := %Eraser
 @onready var propBucket := %Bucket
 @onready var propSelection := %Selection
 
 
 func _ready():
 	property_panels.append(propPencil)
+	property_panels.append(propEraser)
+	property_panels.append(propBrush)
 	property_panels.append(propShape)
 	property_panels.append(propZoom)
 	property_panels.append(propCrop)
-	property_panels.append(propEraser)
 	property_panels.append(propBucket)
 	
 	for prop in property_panels:
@@ -42,7 +45,7 @@ func set_state(val):
 			propEraser.visible = true
 		
 		elif state == Operate.BRUSH:
-			propEraser.visible = true
+			propBrush.visible = true
 		
 		elif state == Operate.BUCKET:
 			propBucket.visible = true

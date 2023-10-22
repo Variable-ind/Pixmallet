@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2jmndg28bimn"]
 
-[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="2_j33j5"]
-[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="2_jh5py"]
-[ext_resource type="Script" path="res://src/components/properties/drawer/PropPencil.gd" id="2_pplca"]
+[ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_54esk"]
+[ext_resource type="Script" path="res://src/components/properties/drawer/PropPencil.gd" id="2_1qpik"]
+[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="3_ioxnu"]
 
 [node name="Pencil" type="VBoxContainer"]
 anchors_preset = 15
@@ -11,8 +11,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -1.15247e-05
-theme = ExtResource("2_jh5py")
-script = ExtResource("2_pplca")
+theme = ExtResource("1_54esk")
+script = ExtResource("2_1qpik")
 
 [node name="title" type="Label" parent="."]
 layout_mode = 2
@@ -31,7 +31,7 @@ min_value = 1.0
 step = 1.0
 value = 1.0
 show_percentage = false
-script = ExtResource("2_j33j5")
+script = ExtResource("3_ioxnu")
 prefix = "Size:"
 suffix = "px"
 
@@ -60,7 +60,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 step = 1.0
 show_percentage = false
-script = ExtResource("2_j33j5")
+script = ExtResource("3_ioxnu")
 prefix = "Spacing X:"
 suffix = "px"
 
@@ -71,6 +71,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 step = 1.0
 show_percentage = false
-script = ExtResource("2_j33j5")
+script = ExtResource("3_ioxnu")
 prefix = "Spacing Y:"
 suffix = "px"

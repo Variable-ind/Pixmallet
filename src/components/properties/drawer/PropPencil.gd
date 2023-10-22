@@ -23,10 +23,10 @@ func subscribe(new_operator:PencilDrawer):
 	spacing_y.value = operator.stroke_spacing.y
 	
 	stroke_width.value_changed.connect(_on_stroke_width_changed)
-	spacing_x.value_changed.connect(_on_spacing_x_changed)
-	spacing_y.value_changed.connect(_on_spacing_y_changed)
 	opt_fill_inside.toggled.connect(_on_fill_inside_toggled)
 	opt_spacing.toggled.connect(_on_spacing_toggled)
+	spacing_x.value_changed.connect(_on_spacing_x_changed)
+	spacing_y.value_changed.connect(_on_spacing_y_changed)
 
 
 func unsubscribe():

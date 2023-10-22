@@ -33,6 +33,7 @@ func _ready():
 	
 	# properties
 	properties.propPencil.subscribe(artboard.canvas.drawer_pencil)
+	properties.propBrush.subscribe(artboard.canvas.drawer_brush)
 	properties.propEraser.subscribe(artboard.canvas.drawer_eraser)
 	
 	# ensure modal background overlay is hide

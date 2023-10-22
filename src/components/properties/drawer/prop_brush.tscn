@@ -17,7 +17,7 @@ script = ExtResource("2_iql60")
 [node name="title" type="Label" parent="."]
 layout_mode = 2
 theme_type_variation = &"title"
-text = "Pencil"
+text = "Brush"
 horizontal_alignment = 1
 
 [node name="divider" type="HSeparator" parent="."]
@@ -38,11 +38,15 @@ suffix = "px"
 [node name="holder" type="HSeparator" parent="."]
 layout_mode = 2
 
-[node name="OptFillInside" type="CheckButton" parent="."]
-custom_minimum_size = Vector2(32, 32)
+[node name="Opacity" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(85, 32)
 layout_mode = 2
-focus_mode = 0
-text = "Fill inside"
+size_flags_horizontal = 3
+step = 1.0
+value = 100.0
+show_percentage = false
+script = ExtResource("3_g0hk7")
+prefix = "Opacity:"
 
 [node name="holder2" type="HSeparator" parent="."]
 layout_mode = 2
