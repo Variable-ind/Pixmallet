@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="1_d8lm1"]
 [ext_resource type="Script" path="res://src/artboard/Artboard.gd" id="1_fg2jv"]
 [ext_resource type="Shader" path="res://src/shaders/Greyscale.gdshader" id="2_s2kkr"]
-[ext_resource type="Script" path="res://src/artboard/TransChecker.gd" id="3_dvs3t"]
+[ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="3_eerii"]
 [ext_resource type="Script" path="res://src/artboard/Canvas.gd" id="4_1y3pt"]
 [ext_resource type="Script" path="res://src/artboard/ReferenceImage.gd" id="4_ooelk"]
 [ext_resource type="Script" path="res://src/artboard/Indicator.gd" id="5_d6712"]
@@ -62,7 +62,7 @@ render_target_update_mode = 4
 [node name="TransChecker" type="ColorRect" parent="Viewport"]
 material = SubResource("ShaderMaterial_fwpdp")
 mouse_filter = 2
-script = ExtResource("3_dvs3t")
+script = ExtResource("3_eerii")
 
 [node name="ReferenceImage" type="Sprite2D" parent="Viewport"]
 visible = false
