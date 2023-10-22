@@ -1,6 +1,6 @@
 extends Node
 
-var uuid = preload("res://src/autoload/utils/uuid.gd")
+var uuid = preload("res://autoload/utils/uuid.gd")
 	
 
 func uuid4(dig:int=32):

@@ -10,7 +10,7 @@ func subscribe(new_operator:Bucket):
 	unsubscribe()
 	operator = new_operator
 	similarity.value = operator.similarity  # max/min defined in operator.
-	opt_contiguous.value = operator.opt_contiguous
+	opt_contiguous.button_pressed = operator.opt_contiguous
 	
 	similarity.value_changed.connect(_on_similarity_changed)
 	opt_contiguous.toggled.connect(_on_contiguous_toggled)
