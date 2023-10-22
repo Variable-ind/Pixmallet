@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://br0pl1uwvg3v8"]
+[gd_scene load_steps=14 format=3 uid="uid://br0pl1uwvg3v8"]
 
 [ext_resource type="Script" path="res://src/properties/Properties.gd" id="1_sll7n"]
 [ext_resource type="PackedScene" uid="uid://cnv2wo1wwsfyu" path="res://src/properties/selection/prop_selection.tscn" id="2_2ity2"]
@@ -9,6 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://co7ihfd12up3b" path="res://src/properties/zoom/prop_zoom.tscn" id="7_3eya6"]
 [ext_resource type="PackedScene" uid="uid://cbuijs3m885d6" path="res://src/properties/crop/prop_crop.tscn" id="8_wmkia"]
 [ext_resource type="PackedScene" uid="uid://cih65rgsgsl3u" path="res://src/properties/bucket/prop_bucket.tscn" id="9_qd53g"]
+[ext_resource type="PackedScene" uid="uid://bf5l8tq7g6k37" path="res://src/properties/shading/prop_shading.tscn" id="10_squt2"]
+[ext_resource type="PackedScene" uid="uid://b08emlcxl73e5" path="res://src/properties/move/prop_move.tscn" id="11_8koms"]
+[ext_resource type="PackedScene" uid="uid://dopgpk3rwbjx0" path="res://src/properties/pan/prop_pan.tscn" id="12_begwd"]
+[ext_resource type="PackedScene" uid="uid://dogky2p135wgv" path="res://src/properties/colorpick/prop_colorpick.tscn" id="13_0ex5c"]
 
 [node name="Properties" type="Panel"]
 anchors_preset = 15
@@ -70,4 +74,21 @@ layout_mode = 2
 [node name="Bucket" parent="scroll/margin" instance=ExtResource("9_qd53g")]
 unique_name_in_owner = true
 visible = false
+layout_mode = 2
+
+[node name="Shading" parent="scroll/margin" instance=ExtResource("10_squt2")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Move" parent="scroll/margin" instance=ExtResource("11_8koms")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Pan" parent="scroll/margin" instance=ExtResource("12_begwd")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Colorpick" parent="scroll/margin" instance=ExtResource("13_0ex5c")]
+unique_name_in_owner = true
 layout_mode = 2

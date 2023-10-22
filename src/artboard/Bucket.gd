@@ -100,9 +100,9 @@ func is_matched(img_color :Color, target_color :Color):
 		return true
 	elif similarity < 100:
 		var diff = target_color - img_color
-		var t = similarity / 100.0
+		var t = (100 - similarity) / 100.0
 		diff.r = abs(diff.r)
 		diff.g = abs(diff.g)
 		diff.b = abs(diff.b)
 		diff.a = abs(diff.a)
-		return diff.r > t and diff.g > t and diff.b > t and diff.a > t
+		return diff.r < t and diff.g < t and diff.b < t and diff.a < t

@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://b08emlcxl73e5"]
+
+[node name="Move" type="VBoxContainer"]
+visible = false

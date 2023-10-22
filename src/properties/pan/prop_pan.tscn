@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://dopgpk3rwbjx0"]
+
+[node name="Pan" type="VBoxContainer"]
+visible = false
