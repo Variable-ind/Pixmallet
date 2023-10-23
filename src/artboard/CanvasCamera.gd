@@ -126,13 +126,10 @@ func zoom_100():
 	
 
 func fit_to_frame():
-	offset = canvas_size / 2
+	offset = canvas_size * 0.5
 	var h_ratio = viewport_size.x / float(canvas_size.x)
 	var v_ratio = viewport_size.y / float(canvas_size.y)
 	var ratio = minf(h_ratio, v_ratio)
-	if ratio == 0 or not visible:
-		ratio = 0.1  # Set it to a non-zero value just in case
-
 	ratio = clampf(ratio, 0.1, ratio)
 	zoom = Vector2(ratio, ratio)
 	zoomed.emit()

@@ -122,6 +122,9 @@ func _ready():
 	camera.zoomed.connect(_on_camera_updated)
 	camera.press_updated.connect(_on_camera_pressing)
 	
+	viewport.size_changed.connect(_on_viewport_size_changed)
+	camera.viewport_size = viewport.size
+	
 	canvas.cursor_changed.connect(_on_canvas_cursor_changed)
 	canvas.operating.connect(_on_canvas_operating)
 	canvas.color_picked.connect(_on_canvas_color_picked)
@@ -139,9 +142,8 @@ func load_project(proj :Project):
 	grid.canvas_size = project.size
 	
 	camera.canvas_size = project.size
-	camera.viewport_size = viewport.size
 	camera.zoom_100()
-	
+
 	canvas.attach_project(project)
 	canvas.attach_snap_to(project.size, guides, symmetry_guide, grid)
 	trans_checker.update_bounds(project.size)
@@ -249,6 +251,10 @@ func _on_camera_pressing(is_pressed):
 			mouse_default_cursor_shape = Control.CURSOR_DRAG
 		else:
 			mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+
+func _on_viewport_size_changed():
+	camera.viewport_size = viewport.size
 
 
 func _on_canvas_operating(_state:int, is_finished :bool):
