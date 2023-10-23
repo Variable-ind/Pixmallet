@@ -36,6 +36,7 @@ func _ready():
 	properties.propBrush.subscribe(artboard.canvas.drawer_brush)
 	properties.propEraser.subscribe(artboard.canvas.drawer_eraser)
 	properties.propBucket.subscribe(artboard.canvas.bucket)
+	properties.propZoom.subscribe(artboard.camera)
 	
 	# ensure modal background overlay is hide
 	overlay.hide()

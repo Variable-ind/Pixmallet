@@ -20,12 +20,12 @@ var canvas_size := Vector2i.ZERO :
 		# so do not make it too small. 
 		# make the zoom_out_max (or zoom_in_max)
 		# fit the limit size will be nice.
-		
+
 var zoom_in_max := Vector2(100, 100)
 var zoom_out_max := Vector2(0.1, 0.1)
 var zoom_center_point := Vector2.ZERO
 
-var use_integer_zoom := false
+#var use_integer_zoom := false
 
 var btn_pressed := false
 var state := Operate.NONE
@@ -125,7 +125,7 @@ func zoom_100():
 	zoomed.emit()
 	
 
-func fit_to_frame() -> void:
+func fit_to_frame():
 	offset = canvas_size / 2
 	var h_ratio = viewport_size.x / float(canvas_size.x)
 	var v_ratio = viewport_size.y / float(canvas_size.y)

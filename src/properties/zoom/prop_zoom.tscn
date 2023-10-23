@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://co7ihfd12up3b"]
+[gd_scene load_steps=3 format=3 uid="uid://co7ihfd12up3b"]
+
+[ext_resource type="Script" path="res://src/properties/zoom/PropZoom.gd" id="1_fsb3w"]
+[ext_resource type="Texture2D" uid="uid://dancaphcsihsr" path="res://assets/icons/mouse-left.png" id="2_bn66r"]
 
 [node name="Zoom" type="VBoxContainer"]
 anchors_preset = 15
@@ -7,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+script = ExtResource("1_fsb3w")
 
 [node name="title" type="Label" parent="."]
 layout_mode = 2
@@ -17,22 +21,6 @@ horizontal_alignment = 1
 [node name="divider" type="HSeparator" parent="."]
 layout_mode = 2
 theme_type_variation = &"HDivider"
-
-[node name="label-mode" type="Label" parent="."]
-layout_mode = 2
-text = "Mode"
-
-[node name="ZoomMode" type="OptionButton" parent="."]
-layout_mode = 2
-item_count = 2
-selected = 0
-popup/item_0/text = "Zoom in"
-popup/item_0/id = 0
-popup/item_1/text = "Zoom out"
-popup/item_1/id = 1
-
-[node name="holder" type="HSeparator" parent="."]
-layout_mode = 2
 
 [node name="label-options" type="Label" parent="."]
 layout_mode = 2
@@ -45,3 +33,53 @@ text = "Fit to frame"
 [node name="Btn100" type="Button" parent="."]
 layout_mode = 2
 text = "100% Zoom"
+
+[node name="holder" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="label-usage" type="Label" parent="."]
+layout_mode = 2
+text = "Usage"
+
+[node name="row" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="column" type="VBoxContainer" parent="row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="icon" type="TextureRect" parent="row/column"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+texture = ExtResource("2_bn66r")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="row/column"]
+layout_mode = 2
+theme_type_variation = &"caption"
+text = "Left Click Zoom In"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="column2" type="VBoxContainer" parent="row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="icon" type="TextureRect" parent="row/column2"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+texture = ExtResource("2_bn66r")
+expand_mode = 2
+stretch_mode = 5
+flip_h = true
+
+[node name="Label" type="Label" parent="row/column2"]
+layout_mode = 2
+theme_type_variation = &"caption"
+text = "Right Click Zoom In"
+horizontal_alignment = 1
+autowrap_mode = 2
