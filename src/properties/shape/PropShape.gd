@@ -94,14 +94,6 @@ func set_editable(status):
 	opt_pivot.set_process_input(status)
 
 
-func _on_applied():
-	operator.apply()
-
-
-func _on_canceled():
-	operator.cancel()
-
-
 func _on_position_changed(_val):
 	operator.move_to(Vector2i(input_x.value, input_y.value))
 	
