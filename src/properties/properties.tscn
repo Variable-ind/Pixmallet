@@ -87,6 +87,7 @@ layout_mode = 2
 
 [node name="Pan" parent="scroll/margin" instance=ExtResource("12_begwd")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="Colorpick" parent="scroll/margin" instance=ExtResource("13_0ex5c")]

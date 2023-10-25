@@ -1,4 +1,56 @@
-[gd_scene format=3 uid="uid://dogky2p135wgv"]
+[gd_scene load_steps=3 format=3 uid="uid://dogky2p135wgv"]
+
+[ext_resource type="Script" path="res://src/properties/colorpick/PropColorpick.gd" id="1_gsbkf"]
+[ext_resource type="Texture2D" uid="uid://cewfw5f4rigl1" path="res://assets/tools/color-picker.png" id="1_wc0jb"]
 
 [node name="Colorpick" type="VBoxContainer"]
-visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gsbkf")
+
+[node name="title" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"title"
+text = "Color Pick"
+horizontal_alignment = 1
+
+[node name="divider" type="HSeparator" parent="."]
+layout_mode = 2
+theme_type_variation = &"HDivider"
+
+[node name="OptAlpha" type="CheckButton" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "Alpha channel sensitivity"
+
+[node name="holder2" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="ColorPreview" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(1, 1, 1, 0)
+
+[node name="icon" type="TextureRect" parent="ColorPreview"]
+modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wc0jb")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"caption"
+text = "Click On The Canvas
+Pickup A Color"
+horizontal_alignment = 1
+autowrap_mode = 2

@@ -5,6 +5,7 @@ signal color_picked(color)
 const DEFAULT_COLOR := Color.BLACK
 
 var image := Image.new()
+var opt_alpha_sensitivity := true
 
 
 func pick(pos :Vector2i):
@@ -12,6 +13,8 @@ func pick(pos :Vector2i):
 	var picked_color := DEFAULT_COLOR
 	if img_rect.has_point(pos):
 		picked_color = image.get_pixelv(pos)
+		if not opt_alpha_sensitivity:
+			picked_color.a = 1.0
 		color_picked.emit(picked_color)
 
 

@@ -38,6 +38,7 @@ func _ready():
 	properties.propBucket.subscribe(artboard.canvas.bucket)
 	properties.propZoom.subscribe(artboard.camera)
 	properties.propCrop.subscribe(artboard.canvas.crop_sizer)
+	properties.propColorpick.subscribe(artboard.canvas.color_pick)
 	
 	# ensure modal background overlay is hide
 	overlay.hide()
