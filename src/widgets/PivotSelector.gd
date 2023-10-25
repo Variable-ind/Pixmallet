@@ -41,12 +41,10 @@ var frame_rect :Rect2i :
 	get: return Rect2i(Vector2i.ZERO + pivot_size,
 					   Vector2i(_size) - pivot_size * 2)
 
-func _init():
-	size = _size
-	custom_minimum_size = _size
-
 
 func _ready():
+	size = _size
+	custom_minimum_size = _size
 	prepare_pivots()
 
 

@@ -10,7 +10,7 @@ var property_panels := []
 
 @onready var propShape := %Shape
 @onready var propZoom := %Zoom
-@onready var propCrop := %Zoom
+@onready var propCrop := %Crop
 @onready var propBucket := %Bucket
 @onready var propSelection := %Selection
 @onready var propShading := %Shading
