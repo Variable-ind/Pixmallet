@@ -156,7 +156,7 @@ func set_state(val):  # triggered when state changing.
 		# mover still need it once.
 		selection.deselect()
 	else:
-		silhouette.apply()
+		silhouette.terminate(true)
 		move_sizer.terminate(true)
 		crop_sizer.terminate(false)
 

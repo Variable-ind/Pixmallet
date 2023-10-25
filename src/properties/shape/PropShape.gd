@@ -131,7 +131,6 @@ func _on_fill_toggled(btn_pressed):
 
 func _on_as_square_toggled(btn_pressed):
 	operator.opt_as_square = btn_pressed
-	print(operator.opt_as_square, btn_pressed)
 	
 	
 func _on_from_center_toggled(btn_pressed):

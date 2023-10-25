@@ -51,6 +51,9 @@ var opt_from_center := false :
 	
 var opt_fill := false :
 	get: return opt_fill and not force_outline
+	set(val):
+		opt_fill = val
+		queue_redraw()
 
 var force_as_square := false
 var force_from_center := false
@@ -88,13 +91,21 @@ func apply():
 		ELLIPSE: shaped_ellipse()
 		LINE: shaped_line()
 		POLYGON: shaped_polygon()
-	reset()
+	
 	applied.emit(shaped_rect)
+	reset()
 
 
 func cancel():
-	reset()
 	canceled.emit()
+	reset()
+
+
+func terminate(use_apply :=false):
+	if use_apply:
+		apply()
+	else:
+		cancel()
 
 
 func reset():
