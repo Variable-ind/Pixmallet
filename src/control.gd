@@ -35,6 +35,7 @@ func _ready():
 	properties.propPencil.subscribe(artboard.canvas.drawer_pencil)
 	properties.propBrush.subscribe(artboard.canvas.drawer_brush)
 	properties.propEraser.subscribe(artboard.canvas.drawer_eraser)
+	properties.propShading.subscribe(artboard.canvas.drawer_shading)
 	properties.propBucket.subscribe(artboard.canvas.bucket)
 	properties.propZoom.subscribe(artboard.camera)
 	properties.propCrop.subscribe(artboard.canvas.crop_sizer)

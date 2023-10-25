@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bf5l8tq7g6k37"]
 
+[ext_resource type="Script" path="res://src/properties/shading/PropShading.gd" id="1_cktml"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="1_hwtdy"]
-[ext_resource type="Texture2D" uid="uid://dodq3378qymnc" path="res://assets/brushes/bars.png" id="1_jedl5"]
 
 [node name="Shading" type="VBoxContainer"]
 anchors_preset = 15
@@ -10,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+script = ExtResource("1_cktml")
 
 [node name="title" type="Label" parent="."]
 layout_mode = 2
@@ -21,39 +22,26 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_type_variation = &"HDivider"
 
-[node name="row" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="BrushSel" type="Button" parent="row"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-theme_type_variation = &"TextureBtn"
-icon = ExtResource("1_jedl5")
-icon_alignment = 1
-expand_icon = true
-
-[node name="BrushSize" type="ProgressBar" parent="row"]
-custom_minimum_size = Vector2(30, 64)
+[node name="StrokeWidth" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(85, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
-max_value = 30.0
 step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("1_hwtdy")
-text_alignment = 1
 prefix = "Size:"
 suffix = "px"
 
 [node name="holder" type="HSeparator" parent="."]
 layout_mode = 2
 
-[node name="label-light" type="Label" parent="."]
+[node name="label-modes" type="Label" parent="."]
 layout_mode = 2
-text = "Light mode"
+text = "Shading modes"
 
-[node name="LightMode" type="OptionButton" parent="."]
+[node name="OptLighten" type="OptionButton" parent="."]
 layout_mode = 2
 item_count = 2
 selected = 0
@@ -62,14 +50,7 @@ popup/item_0/id = 0
 popup/item_1/text = "Darken"
 popup/item_1/id = 1
 
-[node name="holder2" type="HSeparator" parent="."]
-layout_mode = 2
-
-[node name="label-shade" type="Label" parent="."]
-layout_mode = 2
-text = "Light mode"
-
-[node name="ShadeMode" type="OptionButton" parent="."]
+[node name="OptSimpleShading" type="OptionButton" parent="."]
 layout_mode = 2
 item_count = 2
 selected = 0
@@ -79,7 +60,7 @@ popup/item_1/text = "Hue Shifting"
 popup/item_1/id = 1
 
 [node name="Amount" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 theme_type_variation = &"ValSlider"
 min_value = 1.0
@@ -87,11 +68,10 @@ step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("1_hwtdy")
-text_alignment = 1
 prefix = "Amount:"
 
 [node name="Hue" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 theme_type_variation = &"ValSlider"
 max_value = 180.0
@@ -99,27 +79,24 @@ step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("1_hwtdy")
-text_alignment = 1
 prefix = "Hue:"
 
 [node name="Saturation" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 theme_type_variation = &"ValSlider"
 step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("1_hwtdy")
-text_alignment = 1
 prefix = "Saturation:"
 
 [node name="Value" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 theme_type_variation = &"ValSlider"
 step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("1_hwtdy")
-text_alignment = 1
 prefix = "Value:"

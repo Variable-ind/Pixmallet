@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dopgpk3rwbjx0"]
+[gd_scene load_steps=3 format=3 uid="uid://dopgpk3rwbjx0"]
 
 [ext_resource type="Texture2D" uid="uid://dancaphcsihsr" path="res://assets/icons/mouse-left.png" id="1_l3k2x"]
+[ext_resource type="Script" path="res://src/properties/pan/PropPan.gd" id="1_rtiis"]
 
 [node name="Pan" type="VBoxContainer"]
 anchors_preset = 15
@@ -8,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_rtiis")
 
 [node name="title" type="Label" parent="."]
 layout_mode = 2

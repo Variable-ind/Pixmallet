@@ -16,7 +16,7 @@ var opt_simple_shading :bool :
 	set(val): shading_op.as_simple_shading = val
 
 var opt_lighten :bool :
-	get: return shading_op.as_ligthen
+	get: return shading_op.as_lighten
 	set(val): shading_op.as_lighten = val
 
 var opt_hue_amount :float :
