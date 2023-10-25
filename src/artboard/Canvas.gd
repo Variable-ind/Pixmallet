@@ -85,24 +85,27 @@ func _ready():
 	
 	bucket.mask = selection.mask
 	
-	var snapping_hook = func(rect:Rect2i, pos :Vector2i) -> Vector2i:
+	var scale_snapping_hook = func(pos :Vector2i) -> Vector2i:
+		return snapper.snap_position(pos, true)
+	
+	var drag_snapping_hook = func(rect:Rect2i, pos :Vector2i) -> Vector2i:
 		return snapper.snap_boundary_position(rect, pos)
 	
 	crop_sizer.crop_canvas.connect(crop)
 	crop_sizer.cursor_changed.connect(_on_cursor_changed)
-	crop_sizer.inject_snapping(snapping_hook)
+	crop_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
 	move_sizer.refresh_canvas.connect(refresh)
 	move_sizer.cursor_changed.connect(_on_cursor_changed)
-	move_sizer.inject_snapping(snapping_hook)
+	move_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
 	bucket.color_filled.connect(refresh)
 	color_pick.color_picked.connect(_on_color_picked)
 	
 	silhouette.refresh_canvas.connect(refresh)
-	silhouette.inject_snapping(snapping_hook)
+	silhouette.inject_snapping(drag_snapping_hook)
 	
-	selection.inject_snapping(snapping_hook)
+	selection.inject_snapping(drag_snapping_hook)
 
 
 func attach_project(proj):

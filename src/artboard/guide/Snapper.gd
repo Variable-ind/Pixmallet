@@ -21,9 +21,8 @@ func snap_position(pos: Vector2i, snap_to_edge := false, wt := {}) -> Vector2i:
 	# `wt` is a dict, use to pass weight results.
 	# because snap is not always need a weight, 
 	# and snap is better to output a Vector2 directly.
-	
-	_weight = 0  # reset wieght any way.
 
+	_weight = 0  # reset wieght any way.
 	var to_guides :Array = []
 
 	if snap_to_edge:  # sometime no need snap to edge, ex., draw or erasing.
@@ -49,8 +48,7 @@ func snap_position(pos: Vector2i, snap_to_edge := false, wt := {}) -> Vector2i:
 				'type': VERTICAL
 			}
 		])
-		
-		
+
 	if snap_to_guide:
 		# the guide is place on outside the viewport, 
 		# so use `relative_position`, this get form canvas when released.
@@ -105,11 +103,11 @@ func snap_position(pos: Vector2i, snap_to_edge := false, wt := {}) -> Vector2i:
 #		snap_to_pos = process_snap_to_perspective_guides(pos, vanishing_points)
 
 	if snap_to_pos != Vector2.INF:
-		pos = Vector2i(snap_to_pos)
+		pos = Vector2i(snap_to_pos.floor())
 	
 	wt['weight'] = _weight
 	_weight = 0  # reset _weight
-	
+
 	return pos
 	
 

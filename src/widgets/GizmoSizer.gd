@@ -202,7 +202,7 @@ func drag_to(pos :Vector2i):
 
 	# convert to local pos from the rect zero pos. 
 	# DO NOT use get_local_mouse_position, because bound_rect is not zero pos.
-	bound_rect.position = snapping(bound_rect, pos)
+	bound_rect.position = drag_snapping(bound_rect, pos)
 	
 	for gzm in gizmos:
 		set_gizmo_place(gzm)
@@ -227,7 +227,7 @@ func move_delta(delta :int, orientation:Orientation):
 
 
 func scale_to(pos :Vector2i):
-	pos = snapping(bound_rect, pos)
+	pos = scale_snapping(pos)
 
 	if last_position == pos or not pressed_gizmo:
 		return
@@ -445,17 +445,24 @@ func _on_gizmo_press_updated(gizmo, status):
 
 
 # snapping
-func snapping(rect: Rect2i, pos :Vector2i) -> Vector2i:
-	return _snapping.call(rect, pos)
+func scale_snapping(pos :Vector2i) -> Vector2i:
+	return _scale_snapping.call(pos)
+
+func drag_snapping(rect: Rect2i, pos :Vector2i) -> Vector2i:
+	return _drag_snapping.call(rect, pos)
 
 # hook for snapping
-var _snapping = func(_rect: Rect2i, pos :Vector2i) -> Vector2i:
+var _scale_snapping = func(pos :Vector2i) -> Vector2i:
 	# pass original postion if no hook.
 	return pos
 
+var _drag_snapping = func(_rect: Rect2i, pos :Vector2i) -> Vector2i:
+	# pass original postion if no hook.
+	return pos
 
-func inject_snapping(callable :Callable):
-	_snapping = callable
+func inject_snapping(scale_callable :Callable, drag_callable :Callable):
+	_scale_snapping = scale_callable
+	_drag_snapping = drag_callable
 
 # Use custom draw_rect and input event to replace
 # what Control (such as ColorRect) should do,

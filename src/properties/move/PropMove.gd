@@ -1,4 +1,4 @@
-class_name PropCrop extends VBoxContainer
+class_name PropMove extends VBoxContainer
 
 var operator :Variant
 
@@ -18,14 +18,9 @@ func _ready():
 	input_y.max_value = 12000
 
 
-func subscribe(new_operator:CropSizer):
+func subscribe(new_operator:MoveSizer):
 	unsubscribe()
 	operator = new_operator
-	
-	input_width.max_value = 12000
-	input_height.max_value = 12000
-	input_x.max_value = 12000
-	input_y.max_value = 12000
 
 	btn_apply.pressed.connect(_on_applied)
 	btn_cancel.pressed.connect(_on_canceled)
