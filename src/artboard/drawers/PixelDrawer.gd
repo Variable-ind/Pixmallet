@@ -24,7 +24,6 @@ var stroke_color := Color.WHEAT
 
 var stroke_width := 1 :
 	set(val):
-		# weight must less 1, and not greater than 600
 		stroke_width = clampi(val, STROKE_WIDTH_MIN, STROKE_WIDTH_MAX)
 		stroke_width_dynamics = stroke_width
 

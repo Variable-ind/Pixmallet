@@ -70,7 +70,7 @@ func _on_simple_shading_selected(index):
 	opt_sat_amount.visible = not operator.opt_simple_shading
 	opt_value_amount.visible = not operator.opt_simple_shading
 
-
+ 
 func _on_lighten_selected(index):
 	operator.opt_lighten = index == 0
 

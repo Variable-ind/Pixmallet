@@ -5,6 +5,9 @@ signal applied(rect)
 signal canceled
 signal refresh_canvas
 
+const STROKE_WIDTH_MIN := 1
+const STROKE_WIDTH_MAX := 100
+
 enum {
 	NONE,
 	RECTANGLE,
@@ -41,10 +44,10 @@ var zoom_ratio := 1.0
 var last_position :Variant = null # prevent same with mouse pos from beginning.
 
 var opt_as_square := false :
-	get: return opt_as_square and force_as_square
+	get: return opt_as_square or force_as_square
 	
 var opt_from_center := false :
-	get: return opt_from_center and force_from_center
+	get: return opt_from_center or force_from_center
 	
 var opt_fill := false :
 	get: return opt_fill and not force_outline
@@ -53,7 +56,9 @@ var force_as_square := false
 var force_from_center := false
 var force_outline := false
 
-var stroke_width := 2
+var stroke_width := 2 :
+	set(val):
+		stroke_width = clampi(val, STROKE_WIDTH_MIN, STROKE_WIDTH_MAX)
 var division := 5
 var edge_expands := 0
 

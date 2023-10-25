@@ -18,12 +18,15 @@ class_name IconToogleBtn extends Button
 		ico_off = val
 		set_icon()
 
+var last_icon = null
+
 
 func _init():
 	toggle_mode = true
 
 
 func _ready():
+	last_icon = icon
 	set_icon()
 	icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -32,10 +35,12 @@ func _ready():
 
 func set_icon():
 	if button_pressed:
-		icon = ico_on
+		if ico_on:
+			icon = ico_on
 		modulate = Color.WHITE
 	else:
-		icon = ico_off
+		if ico_off:
+			icon = ico_off
 		modulate = Color.DIM_GRAY
 
 
