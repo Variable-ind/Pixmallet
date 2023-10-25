@@ -19,9 +19,13 @@ func launch(canvas_size: Vector2i):
 	attach(rect, true)
 
 
-func cancel(use_reset := true):
+func apply():
+	applied.emit(bound_rect)
+
+
+func cancel():
 	bound_rect = Rect2i(Vector2i.ZERO, size)
-	super.cancel(use_reset)
+	canceled.emit()
 
 
 func _draw():

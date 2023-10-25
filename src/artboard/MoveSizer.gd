@@ -45,14 +45,14 @@ func lanuch(img :Image, mask :Image):
 			attach(backup_rect)
 
 
-func cancel(use_reset := true):
+func cancel():
 	image.copy_from(image_backup)
 	bound_rect = backup_rect
 	preview_image = Image.new()
-	super.cancel(use_reset)
+	super.cancel()
 
 
-func apply(use_reset := true):
+func apply():
 	if has_area() and has_image():
 		preview_image.resize(bound_rect.size.x, 
 							 bound_rect.size.y,
@@ -72,7 +72,7 @@ func apply(use_reset := true):
 		image_mask.copy_from(_mask)
 		preview_image = Image.new()
 
-		super.apply(use_reset)
+		super.apply()
 
 
 

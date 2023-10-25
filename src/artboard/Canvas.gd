@@ -143,19 +143,19 @@ func set_state(val):  # triggered when state changing.
 	indicator.hide_indicator()  # not all state need indicator
 	
 	if state == Operate.CROP:
-		move_sizer.cancel()
+		move_sizer.terminate(false)
 		crop_sizer.launch(project.size)
 		selection.deselect()
 	elif state == Operate.MOVE:
-		crop_sizer.cancel()
+		crop_sizer.terminate(false)
 		move_sizer.lanuch(project.current_cel.get_image(), selection.mask)
 		# selection must clear after mover setted, 
 		# mover still need it once.
 		selection.deselect()
 	else:
 		silhouette.apply()
-		move_sizer.apply()
-		crop_sizer.cancel()
+		move_sizer.terminate(true)
+		crop_sizer.terminate(false)
 
 
 func set_zoom_ratio(val):

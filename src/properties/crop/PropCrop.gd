@@ -71,11 +71,11 @@ func set_editable(status):
 
 
 func _on_applied():
-	operator.apply(false)
+	operator.apply()
 
 
 func _on_canceled():
-	operator.cancel(false)
+	operator.cancel()
 
 
 func _on_position_changed(_val):

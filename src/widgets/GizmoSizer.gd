@@ -138,6 +138,12 @@ func frozen(frozen_it := true):
 func reset():
 	visible = false
 	bound_rect = Rect2i()
+	is_activated = false
+	drag_offset = Vector2i.ZERO
+	last_position = null
+	is_dragging = false
+	is_scaling = false
+	queue_redraw()
 
 
 func set_pivot(pivot_id):
@@ -146,18 +152,22 @@ func set_pivot(pivot_id):
 		updated.emit(bound_rect, relative_position, is_activated)
 
 
-func apply(use_reset := true):
+func apply():
 	dismiss()
 	applied.emit(bound_rect)
-	if use_reset:
-		reset()
 
 
-func cancel(use_reset := true):
+func cancel():
 	dismiss()
 	canceled.emit()
-	if use_reset:
-		reset()
+
+
+func terminate(use_apply :=false):
+	if use_apply:
+		apply()
+	else:
+		cancel()
+	reset()
 
 
 func hire():
@@ -360,9 +370,9 @@ func _input(event :InputEvent):
 	if event is InputEventKey:
 		if Input.is_key_pressed(KEY_ENTER) and \
 		   event.is_command_or_control_pressed():
-			apply(false)
+			apply()
 		elif Input.is_key_pressed(KEY_ESCAPE):
-			cancel(false)
+			cancel()
 		else:
 			var delta := 1
 			if Input.is_key_pressed(KEY_SHIFT):
