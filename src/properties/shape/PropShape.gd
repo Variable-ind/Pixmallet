@@ -98,6 +98,8 @@ func unsubscribe():
 func set_for_polygon(use_polygon := false):
 	polygon_division.visible = use_polygon
 	polygon_expansion.visible = use_polygon
+	opt_as_square.button_pressed = use_polygon
+	opt_as_square.disabled = use_polygon
 
 
 func set_transform(rect :Rect2i, status := false):

@@ -85,6 +85,9 @@ icon = ExtResource("7_fempb")
 icon_alignment = 1
 script = ExtResource("5_upybj")
 
+[node name="holder" type="HSeparator" parent="."]
+layout_mode = 2
+
 [node name="row2" type="HBoxContainer" parent="."]
 layout_mode = 2
 
@@ -108,14 +111,14 @@ custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"ValSlider"
-min_value = -100.0
+min_value = -50.0
+max_value = 50.0
 step = 1.0
-value = 1.0
 show_percentage = false
 script = ExtResource("1_xvpfu")
 prefix = "Expansion:"
 
-[node name="holder" type="HSeparator" parent="."]
+[node name="holder2" type="HSeparator" parent="."]
 layout_mode = 2
 
 [node name="row3" type="HBoxContainer" parent="."]
@@ -162,7 +165,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 
-[node name="holder2" type="HSeparator" parent="."]
+[node name="holder3" type="HSeparator" parent="."]
 layout_mode = 2
 
 [node name="row5" type="HBoxContainer" parent="."]

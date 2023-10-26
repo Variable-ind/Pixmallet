@@ -54,7 +54,6 @@ func attach(img :Image):
 
 
 func apply():
-	print('fuck')
 	applied.emit(shaped_rect)
 	reset()
 
@@ -124,7 +123,7 @@ func shaping_rectangle(sel_points :Array):
 	_current_shape = _shape_rectangle
 	start_point = sel_points[0]
 	end_point = sel_points[sel_points.size() - 1]
-	sel_points = parse_two_points(sel_points)
+	sel_points = parse_two_points(sel_points, opt_as_square, opt_from_center)
 	shaped_rect = points_to_rect(sel_points)
 	touch_rect = shaped_rect.grow(stroke_width)
 	update_shape()
@@ -165,7 +164,7 @@ func shaping_ellipse(sel_points :Array):
 	_current_shape = _shape_ellipse
 	start_point = sel_points[0]
 	end_point = sel_points[sel_points.size() - 1]
-	sel_points = parse_two_points(sel_points)
+	sel_points = parse_two_points(sel_points, opt_as_square, opt_from_center)
 	shaped_rect = points_to_rect(sel_points)
 	touch_rect = shaped_rect.grow(stroke_width)
 	update_shape()
@@ -232,7 +231,7 @@ func shaping_line(sel_points :Array):
 	start_point = sel_points[0]
 	end_point = sel_points[sel_points.size() - 1]
 	var angle = get_angle_360(start_point, end_point)
-	sel_points = parse_two_points(sel_points)
+	sel_points = parse_two_points(sel_points, opt_as_square, opt_from_center)
 	shaped_rect = points_to_rect(sel_points)
 	var dpoints := get_diagonal_from_rect(shaped_rect, angle)
 	start_point = dpoints[0]
@@ -276,7 +275,7 @@ func shaping_polygon(sel_points :Array):
 	_current_shape = _shape_polygon
 	start_point = sel_points[0]
 	end_point = sel_points[sel_points.size() - 1]
-	sel_points = parse_two_points(sel_points)
+	sel_points = parse_two_points(sel_points, true, opt_from_center)
 	shaped_rect = points_to_rect(sel_points)
 	touch_rect = shaped_rect.grow(stroke_width)
 	update_shape()
@@ -579,7 +578,9 @@ func make_square(rect:Rect2i) ->Rect2i:
 	return rect
 
 
-func parse_two_points(sel_points:PackedVector2Array):
+func parse_two_points(sel_points :PackedVector2Array, 
+					  as_square :bool,
+					  from_center :bool) -> PackedVector2Array:
 	if sel_points.size() < 2:
 		# skip parse if points is not up to 2.
 		# the _draw() will take off the rest.
@@ -590,7 +591,7 @@ func parse_two_points(sel_points:PackedVector2Array):
 	var end := sel_points[sel_points.size() - 1]
 	var sel_size :Vector2i = (start - end).abs()
 	
-	if opt_as_square:
+	if as_square:
 		# Make rect 1:1 while centering it on the mouse
 		sel_size = Vector2i.ONE * maxi(sel_size.x, sel_size.y)
 		if start.x < end.x:
@@ -603,7 +604,7 @@ func parse_two_points(sel_points:PackedVector2Array):
 		else:
 			end.y = start.y - sel_size.y
 
-	if opt_from_center:
+	if from_center:
 		var _start = Vector2(start.x, start.y)
 		if start.x < end.x:
 			start.x -= sel_size.x
