@@ -54,6 +54,7 @@ func attach(img :Image):
 
 
 func apply():
+	print('fuck')
 	applied.emit(shaped_rect)
 	reset()
 

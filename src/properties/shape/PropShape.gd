@@ -2,7 +2,9 @@ class_name PropShape extends VBoxContainer
 
 var operator :Variant
 
-@onready var stroke_width := $StrokeWidth
+@onready var btn_apply := %Apply
+@onready var btn_cancel := %Cancel
+@onready var stroke_width := %StrokeWidth
 @onready var opt_fill := %OptFill
 @onready var opt_as_square := %OptAsSquare
 @onready var opt_from_center := %OptFromCenter
@@ -26,6 +28,7 @@ func subscribe(new_operator:Silhouette):
 	unsubscribe()
 	operator = new_operator
 	
+	
 	stroke_width.min_value = operator.STROKE_WIDTH_MIN
 	stroke_width.max_value = operator.STROKE_WIDTH_MAX
 	stroke_width.value = operator.stroke_width  # max/min defined in operator.
@@ -36,6 +39,9 @@ func subscribe(new_operator:Silhouette):
 	
 	polygon_division.value = operator.division
 	polygon_expansion.value = operator.edge_expansion
+	
+	btn_apply.pressed.connect(_on_applied)
+	btn_cancel.pressed.connect(_on_canceled)
 	
 	stroke_width.value_changed.connect(_on_stroke_width_changed)
 	opt_fill.toggled.connect(_on_fill_toggled)
@@ -55,6 +61,11 @@ func subscribe(new_operator:Silhouette):
 
 
 func unsubscribe():
+	if btn_apply.pressed.is_connected(_on_applied):
+		btn_apply.pressed.disconnect(_on_applied)
+	if btn_cancel.pressed.is_connected(_on_canceled):
+		btn_cancel.pressed.disconnect(_on_canceled)
+		
 	if stroke_width.value_changed.is_connected(_on_stroke_width_changed):
 		stroke_width.value_changed.disconnect(_on_stroke_width_changed)
 	if opt_fill.toggled.is_connected(_on_fill_toggled):
@@ -147,3 +158,10 @@ func _on_division_changed(value):
 func _on_expansion_changed(value):
 	operator.edge_expansion = value
 	
+
+func _on_applied():
+	operator.apply()
+
+
+func _on_canceled():
+	operator.cancel()
