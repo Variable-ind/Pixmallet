@@ -8,17 +8,6 @@ signal refresh_canvas
 const STROKE_WIDTH_MIN := 1
 const STROKE_WIDTH_MAX := 100
 
-enum {
-	NONE,
-	RECTANGLE,
-	ELLIPSE,
-	POLYGON,
-	LINE,
-}
-
-var type := NONE :
-	set = set_type
-
 var image := Image.new()
 var pivot := Pivot.TOP_LEFT  # Pivot class in /core.
 var pivot_offset :Vector2i :
@@ -43,42 +32,21 @@ var end_point := Vector2i.ZERO
 var zoom_ratio := 1.0
 var last_position :Variant = null # prevent same with mouse pos from beginning.
 
-var opt_as_square := false :
-	get: return opt_as_square or force_as_square
-	
-var opt_from_center := false :
-	get: return opt_from_center or force_from_center
-	
+var opt_as_square := false
+var opt_from_center := false
 var opt_fill := false :
-	get: return opt_fill and not force_outline
 	set(val):
 		opt_fill = val
 		queue_redraw()
-
-var force_as_square := false
-var force_from_center := false
-var force_outline := false
 
 var stroke_width := 2 :
 	set(val):
 		stroke_width = clampi(val, STROKE_WIDTH_MIN, STROKE_WIDTH_MAX)
 var division := 5
-var edge_expands := 0
+var edge_expansion := 0
 
 var is_pressed := false
 
-
-func set_type(val):
-	if type != val:
-		type = val
-		force_as_square = false
-		force_from_center = false
-		force_outline = false
-		if type == POLYGON:
-			force_as_square = true
-		if type == LINE:
-			force_outline = true
-		
 
 func attach(img :Image):
 	image = img
@@ -86,12 +54,6 @@ func attach(img :Image):
 
 
 func apply():
-	match type:
-		RECTANGLE: shaped_rectangle()
-		ELLIPSE: shaped_ellipse()
-		LINE: shaped_line()
-		POLYGON: shaped_polygon()
-	
 	applied.emit(shaped_rect)
 	reset()
 
@@ -529,7 +491,7 @@ func parse_polygon_expends(polygon:PackedVector2Array,
 						   center_point:Vector2) -> PackedVector2Array:
 	for i in polygon.size():
 		if i % 2 :
-			polygon[i] -= (polygon[i] - center_point) * edge_expands / 100
+			polygon[i] -= (polygon[i] - center_point) * edge_expansion / 100
 	return polygon
 	
 

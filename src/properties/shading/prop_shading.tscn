@@ -31,7 +31,7 @@ step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("1_hwtdy")
-prefix = "Size:"
+prefix = "Stroke Width:"
 suffix = "px"
 
 [node name="holder" type="HSeparator" parent="."]

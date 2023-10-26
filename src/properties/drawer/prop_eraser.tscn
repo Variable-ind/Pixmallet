@@ -31,7 +31,7 @@ step = 1.0
 value = 1.0
 show_percentage = false
 script = ExtResource("2_s1t3s")
-prefix = "Size:"
+prefix = "Eraser Width:"
 suffix = "px"
 
 [node name="holder" type="HSeparator" parent="."]

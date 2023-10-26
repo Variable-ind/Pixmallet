@@ -7,6 +7,8 @@ var operator :Variant
 @onready var opt_as_square := %OptAsSquare
 @onready var opt_from_center := %OptFromCenter
 @onready var opt_pivot := %OptPivot
+@onready var polygon_division := %PolygonDivision
+@onready var polygon_expansion := %PolygonExpansion
 @onready var input_x := %PosX
 @onready var input_y := %PosY
 @onready var input_width := %Width
@@ -28,14 +30,12 @@ func subscribe(new_operator:Silhouette):
 	stroke_width.max_value = operator.STROKE_WIDTH_MAX
 	stroke_width.value = operator.stroke_width  # max/min defined in operator.
 	
-	input_width.max_value = 12000
-	input_height.max_value = 12000
-	input_x.max_value = 12000
-	input_y.max_value = 12000
-	
 	opt_fill.button_pressed = operator.opt_fill
 	opt_as_square.button_pressed = operator.opt_as_square
 	opt_from_center.button_pressed = operator.opt_from_center
+	
+	polygon_division.value = operator.division
+	polygon_expansion.value = operator.edge_expansion
 	
 	stroke_width.value_changed.connect(_on_stroke_width_changed)
 	opt_fill.toggled.connect(_on_fill_toggled)
@@ -47,6 +47,8 @@ func subscribe(new_operator:Silhouette):
 	input_width.value_changed.connect(_on_size_changed)
 	input_height.value_changed.connect(_on_size_changed)
 	opt_pivot.pivot_updated.connect(_on_pivot_changed)
+	polygon_division.value_changed.connect(_on_division_changed)
+	polygon_expansion.value_changed.connect(_on_expansion_changed)
 	operator.updated.connect(_on_transform_updated)
 	
 	set_editable(false)
@@ -71,12 +73,21 @@ func unsubscribe():
 		input_height.value_changed.disconnect(_on_size_changed)
 	if opt_pivot.pivot_updated.is_connected(_on_pivot_changed):
 		opt_pivot.pivot_updated.disconnect(_on_pivot_changed)
+	if polygon_division.value_changed.is_connected(_on_division_changed):
+		polygon_division.value_changed.disconnect(_on_division_changed)
+	if polygon_expansion.value_changed.is_connected(_on_expansion_changed):
+		polygon_expansion.value_changed.disconnect(_on_expansion_changed)
 	if operator and operator.updated.is_connected(_on_transform_updated):
 		operator.updated.disconnect(_on_transform_updated)
 	
 	set_transform(Rect2i(), false)
 	operator = null
-	
+
+
+func set_for_polygon(use_polygon := false):
+	polygon_division.visible = use_polygon
+	polygon_expansion.visible = use_polygon
+
 
 func set_transform(rect :Rect2i, status := false):
 	input_x.set_value_no_signal(rect.position.x)
@@ -127,3 +138,12 @@ func _on_as_square_toggled(btn_pressed):
 	
 func _on_from_center_toggled(btn_pressed):
 	operator.opt_from_center = btn_pressed
+
+
+func _on_division_changed(value):
+	operator.division = value
+
+
+func _on_expansion_changed(value):
+	operator.edge_expansion = value
+	

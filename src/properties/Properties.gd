@@ -46,7 +46,8 @@ func set_state(val):
 		if state in [Operate.SHAPE_RECTANGLE, Operate.SHAPE_ELLIPSE,
 					 Operate.SHAPE_LINE, Operate.SHAPE_POLYGON]:
 			propShape.visible = true
-		
+			propShape.set_for_polygon(state == Operate.SHAPE_POLYGON)
+
 		elif state in [Operate.SELECT_RECTANGLE, Operate.SELECT_ELLIPSE,
 					   Operate.SELECT_POLYGON, Operate.SELECT_LASSO,
 					   Operate.SELECT_MAGIC]:

@@ -21,11 +21,6 @@ func _ready():
 func subscribe(new_operator:CropSizer):
 	unsubscribe()
 	operator = new_operator
-	
-	input_width.max_value = 12000
-	input_height.max_value = 12000
-	input_x.max_value = 12000
-	input_y.max_value = 12000
 
 	btn_apply.pressed.connect(_on_applied)
 	btn_cancel.pressed.connect(_on_canceled)
