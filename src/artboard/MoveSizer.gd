@@ -121,7 +121,7 @@ func _draw():
 		var draw_color = line_color
 		if not is_activated:
 			draw_color.a = 0.5
-		draw_rect(bound_rect, draw_color, false, line_width / zoom_ratio)
+		draw_rect(bound_rect, draw_color, false)
 	
 		if has_image():
 	#		texture = ImageTexture.create_from_image(image)

@@ -8,6 +8,11 @@ signal refresh_canvas
 const STROKE_WIDTH_MIN := 1
 const STROKE_WIDTH_MAX := 100
 
+@export var line_color := Color(0.2, 0.2, 0.2, 1):
+	set(val):
+		line_color = val
+		queue_redraw()
+
 var image := Image.new()
 var pivot := Pivot.TOP_LEFT  # Pivot class in /core.
 var pivot_offset :Vector2i :
@@ -154,7 +159,7 @@ var _shape_rectangle = func():
 		var _rect = shaped_rect.grow(round(-stroke_width / 2.0))
 		# stroke is middle of the rect boundary.
 		draw_rect(_rect, shape_color, false, stroke_width / zoom_ratio)
-
+	draw_rect(shaped_rect, line_color, false)
 
 # Ellipse
 
@@ -203,6 +208,9 @@ var _shape_ellipse = func():
 	var center = shaped_rect.get_center()
 	
 	var _rect = Rect2(shaped_rect)
+	
+	draw_rect(shaped_rect, line_color, false)
+	
 	if _rect.size.x < _rect.size.y:
 		radius = _rect.size.y / 2.0
 		dscale = _rect.size.x / _rect.size.y
@@ -265,7 +273,7 @@ var _shape_line = func():
 			var rect := Rect2i(pos - Vector2.ONE * (stroke_width >> 1), 
 							   Vector2.ONE * stroke_width)
 			draw_rect(rect, shape_color)
-
+	draw_rect(shaped_rect, line_color, false)
 
 # Polygon
 
@@ -360,6 +368,7 @@ var _shape_polygon = func():
 				   not Geometry2D.is_point_in_polygon(pos, inner_polygon):
 					draw_rect(Rect2i(pos, Vector2i.ONE), shape_color)
 					# draw one pixel rect, same with set_pixelv on image.
+	draw_rect(shaped_rect, line_color, false)
 
 
 # Draw shaping

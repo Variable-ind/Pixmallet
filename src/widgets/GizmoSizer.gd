@@ -23,24 +23,12 @@ signal cursor_changed(cursor)
 		for gizmo in gizmos:
 			gizmo.bgcolor = gizmo_bgcolor
 		queue_redraw()
-			
-@export var gizmo_line_width := 1.0:
-	set(val):
-		gizmo_line_width = val
-		for gizmo in gizmos:
-			gizmo.line_width = gizmo_line_width
-		queue_redraw()
 
 @export var gizmo_size := Vector2(10, 10) :
 	set(val):
 		gizmo_size = val
 		for gizmo in gizmos:
 			gizmo.default_size = gizmo_size
-			
-@export var line_width := 1.0 :
-	set(val):
-		line_width = val
-		queue_redraw()
 		
 @export var line_color := Color(0.2, 0.2, 0.2, 1):
 	set(val):
@@ -112,7 +100,6 @@ func _ready():
 		gizmo.color = gizmo_color
 		gizmo.bgcolor = gizmo_bgcolor
 		gizmo.default_size = gizmo_size
-		gizmo.line_width = gizmo_line_width
 		gizmo.hover_updated.connect(_on_gizmo_hover_updated)
 		gizmo.press_updated.connect(_on_gizmo_press_updated)
 		add_child(gizmo)
@@ -431,7 +418,7 @@ func _input(event :InputEvent):
 
 func _draw():
 	if has_area(): # careful has_area might be ovrride.
-		draw_rect(bound_rect, line_color, false, line_width / zoom_ratio)
+		draw_rect(bound_rect, line_color, false)
 
 
 func _on_gizmo_hover_updated(gizmo, status):
@@ -514,11 +501,6 @@ class Gizmo extends Node2D :
 	var bgcolor := Color.WHITE :
 		set(val):
 			bgcolor = val
-			queue_redraw()
-			
-	var line_width := 1.0 :
-		set(val):
-			line_width = val
 			queue_redraw()
 
 	var default_size := Vector2(10, 10) :
@@ -605,7 +587,6 @@ class Gizmo extends Node2D :
 
 	func _draw():
 		draw_rect(rectangle, color if is_hover or is_pressed else bgcolor)
-		draw_rect(rectangle, color, false, line_width / zoom_ratio)
 
 
 	func _input(event :InputEvent):
