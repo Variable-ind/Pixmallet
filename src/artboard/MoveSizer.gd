@@ -20,6 +20,7 @@ var preview_image := Image.new() :
 func _init():
 	super._init()
 	updated.connect(_on_refreshed)
+	applied.connect(_on_refreshed)
 
 
 func reset():
@@ -121,7 +122,8 @@ func _draw():
 		var draw_color = line_color
 		if not is_activated:
 			draw_color.a = 0.5
-		draw_rect(bound_rect, draw_color, false)
+		# thin outline must grow 1px to prevent covered by source shape.
+		draw_rect(bound_rect.grow_individual(0, 0, 1, 1), draw_color, false)
 	
 		if has_image():
 	#		texture = ImageTexture.create_from_image(image)
@@ -130,5 +132,5 @@ func _draw():
 							  MODULATE_COLOR if is_dragging else Color.WHITE)
 	
 
-func _on_refreshed(_rect, _rel_pos, _status):
+func _on_refreshed(_rect, _rel_pos:=Vector2i.ZERO, _status:=false):
 	refresh_canvas.emit()

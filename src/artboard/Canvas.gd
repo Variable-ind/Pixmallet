@@ -146,10 +146,12 @@ func set_state(val):  # triggered when state changing.
 	indicator.hide_indicator()  # not all state need indicator
 	
 	if state == Operate.CROP:
+		silhouette.terminate(true)
 		move_sizer.terminate(false)
 		crop_sizer.launch(project.size)
 		selection.deselect()
 	elif state == Operate.MOVE:
+		silhouette.terminate(true)
 		crop_sizer.terminate(false)
 		move_sizer.lanuch(project.current_cel.get_image(), selection.mask)
 		# selection must clear after mover setted, 

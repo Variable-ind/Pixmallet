@@ -5,7 +5,7 @@ signal applied(rect)
 signal canceled
 signal refresh_canvas
 
-const STROKE_WIDTH_MIN := 1
+const STROKE_WIDTH_MIN := 0
 const STROKE_WIDTH_MAX := 100
 
 @export var line_color := Color(0.2, 0.2, 0.2, 1):

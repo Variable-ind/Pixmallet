@@ -418,7 +418,8 @@ func _input(event :InputEvent):
 
 func _draw():
 	if has_area(): # careful has_area might be ovrride.
-		draw_rect(bound_rect, line_color, false)
+		# thin outline must grow 1px to prevent covered by source shape.
+		draw_rect(bound_rect.grow_individual(0, 0, 1, 1), line_color, false)
 
 
 func _on_gizmo_hover_updated(gizmo, status):
