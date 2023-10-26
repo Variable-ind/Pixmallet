@@ -42,7 +42,6 @@ var color_pick := ColorPick.new()
 @onready var selection :Selection = $Selection
 @onready var crop_sizer :CropSizer = $CropSizer
 @onready var move_sizer :MoveSizer = $MoveSizer
-
 @onready var silhouette :Silhouette = $Silhouette
 
 @onready var selector_rect := RectSelector.new(selection)
@@ -147,7 +146,7 @@ func set_state(val):  # triggered when state changing.
 	
 	if state == Operate.CROP:
 		silhouette.terminate(true)
-		move_sizer.terminate(false)
+		move_sizer.terminate(true)
 		crop_sizer.launch(project.size)
 		selection.deselect()
 	elif state == Operate.MOVE:

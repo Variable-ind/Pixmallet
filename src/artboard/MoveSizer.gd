@@ -122,8 +122,7 @@ func _draw():
 		var draw_color = line_color
 		if not is_activated:
 			draw_color.a = 0.5
-		# thin outline must grow 1px to prevent covered by source shape.
-		draw_rect(bound_rect.grow_individual(0, 0, 1, 1), draw_color, false)
+		draw_rect(bound_rect, draw_color, false, line_width / zoom_ratio)
 	
 		if has_image():
 	#		texture = ImageTexture.create_from_image(image)

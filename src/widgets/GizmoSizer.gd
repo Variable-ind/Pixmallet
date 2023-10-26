@@ -35,6 +35,11 @@ signal cursor_changed(cursor)
 		line_color = val
 		queue_redraw()
 
+@export var line_width := 1.0:
+	set(val):
+		line_width = val
+		queue_redraw()
+
 var zoom_ratio := 1.0 :
 	set(val):
 		zoom_ratio = val
@@ -418,8 +423,7 @@ func _input(event :InputEvent):
 
 func _draw():
 	if has_area(): # careful has_area might be ovrride.
-		# thin outline must grow 1px to prevent covered by source shape.
-		draw_rect(bound_rect.grow_individual(0, 0, 1, 1), line_color, false)
+		draw_rect(bound_rect, line_color, false, line_width / zoom_ratio)
 
 
 func _on_gizmo_hover_updated(gizmo, status):
