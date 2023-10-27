@@ -34,12 +34,9 @@ theme_type_variation = &"HDivider"
 
 [node name="row" type="HBoxContainer" parent="."]
 layout_mode = 2
+alignment = 1
 
-[node name="row" type="HBoxContainer" parent="row"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ModeNew" type="Button" parent="row/row"]
+[node name="ModeNew" type="Button" parent="row"]
 unique_name_in_owner = true
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 layout_mode = 2
@@ -53,7 +50,7 @@ icon = ExtResource("1_7ojqu")
 icon_alignment = 1
 script = ExtResource("2_vojat")
 
-[node name="ModeAdd" type="Button" parent="row/row"]
+[node name="ModeAdd" type="Button" parent="row"]
 unique_name_in_owner = true
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 layout_mode = 2
@@ -67,7 +64,7 @@ icon = ExtResource("3_lhom8")
 icon_alignment = 1
 script = ExtResource("2_vojat")
 
-[node name="ModeSubtract" type="Button" parent="row/row"]
+[node name="ModeSubtract" type="Button" parent="row"]
 unique_name_in_owner = true
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 layout_mode = 2
@@ -81,7 +78,7 @@ icon = ExtResource("4_82cmr")
 icon_alignment = 1
 script = ExtResource("2_vojat")
 
-[node name="ModeIntersect" type="Button" parent="row/row"]
+[node name="ModeIntersect" type="Button" parent="row"]
 unique_name_in_owner = true
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 layout_mode = 2
@@ -177,6 +174,7 @@ text = "Options"
 
 [node name="Similarity" type="ProgressBar" parent="row3/column2"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 step = 1.0
@@ -186,6 +184,7 @@ prefix = "Similarity:"
 
 [node name="OptContiguous" type="CheckButton" parent="row3/column2"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 mouse_default_cursor_shape = 2
