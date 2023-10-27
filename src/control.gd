@@ -59,6 +59,14 @@ func _on_navbar_navigation_to(nav_id, data):
 		Navbar.OPEN_FILE:
 			pass
 		
+		Navbar.SELECT_ALL:
+			artboard.canvas.selection.select_all()
+		Navbar.CLEAR_SEL:
+			artboard.canvas.selection.deselect()
+		Navbar.INVERT_SEL:
+			artboard.canvas.selection.invert()
+			
+		
 		Navbar.ZOOM_IN:
 			camera.zoom_in()
 		Navbar.ZOOM_OUT:

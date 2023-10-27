@@ -134,6 +134,18 @@ func deselect():
 	update_selection()
 
 
+func select_all():
+	points.clear()
+	selection_map.select_all()
+	update_selection()
+
+
+func invert():
+	points.clear()
+	selection_map.select_invert()
+	update_selection()
+
+
 func move_to(to_pos :Vector2i, use_pivot := true):
 	var _offset := pivot_offset if use_pivot else Vector2i.ZERO
 	
@@ -444,10 +456,6 @@ var _draw_polyline = func():
 func _input(event):
 	if event is InputEventKey:
 		var delta := 1
-		
-		if Input.is_action_pressed('deselect_all'):
-			deselect()
-			
 		
 		if Input.is_key_pressed(KEY_SHIFT):
 			delta = 10

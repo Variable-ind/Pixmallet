@@ -157,6 +157,16 @@ func select_none():
 	fill(UNSELECTED_COLOR)
 
 
+func select_invert():
+	for x in width:
+		for y in height:
+			var pos := Vector2i(x, y)
+			if is_selected(pos):
+				set_pixelv(pos, UNSELECTED_COLOR)
+			else:
+				set_pixelv(pos, SELECTED_COLOR)
+
+
 func fill_ellipse(ellipse :PackedVector2Array, color:Color,
 				  pos_offset := Vector2.ZERO):
 	for pos in ellipse:

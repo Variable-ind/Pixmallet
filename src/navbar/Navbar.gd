@@ -90,7 +90,7 @@ var menu_item_map: Dictionary = {}
 		'popmenus': [
 			{'id': SELECT_ALL, 'label': 'All', 'action': 'select_all',
 			 'event': KeyChain.makeEventKey(KEY_A, true)},
-			{'id': CLEAR_SEL, 'label':'Clear', 'action': 'deselect_all',
+			{'id': CLEAR_SEL, 'label':'Clear', 'action': 'deselect',
 			 'event': KeyChain.makeEventKey(KEY_D, true)},
 			{'id': INVERT_SEL, 'label': 'Invert', 'action': 'invert_selection',
 			 'event': KeyChain.makeEventKey(KEY_I, true, true)},
