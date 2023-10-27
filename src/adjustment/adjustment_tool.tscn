@@ -55,10 +55,12 @@ icon = ExtResource("5_omdwd")
 icon_alignment = 1
 
 [node name="divier" type="VSeparator" parent="."]
+visible = false
 layout_mode = 2
 theme_type_variation = &"VDivider"
 
 [node name="MirrorH" type="Button" parent="."]
+visible = false
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -74,6 +76,7 @@ ico_on = ExtResource("6_45we1")
 ico_off = ExtResource("6_45we1")
 
 [node name="MirrorV" type="Button" parent="."]
+visible = false
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -89,6 +92,7 @@ ico_on = ExtResource("7_530ix")
 ico_off = ExtResource("7_530ix")
 
 [node name="PerfectPx" type="Button" parent="."]
+visible = false
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2

@@ -29,6 +29,7 @@ func _ready():
 	
 	# color
 	artboard.set_current_color(foreground_color)
+	colorPalette.path_palette_dir = config.PATH_PALETTE_DIR
 	colorPalette.launch(foreground_color, background_color)
 	
 	# properties
@@ -86,6 +87,11 @@ func _on_navbar_navigation_to(nav_id, data):
 			artboard.canvas.snapper.snap_to_symmetry_guide = data.get('checked')
 		Navbar.SNAP_GUIDES:
 			artboard.canvas.snapper.snap_to_guide = data.get('checked')
+		
+		Navbar.SUPPORT:
+			OS.shell_open(config.URL_SUPPORT)
+		Navbar.LOG_FOLDER:
+			OS.shell_open(ProjectSettings.globalize_path(config.PATH_LOGS))
 
 
 func _on_toolbar_activated(operate_id):

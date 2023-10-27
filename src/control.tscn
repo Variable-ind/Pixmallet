@@ -81,16 +81,16 @@ tab_2/disabled = true
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VSplitContainer" type="VSplitContainer" parent="main_area/mainborad/workspace/canvas"]
+[node name="split" type="VSplitContainer" parent="main_area/mainborad/workspace/canvas"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Artboard" parent="main_area/mainborad/workspace/canvas/VSplitContainer" instance=ExtResource("6_luslt")]
+[node name="Artboard" parent="main_area/mainborad/workspace/canvas/split" instance=ExtResource("6_luslt")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="timeline" parent="main_area/mainborad/workspace/canvas/VSplitContainer" instance=ExtResource("9_esciw")]
+[node name="timeline" parent="main_area/mainborad/workspace/canvas/split" instance=ExtResource("9_esciw")]
 layout_mode = 2
 
 [node name="right-sider" type="PanelContainer" parent="main_area/mainborad/workspace"]
@@ -132,6 +132,6 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 [connection signal="navigation_to" from="main_area/Navbar" to="." method="_on_navbar_navigation_to"]
 [connection signal="activated" from="main_area/mainborad/workspace/left-sider/Toolbar" to="." method="_on_toolbar_activated"]
 [connection signal="active_adjust_tool" from="main_area/mainborad/workspace/canvas/funcbar/split/Adjustment" to="." method="_on_active_adjust_tool"]
-[connection signal="color_picked" from="main_area/mainborad/workspace/canvas/VSplitContainer/Artboard" to="." method="_on_artboard_color_picked"]
+[connection signal="color_picked" from="main_area/mainborad/workspace/canvas/split/Artboard" to="." method="_on_artboard_color_picked"]
 [connection signal="color_changed" from="main_area/mainborad/workspace/right-sider/split/split/ColorPalette" to="." method="_on_color_palette_color_changed"]
 [connection signal="modal_toggled" from="main_area/mainborad/workspace/right-sider/split/split/ColorPalette" to="." method="_on_modal_toggled"]

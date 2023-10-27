@@ -13,6 +13,7 @@ var operator :Variant
 
 @onready var similarity := %Similarity
 @onready var opt_contiguous := %OptContiguous
+@onready var options := %Options
 
 @onready var input_x := %PosX
 @onready var input_y := %PosY
@@ -119,6 +120,7 @@ func set_editable(status):
 func set_for_magic_selector(status):
 	similarity.visible = status
 	opt_contiguous.visible = status
+	options.visible = not status
 
 
 func _on_position_changed(_val):

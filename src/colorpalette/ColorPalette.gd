@@ -5,6 +5,7 @@ signal color_changed(color_foreground, color_background)
 
 const PALETTE_ROW_NUM = 12
 
+var path_palette_dir = 'user://palettes/'
 var current_palette : ColorPaletteRes
 var palettes_stack :Array[ColorPaletteRes] = []
 var current_palette_index: int = -1
@@ -84,7 +85,7 @@ func set_color(color :Color, as_foreground := true):
 
 func load_palettes():
 	# ensure default palette
-	var default_palette_tres_file = config.PATH_PALETTE_DIR.path_join(
+	var default_palette_tres_file = path_palette_dir.path_join(
 									ColorPaletteRes.DEFAULT_FILE)
 	if not ResourceLoader.exists(default_palette_tres_file):
 		var default_palette = ColorPaletteRes.new()
@@ -92,13 +93,12 @@ func load_palettes():
 		save_palette(default_palette)
 		print('create palette: ', default_palette_tres_file)
 	
-	var palette_dir :DirAccess = DirAccess.open(config.PATH_PALETTE_DIR)
+	var palette_dir :DirAccess = DirAccess.open(path_palette_dir)
 	var files = palette_dir.get_files()
 	
 	var default_res = null
 	for file in files:
-		var _res = ResourceLoader.load(
-			config.PATH_PALETTE_DIR.path_join(file))
+		var _res = ResourceLoader.load(path_palette_dir.path_join(file))
 		if _res:
 			if _res.as_default:
 				default_res = _res
@@ -151,8 +151,7 @@ func delete_palette(index:int=0):
 		return
 
 	palettes_stack.remove_at(index)
-	DirAccess.remove_absolute(
-		config.PATH_PALETTE_DIR.path_join(rm_palette.file))
+	DirAccess.remove_absolute(path_palette_dir.path_join(rm_palette.file))
 	
 	var popmenu = paletteSelector.get_popup()
 	popmenu.remove_item(index)
@@ -165,8 +164,7 @@ func save_palette(palette:ColorPaletteRes):
 	if palette.as_default and palette.colors.size() <= 0:
 		palette.set_to_default()
 		colorSwitchGrid.set_switches(palette.colors, colorForeground.color)
-	ResourceSaver.save(palette,
-					   config.PATH_PALETTE_DIR.path_join(palette.file))	
+	ResourceSaver.save(palette, path_palette_dir.path_join(palette.file))
 
 
 func set_color_picker(picker):

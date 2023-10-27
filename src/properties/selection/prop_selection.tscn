@@ -95,35 +95,6 @@ icon = ExtResource("5_cjspv")
 icon_alignment = 1
 script = ExtResource("2_vojat")
 
-[node name="row2" type="HBoxContainer" parent="row"]
-layout_mode = 2
-
-[node name="OptAsSquare" type="Button" parent="row/row2"]
-unique_name_in_owner = true
-modulate = Color(0.411765, 0.411765, 0.411765, 1)
-layout_mode = 2
-size_flags_vertical = 4
-tooltip_text = "As Square"
-mouse_default_cursor_shape = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-icon = ExtResource("3_k1ouy")
-icon_alignment = 1
-script = ExtResource("2_vojat")
-
-[node name="OptFromCenter" type="Button" parent="row/row2"]
-unique_name_in_owner = true
-modulate = Color(0.411765, 0.411765, 0.411765, 1)
-layout_mode = 2
-size_flags_vertical = 4
-tooltip_text = "From Center"
-mouse_default_cursor_shape = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-icon = ExtResource("4_xpvq0")
-icon_alignment = 1
-script = ExtResource("2_vojat")
-
 [node name="holder" type="HSeparator" parent="."]
 layout_mode = 2
 
@@ -191,6 +162,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 3
 script = ExtResource("8_18d3s")
 pivot_point_radius = 6
 
@@ -198,6 +170,10 @@ pivot_point_radius = 6
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
+
+[node name="label_poitions" type="Label" parent="row3/column2"]
+layout_mode = 2
+text = "Options"
 
 [node name="Similarity" type="ProgressBar" parent="row3/column2"]
 unique_name_in_owner = true
@@ -214,3 +190,35 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Contiguous"
+
+[node name="Options" type="HBoxContainer" parent="row3/column2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="OptAsSquare" type="Button" parent="row3/column2/Options"]
+unique_name_in_owner = true
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "As Square"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("3_k1ouy")
+icon_alignment = 1
+script = ExtResource("2_vojat")
+
+[node name="OptFromCenter" type="Button" parent="row3/column2/Options"]
+unique_name_in_owner = true
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "From Center"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("4_xpvq0")
+icon_alignment = 1
+script = ExtResource("2_vojat")

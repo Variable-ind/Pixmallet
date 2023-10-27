@@ -18,9 +18,9 @@ const ADJUST_ID_MAP :Dictionary = {
 	'FlipV': FLIP_V,
 	'RotateCCW': ROTATE_CCW,
 	'RotateCW': ROTATE_CW,
-	'MirrorH': MIRROR_H,
-	'MirrorV': MIRROR_V,
-	'PerfectPX': PREFECT_PX,
+#	'MirrorH': MIRROR_H,
+#	'MirrorV': MIRROR_V,
+#	'PerfectPX': PREFECT_PX,
 }
 
 
