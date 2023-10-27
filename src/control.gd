@@ -75,8 +75,17 @@ func _on_navbar_navigation_to(nav_id, data):
 				artboard.show_symmetry_guide_state = SymmetryGuide.CROSS_AXIS
 			else:
 				artboard.show_symmetry_guide_state = SymmetryGuide.NONE
+		
 		Navbar.SHOW_RULERS:
 			artboard.show_rulers = data.get('checked')
+		Navbar.SNAP_GRID_CENTER:
+			artboard.canvas.snapper.snap_to_grid_center = data.get('checked')
+		Navbar.SNAP_GRID_BOUNDARY:
+			artboard.canvas.snapper.snap_to_grid_boundary = data.get('checked')
+		Navbar.SNAP_SYMMETRY_GRID:
+			artboard.canvas.snapper.snap_to_symmetry_guide = data.get('checked')
+		Navbar.SNAP_GUIDES:
+			artboard.canvas.snapper.snap_to_guide = data.get('checked')
 
 
 func _on_toolbar_activated(operate_id):

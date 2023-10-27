@@ -16,10 +16,12 @@ enum {
 	TILE_MODE, TILE_MODE_OFFSET, GRAYSCALE_VIEW, MIRROR_VIEW,
 	SHOW_CARTESIAN_GRID, SHOW_ISOMETRIC_GRID, SHOW_PIX_GRID, 
 	SHOW_RULERS, SHOW_GUIDES, SHOW_MOUSE_GUIDES, SHOW_SYMMETRY_GRID, 
-	SNAP_GROUP, SNAP_GRID, SNAP_GUIDES, SNAP_PRESPECTIVE,
+	
+	SNAP_GROUP, SNAP_GRID_CENTER, SNAP_GRID_BOUNDARY, 
+	SNAP_GUIDES, SNAP_SYMMETRY_GRID, SNAP_PRESPECTIVE,
 	
 	TOOLBAR, TIMELINE, CANVAS_PREVIEW,
-	COLOR_PICKER, TOOL_OPTION, REFERENCE, PRESPECTIVE,
+	COLOR_PICKER, TOOL_OPTION, REFERENCE_IMAGE, PRESPECTIVE,
 	
 	SPLASH, SUPPORT, LOG_FOLDER, ABOUT,
 }
@@ -149,8 +151,12 @@ var menu_item_map: Dictionary = {}
 			{'id': SNAP_GROUP, 'label': 'Snap To', 
 			 'submenu': $Submenu.duplicate(),
 			 'data': [
-				{'id': SNAP_GRID, 'label':'Grids', 'checked': false,
-				 'action': 'snap_to_grids'},
+				{'id': SNAP_GRID_CENTER, 'label':'Grid Center', 'checked': false,
+				 'action': 'snap_to_grids_center'},
+				{'id': SNAP_GRID_BOUNDARY, 'label':'Grid Boundary', 'checked': false,
+				 'action': 'snap_to_grids_boundary'},
+				{'id': SNAP_SYMMETRY_GRID, 'label':'Symmetry Grid', 'checked': false,
+				 'action': 'snap_to_grids_boundary'},
 				{'id': SNAP_GUIDES, 'label':'Guides', 'checked': false,
 				 'action': 'snap_to_guides'},
 #				{'id': SNAP_PRESPECTIVE, 'label':'Perspective Guides',
@@ -167,8 +173,8 @@ var menu_item_map: Dictionary = {}
 			{'id': CANVAS_PREVIEW, 'label': 'Canvas Preview', 'checked': true},
 			{'id': COLOR_PICKER, 'label': 'Color Pickers', 'checked': true},
 			{'id': TOOL_OPTION, 'label': 'Tool Options', 'checked': true},
-			{'id': REFERENCE, 'label': 'Reference Images', 'checked': false},
-			{'id': PRESPECTIVE, 'label': 'Perspective Editor', 'checked': false},
+			{'id': REFERENCE_IMAGE, 'label': 'Reference Images'},
+#			{'id': PRESPECTIVE, 'label': 'Perspective Editor', 'checked': false},
 		]
 	},
 	{
