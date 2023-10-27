@@ -60,6 +60,9 @@ func _on_navbar_navigation_to(nav_id, data):
 			camera.zoom_in()
 		Navbar.ZOOM_OUT:
 			camera.zoom_out()
+		
+		Navbar.RESIZE_CANVAS:
+			toolbar.press_toolbtn('Crop')
 			
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')
@@ -76,9 +79,9 @@ func _on_navbar_navigation_to(nav_id, data):
 				artboard.show_symmetry_guide_state = SymmetryGuide.CROSS_AXIS
 			else:
 				artboard.show_symmetry_guide_state = SymmetryGuide.NONE
-		
 		Navbar.SHOW_RULERS:
 			artboard.show_rulers = data.get('checked')
+			
 		Navbar.SNAP_GRID_CENTER:
 			artboard.canvas.snapper.snap_to_grid_center = data.get('checked')
 		Navbar.SNAP_GRID_BOUNDARY:
