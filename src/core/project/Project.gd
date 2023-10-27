@@ -31,8 +31,14 @@ var current_cel :BaseCel :
 
 var current_frame_index := 0
 var current_layer_index := 0
+var selected_cels_matrix := [[0, 0]]  # Arrays of 2 integers (frame & layer)
 
-var selected_cels := [[0, 0]]  # Arrays of 2 integers (frame & layer)
+var selected_cels :Array :
+	get: 
+		var cels := []
+		for cel_coord in selected_cels_matrix:
+			cels.append(frames[cel_coord[0]].cels[cel_coord[1]])
+		return cels
 
 var animation_tags :Array[AnimationTag] = []
 	

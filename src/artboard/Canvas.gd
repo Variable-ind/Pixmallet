@@ -300,17 +300,21 @@ func process_bucket_fill(event):
 func fill_color(color:Color):
 	if not project:
 		return
-	var image = project.current_cel.get_image()
-	if image.is_empty():
-		return
-	if selection.has_selected():
-		for x in image.get_width():
-			for y in image.get_height():
-				var p := Vector2i(x, y)
-				if selection.mask.get_pixelv(p).a > 0:
-					image.set_pixelv(p, color)
-	else:
-		image.fill(color)
+	for cel in project.selected_cels:
+		var image = cel.get_image()
+		if image.is_empty():
+			continue
+		if selection.has_selected():
+			var tmp_img := Image.create(image.get_width(),
+										image.get_height(),
+										false, image.get_format())
+			tmp_img.fill(color)
+			image.blit_rect_mask(tmp_img,
+								 selection.mask, 
+								 Rect2i(Vector2i.ZERO, image.get_size()),
+								 Vector2i.ZERO)
+		else:
+			image.fill(color)
 	refresh()
 
 

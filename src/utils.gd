@@ -63,7 +63,7 @@ class UUID extends RefCounted:
 
 	static func v4():
 		# 16 random bytes with the bytes on index 6 and 8 modified
-		var b = uuid.uuidbin()
+		var b = UUID.uuidbin()
 
 		return '%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x' % [
 			# low
@@ -85,7 +85,7 @@ class UUID extends RefCounted:
 
 	static func v4_rng(rng: RandomNumberGenerator):
 		# 16 random bytes with the bytes on index 6 and 8 modified
-		var b = uuid.uuidbinrng(rng)
+		var b = UUID.uuidbinrng(rng)
 
 		return '%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x' % [
 			# low
@@ -109,7 +109,7 @@ class UUID extends RefCounted:
 
 
 	func _init(rng := RandomNumberGenerator.new()) -> void:
-		_uuid = uuid.uuidbinrng(rng)
+		_uuid = UUID.uuidbinrng(rng)
 
 
 	func as_array() -> Array:

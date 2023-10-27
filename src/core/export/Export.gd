@@ -54,43 +54,29 @@ var export_file_format := FileFormat.PNG
 
 var export_file_ext :String :
 	get: return file_format_string(export_file_format)
-	
-var export_file_name :String :
-	get: 
-		return '{name}.{ext}'.format({
-			'name': project.name if project else '-',
-			'ext': export_file_ext,
-		})
 
-var project: Project
 
 @onready var gif_export_thread := Thread.new()
 
-
-func _init(proj: Project):
-	project = proj
-	
 
 func _exit_tree():
 	if gif_export_thread.is_started():
 		gif_export_thread.wait_to_finish()
 
 
-func external_export():
+func external_export(project:Project):
 	match current_tab:
 		ExportType.IMAGE:
-			process_animation()
+			process_animation(project)
 		ExportType.SPRITESHEET:
-			process_spritesheet()
-	export_processed_images()
+			process_spritesheet(project)
+	export_processed_images(project)
 
 
-func process_spritesheet():
-	if not project:
-		return
+func process_spritesheet(project:Project):
 	processed_images.clear()
 	# Range of frames determined by tags
-	var frames := calculate_frames()
+	var frames := calculate_frames(project)
 	# Then store the size of frames for other functions
 	number_of_frames = frames.size()
 
@@ -127,30 +113,31 @@ func process_spritesheet():
 				origin.y = 0
 				hh = 1
 				origin.x = project.size.x * vv
-		blend_layers(whole_image, frame, origin)
+		blend_layers(project, whole_image, frame, origin)
 
 	processed_images.append(whole_image)
 
 
-func process_animation():
+func process_animation(project:Project):
 	processed_images.clear()
 	durations.clear()
-	var frames := calculate_frames()
+	var frames := calculate_frames(project)
 	for frame in frames:
-		var image := Image.create(project.size.x, project.size.y, false, Image.FORMAT_RGBA8)
-		blend_layers(image, frame, Vector2i.ZERO)
+		var image := Image.create(project.size.x, project.size.y, 
+								  false, Image.FORMAT_RGBA8)
+		blend_layers(project, image, frame, Vector2i.ZERO)
 		processed_images.append(image)
 		durations.append(frame.duration * (1.0 / project.fps))
 
 
-func calculate_frames() -> Array[Frame]:
+func calculate_frames(project:Project) -> Array[Frame]:
 	var frames: Array[Frame] = []
 	
 	match export_frame_type:
 		ExportFrame.ALL_FRAMES:
 			frames = project.frames.duplicate()
 		ExportFrame.SELECTED_FRAMES:
-			for cel in project.selected_cels:
+			for cel in project.selected_cels_matrix:
 				frames.append(project.frames[cel[0]])
 		ExportFrame.FRAME_TAG:
 			var frame = project.animation_tags[export_frame_tag_index]
@@ -167,11 +154,12 @@ func calculate_frames() -> Array[Frame]:
 	return frames
 
 
-func export_processed_images(ignore_overwrites: bool=false) -> bool:
+func export_processed_images(project:Project,
+							 ignore_overwrites:=false) -> bool:
 	# Stop export if directory path or file name are not valid
 	var dir := DirAccess.open(project.directory_path)
 	
-	if not dir or not export_file_name:
+	if not dir:
 		return false
 
 	var multiple_files := false
@@ -197,15 +185,19 @@ func export_processed_images(ignore_overwrites: bool=false) -> bool:
 					paths_of_existing_files.append(export_path)
 			export_paths.append(export_path)
 	else:
+		var file_name = '{name}.{ext}'.format({
+			'name': project.name,
+			'ext': export_file_ext,
+		})
 		export_paths.append(
-			project.export_dir_path.path_join(export_file_name))
+			project.export_dir_path.path_join(file_name))
 
 	# scale images
 	for processed_image in processed_images:
 		if resize != 100:
 			processed_image.resize(
-				processed_image.get_size().x * resize / 100.0,
-				processed_image.get_size().y * resize / 100.0,
+				floor(processed_image.get_size().x * resize / 100.0),
+				floor(processed_image.get_size().y * resize / 100.0),
 				interpolation
 			)
 
@@ -233,12 +225,12 @@ func export_processed_images(ignore_overwrites: bool=false) -> bool:
 			"exporter": exporter,
 			"export_paths": export_paths,
 		}
-		export_animated(details)
+		export_animated(project, details)
 		
 	return true
 
 
-func export_animated(args: Dictionary):
+func export_animated(project:Project, args: Dictionary):
 	var exporter: AImgIOBaseExporter = args["exporter"]
 
 	# Transform into AImgIO form
@@ -297,10 +289,8 @@ func file_format_description(format_enum: int) -> String:
 			return ""
 
 
-func get_anim_tag_and_start_id(procd_id: int) -> Array:
+func get_anim_tag_and_start_id(project:Project, procd_id: int) -> Array:
 	var result = null
-	if not project:
-		return result
 	for anim_tag in project.animation_tags:
 		# Check if processed image is in frame tag and 
 		# assign frame tag and start id if yes Then stop
@@ -310,15 +300,15 @@ func get_anim_tag_and_start_id(procd_id: int) -> Array:
 	return result
 
 
-func blend_layers(image: Image, frame: Frame, origin :Vector2i):
+func blend_layers(project:Project, image: Image, frame: Frame, origin :Vector2i):
 	if export_layer_type == ExportLayer.ALL_LAYERS:
-		blend_all_layers(image, frame, origin)
+		blend_all_layers(project, image, frame, origin)
 	elif export_layer_type == ExportLayer.SELECTED_LAYERS:
-		blend_selected_cels(image, frame, origin, project)
+		blend_selected_cels(project, image, frame, origin)
 
 
 ## Blends canvas layers into passed image starting from the origin position
-func blend_all_layers(image: Image, frame: Frame, origin:Vector2i):
+func blend_all_layers(project:Project, image: Image, frame: Frame, origin:Vector2i):
 	
 	var layer_i := 0
 	for cel in frame.cels:
@@ -346,11 +336,11 @@ func blend_all_layers(image: Image, frame: Frame, origin:Vector2i):
 
 # Blends selected cels of the given frame into passed
 # image starting from the origin position
-func blend_selected_cels(image: Image, frame: Frame, 
-						 origin:Vector2i, project:Project):
+func blend_selected_cels(project:Project, image: Image, frame: Frame, 
+						 origin:Vector2i):
 	for cel_ind in frame.cels.size():
 		var test_array := [project.current_frame, cel_ind]
-		if not test_array in project.selected_cels:
+		if not test_array in project.selected_cels_matrix:
 			continue
 		if frame.cels[cel_ind] is GroupCel:
 			continue
