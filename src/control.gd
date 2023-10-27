@@ -28,9 +28,9 @@ func _ready():
 	navbar.launch()
 	
 	# color
-	artboard.set_current_color(foreground_color)
 	colorPalette.path_palette_dir = config.PATH_PALETTE_DIR
 	colorPalette.launch(foreground_color, background_color)
+	artboard.set_current_color(foreground_color)
 	
 	# properties
 	properties.propPencil.subscribe(artboard.canvas.drawer_pencil)
@@ -61,9 +61,14 @@ func _on_navbar_navigation_to(nav_id, data):
 		Navbar.ZOOM_OUT:
 			camera.zoom_out()
 		
-		Navbar.RESIZE_CANVAS:
-			toolbar.press_toolbtn('Crop')
-			
+		Navbar.FILL_FOREGROUND:
+			artboard.canvas.fill_color(foreground_color)
+		Navbar.FILL_BACKGROUND:
+			artboard.canvas.fill_color(background_color)
+		
+		Navbar.CROP_CANVAS:
+			toolbar.choose_toolbtn('Crop')
+
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')
 		Navbar.SHOW_ISOMETRIC_GRID:

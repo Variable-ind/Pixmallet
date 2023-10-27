@@ -5,11 +5,14 @@ signal navigation_to(nav_id, data)
 enum {
 	NEW_FILE, OPEN_FILE, RECENT_FILE, SAVE_FILE, SAVE_FILE_AS, EXPORT_FILE, QUIT,
 	
-	UNDO, REDO, COPY, PASTE, DELETE, ZOOM_IN, ZOOM_OUT, PREFERENCES, 
+	UNDO, REDO, COPY, PASTE, DELETE, 
+	FILL_FOREGROUND, FILL_BACKGROUND,
+	ZOOM_IN, ZOOM_OUT,
+	PREFERENCES, 
 	
 	SELECT_ALL, CLEAR_SEL, INVERT_SEL,
 	
-	RESIZE_CANVAS, IMG_OFFSET, IMG_SCALE, IMG_CROP, IMG_FLIP, IMG_ROTATE, 
+	CROP_CANVAS, IMG_OFFSET, IMG_SCALE, IMG_CROP, IMG_FLIP, IMG_ROTATE, 
 	IMG_OUTLINE, DROP_SHADOW, INVERT_COLOR, DESATURATION, HSV, POSTERIZE,
 	GRADIENT,
 	
@@ -67,6 +70,13 @@ var menu_item_map: Dictionary = {}
 			{'id': DELETE, 'label': 'Delete', 'action': 'delete',
 			 'event': KeyChain.makeEventKey(KEY_BACKSPACE)},
 			{'separate': true},
+			{'id': FILL_FOREGROUND, 'label': 'Fill Foreground', 
+			 'action': 'fill_foreground',
+			 'event': KeyChain.makeEventKey(KEY_BACKSPACE, true)},
+			{'id': FILL_BACKGROUND, 'label': 'Fill Background', 
+			 'action': 'fill_Backround',
+			 'event': KeyChain.makeEventKey(KEY_BACKSPACE, true, true)},
+			{'separate': true},
 			{'id': ZOOM_IN, 'label': 'Zoom In', 'action': 'zoom_in',
 			 'event': KeyChain.makeEventKey(KEY_EQUAL, true)},
 			{'id': ZOOM_OUT, 'label': 'Zoom Out', 'action': 'zoom_out',
@@ -90,14 +100,12 @@ var menu_item_map: Dictionary = {}
 	{
 		'menu': $MenuItems/Modify,
 		'popmenus': [
-			{'id': RESIZE_CANVAS, 'label': 'Resize Canvas',
-			 'action': 'resize_canvas'},
-			{'id': IMG_OFFSET, 'label':'Offset Image',
-			 'action': 'offset_image'},
-			{'id': IMG_SCALE, 'label': 'Scale Image',
-			 'action': 'scale_image'},
-			{'id': IMG_CROP, 'label': 'Crop Image',
-			 'action': 'crop_image'},
+			{'id': CROP_CANVAS, 'label': 'Crop Canvas',
+			 'action': 'crop_canvas'},
+#			{'id': IMG_OFFSET, 'label':'Offset Image',
+#			 'action': 'offset_image'},
+#			{'id': IMG_SCALE, 'label': 'Scale Image',
+#			 'action': 'scale_image'},
 			{'id': IMG_FLIP, 'label': 'Flip Image',
 			 'action': 'flip_image'},
 			{'id': IMG_ROTATE, 'label': 'Rotate Image',

@@ -76,7 +76,7 @@ func _ready():
 							keymap['event'].keycode, false, true, false))
 
 
-func press_toolbtn(btn_name):
+func choose_toolbtn(btn_name):
 	for btn in toolbtns:
 		if btn.name == btn_name:
 			btn.button_pressed = true

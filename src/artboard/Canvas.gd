@@ -297,6 +297,23 @@ func process_bucket_fill(event):
 			bucket.fill(pos)
 
 
+func fill_color(color:Color):
+	if not project:
+		return
+	var image = project.current_cel.get_image()
+	if image.is_empty():
+		return
+	if selection.has_selected():
+		for x in image.get_width():
+			for y in image.get_height():
+				var p := Vector2i(x, y)
+				if selection.mask.get_pixelv(p).a > 0:
+					image.set_pixelv(p, color)
+	else:
+		image.fill(color)
+	refresh()
+
+
 func process_shape(event, shaper):
 	if event is InputEventMouseButton:
 		var pos = snapper.snap_position(get_local_mouse_position())
