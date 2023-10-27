@@ -52,6 +52,7 @@ layout_mode = 2
 [node name="OptSpacing" type="CheckButton" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Use Spacing"
 
 [node name="SpacingX" type="ProgressBar" parent="."]
@@ -87,6 +88,7 @@ autowrap_mode = 2
 [node name="DynamicsStroke" type="OptionButton" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 item_count = 3
 selected = 0
 popup/item_0/text = "None"

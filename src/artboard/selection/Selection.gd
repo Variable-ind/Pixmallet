@@ -40,9 +40,9 @@ var zoom_ratio := 1.0 :
 		zoom_ratio = val
 		refresh_material()
 
-var tolerance := 0:
+var similarity := 100:
 	set(val):
-		tolerance = clampi(val, 0, 100)
+		similarity = clampi(val, 0, 100)
 
 var last_position :Variant = null # prevent same with mouse pos from beginning.
 

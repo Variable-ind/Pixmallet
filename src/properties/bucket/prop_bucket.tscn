@@ -25,6 +25,7 @@ theme_type_variation = &"HDivider"
 [node name="OptContiguous" type="CheckButton" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Contiguous"
 
 [node name="holder" type="HSeparator" parent="."]

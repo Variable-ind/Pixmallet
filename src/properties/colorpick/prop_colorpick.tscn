@@ -24,6 +24,7 @@ theme_type_variation = &"HDivider"
 [node name="OptAlpha" type="CheckButton" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Alpha channel sensitivity"
 
 [node name="holder2" type="HSeparator" parent="."]

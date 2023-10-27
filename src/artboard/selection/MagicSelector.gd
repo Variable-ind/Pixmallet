@@ -88,9 +88,9 @@ func is_matched_color(img_color :Color):
 		return false
 	if selected_color.is_equal_approx(img_color):
 		return true
-	elif selection.tolerance > 0:
+	elif selection.similarity < 100:
 		var diff = selected_color - img_color
-		var t = selection.tolerance / 100.0
+		var t = (100 - selection.similarity) / 100.0
 		diff.r = abs(diff.r)
 		diff.g = abs(diff.g)
 		diff.b = abs(diff.b)

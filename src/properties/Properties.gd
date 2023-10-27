@@ -52,6 +52,7 @@ func set_state(val):
 					   Operate.SELECT_POLYGON, Operate.SELECT_LASSO,
 					   Operate.SELECT_MAGIC]:
 			propSelection.visible = true
+			propSelection.set_for_magic_selector(state == Operate.SELECT_MAGIC)
 			
 		elif state == Operate.PENCIL:
 			propPencil.visible = true

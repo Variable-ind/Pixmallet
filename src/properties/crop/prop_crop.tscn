@@ -60,11 +60,13 @@ text = "Size"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
+prefix = "Width:"
 
 [node name="Height" type="SpinBox" parent="row/column-2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
+prefix = "Height:"
 
 [node name="holder" type="HSeparator" parent="."]
 layout_mode = 2

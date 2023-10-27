@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnv2wo1wwsfyu"]
+[gd_scene load_steps=12 format=3 uid="uid://cnv2wo1wwsfyu"]
 
+[ext_resource type="Texture2D" uid="uid://2gnijms4nwmn" path="res://assets/icons/sel-replace.png" id="1_7ojqu"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="1_07xlp"]
+[ext_resource type="Script" path="res://src/properties/selection/PropSelection.gd" id="1_qoljm"]
+[ext_resource type="Script" path="res://src/widgets/IconToggleBtn.gd" id="2_vojat"]
+[ext_resource type="Texture2D" uid="uid://b35kvc6k0x7pk" path="res://assets/icons/as-square.png" id="3_k1ouy"]
+[ext_resource type="Texture2D" uid="uid://b8mq5csyxt3e3" path="res://assets/icons/sel-add.png" id="3_lhom8"]
+[ext_resource type="Texture2D" uid="uid://bjh1g6wgof8wt" path="res://assets/icons/sel-subtract.png" id="4_82cmr"]
+[ext_resource type="Texture2D" uid="uid://dk8upmu6qj7ib" path="res://assets/icons/from-center.png" id="4_xpvq0"]
+[ext_resource type="Texture2D" uid="uid://ctq6f5i7cgsiy" path="res://assets/icons/sel-intersect.png" id="5_cjspv"]
+[ext_resource type="Script" path="res://src/widgets/PivotSelector.gd" id="8_18d3s"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_bbetk"]
 
 [node name="Selection" type="VBoxContainer"]
 anchors_preset = 15
@@ -9,6 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+script = ExtResource("1_qoljm")
 
 [node name="title" type="Label" parent="."]
 layout_mode = 2
@@ -20,111 +32,185 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_type_variation = &"HDivider"
 
-[node name="label-mode" type="Label" parent="."]
+[node name="row" type="HBoxContainer" parent="."]
 layout_mode = 2
-text = "Mode"
 
-[node name="OptionButton" type="OptionButton" parent="."]
+[node name="row" type="HBoxContainer" parent="row"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ModeNew" type="Button" parent="row/row"]
+unique_name_in_owner = true
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "New Selection"
 mouse_default_cursor_shape = 2
-item_count = 4
-selected = 0
-popup/item_0/text = "Replace selection"
-popup/item_0/id = 0
-popup/item_1/text = "Add to selection"
-popup/item_1/id = 1
-popup/item_2/text = "Subtract from selection"
-popup/item_2/id = 2
-popup/item_3/text = "Intersection of selection"
-popup/item_3/id = 3
+theme_type_variation = &"IconButton"
+toggle_mode = true
+button_group = SubResource("ButtonGroup_bbetk")
+icon = ExtResource("1_7ojqu")
+icon_alignment = 1
+script = ExtResource("2_vojat")
+
+[node name="ModeAdd" type="Button" parent="row/row"]
+unique_name_in_owner = true
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Add Selection"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+button_group = SubResource("ButtonGroup_bbetk")
+icon = ExtResource("3_lhom8")
+icon_alignment = 1
+script = ExtResource("2_vojat")
+
+[node name="ModeSubtract" type="Button" parent="row/row"]
+unique_name_in_owner = true
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Subtract Selection"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+button_group = SubResource("ButtonGroup_bbetk")
+icon = ExtResource("4_82cmr")
+icon_alignment = 1
+script = ExtResource("2_vojat")
+
+[node name="ModeIntersect" type="Button" parent="row/row"]
+unique_name_in_owner = true
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Intersect Selection"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+button_group = SubResource("ButtonGroup_bbetk")
+icon = ExtResource("5_cjspv")
+icon_alignment = 1
+script = ExtResource("2_vojat")
+
+[node name="row2" type="HBoxContainer" parent="row"]
+layout_mode = 2
+
+[node name="OptAsSquare" type="Button" parent="row/row2"]
+unique_name_in_owner = true
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "As Square"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("3_k1ouy")
+icon_alignment = 1
+script = ExtResource("2_vojat")
+
+[node name="OptFromCenter" type="Button" parent="row/row2"]
+unique_name_in_owner = true
+modulate = Color(0.411765, 0.411765, 0.411765, 1)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "From Center"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+toggle_mode = true
+icon = ExtResource("4_xpvq0")
+icon_alignment = 1
+script = ExtResource("2_vojat")
 
 [node name="holder" type="HSeparator" parent="."]
 layout_mode = 2
 
-[node name="row" type="HBoxContainer" parent="."]
+[node name="row2" type="HBoxContainer" parent="."]
 layout_mode = 2
+alignment = 1
 
-[node name="column" type="VBoxContainer" parent="row"]
+[node name="column" type="VBoxContainer" parent="row2"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="label_position" type="Label" parent="row/column"]
+[node name="label_position" type="Label" parent="row2/column"]
 layout_mode = 2
 text = "Position"
 
-[node name="PosX" type="ProgressBar" parent="row/column"]
+[node name="PosX" type="SpinBox" parent="row2/column"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
-min_value = 100.0
-step = 1.0
 value = 100.0
-show_percentage = false
-script = ExtResource("1_07xlp")
-prefix = "X:"
 
-[node name="PoxY" type="ProgressBar" parent="row/column"]
+[node name="PosY" type="SpinBox" parent="row2/column"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
-step = 1.0
-show_percentage = false
-script = ExtResource("1_07xlp")
-prefix = "Y:"
 
-[node name="v-holder" type="VSeparator" parent="row"]
+[node name="v-holder" type="VSeparator" parent="row2"]
 layout_mode = 2
 
-[node name="column-2" type="VBoxContainer" parent="row"]
+[node name="column-2" type="VBoxContainer" parent="row2"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="label_size" type="Label" parent="row/column-2"]
+[node name="label_size" type="Label" parent="row2/column-2"]
 layout_mode = 2
 text = "Size"
 
-[node name="Width" type="ProgressBar" parent="row/column-2"]
+[node name="Width" type="SpinBox" parent="row2/column-2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
-step = 1.0
-show_percentage = false
-script = ExtResource("1_07xlp")
-prefix = "Width:"
-suffix = "px"
 
-[node name="Height" type="ProgressBar" parent="row/column-2"]
+[node name="Height" type="SpinBox" parent="row2/column-2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
-step = 1.0
-show_percentage = false
-script = ExtResource("1_07xlp")
-prefix = "Height:"
-suffix = "px"
 
 [node name="holder2" type="HSeparator" parent="."]
 layout_mode = 2
 
-[node name="label-similarity" type="Label" parent="."]
+[node name="row3" type="HBoxContainer" parent="."]
 layout_mode = 2
-text = "Similarity"
 
-[node name="Similarity" type="ProgressBar" parent="."]
+[node name="column" type="VBoxContainer" parent="row3"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="label_pivot" type="Label" parent="row3/column"]
+layout_mode = 2
+text = "Pivot"
+
+[node name="OptPivot" type="Control" parent="row3/column"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("8_18d3s")
+pivot_point_radius = 6
+
+[node name="column2" type="VBoxContainer" parent="row3"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Similarity" type="ProgressBar" parent="row3/column2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 step = 1.0
-value = 1.0
 show_percentage = false
 script = ExtResource("1_07xlp")
+prefix = "Similarity:"
 
-[node name="label-size" type="Label" parent="."]
+[node name="OptContiguous" type="CheckButton" parent="row3/column2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-text = "Brush Size"
-
-[node name="BrushSize" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(85, 30)
-layout_mode = 2
-min_value = 1.0
-max_value = 30.0
-step = 1.0
-value = 1.0
-show_percentage = false
-script = ExtResource("1_07xlp")
-suffix = "px"
+mouse_default_cursor_shape = 2
+text = "Contiguous"

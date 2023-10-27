@@ -42,6 +42,7 @@ func _ready():
 	properties.propMove.subscribe(artboard.canvas.move_sizer)
 	properties.propColorpick.subscribe(artboard.canvas.color_pick)
 	properties.propShape.subscribe(artboard.canvas.silhouette)
+	properties.propSelection.subscribe(artboard.canvas.selection)
 	
 	# ensure modal background overlay is hide
 	overlay.hide()
