@@ -8,9 +8,9 @@ enum {
 	FLIP_V,
 	ROTATE_CCW,
 	ROTATE_CW,
-	MIRROR_H,
-	MIRROR_V,
-	PREFECT_PX,
+#	MIRROR_H,
+#	MIRROR_V,
+#	PREFECT_PX,
 }
 
 const ADJUST_ID_MAP :Dictionary = {

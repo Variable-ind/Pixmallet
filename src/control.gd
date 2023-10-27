@@ -108,7 +108,15 @@ func _on_toolbar_activated(operate_id):
 
 
 func _on_active_adjust_tool(adjust_id):
-	print(adjust_id)
+	match adjust_id:
+		AdjustmentTool.FLIP_H:
+			print('flip h')
+		AdjustmentTool.FLIP_V:
+			print('flip v')
+		AdjustmentTool.ROTATE_CCW:
+			print('rotate ccw')
+		AdjustmentTool.ROTATE_CW:
+			print('rotate cw')
 
 
 func _on_modal_toggled(state :bool):
@@ -120,7 +128,6 @@ func _on_color_palette_color_changed(color_foreground :Color,
 	foreground_color = color_foreground
 	background_color = color_background
 	artboard.set_current_color(foreground_color)
-
 
 
 func _on_artboard_color_picked(color :Color):
