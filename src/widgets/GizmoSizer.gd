@@ -309,34 +309,34 @@ func set_gizmo_place(gizmo):
 func get_pivot_offset(to_size:Vector2i) -> Vector2i:
 	var _offset = Vector2i.ZERO
 	match pivot:
-		Pivot.TOP_LEFT:
+		GizmoPivot.TOP_LEFT:
 			pass
 			
-		Pivot.TOP_CENTER:
+		GizmoPivot.TOP_CENTER:
 			_offset.x = to_size.x / 2.0
 
-		Pivot.TOP_RIGHT:
+		GizmoPivot.TOP_RIGHT:
 			_offset.x = to_size.x
 
-		Pivot.MIDDLE_RIGHT:
+		GizmoPivot.MIDDLE_RIGHT:
 			_offset.x = to_size.x
 			_offset.y = to_size.y / 2.0
 
-		Pivot.BOTTOM_RIGHT:
+		GizmoPivot.BOTTOM_RIGHT:
 			_offset.x = to_size.x
 			_offset.y = to_size.y
 
-		Pivot.BOTTOM_CENTER:
+		GizmoPivot.BOTTOM_CENTER:
 			_offset.x = to_size.x / 2.0
 			_offset.y = to_size.y
 
-		Pivot.BOTTOM_LEFT:
+		GizmoPivot.BOTTOM_LEFT:
 			_offset.y = to_size.y
 
-		Pivot.MIDDLE_LEFT:
+		GizmoPivot.MIDDLE_LEFT:
 			_offset.y = to_size.y / 2.0
 		
-		Pivot.CENTER:
+		GizmoPivot.CENTER:
 			_offset.x = to_size.x / 2.0
 			_offset.y = to_size.y / 2.0
 			
@@ -488,6 +488,7 @@ class GizmoPivot extends RefCounted:
 		BOTTOM_CENTER,
 		BOTTOM_LEFT,
 		MIDDLE_LEFT,
+		CENTER,
 	}
 
 class Gizmo extends Node2D :

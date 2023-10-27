@@ -1,6 +1,6 @@
 class_name ColorPalette extends Panel
 
-signal modal_toggled(state:int)
+signal modal_toggled(state)
 signal color_changed(color_foreground, color_background)
 
 const PALETTE_ROW_NUM = 12
@@ -22,6 +22,7 @@ var keymap := {
 @onready var colorSwitchBtn :Button = %ColorSwitchBtn
 @onready var paletteSelector :MenuButton = %PaletteSelector
 @onready var colorSwitchGrid :ColorSwitchGrid = %ColorSwitchGrid
+
 @onready var createDialog :Window = $CreateDialog
 @onready var deleteDialog :Window = $DeleteDialog
 
@@ -58,7 +59,7 @@ func _ready():
 	load_palettes()
 	
 	# signal handlers
-	createDialog.confirmed.connect(_on_create_dialog_confirmed)
+	createDialog.create_confirmed.connect(_on_create_dialog_confirmed)
 	deleteDialog.confirmed.connect(_on_delete_dialog_confirmed)
 	
 	createPaletteBtn.pressed.connect(_on_create_palette_btn_pressed)
@@ -139,6 +140,7 @@ func create_palette(palette_name:String):
 	var popmenu = paletteSelector.get_popup()
 	popmenu.add_radio_check_item(new_palette.name)
 	switch_palette(palettes_stack.size()-1)
+	print(palette_name)
 	
 
 func delete_palette(index:int=0):

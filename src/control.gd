@@ -14,13 +14,16 @@ var background_color := Color.BLACK
 @onready var colorPalette := %ColorPalette
 @onready var properties := %Properties
 
+@onready var dialog_crop := %CropDialog
+
 
 func _ready():
 	DisplayServer.window_set_min_size(Vector2i(800, 700))
 	
-	var project = Project.new(Vector2i(400, 300))
-	artboard.load_project(project)
-	preview.load_project(project)
+	g.current_project = Project.new(Vector2i(400, 300))
+	
+	artboard.load_project(g.current_project)
+	preview.load_project(g.current_project)
 	
 	camera = artboard.camera
 	canvas = artboard.canvas
@@ -67,7 +70,7 @@ func _on_navbar_navigation_to(nav_id, data):
 			artboard.canvas.fill_color(background_color)
 		
 		Navbar.CROP_CANVAS:
-			toolbar.choose_toolbtn('Crop')
+			dialog_crop.load_project(g.current_project)
 
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')

@@ -297,27 +297,6 @@ func process_bucket_fill(event):
 			bucket.fill(pos)
 
 
-func fill_color(color:Color):
-	if not project:
-		return
-	for cel in project.selected_cels:
-		var image = cel.get_image()
-		if image.is_empty():
-			continue
-		if selection.has_selected():
-			var tmp_img := Image.create(image.get_width(),
-										image.get_height(),
-										false, image.get_format())
-			tmp_img.fill(color)
-			image.blit_rect_mask(tmp_img,
-								 selection.mask, 
-								 Rect2i(Vector2i.ZERO, image.get_size()),
-								 Vector2i.ZERO)
-		else:
-			image.fill(color)
-	refresh()
-
-
 func process_shape(event, shaper):
 	if event is InputEventMouseButton:
 		var pos = snapper.snap_position(get_local_mouse_position())
@@ -331,6 +310,27 @@ func process_shape(event, shaper):
 			shaper.shape_move(pos)
 		elif shaper.is_operating:
 			shaper.shape_end(pos)
+
+
+func fill_color(color:Color):
+	if not project:
+		return
+	for cel in project.selected_cels:
+		if not cel is PixelCel:
+			continue
+		var image = cel.get_image()
+		if selection.has_selected():
+			var tmp_img := Image.create(image.get_width(),
+										image.get_height(),
+										false, image.get_format())
+			tmp_img.fill(color)
+			image.blit_rect_mask(tmp_img,
+								 selection.mask, 
+								 Rect2i(Vector2i.ZERO, image.get_size()),
+								 Vector2i.ZERO)
+		else:
+			image.fill(color)
+	refresh()
 
 
 func _input(event :InputEvent):

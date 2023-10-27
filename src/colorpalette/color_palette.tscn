@@ -134,7 +134,7 @@ offset_top = 8.0
 offset_right = 292.0
 offset_bottom = 66.0
 
-[node name="inputName" type="LineEdit" parent="CreateDialog/MarginContainer"]
+[node name="InputName" type="LineEdit" parent="CreateDialog/MarginContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 placeholder_text = "Input name here."
