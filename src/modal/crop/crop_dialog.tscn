@@ -59,7 +59,6 @@ stretch_mode = 5
 script = ExtResource("4_jnwgu")
 
 [node name="TransChecker" type="ColorRect" parent="MarginContainer/column/AspectRatioContainer/Preview"]
-unique_name_in_owner = true
 show_behind_parent = true
 material = SubResource("ShaderMaterial_rpprc")
 layout_mode = 1

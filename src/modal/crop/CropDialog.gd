@@ -72,6 +72,7 @@ func update_preview():
 								Rect2i(Vector2i.ZERO, img.get_size()), 
 								Vector2i.ZERO)
 	preview.update_image(preview_image)
+	preview.update_rect(crop_rect)
 
 
 func update_preview_rect():
