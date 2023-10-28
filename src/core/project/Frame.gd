@@ -15,8 +15,8 @@ func erase_cel(cel :BaseCel):
 		cels.erase(cel)
 
 
-func get_images():
-	var images := []
+func get_images() -> Array[Image]:
+	var images :Array[Image] = []
 	for cel in cels:
 		if cel is PixelCel:
 			var img :Image = cel.get_image()

@@ -121,6 +121,8 @@ layout_mode = 2
 
 [node name="CropDialog" parent="." instance=ExtResource("11_t7lj5")]
 unique_name_in_owner = true
+size = Vector2i(300, 374)
+visible = false
 
 [node name="overlay" type="ColorRect" parent="."]
 unique_name_in_owner = true

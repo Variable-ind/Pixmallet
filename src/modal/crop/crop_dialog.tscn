@@ -1,13 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://cj5klcx8ccx2n"]
+[gd_scene load_steps=7 format=3 uid="uid://cj5klcx8ccx2n"]
 
 [ext_resource type="Script" path="res://src/modal/crop/CropDialog.gd" id="1_x5nav"]
+[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="2_4ucje"]
 [ext_resource type="Script" path="res://src/widgets/PivotSelector.gd" id="2_ylk57"]
+[ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="3_shyvt"]
+[ext_resource type="Script" path="res://src/modal/crop/CropPreview.gd" id="4_jnwgu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rpprc"]
+shader = ExtResource("2_4ucje")
+shader_parameter/size = 10.0
+shader_parameter/alpha = 1.0
+shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
+shader_parameter/color2 = Color(1, 1, 1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/scale = Vector2(0, 0)
+shader_parameter/rect_size = Vector2(200, 200)
+shader_parameter/follow_movement = false
+shader_parameter/follow_scale = false
 
 [node name="CropDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Crop Canvas"
-initial_position = 1
-size = Vector2i(300, 200)
+position = Vector2i(0, 36)
+size = Vector2i(300, 365)
+visible = true
 min_size = Vector2i(300, 100)
 max_size = Vector2i(300, 80)
 theme_type_variation = &"ConfirmDialog"
@@ -24,20 +40,56 @@ offset_right = -8.0
 offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="row" type="HBoxContainer" parent="MarginContainer"]
+[node name="column" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="column2" type="VBoxContainer" parent="MarginContainer/row"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Preview" type="TextureRect" parent="MarginContainer/column/AspectRatioContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("4_jnwgu")
+
+[node name="TransChecker" type="ColorRect" parent="MarginContainer/column/AspectRatioContainer/Preview"]
+unique_name_in_owner = true
+show_behind_parent = true
+material = SubResource("ShaderMaterial_rpprc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("3_shyvt")
+
+[node name="holder" type="HSeparator" parent="MarginContainer/column"]
+layout_mode = 2
+
+[node name="row" type="HBoxContainer" parent="MarginContainer/column"]
+layout_mode = 2
+
+[node name="column2" type="VBoxContainer" parent="MarginContainer/column/row"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="label_pivot" type="Label" parent="MarginContainer/row/column2"]
+[node name="label_pivot" type="Label" parent="MarginContainer/column/row/column2"]
 layout_mode = 2
 text = "Pivot"
+horizontal_alignment = 1
 
-[node name="OptPivot" type="Control" parent="MarginContainer/row/column2"]
+[node name="OptPivot" type="Control" parent="MarginContainer/column/row/column2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -45,26 +97,31 @@ size_flags_horizontal = 4
 script = ExtResource("2_ylk57")
 pivot_point_radius = 6
 
-[node name="v-holder" type="VSeparator" parent="MarginContainer/row"]
+[node name="v-holder" type="VSeparator" parent="MarginContainer/column/row"]
 layout_mode = 2
 
-[node name="column-2" type="VBoxContainer" parent="MarginContainer/row"]
+[node name="column-2" type="VBoxContainer" parent="MarginContainer/column/row"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="label_size" type="Label" parent="MarginContainer/row/column-2"]
+[node name="label_size" type="Label" parent="MarginContainer/column/row/column-2"]
 layout_mode = 2
 text = "Size"
+horizontal_alignment = 1
 
-[node name="Width" type="SpinBox" parent="MarginContainer/row/column-2"]
+[node name="Width" type="SpinBox" parent="MarginContainer/column/row/column-2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
+min_value = 1.0
+value = 1.0
 prefix = "Width:"
 
-[node name="Height" type="SpinBox" parent="MarginContainer/row/column-2"]
+[node name="Height" type="SpinBox" parent="MarginContainer/column/row/column-2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
+min_value = 1.0
+value = 1.0
 prefix = "Height:"
