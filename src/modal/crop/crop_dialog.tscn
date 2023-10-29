@@ -21,11 +21,9 @@ shader_parameter/follow_scale = false
 [node name="CropDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Crop Canvas"
-position = Vector2i(0, 36)
-size = Vector2i(300, 365)
+size = Vector2i(216, 365)
 visible = true
-min_size = Vector2i(300, 100)
-max_size = Vector2i(300, 80)
+unresizable = true
 theme_type_variation = &"ConfirmDialog"
 ok_button_text = "Crop"
 script = ExtResource("1_x5nav")

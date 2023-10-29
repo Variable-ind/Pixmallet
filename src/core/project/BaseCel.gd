@@ -5,6 +5,8 @@ class_name BaseCel extends RefCounted
 
 signal texture_updated
 
+var is_visible := true
+
 var image_texture := ImageTexture.new(): 
 	get = get_image_texture
 

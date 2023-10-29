@@ -15,6 +15,7 @@ var background_color := Color.BLACK
 @onready var properties := %Properties
 
 @onready var dialog_crop := %CropDialog
+@onready var dialog_img_crop := %ImgCropDialog
 
 
 func _ready():
@@ -79,6 +80,9 @@ func _on_navbar_navigation_to(nav_id, data):
 		
 		Navbar.CROP_CANVAS:
 			dialog_crop.load_project(g.current_project)
+		
+		Navbar.IMG_CROP:
+			dialog_img_crop.load_project(g.current_project)
 
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')

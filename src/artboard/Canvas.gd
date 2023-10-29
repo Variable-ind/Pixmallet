@@ -316,7 +316,7 @@ func fill_color(color:Color):
 	if not project:
 		return
 	for cel in project.selected_cels:
-		if not cel is PixelCel:
+		if not cel is PixelCel or not cel.is_visible:
 			continue
 		var image = cel.get_image()
 		if selection.has_selected():

@@ -71,7 +71,7 @@ func update_preview():
 		preview_image.blit_rect(img,
 								Rect2i(Vector2i.ZERO, img.get_size()), 
 								Vector2i.ZERO)
-	preview.update_image(preview_image)
+	preview.update_texture(preview_image)
 	preview.update_rect(crop_rect, project.size)
 
 

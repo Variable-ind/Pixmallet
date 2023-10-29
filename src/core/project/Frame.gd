@@ -18,7 +18,7 @@ func erase_cel(cel :BaseCel):
 func get_images() -> Array[Image]:
 	var images :Array[Image] = []
 	for cel in cels:
-		if cel is PixelCel:
+		if cel is PixelCel and cel.is_visible:
 			var img :Image = cel.get_image()
 			# cel img will never be true of is_empty().
 			if not img.is_invisible() or images.size() < 1:
