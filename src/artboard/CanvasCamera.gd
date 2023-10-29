@@ -107,7 +107,7 @@ func zoom_camera(direction: int):
 #		tween.tween_property(self, "offset", zoom_center_point, 0.05)
 
 func zoom_in():
-	zoom_center_point = canvas_size * 0.5 
+	zoom_center_point = canvas_size * 0.5
 	zoom_camera(1)
 	zoomed.emit()
 
@@ -126,10 +126,11 @@ func zoom_100():
 	
 
 func fit_to_frame():
-	offset = canvas_size * 0.5
 	var h_ratio = viewport_size.x / float(canvas_size.x)
 	var v_ratio = viewport_size.y / float(canvas_size.y)
 	var ratio = minf(h_ratio, v_ratio)
 	ratio = clampf(ratio, 0.1, ratio)
 	zoom = Vector2(ratio, ratio)
+	zoom_center_point = canvas_size * 0.5
+	offset = zoom_center_point
 	zoomed.emit()
