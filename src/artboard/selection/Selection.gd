@@ -16,7 +16,7 @@ var mode := Mode.REPLACE
 
 var pivot := Pivot.TOP_LEFT  # Pivot class in /core.
 var pivot_offset :Vector2i :
-	get: return get_pivot_offset(selected_rect.size)
+	get: return Pivot.get_pivot_offset(pivot, selected_rect.size)
 	
 var relative_position :Vector2i :  # with pivot, for display on panel
 	get: return get_relative_position(selected_rect)
@@ -195,7 +195,7 @@ func drag_to(pos, drag_offset):
 func resize_to(to_size :Vector2i):			
 	to_size = to_size.clamp(Vector2i.ONE, size)
 		
-	selection_map.resize_to(to_size, get_pivot_offset(to_size))
+	selection_map.resize_to(to_size, Pivot.get_pivot_offset(pivot, to_size))
 	update_selection()
 
 
@@ -213,44 +213,7 @@ func check_visible(sel_points) -> bool:
 	
 
 func get_relative_position(rect :Rect2i):
-	return rect.position + get_pivot_offset(rect.size)
-
-
-func get_pivot_offset(to_size:Vector2i) -> Vector2i:
-	var _offset = Vector2i.ZERO
-	match pivot:
-		Pivot.TOP_LEFT:
-			pass
-			
-		Pivot.TOP_CENTER:
-			_offset.x = to_size.x / 2.0
-
-		Pivot.TOP_RIGHT:
-			_offset.x = to_size.x
-
-		Pivot.MIDDLE_RIGHT:
-			_offset.x = to_size.x
-			_offset.y = to_size.y / 2.0
-
-		Pivot.BOTTOM_RIGHT:
-			_offset.x = to_size.x
-			_offset.y = to_size.y
-
-		Pivot.BOTTOM_CENTER:
-			_offset.x = to_size.x / 2.0
-			_offset.y = to_size.y
-
-		Pivot.BOTTOM_LEFT:
-			_offset.y = to_size.y
-
-		Pivot.MIDDLE_LEFT:
-			_offset.y = to_size.y / 2.0
-		
-		Pivot.CENTER:
-			_offset.x = to_size.x / 2.0
-			_offset.y = to_size.y / 2.0
-			
-	return _offset
+	return rect.position + Pivot.get_pivot_offset(pivot, rect.size)
 
 
 func parse_two_points(sel_points:PackedVector2Array):

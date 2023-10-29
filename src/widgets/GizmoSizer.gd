@@ -7,8 +7,19 @@ signal updated(rect, rel_pos, status)
 signal applied(rect)
 signal canceled
 
-
 signal cursor_changed(cursor)
+
+enum GSPivot {
+	TOP_LEFT,
+	TOP_CENTER,
+	TOP_RIGHT,
+	MIDDLE_RIGHT,
+	BOTTOM_RIGHT,
+	BOTTOM_CENTER,
+	BOTTOM_LEFT,
+	MIDDLE_LEFT,
+	CENTER,
+}
 
 @export var gizmo_color := Color(0.2, 0.2, 0.2, 1):
 	set(val):
@@ -56,10 +67,10 @@ var bound_rect := Rect2i(Vector2i.ZERO, Vector2i.ZERO) :
 
 var gizmos :Array[Gizmo] = []
 
-var pivot := GizmoPivot.TOP_LEFT
+var pivot := GSPivot.TOP_LEFT
 
 var pivot_offset :Vector2i :
-	get: return get_pivot_offset(bound_rect.size)
+	get: return get_sizer_pivot_offset(bound_rect.size)
 	
 var relative_position :Vector2i :  # with pivot, for display on panel
 	get: return bound_rect.position + pivot_offset
@@ -93,14 +104,14 @@ func _init():
 
 
 func _ready():
-	gizmos.append(Gizmo.new(GizmoPivot.TOP_LEFT))
-	gizmos.append(Gizmo.new(GizmoPivot.TOP_CENTER))
-	gizmos.append(Gizmo.new(GizmoPivot.TOP_RIGHT))
-	gizmos.append(Gizmo.new(GizmoPivot.MIDDLE_RIGHT))
-	gizmos.append(Gizmo.new(GizmoPivot.BOTTOM_RIGHT))
-	gizmos.append(Gizmo.new(GizmoPivot.BOTTOM_CENTER))
-	gizmos.append(Gizmo.new(GizmoPivot.BOTTOM_LEFT))
-	gizmos.append(Gizmo.new(GizmoPivot.MIDDLE_LEFT))
+	gizmos.append(Gizmo.new(Gizmo.Type.TOP_LEFT))
+	gizmos.append(Gizmo.new(Gizmo.Type.TOP_CENTER))
+	gizmos.append(Gizmo.new(Gizmo.Type.TOP_RIGHT))
+	gizmos.append(Gizmo.new(Gizmo.Type.MIDDLE_RIGHT))
+	gizmos.append(Gizmo.new(Gizmo.Type.BOTTOM_RIGHT))
+	gizmos.append(Gizmo.new(Gizmo.Type.BOTTOM_CENTER))
+	gizmos.append(Gizmo.new(Gizmo.Type.BOTTOM_LEFT))
+	gizmos.append(Gizmo.new(Gizmo.Type.MIDDLE_LEFT))
 	for gizmo in gizmos:
 		gizmo.color = gizmo_color
 		gizmo.bgcolor = gizmo_bgcolor
@@ -228,34 +239,34 @@ func scale_to(pos :Vector2i):
 	
 	match pressed_gizmo.pivot:
 		# size > (1, 1) already limited by not allowed drag to same point.
-		GizmoPivot.TOP_LEFT: 
+		Gizmo.Type.TOP_LEFT: 
 			if pos.x < bound_rect.end.x and pos.y < bound_rect.end.y:
 				bound_rect.size = bound_rect.end - pos
 				bound_rect.position = pos
-		GizmoPivot.TOP_CENTER: 
+		Gizmo.Type.TOP_CENTER: 
 			if pos.y < bound_rect.end.y:
 				bound_rect.size.y = bound_rect.end.y - pos.y
 				bound_rect.position.y = pos.y
-		GizmoPivot.TOP_RIGHT: 
+		Gizmo.Type.TOP_RIGHT: 
 			if pos.x > bound_rect.position.x and pos.y < bound_rect.end.y:
 				bound_rect.size.x = pos.x - bound_rect.position.x
 				bound_rect.size.y = bound_rect.end.y - pos.y
 				bound_rect.position.y = pos.y
-		GizmoPivot.MIDDLE_RIGHT:
+		Gizmo.Type.MIDDLE_RIGHT:
 			if pos.x > bound_rect.position.x:
 				bound_rect.size.x = pos.x - bound_rect.position.x
-		GizmoPivot.BOTTOM_RIGHT:
+		Gizmo.Type.BOTTOM_RIGHT:
 			if pos.x > bound_rect.position.x and pos.y > bound_rect.position.y:
 				bound_rect.size = pos - bound_rect.position
-		GizmoPivot.BOTTOM_CENTER:
+		Gizmo.Type.BOTTOM_CENTER:
 			if pos.y > bound_rect.position.y:
 				bound_rect.size.y = pos.y - bound_rect.position.y
-		GizmoPivot.BOTTOM_LEFT:
+		Gizmo.Type.BOTTOM_LEFT:
 			if pos.x < bound_rect.end.x and pos.y > bound_rect.position.y:
 				bound_rect.size.y = pos.y - bound_rect.position.y
 				bound_rect.size.x = bound_rect.end.x - pos.x
 				bound_rect.position.x = pos.x
-		GizmoPivot.MIDDLE_LEFT:
+		Gizmo.Type.MIDDLE_LEFT:
 			if pos.x < bound_rect.end.x:
 				bound_rect.size.x = bound_rect.end.x - pos.x
 				bound_rect.position.x = pos.x
@@ -272,7 +283,7 @@ func resize_to(to_size:Vector2i):
 	if to_size.y < 1:
 		to_size.y = 1
 		
-	var _offset = get_pivot_offset(to_size)
+	var _offset = get_sizer_pivot_offset(to_size)
 	var coef := Vector2(_offset) / Vector2(to_size)
 	var size_diff :Vector2i = Vector2(bound_rect.size - to_size) * coef
 	var dest_pos :Vector2i = bound_rect.position + size_diff
@@ -287,56 +298,56 @@ func set_gizmo_place(gizmo):
 	var gpos = bound_rect.position
 	var gsize = bound_rect.size
 	
-	match gizmo.pivot:
-		Pivot.TOP_LEFT: 
+	match gizmo.type:
+		Gizmo.Type.TOP_LEFT: 
 			gizmo.position = Vector2(gpos) + Vector2.ZERO
-		Pivot.TOP_CENTER: 
+		Gizmo.Type.TOP_CENTER: 
 			gizmo.position = Vector2(gpos) + Vector2(gsize.x / 2, 0)
-		Pivot.TOP_RIGHT: 
+		Gizmo.Type.TOP_RIGHT: 
 			gizmo.position = Vector2(gpos) + Vector2(gsize.x, 0)
-		Pivot.MIDDLE_RIGHT:
+		Gizmo.Type.MIDDLE_RIGHT:
 			gizmo.position = Vector2(gpos) + Vector2(gsize.x, gsize.y / 2)
-		Pivot.BOTTOM_RIGHT:
+		Gizmo.Type.BOTTOM_RIGHT:
 			gizmo.position = Vector2(gpos) + Vector2(gsize.x, gsize.y)
-		Pivot.BOTTOM_CENTER:
+		Gizmo.Type.BOTTOM_CENTER:
 			gizmo.position = Vector2(gpos) + Vector2(gsize.x / 2, gsize.y)
-		Pivot.BOTTOM_LEFT:
+		Gizmo.Type.BOTTOM_LEFT:
 			gizmo.position = Vector2(gpos) + Vector2(0, gsize.y)
-		Pivot.MIDDLE_LEFT:
+		Gizmo.Type.MIDDLE_LEFT:
 			gizmo.position = Vector2(gpos) + Vector2(0, gsize.y / 2)
 
 
-func get_pivot_offset(to_size:Vector2i) -> Vector2i:
+func get_sizer_pivot_offset(to_size:Vector2i) -> Vector2i:
 	var _offset = Vector2i.ZERO
 	match pivot:
-		GizmoPivot.TOP_LEFT:
+		GSPivot.TOP_LEFT:
 			pass
 			
-		GizmoPivot.TOP_CENTER:
+		GSPivot.TOP_CENTER:
 			_offset.x = to_size.x / 2.0
 
-		GizmoPivot.TOP_RIGHT:
+		GSPivot.TOP_RIGHT:
 			_offset.x = to_size.x
 
-		GizmoPivot.MIDDLE_RIGHT:
+		GSPivot.MIDDLE_RIGHT:
 			_offset.x = to_size.x
 			_offset.y = to_size.y / 2.0
 
-		GizmoPivot.BOTTOM_RIGHT:
+		GSPivot.BOTTOM_RIGHT:
 			_offset.x = to_size.x
 			_offset.y = to_size.y
 
-		GizmoPivot.BOTTOM_CENTER:
+		GSPivot.BOTTOM_CENTER:
 			_offset.x = to_size.x / 2.0
 			_offset.y = to_size.y
 
-		GizmoPivot.BOTTOM_LEFT:
+		GSPivot.BOTTOM_LEFT:
 			_offset.y = to_size.y
 
-		GizmoPivot.MIDDLE_LEFT:
+		GSPivot.MIDDLE_LEFT:
 			_offset.y = to_size.y / 2.0
 		
-		GizmoPivot.CENTER:
+		GSPivot.CENTER:
 			_offset.x = to_size.x / 2.0
 			_offset.y = to_size.y / 2.0
 			
@@ -477,9 +488,13 @@ func inject_snapping(scale_callable :Callable, drag_callable :Callable):
 # print('position ', toucher.position, '/ size /2 ', toucher.size/2)
 # ```
 
-class GizmoPivot extends RefCounted:
+
+class Gizmo extends Node2D :
 	
-	enum {
+	signal hover_updated(gizmo, status)
+	signal press_updated(gizmo, status)
+	
+	enum Type {
 		TOP_LEFT,
 		TOP_CENTER,
 		TOP_RIGHT,
@@ -491,13 +506,7 @@ class GizmoPivot extends RefCounted:
 		CENTER,
 	}
 
-class Gizmo extends Node2D :
-	
-	signal hover_updated(gizmo, status)
-	signal press_updated(gizmo, status)
-
-
-	var pivot := GizmoPivot.TOP_LEFT
+	var type := Type.TOP_LEFT
 
 	var color := Color(0.2, 0.2, 0.2, 1) :
 		set(val):
@@ -518,13 +527,13 @@ class Gizmo extends Node2D :
 		get: return default_size / zoom_ratio
 		
 	var rectangle :Rect2 :
-		get: return Rect2(- pivot_offset, size)
+		get: return Rect2(- gizmo_pos, size)
 		
 	var touch :Rect2 :
 		get: return Rect2(-size, size * 2)
 		
-	var pivot_offset :Vector2:
-		get = _get_pivot_offset
+	var gizmo_pos :Vector2:
+		get = _get_gizmo_pos
 
 	var zoom_ratio := 1.0 :
 		set(val):
@@ -544,49 +553,51 @@ class Gizmo extends Node2D :
 			press_updated.emit(self, is_pressed)
 
 
-	func _init(_pivot):
+	func _init(_type):
 		visible = false
-		pivot = _pivot
+		type = _type
 		
-		match pivot:
-			GizmoPivot.TOP_LEFT:
+		match type:
+			Type.TOP_LEFT:
 				cursor = Control.CURSOR_FDIAGSIZE
-			GizmoPivot.TOP_CENTER:
+			Type.TOP_CENTER:
 				cursor = Control.CURSOR_VSIZE
-			GizmoPivot.TOP_RIGHT:
+			Type.TOP_RIGHT:
 				cursor = Control.CURSOR_BDIAGSIZE
-			GizmoPivot.MIDDLE_RIGHT:
+			Type.MIDDLE_RIGHT:
 				cursor = Control.CURSOR_HSIZE
-			GizmoPivot.BOTTOM_RIGHT:
+			Type.BOTTOM_RIGHT:
 				cursor = Control.CURSOR_FDIAGSIZE
-			GizmoPivot.BOTTOM_CENTER:
+			Type.BOTTOM_CENTER:
 				cursor = Control.CURSOR_VSIZE
-			GizmoPivot.BOTTOM_LEFT:
+			Type.BOTTOM_LEFT:
 				cursor = Control.CURSOR_BDIAGSIZE
-			GizmoPivot.MIDDLE_LEFT:
+			Type.MIDDLE_LEFT:
 				cursor = Control.CURSOR_HSIZE
 			_:
 				cursor = Control.CURSOR_POINTING_HAND
 
 	
-	func _get_pivot_offset():
-		match pivot:
-			GizmoPivot.TOP_LEFT:
+	func _get_gizmo_pos() -> Vector2: # allow float position
+		match type:
+			Type.TOP_LEFT:
 				return Vector2(size.x, size.y)
-			GizmoPivot.TOP_CENTER:
+			Type.TOP_CENTER:
 				return Vector2(size.x/2, size.y)
-			GizmoPivot.TOP_RIGHT:
+			Type.TOP_RIGHT:
 				return Vector2(0, size.y)
-			GizmoPivot.MIDDLE_RIGHT:
+			Type.MIDDLE_RIGHT:
 				return Vector2(0, size.y/2)
-			GizmoPivot.BOTTOM_RIGHT:
+			Type.BOTTOM_RIGHT:
 				return Vector2(0, 0)
-			GizmoPivot.BOTTOM_CENTER:
+			Type.BOTTOM_CENTER:
 				return Vector2(size.x/2, 0)
-			GizmoPivot.BOTTOM_LEFT:
+			Type.BOTTOM_LEFT:
 				return Vector2(size.x, 0)
-			GizmoPivot.MIDDLE_LEFT:
+			Type.MIDDLE_LEFT:
 				return Vector2(size.x, size.y/2)
+			Type.CENTER:
+				return Vector2(size.x/2, size.y/2)
 			_:
 				return Vector2.ZERO
 

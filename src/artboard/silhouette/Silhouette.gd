@@ -16,7 +16,7 @@ const STROKE_WIDTH_MAX := 100
 var image := Image.new()
 var pivot := Pivot.TOP_LEFT  # Pivot class in /core.
 var pivot_offset :Vector2i :
-	get: return get_pivot_offset(shaped_rect.size)
+	get: return Pivot.get_pivot_offset(pivot, shaped_rect.size)
 
 var relative_position :Vector2i :  # with pivot, for display on panel
 	get: return shaped_rect.position + pivot_offset
@@ -472,7 +472,8 @@ func drag_to(pos, drag_offset):
 
 func resize_to(to_size :Vector2i):
 	to_size = to_size.clamp(Vector2i.ONE, size)
-	var coef := Vector2(get_pivot_offset(to_size)) / Vector2(to_size)
+	var _offset = Pivot.get_pivot_offset(pivot, to_size)
+	var coef := Vector2(_offset) / Vector2(to_size)
 	var size_diff :Vector2i = Vector2(shaped_rect.size - to_size) * coef
 	shaped_rect.position += size_diff
 	shaped_rect.size = to_size
@@ -533,43 +534,6 @@ func get_diagonal_from_rect(rect:Rect2i, angle:int) -> PackedVector2Array:
 		start = Vector2i(rect.position.x, rect.end.y)
 		end = Vector2i(rect.end.x, rect.position.y)
 	return [start, end]
-
-
-func get_pivot_offset(to_size:Vector2i) -> Vector2i:
-	var _offset = Vector2i.ZERO
-	match pivot:
-		Pivot.TOP_LEFT:
-			pass
-			
-		Pivot.TOP_CENTER:
-			_offset.x = to_size.x / 2.0
-
-		Pivot.TOP_RIGHT:
-			_offset.x = to_size.x
-
-		Pivot.MIDDLE_RIGHT:
-			_offset.x = to_size.x
-			_offset.y = to_size.y / 2.0
-
-		Pivot.BOTTOM_RIGHT:
-			_offset.x = to_size.x
-			_offset.y = to_size.y
-
-		Pivot.BOTTOM_CENTER:
-			_offset.x = to_size.x / 2.0
-			_offset.y = to_size.y
-
-		Pivot.BOTTOM_LEFT:
-			_offset.y = to_size.y
-
-		Pivot.MIDDLE_LEFT:
-			_offset.y = to_size.y / 2.0
-		
-		Pivot.CENTER:
-			_offset.x = to_size.x / 2.0
-			_offset.y = to_size.y / 2.0
-			
-	return _offset
 
 
 func make_square(rect:Rect2i) ->Rect2i:

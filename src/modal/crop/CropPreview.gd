@@ -3,7 +3,9 @@ class_name CropPreview extends TextureRect
 const DEFAULT_SIZE := Vector2i(200, 200)
 
 var preview_rect := Rect2i()
-var line_color := Color.WHITE
+var preview_crop_rect := Rect2i()
+var frame_line_color := Color.GRAY
+var crop_line_color := Color.WHITE
 
 @onready var trans_chekcer := $TransChecker
 
@@ -24,24 +26,27 @@ func update_image(img):
 				   Image.INTERPOLATE_NEAREST)
 	trans_chekcer.size = img.get_size()
 	trans_chekcer.position = (size - trans_chekcer.size) /2
+	preview_rect = Rect2i((size - trans_chekcer.size) /2, trans_chekcer.size)
+	preview_crop_rect = Rect2i(preview_rect)
 	texture = ImageTexture.create_from_image(img)
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	queue_redraw()
 
 
-func update_rect(rect):
-	var ratio := 1.0
-	if rect.size.x > rect.size.y:
-		ratio = rect.size.y / float(rect.size.x)
-	else:
-		ratio = rect.size.x / float(rect.size.y)
-#	preview_rect = Rect2i(rect.position * ratio, rect.size * ratio)
-	preview_rect = Rect2i((size - trans_chekcer.size) /2, trans_chekcer.size)
+func update_rect(rect :Rect2, base_size :Vector2):
+	var ratio_x :float = preview_rect.size.x / base_size.x
+	var ratio_y :float = preview_rect.size.y / base_size.y
+	preview_crop_rect.size.x = floor(rect.size.x * ratio_x)
+	preview_crop_rect.size.y = floor(rect.size.y * ratio_y)
+	var to_pos_x = floor(rect.position.x * ratio_x)
+	var to_pos_y = floor(rect.position.y * ratio_y)
+	preview_crop_rect.position.x = preview_rect.position.x + to_pos_x
+	preview_crop_rect.position.y = preview_rect.position.y + to_pos_y
 	queue_redraw()
 
 
 func _draw():
 	if preview_rect.has_area():
-		draw_rect(preview_rect, line_color, false, 2)
-#	draw_rect(Rect2i(Vector2i.ZERO, size), line_color)
-		
+		draw_rect(preview_rect, frame_line_color, false, 2)
+	if preview_crop_rect.has_area():
+		draw_rect(preview_crop_rect, crop_line_color, false, 2)

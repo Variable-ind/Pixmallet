@@ -6,13 +6,12 @@ var project :Project
 
 var pivot := Pivot.TOP_LEFT
 var pivot_offset :Vector2i :
-	get: return cal_pivot_offset(pivot, crop_size)
-var crop_size := Vector2i.ZERO
-var crop_rect : Rect2i :
-	get: return Rect2i(pivot_offset, crop_size)
+	get: return Pivot.get_pivot_offset(pivot, crop_rect.size)
+var crop_rect := Rect2i()
 
 
-@export var line_color := Color.WHITE
+@export var frame_line_color := Color.DIM_GRAY
+@export var crop_line_color := Color.WHITE
 
 @onready var confirm_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()
@@ -34,7 +33,8 @@ func _ready():
 	input_width.focus_mode = Control.FOCUS_ALL
 	input_height.focus_mode = Control.FOCUS_ALL
 	
-	preview.line_color = line_color
+	preview.crop_line_color = crop_line_color
+	preview.frame_line_color = frame_line_color
 	
 #	confirm_btn.focus_mode = Control.FOCUS_NONE
 	confirm_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
@@ -52,9 +52,9 @@ func _ready():
 
 func load_project(proj:Project):
 	project = proj
-	crop_size = project.size
-	input_width.value = crop_size.x
-	input_height.value = crop_size.y
+	crop_rect.size = project.size
+	input_width.value = project.size.x
+	input_height.value = project.size.y
 	cancel_btn.grab_focus.call_deferred()
 	update_preview()
 	visible = true
@@ -72,50 +72,23 @@ func update_preview():
 								Rect2i(Vector2i.ZERO, img.get_size()), 
 								Vector2i.ZERO)
 	preview.update_image(preview_image)
-	preview.update_rect(crop_rect)
+	preview.update_rect(crop_rect, project.size)
 
 
-func update_preview_rect():
-	preview.update_rect(crop_rect)
-
-
-func cal_pivot_offset(to_pivot, to_size) -> Vector2i:
-	var _offset = Vector2i.ZERO
-	if to_size == Vector2i.ZERO:
-		return _offset
-	match to_pivot:
-		PivotSelector.PivotPoint.TOP_LEFT:
-			pass
-			
-		PivotSelector.PivotPoint.TOP_CENTER:
-			_offset.x = to_size.x / 2.0
-
-		PivotSelector.PivotPoint.TOP_RIGHT:
-			_offset.x = to_size.x
-
-		PivotSelector.PivotPoint.MIDDLE_RIGHT:
-			_offset.x = to_size.x
-			_offset.y = to_size.y / 2.0
-
-		PivotSelector.PivotPoint.BOTTOM_RIGHT:
-			_offset.x = to_size.x
-			_offset.y = to_size.y
-
-		PivotSelector.PivotPoint.BOTTOM_CENTER:
-			_offset.x = to_size.x / 2.0
-			_offset.y = to_size.y
-
-		PivotSelector.PivotPoint.BOTTOM_LEFT:
-			_offset.y = to_size.y
-
-		PivotSelector.PivotPoint.MIDDLE_LEFT:
-			_offset.y = to_size.y / 2.0
+func resize_to(to_size:Vector2i):
+	if to_size.x < 1:
+		to_size.x = 1
+	if to_size.y < 1:
+		to_size.y = 1
 		
-		PivotSelector.PivotPoint.CENTER:
-			_offset.x = to_size.x / 2.0
-			_offset.y = to_size.y / 2.0
-			
-	return _offset
+	var _offset = Pivot.get_pivot_offset(pivot, to_size)
+	var coef := Vector2(_offset) / Vector2(to_size)
+	var size_diff :Vector2i = Vector2(crop_rect.size - to_size) * coef
+	var dest_pos :Vector2i = crop_rect.position + size_diff
+	
+	crop_rect.position = dest_pos
+	crop_rect.size = to_size
+	preview.update_rect(crop_rect, project.size)
 
 
 func _on_confirmed():
@@ -124,17 +97,22 @@ func _on_confirmed():
 
 func _on_pivot_updated(new_pivot):
 	pivot = new_pivot
-	update_preview_rect()
+	var to_size = crop_rect.size
+	crop_rect.position = Vector2i.ZERO
+	crop_rect.size = project.size
+	resize_to(to_size)
 
 
 func _on_width_changed(value):
-	crop_size.x = value
-	update_preview_rect()
+	var to_size = crop_rect.size
+	to_size.x = value
+	resize_to(to_size)
 
 
 func _on_height_changed(value):
-	crop_size.y = value
-	update_preview_rect()
+	var to_size = crop_rect.size
+	to_size.y = value
+	resize_to(to_size)
 
 
 func _on_visibility_changed():
