@@ -5,7 +5,6 @@ signal modal_toggled(state)
 var project :Project
 var crop_rect := Rect2i()
 
-
 @export var frame_line_color := Color.DIM_GRAY
 
 @onready var confirm_btn:Button = get_ok_button()
@@ -33,7 +32,6 @@ func load_project(proj:Project):
 	cancel_btn.grab_focus.call_deferred()
 	update_preview()
 	visible = true
-	
 
 
 func update_preview():

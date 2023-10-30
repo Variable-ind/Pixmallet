@@ -54,4 +54,3 @@ func _draw():
 		draw_rect(preview_rect, frame_line_color, false, 2)
 	if preview_crop_rect.has_area():
 		draw_rect(preview_crop_rect, crop_line_color, false, 2)
-		
