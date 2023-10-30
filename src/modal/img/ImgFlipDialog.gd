@@ -1,17 +1,22 @@
-class_name ImgCropDialog extends ConfirmationDialog
+class_name ImgFlipDialog extends ConfirmationDialog
 
 signal modal_toggled(state)
 
 var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
 
 var project :Project
-var crop_rect := Rect2i()
+var cels :Array[BaseCel]
+
+var flipped_x:= false
+var flipped_y:= false
 
 @export var frame_line_color := Color.DIM_GRAY
 
 @onready var confirm_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()
 @onready var preview := %Preview
+@onready var btn_flip_x := %BtnFlipX
+@onready var btn_flip_y := %BtnFlipY
 
 
 func _ready():
@@ -25,6 +30,8 @@ func _ready():
 #	cancel_btn.focus_mode = Control.FOCUS_NONE
 	cancel_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	
+	btn_flip_x.pressed.connect(_on_flip_x)
+	btn_flip_y.pressed.connect(_on_flip_y)
 	confirmed.connect(_on_confirmed)
 	visibility_changed.connect(_on_visibility_changed)
 
@@ -32,6 +39,7 @@ func _ready():
 func load_project(proj:Project):
 	preview_image.fill(Color.TRANSPARENT)
 	project = proj
+	cels = project.selected_cels
 	cancel_btn.grab_focus.call_deferred()
 	update_preview()
 	visible = true
@@ -47,22 +55,28 @@ func update_preview():
 		preview_image.blit_rect(img,
 								Rect2i(Vector2i.ZERO, img.get_size()), 
 								Vector2i.ZERO)
-	crop_rect = preview_image.get_used_rect()
-	if crop_rect.has_area():
-		var cropped_img = Image.create(crop_rect.size.x, 
-									   crop_rect.size.y,
-									   false,
-									   preview_image.get_format())
-		cropped_img.blit_rect(preview_image, crop_rect, Vector2i.ZERO)
-		preview.update_texture(cropped_img)
-		confirm_btn.disabled = false
-	else:
-		preview.update_texture(preview_image)
-		confirm_btn.disabled = true
+
+	preview.update_texture(preview_image)
+
+
+func _on_flip_x():
+	flipped_x = not flipped_x
+	preview_image.flip_x()
+	preview.update_texture(preview_image)
+
+
+func _on_flip_y():
+	flipped_y = not flipped_y
+	preview_image.flip_y()
+	preview.update_texture(preview_image)
 
 
 func _on_confirmed():
-	project.crop_to(crop_rect)
+	for cel in project.selected_cels:
+		if flipped_x:
+			cel.flip_x()
+		if flipped_y:
+			cel.flip_y()
 
 
 func _on_visibility_changed():

@@ -45,6 +45,7 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]
+clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 

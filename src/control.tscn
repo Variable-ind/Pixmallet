@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=14 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_hk23w"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://br0pl1uwvg3v8" path="res://src/properties/properties.tscn" id="10_reykc"]
 [ext_resource type="PackedScene" uid="uid://cj5klcx8ccx2n" path="res://src/modal/crop/crop_dialog.tscn" id="11_t7lj5"]
 [ext_resource type="PackedScene" uid="uid://lh4alyjsuyd4" path="res://src/modal/img/imgcrop_dialog.tscn" id="12_42p4h"]
+[ext_resource type="PackedScene" uid="uid://du8kf164kcqfk" path="res://src/modal/img/imgflip_dialog.tscn" id="13_tsirw"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -124,12 +125,14 @@ layout_mode = 2
 unique_name_in_owner = true
 size = Vector2i(300, 390)
 visible = false
-frame_line_color = null
-crop_line_color = null
 
 [node name="ImgCropDialog" parent="." instance=ExtResource("12_42p4h")]
 unique_name_in_owner = true
 size = Vector2i(300, 300)
+
+[node name="ImgFlipDialog" parent="." instance=ExtResource("13_tsirw")]
+unique_name_in_owner = true
+size = Vector2i(300, 334)
 
 [node name="overlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -150,3 +153,4 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 [connection signal="modal_toggled" from="main_area/mainborad/workspace/right-sider/split/split/ColorPalette" to="." method="_on_modal_toggled"]
 [connection signal="modal_toggled" from="CropDialog" to="." method="_on_modal_toggled"]
 [connection signal="modal_toggled" from="ImgCropDialog" to="." method="_on_modal_toggled"]
+[connection signal="modal_toggled" from="ImgFlipDialog" to="." method="_on_modal_toggled"]

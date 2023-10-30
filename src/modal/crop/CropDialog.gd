@@ -2,6 +2,8 @@ class_name CropDialog extends ConfirmationDialog
 
 signal modal_toggled(state)
 
+var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
+
 var project :Project
 
 var pivot := Pivot.TOP_LEFT
@@ -9,9 +11,8 @@ var pivot_offset :Vector2i :
 	get: return Pivot.get_pivot_offset(pivot, crop_rect.size)
 var crop_rect := Rect2i()
 
-
 @export var frame_line_color := Color.DIM_GRAY
-@export var crop_line_color := Color.WHITE
+@export var crop_line_color := Color.PURPLE
 
 @onready var confirm_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()
@@ -51,6 +52,7 @@ func _ready():
 
 
 func load_project(proj:Project):
+	preview_image.fill(Color.TRANSPARENT)
 	project = proj
 	crop_rect.size = project.size
 	input_width.value = project.size.x
@@ -61,7 +63,6 @@ func load_project(proj:Project):
 
 
 func update_preview():
-	var preview_image = Image.create(1, 1, false, Image.FORMAT_RGBA8)
 	for img in project.current_frame.get_images():
 		if preview_image.get_width() != img.get_width() or \
 		   preview_image.get_height() != img.get_height():
