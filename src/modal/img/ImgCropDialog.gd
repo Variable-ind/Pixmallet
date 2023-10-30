@@ -46,18 +46,17 @@ func update_preview():
 								Rect2i(Vector2i.ZERO, img.get_size()), 
 								Vector2i.ZERO)
 	crop_rect = preview_image.get_used_rect()
-	preview.update_texture(preview_image)
-#	if crop_rect.has_area():
-#		var cropped_img = Image.create(crop_rect.size.x, 
-#									   crop_rect.size.y,
-#									   false,
-#									   preview_image.get_format())
-#		cropped_img.blit_rect(preview_image, crop_rect, Vector2i.ZERO)
-#		preview.update_texture(cropped_img)
-#		confirm_btn.disabled = false
-#	else:
-#		preview.update_texture(preview_image)
-#		confirm_btn.disabled = true
+	if crop_rect.has_area():
+		var cropped_img = Image.create(crop_rect.size.x, 
+									   crop_rect.size.y,
+									   false,
+									   preview_image.get_format())
+		cropped_img.blit_rect(preview_image, crop_rect, Vector2i.ZERO)
+		preview.update_texture(cropped_img)
+		confirm_btn.disabled = false
+	else:
+		preview.update_texture(preview_image)
+		confirm_btn.disabled = true
 
 
 func _on_confirmed():

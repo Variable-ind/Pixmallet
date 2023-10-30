@@ -21,7 +21,7 @@ shader_parameter/follow_scale = false
 [node name="CropDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Crop Canvas"
-size = Vector2i(216, 365)
+size = Vector2i(300, 365)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"

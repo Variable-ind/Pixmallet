@@ -1,18 +1,20 @@
 class_name CropPreview extends TextureRect
 
-const DEFAULT_SIZE := Vector2i(200, 200)
+const MIN_SIZE := Vector2i(200, 200)
 
 var preview_rect := Rect2i()
 var preview_crop_rect := Rect2i()
 var frame_line_color := Color.GRAY
 var crop_line_color := Color.WHITE
 
-@onready var trans_chekcer := $TransChecker
+@onready var trans_checker := $TransChecker
 
 
 func _ready():
-	size = DEFAULT_SIZE
-	custom_minimum_size = DEFAULT_SIZE
+	custom_minimum_size = MIN_SIZE
+	expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	resized.connect(make_placement)
 
 
 func update_texture(img :Image):
@@ -25,13 +27,11 @@ func update_texture(img :Image):
 		_height = floor(size.y * img_height / img_width)
 	else:
 		_width =  floor(size.x * img_width / img_height)
-		
+
 	img.resize(_width, _height, Image.INTERPOLATE_NEAREST)
 	
-	trans_chekcer.size = img.get_size()
-	trans_chekcer.position = (size - trans_chekcer.size) /2
-	preview_rect = Rect2i((size - trans_chekcer.size) /2, trans_chekcer.size)
-	preview_crop_rect = Rect2i(preview_rect)
+	trans_checker.size = img.get_size()
+	make_placement()
 	texture = ImageTexture.create_from_image(img)
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	queue_redraw()
@@ -54,3 +54,10 @@ func _draw():
 		draw_rect(preview_rect, frame_line_color, false, 2)
 	if preview_crop_rect.has_area():
 		draw_rect(preview_crop_rect, crop_line_color, false, 2)
+
+
+func make_placement():
+	# the `Preview` might stretch when display.
+	trans_checker.position = (size - trans_checker.size) /2
+	preview_rect = Rect2i((size - trans_checker.size) /2, trans_checker.size)
+	preview_crop_rect = Rect2i(preview_rect)

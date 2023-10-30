@@ -20,7 +20,8 @@ shader_parameter/follow_scale = false
 [node name="ImgCropDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Crop to Image Edge"
-size = Vector2i(216, 257)
+position = Vector2i(0, 36)
+size = Vector2i(300, 257)
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
 ok_button_text = "Crop"
