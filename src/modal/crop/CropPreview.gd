@@ -57,7 +57,7 @@ func _draw():
 
 
 func make_placement():
-	# the `Preview` might stretch when display.
+	# the `Preview` might stretch when display, because the parent layout is flexable.
 	trans_checker.position = (size - trans_checker.size) /2
 	preview_rect = Rect2i((size - trans_checker.size) /2, trans_checker.size)
 	preview_crop_rect = Rect2i(preview_rect)
