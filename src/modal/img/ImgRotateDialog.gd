@@ -1,4 +1,4 @@
-class_name ImgFlipDialog extends ConfirmationDialog
+class_name ImgRotateDialog extends ConfirmationDialog
 
 signal modal_toggled(state)
 signal applied
@@ -7,16 +7,17 @@ var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
 
 var project :Project
 
-var flipped_x:= false
-var flipped_y:= false
+var rotate:= 0
+
 
 @export var frame_line_color := Color.DIM_GRAY
 
 @onready var confirm_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()
 @onready var preview := %Preview
-@onready var btn_flip_x := %BtnFlipX
-@onready var btn_flip_y := %BtnFlipY
+
+@onready var btn_rotate_cw := %BtnRotateCW
+@onready var btn_rotate_ccw := %BtnRotateCCW
 
 
 func _ready():
@@ -30,8 +31,9 @@ func _ready():
 #	cancel_btn.focus_mode = Control.FOCUS_NONE
 	cancel_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	
-	btn_flip_x.pressed.connect(_on_flip_x)
-	btn_flip_y.pressed.connect(_on_flip_y)
+	btn_rotate_cw.pressed.connect(_on_rotate_cw)
+	btn_rotate_ccw.pressed.connect(_on_rotate_ccw)
+	
 	confirmed.connect(_on_confirmed)
 	visibility_changed.connect(_on_visibility_changed)
 
@@ -58,24 +60,40 @@ func update_preview():
 	preview.update_texture(preview_image)
 
 
-func _on_flip_x():
-	flipped_x = not flipped_x
-	preview_image.flip_x()
+func _on_rotate_cw():
+	# Limit between +-360
+#	rotate = rotate % 180
+#	rotate = (rotate + 360) % 360
+	rotate = ((rotate + 90) % 180 + 360)
+	print(rotate)
+	preview_image.rotate_90(CLOCKWISE)
 	preview.update_texture(preview_image)
 
 
-func _on_flip_y():
-	flipped_y = not flipped_y
-	preview_image.flip_y()
+func _on_rotate_ccw():
+	# Limit between +-360
+#	rotate = rotate % 180
+#	rotate = (rotate + 360) % 360
+	rotate = ((rotate - 90) % 180 + 360)
+	print(rotate)
+	preview_image.rotate_90(COUNTERCLOCKWISE)
 	preview.update_texture(preview_image)
 
 
 func _on_confirmed():
+	var direction
+	if rotate > 0:
+		direction = CLOCKWISE
+	else:
+		direction = COUNTERCLOCKWISE
+
+	var r_180_times = abs(rotate) / 180
+	var r_90_times = abs(rotate) % 180
 	for cel in project.selected_cels:
-		if flipped_x:
-			cel.get_image().flip_x()
-		if flipped_y:
-			cel.get_image().flip_y()
+		for th in range(r_180_times):
+			cel.get_image().rotate_180()
+		for tn in range(r_90_times):
+			cel.get_image().rotate_90(direction)
 	applied.emit()
 
 

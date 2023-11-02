@@ -1,6 +1,7 @@
 class_name CropDialog extends ConfirmationDialog
 
 signal modal_toggled(state)
+signal applied
 
 var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
 
@@ -51,7 +52,7 @@ func _ready():
 	opt_pivot.pivot_updated.connect(_on_pivot_updated)
 
 
-func load_project(proj:Project):
+func launch(proj:Project):
 	preview_image.fill(Color.TRANSPARENT)
 	project = proj
 	crop_rect.size = project.size
@@ -94,6 +95,7 @@ func resize_to(to_size:Vector2i):
 
 func _on_confirmed():
 	project.crop_to(crop_rect)
+	applied.emit()
 
 
 func _on_pivot_updated(new_pivot):

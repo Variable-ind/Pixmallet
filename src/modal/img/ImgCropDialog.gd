@@ -1,6 +1,7 @@
 class_name ImgCropDialog extends ConfirmationDialog
 
 signal modal_toggled(state)
+signal applied
 
 var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
 
@@ -29,7 +30,7 @@ func _ready():
 	visibility_changed.connect(_on_visibility_changed)
 
 
-func load_project(proj:Project):
+func launch(proj:Project):
 	preview_image.fill(Color.TRANSPARENT)
 	project = proj
 	cancel_btn.grab_focus.call_deferred()
@@ -63,6 +64,7 @@ func update_preview():
 
 func _on_confirmed():
 	project.crop_to(crop_rect)
+	applied.emit()
 
 
 func _on_visibility_changed():

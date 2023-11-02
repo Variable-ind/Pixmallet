@@ -333,6 +333,70 @@ func fill_color(color:Color):
 	refresh()
 
 
+func flip_x():
+	if selection.has_selected():
+		var rect := selection.selected_rect
+		var src_img := project.current_cel.get_image()
+		var blank := Image.create(src_img.get_width(), src_img.get_height(), 
+								  false, src_img.get_format())
+		var img := Image.create(src_img.get_width(), src_img.get_height(),
+								false, src_img.get_format())
+		
+		img.blit_rect_mask(src_img, selection.mask, rect, rect.position)
+		src_img.blit_rect_mask(blank, selection.mask, rect, rect.position)
+		
+		img = img.get_region(rect)
+		var img_mask = selection.mask.get_region(rect)
+		var img_mask_rect = Rect2i(Vector2i.ZERO, rect.size)
+		img.flip_x()
+		img_mask.flip_x()
+		selection.update(img_mask, img_mask_rect, rect.position)
+		blank.fill(Color.TRANSPARENT)
+		
+		src_img.blit_rect_mask(img, img_mask, Rect2i(Vector2i.ZERO, rect.size),
+							   rect.position)
+	else:
+		project.current_cel.get_image().flip_x()
+	refresh()
+	
+
+func flip_y():
+	if selection.has_selected():
+		var rect := selection.selected_rect
+		var src_img := project.current_cel.get_image()
+		var blank := Image.create(src_img.get_width(), src_img.get_height(), 
+								  false, src_img.get_format())
+		var img := Image.create(src_img.get_width(), src_img.get_height(),
+								false, src_img.get_format())
+		
+		img.blit_rect_mask(src_img, selection.mask, rect, rect.position)
+		src_img.blit_rect_mask(blank, selection.mask, rect, rect.position)
+		
+		img = img.get_region(rect)
+		var img_mask = selection.mask.get_region(rect)
+		var img_mask_rect = Rect2i(Vector2i.ZERO, rect.size)
+		img.flip_y()
+		img_mask.flip_y()
+		selection.update(img_mask, img_mask_rect, rect.position)
+		blank.fill(Color.TRANSPARENT)
+		
+		src_img.blit_rect_mask(img, img_mask, Rect2i(Vector2i.ZERO, rect.size),
+							   rect.position)
+	else:
+		project.current_cel.get_image().flip_y()
+	refresh()
+	
+
+func rotate_cw():
+	project.current_cel.get_image().rotate_90(CLOCKWISE)
+	refresh()
+	
+
+func rotate_ccw():
+	project.current_cel.get_image().rotate_90(COUNTERCLOCKWISE)
+	refresh()
+
+
 func _input(event :InputEvent):
 	if not project.current_cel:
 		return

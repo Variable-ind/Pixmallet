@@ -1,6 +1,7 @@
 class_name AdjustmentTool extends HBoxContainer
 
-signal active_adjust_tool(adjustId)
+signal adjusted(adjustId)
+
 
 
 enum {
@@ -31,4 +32,4 @@ func _ready():
 
 
 func _on_pressed(btn):
-	active_adjust_tool.emit(ADJUST_ID_MAP.get(btn.name, -1))
+	adjusted.emit(ADJUST_ID_MAP.get(btn.name, -1))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=15 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_hk23w"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cj5klcx8ccx2n" path="res://src/modal/crop/crop_dialog.tscn" id="11_t7lj5"]
 [ext_resource type="PackedScene" uid="uid://lh4alyjsuyd4" path="res://src/modal/img/imgcrop_dialog.tscn" id="12_42p4h"]
 [ext_resource type="PackedScene" uid="uid://du8kf164kcqfk" path="res://src/modal/img/imgflip_dialog.tscn" id="13_tsirw"]
+[ext_resource type="PackedScene" uid="uid://cpa42gpjhhusd" path="res://src/modal/img/imgrotate_dialog.tscn" id="14_kodwm"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -133,6 +134,12 @@ size = Vector2i(300, 300)
 [node name="ImgFlipDialog" parent="." instance=ExtResource("13_tsirw")]
 unique_name_in_owner = true
 size = Vector2i(300, 334)
+visible = false
+
+[node name="ImgRotateDialog" parent="." instance=ExtResource("14_kodwm")]
+unique_name_in_owner = true
+size = Vector2i(300, 334)
+visible = false
 
 [node name="overlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -147,10 +154,15 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 
 [connection signal="navigation_to" from="main_area/Navbar" to="." method="_on_navbar_navigation_to"]
 [connection signal="activated" from="main_area/mainborad/workspace/left-sider/Toolbar" to="." method="_on_toolbar_activated"]
-[connection signal="active_adjust_tool" from="main_area/mainborad/workspace/canvas/funcbar/split/Adjustment" to="." method="_on_active_adjust_tool"]
+[connection signal="adjusted" from="main_area/mainborad/workspace/canvas/funcbar/split/Adjustment" to="." method="_on_adjusted"]
 [connection signal="color_picked" from="main_area/mainborad/workspace/canvas/split/Artboard" to="." method="_on_artboard_color_picked"]
 [connection signal="color_changed" from="main_area/mainborad/workspace/right-sider/split/split/ColorPalette" to="." method="_on_color_palette_color_changed"]
 [connection signal="modal_toggled" from="main_area/mainborad/workspace/right-sider/split/split/ColorPalette" to="." method="_on_modal_toggled"]
+[connection signal="applied" from="CropDialog" to="." method="refresh_canvas"]
 [connection signal="modal_toggled" from="CropDialog" to="." method="_on_modal_toggled"]
+[connection signal="applied" from="ImgCropDialog" to="." method="refresh_canvas"]
 [connection signal="modal_toggled" from="ImgCropDialog" to="." method="_on_modal_toggled"]
+[connection signal="applied" from="ImgFlipDialog" to="." method="refresh_canvas"]
 [connection signal="modal_toggled" from="ImgFlipDialog" to="." method="_on_modal_toggled"]
+[connection signal="applied" from="ImgRotateDialog" to="." method="refresh_canvas"]
+[connection signal="modal_toggled" from="ImgRotateDialog" to="." method="_on_modal_toggled"]

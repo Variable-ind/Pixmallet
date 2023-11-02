@@ -36,7 +36,7 @@ func get_content():
 
 
 # get visual image of this cel
-func get_image():
+func get_image() ->Image:
 	return Image.new()
 
 

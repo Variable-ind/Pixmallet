@@ -146,6 +146,19 @@ func invert():
 	update_selection()
 
 
+func update(sel_img, rect:=Rect2i(), dst:=Vector2i.ZERO):
+	points.clear()
+	selection_map.select_none()
+	selection_map.blit_rect(sel_img, rect, dst)
+	update_selection()
+
+
+func merge(sel_img, rect:=Rect2i(), dst:=Vector2i.ZERO):
+	points.clear()
+	selection_map.blit_rect_mask(sel_img, sel_img, rect, dst)
+	update_selection()
+
+
 func move_to(to_pos :Vector2i, use_pivot := true):
 	var _offset := pivot_offset if use_pivot else Vector2i.ZERO
 	

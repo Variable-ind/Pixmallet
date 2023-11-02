@@ -12,11 +12,13 @@ var background_color := Color.BLACK
 @onready var navbar := %Navbar
 @onready var toolbar := %Toolbar
 @onready var colorPalette := %ColorPalette
+@onready var adjustment := %Adjustment
 @onready var properties := %Properties
 
 @onready var dialog_crop := %CropDialog
 @onready var dialog_img_crop := %ImgCropDialog
 @onready var dialog_img_flip := %ImgFlipDialog
+@onready var dialog_img_rotate := %ImgRotateDialog
 
 
 func _ready():
@@ -80,13 +82,13 @@ func _on_navbar_navigation_to(nav_id, data):
 			artboard.canvas.fill_color(background_color)
 		
 		Navbar.CROP_CANVAS:
-			dialog_crop.load_project(g.current_project)
+			dialog_crop.launch(g.current_project)
 		
 		Navbar.IMG_CROP:
-			dialog_img_crop.load_project(g.current_project)
+			dialog_img_crop.launch(g.current_project)
 		
 		Navbar.IMG_FLIP:
-			dialog_img_flip.load_project(g.current_project)
+			dialog_img_flip.launch(g.current_project)
 
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')
@@ -126,16 +128,20 @@ func _on_toolbar_activated(operate_id):
 	properties.state = operate_id
 
 
-func _on_active_adjust_tool(adjust_id):
+func _on_adjusted(adjust_id):
 	match adjust_id:
 		AdjustmentTool.FLIP_H:
-			print('flip h')
+			artboard.canvas.flip_x()
 		AdjustmentTool.FLIP_V:
-			print('flip v')
+			artboard.canvas.flip_y()
 		AdjustmentTool.ROTATE_CCW:
-			print('rotate ccw')
+			artboard.canvas.rotate_cw()
 		AdjustmentTool.ROTATE_CW:
-			print('rotate cw')
+			artboard.canvas.rotate_ccw()
+
+
+func refresh_canvas():
+	artboard.canvas.refresh()
 
 
 func _on_modal_toggled(state :bool):

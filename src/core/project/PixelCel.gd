@@ -25,7 +25,7 @@ func set_image(value: Image):
 	update_texture()
 
 
-func get_image():
+func get_image() ->Image:
 	# for pixel cel it is same with `get_content`,
 	# the reason make two same func is for future other type Cel class.
 	# generally, `get_image` is for get the visual of this cel,
