@@ -159,6 +159,12 @@ func merge(sel_img, rect:=Rect2i(), dst:=Vector2i.ZERO):
 	update_selection()
 
 
+func rotated(direction:):
+	points.clear()
+	selection_map.
+	update_selection()
+
+
 func move_to(to_pos :Vector2i, use_pivot := true):
 	var _offset := pivot_offset if use_pivot else Vector2i.ZERO
 	

@@ -351,12 +351,12 @@ func flip_x():
 		img.flip_x()
 		img_mask.flip_x()
 		selection.update(img_mask, img_mask_rect, rect.position)
-		blank.fill(Color.TRANSPARENT)
 		
 		src_img.blit_rect_mask(img, img_mask, Rect2i(Vector2i.ZERO, rect.size),
 							   rect.position)
 	else:
 		project.current_cel.get_image().flip_x()
+
 	refresh()
 	
 
@@ -378,22 +378,81 @@ func flip_y():
 		img.flip_y()
 		img_mask.flip_y()
 		selection.update(img_mask, img_mask_rect, rect.position)
-		blank.fill(Color.TRANSPARENT)
 		
 		src_img.blit_rect_mask(img, img_mask, Rect2i(Vector2i.ZERO, rect.size),
 							   rect.position)
 	else:
 		project.current_cel.get_image().flip_y()
+
 	refresh()
 	
 
 func rotate_cw():
-	project.current_cel.get_image().rotate_90(CLOCKWISE)
+	if selection.has_selected():
+		var rect := selection.selected_rect
+		var src_img := project.current_cel.get_image()
+		var blank := Image.create(src_img.get_width(), src_img.get_height(), 
+								  false, src_img.get_format())
+		var img := Image.create(src_img.get_width(), src_img.get_height(),
+								false, src_img.get_format())
+		
+		img.blit_rect_mask(src_img, selection.mask, rect, rect.position)
+		src_img.blit_rect_mask(blank, selection.mask, rect, rect.position)
+		
+		img = img.get_region(rect)
+		var img_mask := selection.mask.get_region(rect)
+		var img_mask_rect := Rect2(Vector2.ZERO, 
+								   rect.size.rotated(deg_to_rad(90))
+		img.rotate_90(CLOCKWISE)
+		img_mask.rotate_90(CLOCKWISE)
+		selection.update(img_mask, img_mask_rect, rect.position)
+		src_img.blit_rect_mask(img, img_mask, Rect2i(Vector2i.ZERO, rect.size),
+							   rect.position)
+	else:
+		var img := project.current_cel.get_image()
+		var rotate_img := img.duplicate()
+		rotate_img.rotate_90(CLOCKWISE)
+		var rotate_rect := Rect2i(Vector2i.ZERO, rotate_img.get_size())
+		var dst := Vector2i((img.get_width() - rotate_img.get_width()) * 0.5,
+							(img.get_height() - rotate_img.get_height()) * 0.5)
+		img.fill(Color.TRANSPARENT)
+		img.blit_rect(rotate_img, rotate_rect, dst)
+
 	refresh()
 	
 
 func rotate_ccw():
-	project.current_cel.get_image().rotate_90(COUNTERCLOCKWISE)
+	if selection.has_selected():
+		var rect := selection.selected_rect
+		var src_img := project.current_cel.get_image()
+		var blank := Image.create(src_img.get_width(), src_img.get_height(), 
+								  false, src_img.get_format())
+		var img := Image.create(src_img.get_width(), src_img.get_height(),
+								false, src_img.get_format())
+		
+		img.blit_rect_mask(src_img, selection.mask, rect, rect.position)
+		src_img.blit_rect_mask(blank, selection.mask, rect, rect.position)
+		
+		img = img.get_region(rect)
+		var img_mask = selection.mask.get_region(rect)
+		var img_mask_rect = Rect2i(Vector2i.ZERO, rect.size)
+		img.rotate_90(COUNTERCLOCKWISE)
+		img_mask.rotate_90(COUNTERCLOCKWISE)
+		selection.update(img_mask, img_mask_rect, rect.position)
+
+		src_img.blit_rect_mask(img, img_mask, Rect2i(Vector2i.ZERO, rect.size),
+							   rect.position)
+	else:
+		var img := project.current_cel.get_image()
+		var rotate_img := img.duplicate()
+		rotate_img.rotate_90(COUNTERCLOCKWISE)
+		var rotate_rect := Rect2i(Vector2i.ZERO, rotate_img.get_size())
+		var dst := Vector2i((img.get_width() - rotate_img.get_width()) * 0.5,
+							(img.get_height() - rotate_img.get_height()) * 0.5)
+		img.fill(Color.TRANSPARENT)
+		img.blit_rect(rotate_img, rotate_rect, dst)
+		
+
 	refresh()
 
 

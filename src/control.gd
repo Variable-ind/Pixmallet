@@ -135,9 +135,9 @@ func _on_adjusted(adjust_id):
 		AdjustmentTool.FLIP_V:
 			artboard.canvas.flip_y()
 		AdjustmentTool.ROTATE_CCW:
-			artboard.canvas.rotate_cw()
-		AdjustmentTool.ROTATE_CW:
 			artboard.canvas.rotate_ccw()
+		AdjustmentTool.ROTATE_CW:
+			artboard.canvas.rotate_cw()
 
 
 func refresh_canvas():
