@@ -159,9 +159,48 @@ func merge(sel_img, rect:=Rect2i(), dst:=Vector2i.ZERO):
 	update_selection()
 
 
-func rotated(direction:):
+func get_mask_region():
+	return selection_map.get_region(selected_rect)
+
+
+func get_mask_rect():
+	return Rect2i(Vector2i.ZERO, selected_rect.size)
+
+
+func flip_x():
 	points.clear()
-	selection_map.
+	var flip_sel = mask.get_region(selected_rect)
+	var flip_rect = Rect2i(Vector2i.ZERO, selected_rect.size)
+	flip_sel.flip_x()
+	selection_map.select_none()
+	selection_map.blit_rect(flip_sel, flip_rect, selected_rect.position)
+	update_selection()
+
+
+func flip_y():
+	points.clear()
+	var flip_sel = mask.get_region(selected_rect)
+	var flip_rect = Rect2i(Vector2i.ZERO, selected_rect.size)
+	flip_sel.flip_y()
+	selection_map.select_none()
+	selection_map.blit_rect(flip_sel, flip_rect, selected_rect.position)
+	update_selection()
+
+
+func rotate_90(direction:ClockDirection):
+	points.clear()
+	var dst := selected_rect.position
+	var rotate_sel := selection_map.get_region(selected_rect)
+	var w = selected_rect.size.x
+	var h = selected_rect.size.y
+	
+	rotate_sel.rotate_90(direction)
+	var rotate_size = rotate_sel.get_size()
+	var rotate_rect := Rect2i(Vector2i.ZERO, rotate_size)
+	dst.x += floor((w - rotate_size.x) * 0.5)
+	dst.y += floor((h - rotate_size.y) * 0.5)
+	selection_map.select_none()
+	selection_map.blit_rect(rotate_sel, rotate_rect, dst)
 	update_selection()
 
 

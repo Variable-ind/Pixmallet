@@ -341,18 +341,15 @@ func flip_x():
 								  false, src_img.get_format())
 		var img := Image.create(src_img.get_width(), src_img.get_height(),
 								false, src_img.get_format())
-		
 		img.blit_rect_mask(src_img, selection.mask, rect, rect.position)
 		src_img.blit_rect_mask(blank, selection.mask, rect, rect.position)
 		
 		img = img.get_region(rect)
-		var img_mask = selection.mask.get_region(rect)
-		var img_mask_rect = Rect2i(Vector2i.ZERO, rect.size)
 		img.flip_x()
-		img_mask.flip_x()
-		selection.update(img_mask, img_mask_rect, rect.position)
-		
-		src_img.blit_rect_mask(img, img_mask, Rect2i(Vector2i.ZERO, rect.size),
+		selection.flip_x()
+		src_img.blit_rect_mask(img, 
+							   selection.get_mask_region(), 
+							   selection.get_mask_rect(),
 							   rect.position)
 	else:
 		project.current_cel.get_image().flip_x()
@@ -373,13 +370,11 @@ func flip_y():
 		src_img.blit_rect_mask(blank, selection.mask, rect, rect.position)
 		
 		img = img.get_region(rect)
-		var img_mask = selection.mask.get_region(rect)
-		var img_mask_rect = Rect2i(Vector2i.ZERO, rect.size)
 		img.flip_y()
-		img_mask.flip_y()
-		selection.update(img_mask, img_mask_rect, rect.position)
-		
-		src_img.blit_rect_mask(img, img_mask, Rect2i(Vector2i.ZERO, rect.size),
+		selection.flip_y()
+		src_img.blit_rect_mask(img,
+							   selection.get_mask_region(),
+							   selection.get_mask_rect(),
 							   rect.position)
 	else:
 		project.current_cel.get_image().flip_y()
@@ -400,14 +395,12 @@ func rotate_cw():
 		src_img.blit_rect_mask(blank, selection.mask, rect, rect.position)
 		
 		img = img.get_region(rect)
-		var img_mask := selection.mask.get_region(rect)
-		var img_mask_rect := Rect2(Vector2.ZERO, 
-								   rect.size.rotated(deg_to_rad(90))
 		img.rotate_90(CLOCKWISE)
-		img_mask.rotate_90(CLOCKWISE)
-		selection.update(img_mask, img_mask_rect, rect.position)
-		src_img.blit_rect_mask(img, img_mask, Rect2i(Vector2i.ZERO, rect.size),
-							   rect.position)
+		selection.rotate_90(CLOCKWISE)
+		src_img.blit_rect_mask(img, 
+							   selection.get_mask_region(),
+							   selection.get_mask_rect(),
+							   selection.selected_rect.position)
 	else:
 		var img := project.current_cel.get_image()
 		var rotate_img := img.duplicate()
@@ -434,14 +427,12 @@ func rotate_ccw():
 		src_img.blit_rect_mask(blank, selection.mask, rect, rect.position)
 		
 		img = img.get_region(rect)
-		var img_mask = selection.mask.get_region(rect)
-		var img_mask_rect = Rect2i(Vector2i.ZERO, rect.size)
 		img.rotate_90(COUNTERCLOCKWISE)
-		img_mask.rotate_90(COUNTERCLOCKWISE)
-		selection.update(img_mask, img_mask_rect, rect.position)
-
-		src_img.blit_rect_mask(img, img_mask, Rect2i(Vector2i.ZERO, rect.size),
-							   rect.position)
+		selection.rotate_90(COUNTERCLOCKWISE)
+		src_img.blit_rect_mask(img,
+							   selection.get_mask_region(),
+							   selection.get_mask_rect(),
+							   selection.selected_rect.position)
 	else:
 		var img := project.current_cel.get_image()
 		var rotate_img := img.duplicate()
