@@ -58,6 +58,9 @@ func update_preview():
 								Vector2i.ZERO)
 
 	preview.update_texture(preview_image)
+	btn_rotate_cw.disabled = preview_image.is_invisible()
+	btn_rotate_ccw.disabled = preview_image.is_invisible()
+	confirm_btn.disabled = preview_image.is_invisible()
 
 
 func _on_rotate_cw():

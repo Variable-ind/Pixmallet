@@ -86,9 +86,10 @@ func _on_navbar_navigation_to(nav_id, data):
 		
 		Navbar.IMG_CROP:
 			dialog_img_crop.launch(g.current_project)
-		
 		Navbar.IMG_FLIP:
 			dialog_img_flip.launch(g.current_project)
+		Navbar.IMG_ROTATE:
+			dialog_img_rotate.launch(g.current_project)
 
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')

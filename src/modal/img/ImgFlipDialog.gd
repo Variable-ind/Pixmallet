@@ -56,6 +56,9 @@ func update_preview():
 								Vector2i.ZERO)
 
 	preview.update_texture(preview_image)
+	btn_flip_x.disabled = preview_image.is_invisible()
+	btn_flip_y.disabled = preview_image.is_invisible()
+	confirm_btn.disabled = preview_image.is_invisible()
 
 
 func _on_flip_x():
