@@ -70,10 +70,12 @@ func update_preview():
 
 func change_offset():
 	var rect := Rect2i(Vector2i.ZERO, preview_image.get_size())
-	var img := preview_image.duplicate()
-	preview_image.fill(Color.TRANSPARENT)
-	preview_image.blit_rect(img, rect, offset_pos)
-	preview.render(preview_image, false)
+	var tmp_img := Image.create(rect.size.x,
+								rect.size.y, 
+								false,
+								Image.FORMAT_RGBA8)
+	tmp_img.blit_rect(preview_image, rect, offset_pos)
+	preview.render(tmp_img, false)
 
 
 func _on_pos_x_changed(val :int):
