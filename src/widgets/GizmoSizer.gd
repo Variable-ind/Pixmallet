@@ -237,7 +237,7 @@ func scale_to(pos :Vector2i):
 	# use to prevent running while already stop.
 	last_position = pos
 	
-	match pressed_gizmo.pivot:
+	match pressed_gizmo.type:
 		# size > (1, 1) already limited by not allowed drag to same point.
 		Gizmo.Type.TOP_LEFT: 
 			if pos.x < bound_rect.end.x and pos.y < bound_rect.end.y:
