@@ -191,8 +191,8 @@ func rotate_90(direction:ClockDirection):
 	points.clear()
 	var dst := selected_rect.position
 	var rotate_sel := selection_map.get_region(selected_rect)
-	var w = selected_rect.size.x
-	var h = selected_rect.size.y
+	var w: = selected_rect.size.x
+	var h: = selected_rect.size.y
 	
 	rotate_sel.rotate_90(direction)
 	var rotate_size = rotate_sel.get_size()

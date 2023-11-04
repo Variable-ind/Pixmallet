@@ -21,7 +21,7 @@ var crop_rect := Rect2i()
 @onready var input_width := %Width
 @onready var input_height := %Height
 
-@onready var preview := %Preview
+@onready var crop_preview := %Preview
 
 
 func _ready():
@@ -35,8 +35,8 @@ func _ready():
 	input_width.focus_mode = Control.FOCUS_ALL
 	input_height.focus_mode = Control.FOCUS_ALL
 	
-	preview.crop_line_color = crop_line_color
-	preview.frame_line_color = frame_line_color
+	crop_preview.crop_line_color = crop_line_color
+	crop_preview.frame_line_color = frame_line_color
 	
 #	confirm_btn.focus_mode = Control.FOCUS_NONE
 	confirm_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
@@ -73,8 +73,8 @@ func update_preview():
 		preview_image.blit_rect(img,
 								Rect2i(Vector2i.ZERO, img.get_size()), 
 								Vector2i.ZERO)
-	preview.update_texture(preview_image)
-	preview.update_rect(crop_rect, project.size)
+	crop_preview.preview_texture = preview_image
+	crop_preview.update_rect(crop_rect, project.size)
 
 
 func resize_to(to_size:Vector2i):
@@ -90,7 +90,7 @@ func resize_to(to_size:Vector2i):
 	
 	crop_rect.position = dest_pos
 	crop_rect.size = to_size
-	preview.update_rect(crop_rect, project.size)
+	crop_preview.update_rect(crop_rect, project.size)
 
 
 func _on_confirmed():

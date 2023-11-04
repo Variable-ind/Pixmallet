@@ -21,7 +21,7 @@ shader_parameter/follow_scale = false
 [node name="CropDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Crop Canvas"
-size = Vector2i(300, 365)
+size = Vector2i(321, 429)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
@@ -123,3 +123,13 @@ layout_mode = 2
 min_value = 1.0
 value = 1.0
 prefix = "Height:"
+
+[node name="holder2" type="HSeparator" parent="MarginContainer/column"]
+layout_mode = 2
+
+[node name="note" type="Label" parent="MarginContainer/column"]
+layout_mode = 2
+theme_type_variation = &"caption"
+text = "* Effect whole project, 
+but preview display current frame only."
+horizontal_alignment = 1

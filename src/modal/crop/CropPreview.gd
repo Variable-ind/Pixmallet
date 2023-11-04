@@ -2,6 +2,9 @@ class_name CropPreview extends TextureRect
 
 const MIN_SIZE := Vector2i(200, 200)
 
+var preview_texture :Image:
+	set = set_preview_texture
+		
 var preview_rect := Rect2i()
 var preview_crop_rect := Rect2i()
 var frame_line_color := Color.GRAY
@@ -17,7 +20,8 @@ func _ready():
 	resized.connect(make_placement)
 
 
-func update_texture(img :Image):
+func set_preview_texture(img :Image):
+	preview_texture = img
 	var img_width :float = img.get_width()
 	var img_height :float = img.get_height()
 	var _width :int = floor(size.x)

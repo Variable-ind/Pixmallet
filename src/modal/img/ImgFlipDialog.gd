@@ -7,8 +7,8 @@ var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
 
 var project :Project
 
-var flipped_x:= false
-var flipped_y:= false
+var flipped_x := false
+var flipped_y := false
 
 @export var frame_line_color := Color.DIM_GRAY
 
@@ -23,6 +23,7 @@ func _ready():
 	initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_PRIMARY_SCREEN
 	
 	preview.frame_line_color = frame_line_color
+	preview.resized.connect(_on_resized)
 	
 #	confirm_btn.focus_mode = Control.FOCUS_NONE
 	confirm_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
@@ -38,6 +39,8 @@ func _ready():
 
 func launch(proj:Project):
 	preview_image.fill(Color.TRANSPARENT)
+	flipped_x = false
+	flipped_y = false
 	project = proj
 	cancel_btn.grab_focus.call_deferred()
 	update_preview()
@@ -55,7 +58,8 @@ func update_preview():
 								Rect2i(Vector2i.ZERO, img.get_size()), 
 								Vector2i.ZERO)
 
-	preview.update_texture(preview_image)
+	preview.render(preview_image)
+	
 	btn_flip_x.disabled = preview_image.is_invisible()
 	btn_flip_y.disabled = preview_image.is_invisible()
 	confirm_btn.disabled = preview_image.is_invisible()
@@ -64,13 +68,13 @@ func update_preview():
 func _on_flip_x():
 	flipped_x = not flipped_x
 	preview_image.flip_x()
-	preview.update_texture(preview_image)
+	preview.render(preview_image)
 
 
 func _on_flip_y():
 	flipped_y = not flipped_y
 	preview_image.flip_y()
-	preview.update_texture(preview_image)
+	preview.render(preview_image)
 
 
 func _on_confirmed():
@@ -84,3 +88,7 @@ func _on_confirmed():
 
 func _on_visibility_changed():
 	modal_toggled.emit(visible)
+
+
+func _on_resized():
+	preview.render(preview_image)

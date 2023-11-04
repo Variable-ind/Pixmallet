@@ -19,6 +19,7 @@ func _ready():
 	initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_PRIMARY_SCREEN
 	
 	preview.frame_line_color = frame_line_color
+	preview.resized.connect(_on_resized)
 	
 #	confirm_btn.focus_mode = Control.FOCUS_NONE
 	confirm_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
@@ -33,6 +34,7 @@ func _ready():
 func launch(proj:Project):
 	preview_image.fill(Color.TRANSPARENT)
 	project = proj
+	crop_rect = Rect2i()
 	cancel_btn.grab_focus.call_deferred()
 	update_preview()
 	visible = true
@@ -55,10 +57,11 @@ func update_preview():
 									   false,
 									   preview_image.get_format())
 		cropped_img.blit_rect(preview_image, crop_rect, Vector2i.ZERO)
-		preview.update_texture(cropped_img)
+		preview_image.copy_from(cropped_img)
+		preview.render(preview_image)
 		confirm_btn.disabled = false
 	else:
-		preview.update_texture(preview_image)
+		preview.render(preview_image)
 		confirm_btn.disabled = true
 
 
@@ -69,3 +72,7 @@ func _on_confirmed():
 
 func _on_visibility_changed():
 	modal_toggled.emit(visible)
+
+
+func _on_resized():
+	preview.render(preview_image)	

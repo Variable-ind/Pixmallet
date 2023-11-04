@@ -129,7 +129,8 @@ visible = false
 
 [node name="ImgCropDialog" parent="." instance=ExtResource("12_42p4h")]
 unique_name_in_owner = true
-size = Vector2i(300, 300)
+size = Vector2i(300, 303)
+visible = false
 
 [node name="ImgFlipDialog" parent="." instance=ExtResource("13_tsirw")]
 unique_name_in_owner = true

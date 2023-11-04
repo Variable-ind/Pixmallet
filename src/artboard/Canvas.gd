@@ -397,17 +397,20 @@ func rotate_cw():
 		img = img.get_region(rect)
 		img.rotate_90(CLOCKWISE)
 		selection.rotate_90(CLOCKWISE)
-		src_img.blit_rect_mask(img, 
-							   selection.get_mask_region(),
-							   selection.get_mask_rect(),
+		src_img.blit_rect_mask(img, img, selection.get_mask_rect(),
 							   selection.selected_rect.position)
 	else:
 		var img := project.current_cel.get_image()
+		var w: = img.get_width()
+		var h: = img.get_height()
+		
 		var rotate_img := img.duplicate()
 		rotate_img.rotate_90(CLOCKWISE)
 		var rotate_rect := Rect2i(Vector2i.ZERO, rotate_img.get_size())
-		var dst := Vector2i((img.get_width() - rotate_img.get_width()) * 0.5,
-							(img.get_height() - rotate_img.get_height()) * 0.5)
+		var dst = Vector2i(
+			floor((w - rotate_rect.size.x) * 0.5),
+			floor((h - rotate_rect.size.y) * 0.5)
+		)
 		img.fill(Color.TRANSPARENT)
 		img.blit_rect(rotate_img, rotate_rect, dst)
 
@@ -428,22 +431,25 @@ func rotate_ccw():
 		
 		img = img.get_region(rect)
 		img.rotate_90(COUNTERCLOCKWISE)
+		
 		selection.rotate_90(COUNTERCLOCKWISE)
-		src_img.blit_rect_mask(img,
-							   selection.get_mask_region(),
-							   selection.get_mask_rect(),
+		src_img.blit_rect_mask(img, img, selection.get_mask_rect(),
 							   selection.selected_rect.position)
 	else:
 		var img := project.current_cel.get_image()
+		var w: = img.get_width()
+		var h: = img.get_height()
+		
 		var rotate_img := img.duplicate()
 		rotate_img.rotate_90(COUNTERCLOCKWISE)
 		var rotate_rect := Rect2i(Vector2i.ZERO, rotate_img.get_size())
-		var dst := Vector2i((img.get_width() - rotate_img.get_width()) * 0.5,
-							(img.get_height() - rotate_img.get_height()) * 0.5)
+		var dst = Vector2i(
+			floor((w - rotate_rect.size.x) * 0.5),
+			floor((h - rotate_rect.size.y) * 0.5)
+		)
 		img.fill(Color.TRANSPARENT)
 		img.blit_rect(rotate_img, rotate_rect, dst)
 		
-
 	refresh()
 
 
