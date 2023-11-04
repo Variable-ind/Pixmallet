@@ -4,7 +4,12 @@ signal modal_toggled(state)
 signal applied
 
 var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
-var offset_pos := Vector2i.ZERO
+var offset_pos := Vector2i.ZERO:
+	set(val):
+		offset_pos = val.clamp(min_offset_pos, max_offset_pos)
+
+var min_offset_pos := Vector2i.ZERO
+var max_offset_pos := Vector2i.ZERO
 
 var project :Project
 
@@ -42,10 +47,13 @@ func launch(proj:Project):
 	offset_pos = Vector2i.ZERO
 	project = proj
 	
-	input_x.min_value = - proj.size.x
-	input_x.max_value = proj.size.x * 2
-	input_y.min_value = - proj.size.y
-	input_y.max_value = proj.size.y * 2
+	min_offset_pos = Vector2i(- proj.size.x, - proj.size.y)
+	max_offset_pos = Vector2i(proj.size.x, proj.size.y)
+	
+	input_x.min_value = min_offset_pos.x
+	input_x.max_value = max_offset_pos.x
+	input_y.min_value = min_offset_pos.y
+	input_y.max_value = max_offset_pos.y
 	
 	cancel_btn.grab_focus.call_deferred()
 	update_preview()
@@ -68,29 +76,64 @@ func update_preview():
 	confirm_btn.disabled = preview_image.is_invisible()
 
 
-func change_offset():
+func change_preview_offset():
 	var rect := Rect2i(Vector2i.ZERO, preview_image.get_size())
+	var repeat_img := Image.create(rect.size.x * 4,
+								   rect.size.y * 4, 
+								   false,
+								   Image.FORMAT_RGBA8)
+	repeat_img.blit_rect(preview_image, rect, Vector2i.ZERO)
+	repeat_img.blit_rect(preview_image, rect, Vector2i(0, rect.size.y))
+	repeat_img.blit_rect(preview_image, rect, Vector2i(rect.size.x, 0))
+	repeat_img.blit_rect(preview_image, rect, rect.size)
+	
 	var tmp_img := Image.create(rect.size.x,
 								rect.size.y, 
 								false,
 								Image.FORMAT_RGBA8)
-	tmp_img.blit_rect(preview_image, rect, offset_pos)
+	var tmp_rect := Rect2i(offset_pos, rect.size)
+	if tmp_rect.position.x < 0:
+		tmp_rect.position.x += rect.size.x
+	if tmp_rect.position.y < 0:
+		tmp_rect.position.y += rect.size.y
+	tmp_img.blit_rect(repeat_img, tmp_rect, Vector2i.ZERO)
 	preview.render(tmp_img, false)
+
+
+func offset_image(img):
+	var rect := Rect2i(Vector2i.ZERO, img.get_size())
+	var tmp_rect := Rect2i(offset_pos, rect.size)
+	var repeat_img := Image.create(rect.size.x * 4,
+								   rect.size.y * 4, 
+								   false,
+								   Image.FORMAT_RGBA8)
+	repeat_img.blit_rect(img, rect, Vector2i.ZERO)
+	repeat_img.blit_rect(img, rect, Vector2i(0, rect.size.y))
+	repeat_img.blit_rect(img, rect, Vector2i(rect.size.x, 0))
+	repeat_img.blit_rect(img, rect, rect.size)
+
+	if tmp_rect.position.x < 0:
+		tmp_rect.position.x += rect.size.x
+	if tmp_rect.position.y < 0:
+		tmp_rect.position.y += rect.size.y
+	img.fill(Color.TRANSPARENT)
+	img.blit_rect(repeat_img, tmp_rect, Vector2i.ZERO)
 
 
 func _on_pos_x_changed(val :int):
 	offset_pos.x = val
-	change_offset()
+	change_preview_offset()
 
 
 func _on_pos_y_changed(val :int):
 	offset_pos.y = val
-	change_offset()
+	change_preview_offset()
 
 
 func _on_confirmed():
-#	for cel in project.selected_cels:
-#
+	if offset_pos != Vector2i.ZERO:
+		for cel in project.selected_cels:
+			offset_image(cel.get_image())
 	applied.emit()
 
 
