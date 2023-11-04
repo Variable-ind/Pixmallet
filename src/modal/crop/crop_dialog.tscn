@@ -14,7 +14,7 @@ shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
 shader_parameter/color2 = Color(1, 1, 1, 1)
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/scale = Vector2(0, 0)
-shader_parameter/rect_size = Vector2(208, 208)
+shader_parameter/rect_size = Vector2(234, 234)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
@@ -47,8 +47,7 @@ layout_mode = 2
 [node name="note" type="Label" parent="MarginContainer/column"]
 layout_mode = 2
 theme_type_variation = &"caption"
-text = "Crop canvas.
-(preview display current frame only)"
+text = "(preview display current frame only)"
 horizontal_alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]
@@ -84,17 +83,17 @@ layout_mode = 2
 [node name="row" type="HBoxContainer" parent="MarginContainer/column"]
 layout_mode = 2
 
-[node name="column2" type="VBoxContainer" parent="MarginContainer/column/row"]
+[node name="column" type="VBoxContainer" parent="MarginContainer/column/row"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="label_pivot" type="Label" parent="MarginContainer/column/row/column2"]
+[node name="label_pivot" type="Label" parent="MarginContainer/column/row/column"]
 layout_mode = 2
 text = "Pivot"
 horizontal_alignment = 1
 
-[node name="OptPivot" type="Control" parent="MarginContainer/column/row/column2"]
+[node name="OptPivot" type="Control" parent="MarginContainer/column/row/column"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2

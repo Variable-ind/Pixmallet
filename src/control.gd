@@ -17,6 +17,7 @@ var background_color := Color.BLACK
 
 @onready var dialog_crop := %CropDialog
 @onready var dialog_img_crop := %ImgCropDialog
+@onready var dialog_img_offset := %ImgOffsetDialog
 @onready var dialog_img_flip := %ImgFlipDialog
 @onready var dialog_img_rotate := %ImgRotateDialog
 
@@ -69,7 +70,6 @@ func _on_navbar_navigation_to(nav_id, data):
 			artboard.canvas.selection.deselect()
 		Navbar.INVERT_SEL:
 			artboard.canvas.selection.invert()
-			
 		
 		Navbar.ZOOM_IN:
 			camera.zoom_in()
@@ -86,6 +86,8 @@ func _on_navbar_navigation_to(nav_id, data):
 		
 		Navbar.IMG_CROP:
 			dialog_img_crop.launch(g.current_project)
+		Navbar.IMG_OFFSET:
+			dialog_img_offset.launch(g.current_project)
 		Navbar.IMG_FLIP:
 			dialog_img_flip.launch(g.current_project)
 		Navbar.IMG_ROTATE:

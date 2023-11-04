@@ -88,7 +88,7 @@ func rotate_90(direction:ClockDirection):
 		floor((h - rotate_rect.size.y) * 0.5)
 	)
 	cropped_img.blit_rect(preview_image, rotate_rect, dst)
-	preview.render(cropped_img)
+	preview.render(cropped_img, false)
 
 
 func _on_confirmed():

@@ -1,22 +1,21 @@
-class_name ImgFlipDialog extends ConfirmationDialog
+class_name ImgOffsetDialog extends ConfirmationDialog
 
 signal modal_toggled(state)
 signal applied
 
 var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
+var offset_pos := Vector2i.ZERO
 
 var project :Project
-
-var flipped_x := false
-var flipped_y := false
 
 @export var frame_line_color := Color.DIM_GRAY
 
 @onready var confirm_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()
 @onready var preview := %Preview
-@onready var btn_flip_x := %BtnFlipX
-@onready var btn_flip_y := %BtnFlipY
+
+@onready var input_x := %PosX
+@onready var input_y := %PosY
 
 
 func _ready():
@@ -31,17 +30,23 @@ func _ready():
 #	cancel_btn.focus_mode = Control.FOCUS_NONE
 	cancel_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	
-	btn_flip_x.pressed.connect(_on_flip_x)
-	btn_flip_y.pressed.connect(_on_flip_y)
 	confirmed.connect(_on_confirmed)
 	visibility_changed.connect(_on_visibility_changed)
+	
+	input_x.value_changed.connect(_on_pos_x_changed)
+	input_y.value_changed.connect(_on_pos_y_changed)
 
 
 func launch(proj:Project):
 	preview_image.fill(Color.TRANSPARENT)
-	flipped_x = false
-	flipped_y = false
+	offset_pos = Vector2i.ZERO
 	project = proj
+	
+	input_x.min_value = - proj.size.x
+	input_x.max_value = proj.size.x * 2
+	input_y.min_value = - proj.size.y
+	input_y.max_value = proj.size.y * 2
+	
 	cancel_btn.grab_focus.call_deferred()
 	update_preview()
 	visible = true
@@ -60,30 +65,30 @@ func update_preview():
 								Vector2i.ZERO)
 
 	preview.render(preview_image)
-	
-	btn_flip_x.disabled = preview_image.is_invisible()
-	btn_flip_y.disabled = preview_image.is_invisible()
 	confirm_btn.disabled = preview_image.is_invisible()
 
 
-func _on_flip_x():
-	flipped_x = not flipped_x
-	preview_image.flip_x()
+func change_offset():
+	var rect := Rect2i(Vector2i.ZERO, preview_image.get_size())
+	var img := preview_image.duplicate()
+	preview_image.fill(Color.TRANSPARENT)
+	preview_image.blit_rect(img, rect, offset_pos)
 	preview.render(preview_image, false)
 
 
-func _on_flip_y():
-	flipped_y = not flipped_y
-	preview_image.flip_y()
-	preview.render(preview_image, false)
+func _on_pos_x_changed(val :int):
+	offset_pos.x = val
+	change_offset()
+
+
+func _on_pos_y_changed(val :int):
+	offset_pos.y = val
+	change_offset()
 
 
 func _on_confirmed():
-	for cel in project.selected_cels:
-		if flipped_x:
-			cel.get_image().flip_x()
-		if flipped_y:
-			cel.get_image().flip_y()
+#	for cel in project.selected_cels:
+#
 	applied.emit()
 
 

@@ -16,7 +16,7 @@ func _ready():
 	msg_empty.hide()
 
 
-func render(img :Image):
+func render(img :Image, check_visible := true):
 	img = img.duplicate()  # prevent image unexcept changes.
 	var img_width :float = img.get_width()
 	var img_height :float = img.get_height()
@@ -41,17 +41,26 @@ func render(img :Image):
 		trans_checker.size
 	)
 	
+	if check_visible:
+		check_preview_visible(img)
+	else:
+		trans_checker.show()
+		msg_empty.hide()
+
+	if trans_checker.visible:
+		texture = ImageTexture.create_from_image(img)
+		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+
+	queue_redraw()
+
+
+func check_preview_visible(img):
 	if img.is_invisible():
 		trans_checker.hide()
 		msg_empty.show()
 	else:
 		trans_checker.show()
 		msg_empty.hide()
-		
-		texture = ImageTexture.create_from_image(img)
-		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-
-	queue_redraw()
 
 
 func _draw():
