@@ -472,10 +472,11 @@ func drag_to(pos, drag_offset):
 
 func resize_to(to_size :Vector2i):
 	to_size = to_size.clamp(Vector2i.ONE, size)
-	var _offset = Pivot.get_pivot_offset(pivot, to_size)
-	var coef := Vector2(_offset) / Vector2(to_size)
-	var size_diff :Vector2i = Vector2(shaped_rect.size - to_size) * coef
-	shaped_rect.position += size_diff
+	var _offset := Pivot.get_pivot_offset(pivot, to_size)
+	var _pos_offset := Pivot.get_position_offset(pivot,
+												 shaped_rect.size,
+												 to_size)
+	shaped_rect.position += _pos_offset
 	shaped_rect.size = to_size
 	touch_rect = shaped_rect.grow(stroke_width)
 	update_shape()

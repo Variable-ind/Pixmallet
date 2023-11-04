@@ -252,8 +252,10 @@ func drag_to(pos, drag_offset):
 
 func resize_to(to_size :Vector2i):			
 	to_size = to_size.clamp(Vector2i.ONE, size)
-		
-	selection_map.resize_to(to_size, Pivot.get_pivot_offset(pivot, to_size))
+	var _pos_offset = Pivot.get_position_offset(pivot, 
+												selected_rect.size,
+												to_size)
+	selection_map.resize_to(to_size, selected_rect.position + _pos_offset)
 	update_selection()
 
 

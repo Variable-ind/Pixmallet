@@ -83,12 +83,9 @@ func resize_to(to_size:Vector2i):
 	if to_size.y < 1:
 		to_size.y = 1
 		
-	var _offset = Pivot.get_pivot_offset(pivot, to_size)
-	var coef := Vector2(_offset) / Vector2(to_size)
-	var size_diff :Vector2i = Vector2(crop_rect.size - to_size) * coef
-	var dest_pos :Vector2i = crop_rect.position + size_diff
-	
-	crop_rect.position = dest_pos
+	var _offset := Pivot.get_pivot_offset(pivot, to_size)
+	var _pos_offset := Pivot.get_position_offset(pivot, crop_rect.size, to_size)
+	crop_rect.position += _pos_offset
 	crop_rect.size = to_size
 	crop_preview.update_rect(crop_rect, project.size)
 

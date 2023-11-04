@@ -44,10 +44,11 @@ func set_preview_texture(img :Image):
 func update_rect(rect :Rect2, base_size :Vector2):
 	var ratio_x :float = preview_rect.size.x / base_size.x
 	var ratio_y :float = preview_rect.size.y / base_size.y
-	preview_crop_rect.size.x = floor(rect.size.x * ratio_x)
-	preview_crop_rect.size.y = floor(rect.size.y * ratio_y)
-	var to_pos_x = floor(rect.position.x * ratio_x)
-	var to_pos_y = floor(rect.position.y * ratio_y)
+
+	preview_crop_rect.size.x = ceil(rect.size.x * ratio_x)
+	preview_crop_rect.size.y = ceil(rect.size.y * ratio_y)
+	var to_pos_x = ceil(rect.position.x * ratio_x)
+	var to_pos_y = ceil(rect.position.y * ratio_y)
 	preview_crop_rect.position.x = preview_rect.position.x + to_pos_x
 	preview_crop_rect.position.y = preview_rect.position.y + to_pos_y
 	queue_redraw()

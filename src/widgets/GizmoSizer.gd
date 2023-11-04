@@ -284,11 +284,9 @@ func resize_to(to_size:Vector2i):
 		to_size.y = 1
 		
 	var _offset = get_sizer_pivot_offset(to_size)
-	var coef := Vector2(_offset) / Vector2(to_size)
-	var size_diff :Vector2i = Vector2(bound_rect.size - to_size) * coef
-	var dest_pos :Vector2i = bound_rect.position + size_diff
+	var _pos_offset = get_sizer_position_offset(bound_rect.size, to_size)
 	
-	bound_rect.position = dest_pos
+	bound_rect.position += _pos_offset
 	bound_rect.size = to_size
 	
 	updated.emit(bound_rect, relative_position, is_activated)
@@ -352,6 +350,54 @@ func get_sizer_pivot_offset(to_size:Vector2i) -> Vector2i:
 			_offset.y = to_size.y / 2.0
 			
 	return _offset
+
+
+func get_sizer_position_offset(org_size:Vector2i,
+							   to_size:Vector2i) -> Vector2i:
+	# DONT DO THIS, when size is very small the result is incorerect.
+	# because the int/float precision.
+#	var _offset := Pivot.get_pivot_offset(pivot, to_size)
+#	var coef :Vector2 = Vector2(_offset) / Vector2(to_size)
+#	var size_diff :Vector2 = Vector2(org_rect.size - to_size) * coef
+#	var dest_pos :Vector2i = Vector2(org_rect.position) + size_diff
+
+	var _pos = Vector2i.ZERO
+	var delta_w := (org_size.x - to_size.x)
+	var delta_h := (org_size.y - to_size.y)
+	
+	match pivot:
+		GSPivot.TOP_LEFT:
+			pass
+			
+		GSPivot.TOP_CENTER:
+			_pos.x += round(delta_w / 2.0)
+
+		GSPivot.TOP_RIGHT:
+			_pos.x += delta_w
+
+		GSPivot.MIDDLE_RIGHT:
+			_pos.x += delta_w
+			_pos.y += round(delta_h / 2.0)
+
+		GSPivot.BOTTOM_RIGHT:
+			_pos.x += delta_w
+			_pos.y += delta_h
+
+		GSPivot.BOTTOM_CENTER:
+			_pos.x += round(delta_w / 2.0)
+			_pos.y = delta_h
+
+		GSPivot.BOTTOM_LEFT:
+			_pos.y = delta_h
+
+		GSPivot.MIDDLE_LEFT:
+			_pos.y = round(delta_h / 2.0)
+		
+		GSPivot.CENTER:
+			_pos.x = round(delta_w / 2.0)
+			_pos.y = round(delta_h / 2.0)
+			
+	return _pos
 
 
 func has_area() -> bool:

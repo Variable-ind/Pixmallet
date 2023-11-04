@@ -293,14 +293,10 @@ func move_to(to_position :Vector2i, pivot_offset := Vector2i.ZERO):
 #				select_pixel(to_pos)
 				
 
-func resize_to(to_size :Vector2i, pivot_offset :=Vector2i.ZERO):
+func resize_to(to_size :Vector2i, dest_pos:=Vector2i.ZERO):
 	if is_invisible():
 		return 
-	var sel_rect := get_used_rect()
 	var tmp_img := get_region(get_used_rect())
-	var coef := Vector2(pivot_offset) / Vector2(to_size)
-	var size_diff :Vector2i = Vector2(sel_rect.size - to_size) * coef
-	var dest_pos :Vector2i = sel_rect.position + size_diff
 	
 	tmp_img.resize(to_size.x, to_size.y, INTERPOLATE_NEAREST)
 	
