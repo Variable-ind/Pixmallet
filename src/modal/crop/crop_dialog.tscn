@@ -14,7 +14,7 @@ shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
 shader_parameter/color2 = Color(1, 1, 1, 1)
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/scale = Vector2(0, 0)
-shader_parameter/rect_size = Vector2(200, 200)
+shader_parameter/rect_size = Vector2(208, 208)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
@@ -43,6 +43,13 @@ size_flags_vertical = 3
 
 [node name="column" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+
+[node name="note" type="Label" parent="MarginContainer/column"]
+layout_mode = 2
+theme_type_variation = &"caption"
+text = "Crop canvas.
+(preview display current frame only)"
+horizontal_alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]
 clip_contents = true
@@ -123,13 +130,3 @@ layout_mode = 2
 min_value = 1.0
 value = 1.0
 prefix = "Height:"
-
-[node name="holder2" type="HSeparator" parent="MarginContainer/column"]
-layout_mode = 2
-
-[node name="note" type="Label" parent="MarginContainer/column"]
-layout_mode = 2
-theme_type_variation = &"caption"
-text = "* Effect whole project, 
-but preview display current frame only."
-horizontal_alignment = 1

@@ -48,7 +48,8 @@ func launch(proj:Project):
 
 
 func update_preview():
-	for img in project.current_frame.get_images():
+	for cel in project.selected_cels:
+		var img = cel.get_image()
 		if preview_image.get_width() != img.get_width() or \
 		   preview_image.get_height() != img.get_height():
 			preview_image.resize(img.get_width(), img.get_height())

@@ -44,6 +44,13 @@ size_flags_vertical = 3
 [node name="column" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
+[node name="note" type="Label" parent="MarginContainer/column"]
+layout_mode = 2
+theme_type_variation = &"caption"
+text = "Crop canvas to image edge.
+(preview display current frame only)"
+horizontal_alignment = 1
+
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]
 clip_contents = true
 layout_mode = 2
@@ -82,10 +89,3 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 script = ExtResource("4_4d281")
-
-[node name="note" type="Label" parent="MarginContainer/column"]
-layout_mode = 2
-theme_type_variation = &"caption"
-text = "* Effect whole project, 
-but preview display current frame only."
-horizontal_alignment = 1
