@@ -54,6 +54,16 @@ func render(img :Image, check_visible := true):
 	queue_redraw()
 
 
+func set_preview_material(params:Dictionary):
+	for param in params:
+		material.set_shader_parameter(param, params[param])
+
+
+func update_material(params:Dictionary):
+	for param in params:
+		material.set_shader_parameter(param, params[param])
+
+
 func check_preview_visible(img):
 	if img.is_invisible():
 		trans_checker.hide()

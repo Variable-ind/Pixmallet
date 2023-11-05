@@ -21,6 +21,8 @@ var background_color := Color.BLACK
 @onready var dialog_img_scale := %ImgScaleDialog
 @onready var dialog_img_flip := %ImgFlipDialog
 @onready var dialog_img_rotate := %ImgRotateDialog
+@onready var dialog_img_outline := %ImgOutlineDialog
+
 
 
 func _ready():
@@ -95,6 +97,8 @@ func _on_navbar_navigation_to(nav_id, data):
 			dialog_img_flip.launch(g.current_project)
 		Navbar.IMG_ROTATE:
 			dialog_img_rotate.launch(g.current_project)
+		Navbar.IMG_OUTLINE:
+			dialog_img_outline.launch(g.current_project, foreground_color)
 
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')

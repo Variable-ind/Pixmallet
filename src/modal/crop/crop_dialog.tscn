@@ -47,7 +47,7 @@ layout_mode = 2
 [node name="note" type="Label" parent="MarginContainer/column"]
 layout_mode = 2
 theme_type_variation = &"caption"
-text = "(preview display current frame only)"
+text = "preview display current frame."
 horizontal_alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]

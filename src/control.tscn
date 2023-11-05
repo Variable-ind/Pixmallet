@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=18 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_hk23w"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://5rqcx73w4hx1" path="res://src/modal/img/imgoffset_dialog.tscn" id="13_y3c41"]
 [ext_resource type="PackedScene" uid="uid://dl2ady5de5f2s" path="res://src/modal/img/imgscale_dialog.tscn" id="14_4b5wq"]
 [ext_resource type="PackedScene" uid="uid://cpa42gpjhhusd" path="res://src/modal/img/imgrotate_dialog.tscn" id="14_kodwm"]
+[ext_resource type="PackedScene" uid="uid://led4xclr08vn" path="res://src/modal/img/imgoutline_dialog.tscn" id="17_2x24a"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -154,6 +155,11 @@ unique_name_in_owner = true
 size = Vector2i(300, 334)
 visible = false
 
+[node name="ImgOutlineDialog" parent="." instance=ExtResource("17_2x24a")]
+unique_name_in_owner = true
+size = Vector2i(289, 447)
+visible = false
+
 [node name="overlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -183,3 +189,5 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 [connection signal="modal_toggled" from="ImgFlipDialog" to="." method="_on_modal_toggled"]
 [connection signal="applied" from="ImgRotateDialog" to="." method="refresh_canvas"]
 [connection signal="modal_toggled" from="ImgRotateDialog" to="." method="_on_modal_toggled"]
+[connection signal="applied" from="ImgOutlineDialog" to="." method="refresh_canvas"]
+[connection signal="modal_toggled" from="ImgOutlineDialog" to="." method="_on_modal_toggled"]
