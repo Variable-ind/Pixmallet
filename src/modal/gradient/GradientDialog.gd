@@ -55,8 +55,10 @@ var selected_dither_matrix := dither_matrices[0]
 @onready var slider_position := %SliderPosition
 @onready var slider_size := %SliderSize
 @onready var slider_angle := %SliderAngle
-@onready var slider_center := %SliderCenter
-@onready var radius_slider := %SliderRadius
+@onready var slider_center_x := %SliderCenterX
+@onready var slider_center_y := %SliderCenterY
+@onready var slider_radius_x := %SliderRadiusX
+@onready var slider_radius_y := %SliderRadiusY
 
 @onready var preview := %Preview
 

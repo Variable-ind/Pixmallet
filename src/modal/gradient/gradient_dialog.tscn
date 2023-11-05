@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi52y1bgrh6rr"]
+[gd_scene load_steps=10 format=3 uid="uid://bi52y1bgrh6rr"]
 
 [ext_resource type="Script" path="res://src/modal/gradient/GradientDialog.gd" id="1_d0ya4"]
 [ext_resource type="Script" path="res://src/modal/gradient/GradientPreview.gd" id="2_6bwyp"]
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="4_kevls"]
+[ext_resource type="Script" path="res://src/modal/gradient/GradientEdit.gd" id="5_c7nc3"]
 [ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="5_ond38"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="6_d636d"]
 
@@ -18,10 +19,16 @@ shader_parameter/rect_size = Vector2(200, 200)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
+[sub_resource type="Gradient" id="Gradient_260l1"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5vwap"]
+gradient = SubResource("Gradient_260l1")
+
 [node name="GradientDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Posterize"
-size = Vector2i(273, 375)
+position = Vector2i(0, 36)
+size = Vector2i(273, 405)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
@@ -81,7 +88,20 @@ script = ExtResource("5_ond38")
 layout_mode = 2
 
 [node name="GradientEdit" type="Control" parent="MarginContainer/column"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+script = ExtResource("5_c7nc3")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/column/GradientEdit"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_5vwap")
+expand_mode = 1
 
 [node name="row" type="VBoxContainer" parent="MarginContainer/column"]
 layout_mode = 2
