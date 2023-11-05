@@ -1,27 +1,12 @@
 class_name Grid extends Node2D
 
-enum {
-	NONE,
-	ALL,
-	CARTESIAN,
-	ISOMETRIC,
-}
-var state := NONE :
-	set(val):
-		state = val
-		if state == NONE:
-			hide()
-		else:
-			show()
-		queue_redraw()
-
 var isometric_grid_size := Vector2i(96, 48)
 var grid_size := Vector2i(48, 48)
 var grid_color := Color.DEEP_SKY_BLUE:
 	set(val):
 		grid_color = val
 		isometric_grid_color = Color(val)
-		isometric_grid_color.a *= 0.66
+
 var isometric_grid_color := Color(0, 0.74902, 0.66)
 var pixel_grid_color := Color.LIGHT_BLUE
 
@@ -32,10 +17,20 @@ var zoom_at := 1.0 :
 		zoom_at = val
 		queue_redraw()
 
-var show_pixel_grid := false
-var show_cartesian_grid := false
-var show_isometric_grid := false
-
+var show_pixel_grid := false:
+	set(val):
+		show_pixel_grid = val
+		queue_redraw()
+		
+var show_cartesian_grid := false:
+	set(val):
+		show_cartesian_grid = val
+		queue_redraw()
+		
+var show_isometric_grid := false:
+	set(val):
+		show_isometric_grid = val
+		queue_redraw()
 
 var canvas_size := Vector2i.ZERO :
 	set(val):
@@ -45,6 +40,10 @@ var canvas_size := Vector2i.ZERO :
 var boundary :Rect2 :
 	get: return Rect2(Vector2.ZERO, canvas_size)
 
+
+func refresh():
+	queue_redraw()
+	
 
 func _draw():
 	if not boundary.has_area():
