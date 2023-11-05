@@ -1,14 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpa42gpjhhusd"]
+[gd_scene load_steps=8 format=3 uid="uid://du8kf164kcqfk"]
 
-[ext_resource type="Script" path="res://src/modal/img/ImgRotateDialog.gd" id="1_6fppo"]
-[ext_resource type="Script" path="res://src/modal/img/ImgPreview.gd" id="2_w5t0p"]
-[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="3_d1s22"]
-[ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="4_5m6q1"]
-[ext_resource type="Texture2D" uid="uid://c18wh8glajtor" path="res://assets/icons/rotate-cw.png" id="5_fp0j6"]
-[ext_resource type="Texture2D" uid="uid://buv4yejvagx6u" path="res://assets/icons/rotate-ccw.png" id="6_c3mod"]
+[ext_resource type="Script" path="res://src/modal/img_effect/ImgFlipDialog.gd" id="1_7nsn7"]
+[ext_resource type="Script" path="res://src/modal/img_effect/ImgPreview.gd" id="2_l0ks6"]
+[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="3_45hkv"]
+[ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="4_h1jt4"]
+[ext_resource type="Texture2D" uid="uid://w4mloklylrbw" path="res://assets/icons/flip-h.png" id="5_qbfvm"]
+[ext_resource type="Texture2D" uid="uid://bs4hd7aou4oo" path="res://assets/icons/flip-v.png" id="7_3mva7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rpprc"]
-shader = ExtResource("3_d1s22")
+shader = ExtResource("3_45hkv")
 shader_parameter/size = 10.0
 shader_parameter/alpha = 1.0
 shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
@@ -19,14 +19,14 @@ shader_parameter/rect_size = Vector2(200, 200)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
-[node name="ImgRotateDialog" type="ConfirmationDialog"]
+[node name="ImgFlipDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Flip Image"
-size = Vector2i(274, 330)
+size = Vector2i(251, 330)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
-script = ExtResource("1_6fppo")
+script = ExtResource("1_7nsn7")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -34,7 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 266.0
+offset_right = 243.0
 offset_bottom = 281.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -47,7 +47,7 @@ layout_mode = 2
 [node name="note" type="Label" parent="MarginContainer/column"]
 layout_mode = 2
 theme_type_variation = &"caption"
-text = "Rotate image for all selected cels."
+text = "Flip image for all selected cels."
 horizontal_alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]
@@ -61,10 +61,10 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
-script = ExtResource("2_w5t0p")
+script = ExtResource("2_l0ks6")
 
 [node name="MsgEmpty" type="Label" parent="MarginContainer/column/AspectRatioContainer/Preview"]
-visible = false
+show_behind_parent = true
 layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -87,7 +87,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
-script = ExtResource("4_5m6q1")
+script = ExtResource("4_h1jt4")
 
 [node name="holder" type="HSeparator" parent="MarginContainer/column"]
 layout_mode = 2
@@ -96,18 +96,18 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="BtnRotateCW" type="Button" parent="MarginContainer/column/row"]
+[node name="BtnFlipX" type="Button" parent="MarginContainer/column/row"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Rotate CW"
-icon = ExtResource("5_fp0j6")
+text = "Flip X"
+icon = ExtResource("5_qbfvm")
 flat = true
 alignment = 2
 
-[node name="BtnRotateCCW" type="Button" parent="MarginContainer/column/row"]
+[node name="BtnFlipY" type="Button" parent="MarginContainer/column/row"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Rotate CCW"
-icon = ExtResource("6_c3mod")
+text = "Flip Y"
+icon = ExtResource("7_3mva7")
 flat = true
 alignment = 2

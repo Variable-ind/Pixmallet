@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://lh4alyjsuyd4"]
+[gd_scene load_steps=8 format=3 uid="uid://cpa42gpjhhusd"]
 
-[ext_resource type="Script" path="res://src/modal/img/ImgCropDialog.gd" id="1_8f5pl"]
-[ext_resource type="Script" path="res://src/modal/img/ImgPreview.gd" id="2_ew5wc"]
-[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="3_tn1gv"]
-[ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="4_4d281"]
+[ext_resource type="Script" path="res://src/modal/img_effect/ImgRotateDialog.gd" id="1_6fppo"]
+[ext_resource type="Script" path="res://src/modal/img_effect/ImgPreview.gd" id="2_w5t0p"]
+[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="3_d1s22"]
+[ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="4_5m6q1"]
+[ext_resource type="Texture2D" uid="uid://c18wh8glajtor" path="res://assets/icons/rotate-cw.png" id="5_fp0j6"]
+[ext_resource type="Texture2D" uid="uid://buv4yejvagx6u" path="res://assets/icons/rotate-ccw.png" id="6_c3mod"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rpprc"]
-shader = ExtResource("3_tn1gv")
+shader = ExtResource("3_d1s22")
 shader_parameter/size = 10.0
 shader_parameter/alpha = 1.0
 shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
@@ -17,15 +19,14 @@ shader_parameter/rect_size = Vector2(200, 200)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
-[node name="ImgCropDialog" type="ConfirmationDialog"]
+[node name="ImgRotateDialog" type="ConfirmationDialog"]
 disable_3d = true
-title = "Crop to Image Edge"
-size = Vector2i(296, 295)
+title = "Flip Image"
+size = Vector2i(274, 330)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
-ok_button_text = "Crop"
-script = ExtResource("1_8f5pl")
+script = ExtResource("1_6fppo")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -33,8 +34,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 288.0
-offset_bottom = 246.0
+offset_right = 266.0
+offset_bottom = 281.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -46,7 +47,7 @@ layout_mode = 2
 [node name="note" type="Label" parent="MarginContainer/column"]
 layout_mode = 2
 theme_type_variation = &"caption"
-text = "(preview display current frame only)"
+text = "Rotate image for all selected cels."
 horizontal_alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]
@@ -60,7 +61,7 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
-script = ExtResource("2_ew5wc")
+script = ExtResource("2_w5t0p")
 
 [node name="MsgEmpty" type="Label" parent="MarginContainer/column/AspectRatioContainer/Preview"]
 visible = false
@@ -86,7 +87,27 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
-script = ExtResource("4_4d281")
+script = ExtResource("4_5m6q1")
 
 [node name="holder" type="HSeparator" parent="MarginContainer/column"]
 layout_mode = 2
+
+[node name="row" type="HBoxContainer" parent="MarginContainer/column"]
+layout_mode = 2
+alignment = 1
+
+[node name="BtnRotateCW" type="Button" parent="MarginContainer/column/row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rotate CW"
+icon = ExtResource("5_fp0j6")
+flat = true
+alignment = 2
+
+[node name="BtnRotateCCW" type="Button" parent="MarginContainer/column/row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rotate CCW"
+icon = ExtResource("6_c3mod")
+flat = true
+alignment = 2

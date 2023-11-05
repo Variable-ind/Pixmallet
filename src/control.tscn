@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=19 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_hk23w"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -11,12 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/colorpalette/color_palette.tscn" id="9_igahc"]
 [ext_resource type="PackedScene" uid="uid://br0pl1uwvg3v8" path="res://src/properties/properties.tscn" id="10_reykc"]
 [ext_resource type="PackedScene" uid="uid://cj5klcx8ccx2n" path="res://src/modal/crop/crop_dialog.tscn" id="11_t7lj5"]
-[ext_resource type="PackedScene" uid="uid://lh4alyjsuyd4" path="res://src/modal/img/imgcrop_dialog.tscn" id="12_42p4h"]
-[ext_resource type="PackedScene" uid="uid://du8kf164kcqfk" path="res://src/modal/img/imgflip_dialog.tscn" id="13_tsirw"]
-[ext_resource type="PackedScene" uid="uid://5rqcx73w4hx1" path="res://src/modal/img/imgoffset_dialog.tscn" id="13_y3c41"]
-[ext_resource type="PackedScene" uid="uid://dl2ady5de5f2s" path="res://src/modal/img/imgscale_dialog.tscn" id="14_4b5wq"]
-[ext_resource type="PackedScene" uid="uid://cpa42gpjhhusd" path="res://src/modal/img/imgrotate_dialog.tscn" id="14_kodwm"]
-[ext_resource type="PackedScene" uid="uid://led4xclr08vn" path="res://src/modal/img/imgoutline_dialog.tscn" id="17_2x24a"]
+[ext_resource type="PackedScene" uid="uid://lh4alyjsuyd4" path="res://src/modal/img_effect/imgcrop_dialog.tscn" id="12_42p4h"]
+[ext_resource type="PackedScene" uid="uid://du8kf164kcqfk" path="res://src/modal/img_effect/imgflip_dialog.tscn" id="13_tsirw"]
+[ext_resource type="PackedScene" uid="uid://5rqcx73w4hx1" path="res://src/modal/img_effect/imgoffset_dialog.tscn" id="13_y3c41"]
+[ext_resource type="PackedScene" uid="uid://dl2ady5de5f2s" path="res://src/modal/img_effect/imgscale_dialog.tscn" id="14_4b5wq"]
+[ext_resource type="PackedScene" uid="uid://cpa42gpjhhusd" path="res://src/modal/img_effect/imgrotate_dialog.tscn" id="14_kodwm"]
+[ext_resource type="PackedScene" uid="uid://led4xclr08vn" path="res://src/modal/img_effect/imgoutline_dialog.tscn" id="17_2x24a"]
+[ext_resource type="PackedScene" uid="uid://c08kuunhd5hvt" path="res://src/modal/img_effect/imgshadow_dialog.tscn" id="18_rcwda"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -160,6 +161,11 @@ unique_name_in_owner = true
 size = Vector2i(289, 447)
 visible = false
 
+[node name="ImgShadowDialog" parent="." instance=ExtResource("18_rcwda")]
+unique_name_in_owner = true
+size = Vector2i(340, 447)
+visible = false
+
 [node name="overlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -191,3 +197,5 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 [connection signal="modal_toggled" from="ImgRotateDialog" to="." method="_on_modal_toggled"]
 [connection signal="applied" from="ImgOutlineDialog" to="." method="refresh_canvas"]
 [connection signal="modal_toggled" from="ImgOutlineDialog" to="." method="_on_modal_toggled"]
+[connection signal="applied" from="ImgShadowDialog" to="." method="refresh_canvas"]
+[connection signal="modal_toggled" from="ImgShadowDialog" to="." method="_on_modal_toggled"]

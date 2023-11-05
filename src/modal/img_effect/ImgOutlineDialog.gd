@@ -1,4 +1,4 @@
-class_name OutlineDialog extends ConfirmationDialog
+class_name ImgOutlineDialog extends ConfirmationDialog
 
 signal modal_toggled(state)
 signal applied
@@ -43,7 +43,7 @@ func _ready():
 	preview.frame_line_color = frame_line_color
 	preview.resized.connect(_on_resized)
 	color_picker.get_picker().presets_visible = false
-	color = color_picker.color
+	color_picker.color = color
 	btn_diamond.button_pressed = true
 	
 #	confirm_btn.focus_mode = Control.FOCUS_NONE

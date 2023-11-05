@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://led4xclr08vn"]
 
-[ext_resource type="Script" path="res://src/modal/img/ImgOutlineDialog.gd" id="1_rwdgg"]
-[ext_resource type="Script" path="res://src/modal/img/ImgPreview.gd" id="2_jmvlt"]
+[ext_resource type="Script" path="res://src/modal/img_effect/ImgOutlineDialog.gd" id="1_rwdgg"]
+[ext_resource type="Script" path="res://src/modal/img_effect/ImgPreview.gd" id="2_jmvlt"]
 [ext_resource type="Shader" path="res://src/shaders/OutlineInline.gdshader" id="2_vi4dm"]
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="3_aebg8"]
 [ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="4_dwkar"]
@@ -34,7 +34,7 @@ shader_parameter/follow_scale = false
 [node name="ImgOutlineDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Outline"
-size = Vector2i(340, 415)
+size = Vector2i(340, 423)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
@@ -170,3 +170,6 @@ theme_type_variation = &"IconButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_sfsmm")
 icon = ExtResource("7_yontl")
+
+[node name="holder3" type="HSeparator" parent="MarginContainer/column"]
+layout_mode = 2
