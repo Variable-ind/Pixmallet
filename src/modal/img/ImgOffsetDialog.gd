@@ -76,48 +76,58 @@ func update_preview():
 	confirm_btn.disabled = preview_image.is_invisible()
 
 
+#func change_preview_offset():
+	# DO NEED those, save more performance.
+#	var rect := Rect2i(Vector2i.ZERO, preview_image.get_size())
+#	var repeat_img := Image.create(rect.size.x * 4,
+#								   rect.size.y * 4, 
+#								   false,
+#								   Image.FORMAT_RGBA8)
+#	repeat_img.blit_rect(preview_image, rect, Vector2i.ZERO)
+#	repeat_img.blit_rect(preview_image, rect, Vector2i(0, rect.size.y))
+#	repeat_img.blit_rect(preview_image, rect, Vector2i(rect.size.x, 0))
+#	repeat_img.blit_rect(preview_image, rect, rect.size)
+#
+#	var tmp_img := Image.create(rect.size.x,
+#								rect.size.y, 
+#								false,
+#								Image.FORMAT_RGBA8)
+#	var tmp_rect := Rect2i(offset_pos, rect.size)
+#	if tmp_rect.position.x < 0:
+#		tmp_rect.position.x += rect.size.x
+#	if tmp_rect.position.y < 0:
+#		tmp_rect.position.y += rect.size.y
+#	tmp_img.blit_rect(repeat_img, tmp_rect, Vector2i.ZERO)
+#	preview.render(tmp_img, false)
+
+
 func change_preview_offset():
-	var rect := Rect2i(Vector2i.ZERO, preview_image.get_size())
-	var repeat_img := Image.create(rect.size.x * 4,
-								   rect.size.y * 4, 
-								   false,
-								   Image.FORMAT_RGBA8)
-	repeat_img.blit_rect(preview_image, rect, Vector2i.ZERO)
-	repeat_img.blit_rect(preview_image, rect, Vector2i(0, rect.size.y))
-	repeat_img.blit_rect(preview_image, rect, Vector2i(rect.size.x, 0))
-	repeat_img.blit_rect(preview_image, rect, rect.size)
-	
-	var tmp_img := Image.create(rect.size.x,
-								rect.size.y, 
-								false,
-								Image.FORMAT_RGBA8)
-	var tmp_rect := Rect2i(offset_pos, rect.size)
-	if tmp_rect.position.x < 0:
-		tmp_rect.position.x += rect.size.x
-	if tmp_rect.position.y < 0:
-		tmp_rect.position.y += rect.size.y
-	tmp_img.blit_rect(repeat_img, tmp_rect, Vector2i.ZERO)
+	var tmp_img := preview_image.duplicate()
+	offset_image(tmp_img)
 	preview.render(tmp_img, false)
 
 
-func offset_image(img):
+func offset_image(img :Image):
 	var rect := Rect2i(Vector2i.ZERO, img.get_size())
-	var tmp_rect := Rect2i(offset_pos, rect.size)
 	var repeat_img := Image.create(rect.size.x * 4,
 								   rect.size.y * 4, 
 								   false,
 								   Image.FORMAT_RGBA8)
-	repeat_img.blit_rect(img, rect, Vector2i.ZERO)
-	repeat_img.blit_rect(img, rect, Vector2i(0, rect.size.y))
-	repeat_img.blit_rect(img, rect, Vector2i(rect.size.x, 0))
-	repeat_img.blit_rect(img, rect, rect.size)
+	repeat_img = img.duplicate()
+	var tmp_pos := Vector2i(offset_pos)
+	
+	if tmp_pos.x < 0:
+		tmp_pos.x += rect.size.x
+	if tmp_pos.y < 0:
+		tmp_pos.y += rect.size.y
 
-	if tmp_rect.position.x < 0:
-		tmp_rect.position.x += rect.size.x
-	if tmp_rect.position.y < 0:
-		tmp_rect.position.y += rect.size.y
 	img.fill(Color.TRANSPARENT)
-	img.blit_rect(repeat_img, tmp_rect, Vector2i.ZERO)
+	img.blit_rect(repeat_img, rect, tmp_pos)
+	img.blit_rect_mask(repeat_img, repeat_img, rect, 
+					   Vector2i(tmp_pos.x, tmp_pos.y - rect.size.y))
+	img.blit_rect_mask(repeat_img, repeat_img, rect, 
+					   Vector2i(tmp_pos.x - rect.size.x, tmp_pos.y))
+	img.blit_rect_mask(repeat_img, repeat_img, rect, tmp_pos - rect.size)
 
 
 func _on_pos_x_changed(val :int):
