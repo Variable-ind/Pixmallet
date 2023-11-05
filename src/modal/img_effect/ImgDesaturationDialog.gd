@@ -1,4 +1,4 @@
-class_name ImgInvertDialog extends ConfirmationDialog
+class_name ImgDesaturationDialog extends ConfirmationDialog
 
 signal modal_toggled(state)
 signal applied

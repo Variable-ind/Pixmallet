@@ -24,6 +24,8 @@ var background_color := Color.BLACK
 @onready var dialog_img_outline := %ImgOutlineDialog
 @onready var dialog_img_shadow := %ImgShadowDialog
 @onready var dialog_img_invert := %ImgInvertDialog
+@onready var dialog_img_desaturation := %ImgDesaturationDialog
+
 
 
 func _ready():
@@ -104,6 +106,8 @@ func _on_navbar_navigation_to(nav_id, data):
 			dialog_img_shadow.launch(g.current_project)
 		Navbar.IMG_INVERT_COLOR:
 			dialog_img_invert.launch(g.current_project)
+		Navbar.IMG_DESATURATION:
+			dialog_img_desaturation.launch(g.current_project)
 
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')

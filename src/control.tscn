@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=21 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_hk23w"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://led4xclr08vn" path="res://src/modal/img_effect/imgoutline_dialog.tscn" id="17_2x24a"]
 [ext_resource type="PackedScene" uid="uid://c08kuunhd5hvt" path="res://src/modal/img_effect/imgshadow_dialog.tscn" id="18_rcwda"]
 [ext_resource type="PackedScene" uid="uid://danigd1qhjhy8" path="res://src/modal/img_effect/imginvert_dialog.tscn" id="19_4n0v8"]
+[ext_resource type="PackedScene" uid="uid://c0r13k6xllbd4" path="res://src/modal/img_effect/imgdesaturation_dialog.tscn" id="20_psoan"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -171,6 +172,11 @@ unique_name_in_owner = true
 size = Vector2i(270, 379)
 visible = false
 
+[node name="ImgDesaturationDialog" parent="." instance=ExtResource("20_psoan")]
+unique_name_in_owner = true
+size = Vector2i(270, 395)
+visible = false
+
 [node name="overlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -206,3 +212,5 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 [connection signal="modal_toggled" from="ImgShadowDialog" to="." method="_on_modal_toggled"]
 [connection signal="applied" from="ImgInvertDialog" to="." method="refresh_canvas"]
 [connection signal="modal_toggled" from="ImgInvertDialog" to="." method="_on_modal_toggled"]
+[connection signal="applied" from="ImgDesaturationDialog" to="." method="refresh_canvas"]
+[connection signal="modal_toggled" from="ImgDesaturationDialog" to="." method="_on_modal_toggled"]

@@ -8,7 +8,7 @@ var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
 var project :Project
 var crop_rect := Rect2i()
 
-@export var preview_bgcolor := Color(1, 1, 1, 0.6)
+@export var preview_bgcolor := Color(1, 1, 1, 0.2)
 
 @onready var confirm_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()

@@ -4,6 +4,7 @@ const MIN_SIZE := Vector2i(200, 200)
 
 var preview_rect := Rect2i()
 var bgcolor := Color.GRAY
+var shader_material :Material
 
 @onready var trans_checker := $TransChecker
 @onready var msg_empty := $MsgEmpty
@@ -13,6 +14,7 @@ func _ready():
 	custom_minimum_size = MIN_SIZE
 	expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	shader_material = material
 	msg_empty.hide()
 
 
@@ -60,8 +62,9 @@ func set_preview_material(params:Dictionary):
 
 
 func update_material(params:Dictionary):
-	for param in params:
-		material.set_shader_parameter(param, params[param])
+	if material:
+		for param in params:
+			material.set_shader_parameter(param, params[param])
 
 
 func check_preview_visible(img):
@@ -75,4 +78,8 @@ func check_preview_visible(img):
 
 func _draw():
 	if preview_rect.has_area() and not trans_checker.visible:
+		material = null
 		draw_rect(preview_rect, bgcolor)
+	elif shader_material:
+		material = shader_material
+		
