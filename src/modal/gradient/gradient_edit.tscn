@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://ktqqbtn154ac"]
+
+[ext_resource type="Script" path="res://src/modal/gradient/GradientEdit.gd" id="1_g3ofw"]
+
+[sub_resource type="Gradient" id="Gradient_260l1"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5vwap"]
+gradient = SubResource("Gradient_260l1")
+
+[node name="GradientEdit" type="Control"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g3ofw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_5vwap")
+expand_mode = 1
+
+[node name="ColorPickerPopup" type="Popup" parent="."]
+size = Vector2i(298, 576)
+
+[node name="ColorPicker" type="ColorPicker" parent="ColorPickerPopup"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
