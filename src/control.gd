@@ -18,6 +18,7 @@ var background_color := Color.BLACK
 @onready var dialog_crop := %CropDialog
 @onready var dialog_img_crop := %ImgCropDialog
 @onready var dialog_img_offset := %ImgOffsetDialog
+@onready var dialog_img_scale := %ImgScaleDialog
 @onready var dialog_img_flip := %ImgFlipDialog
 @onready var dialog_img_rotate := %ImgRotateDialog
 
@@ -88,6 +89,8 @@ func _on_navbar_navigation_to(nav_id, data):
 			dialog_img_crop.launch(g.current_project)
 		Navbar.IMG_OFFSET:
 			dialog_img_offset.launch(g.current_project)
+		Navbar.IMG_SCALE:
+			dialog_img_scale.launch(g.current_project)
 		Navbar.IMG_FLIP:
 			dialog_img_flip.launch(g.current_project)
 		Navbar.IMG_ROTATE:
