@@ -1,0 +1,137 @@
+[gd_scene load_steps=9 format=3 uid="uid://c08kuunhd5hvt"]
+
+[ext_resource type="Script" path="res://src/modal/img_effect/ImgShadowDialog.gd" id="1_bpvs8"]
+[ext_resource type="Shader" path="res://src/shaders/DropShadow.gdshader" id="2_twsty"]
+[ext_resource type="Script" path="res://src/modal/img_effect/ImgPreview.gd" id="3_sfvrj"]
+[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="4_2ajv3"]
+[ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="5_k64ct"]
+[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="6_mi6ps"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5s8h2"]
+shader = ExtResource("2_twsty")
+shader_parameter/shadow_offset = null
+shader_parameter/shadow_color = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l68on"]
+shader = ExtResource("4_2ajv3")
+shader_parameter/size = 10.0
+shader_parameter/alpha = 1.0
+shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
+shader_parameter/color2 = Color(1, 1, 1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/scale = Vector2(0, 0)
+shader_parameter/rect_size = Vector2(200, 200)
+shader_parameter/follow_movement = false
+shader_parameter/follow_scale = false
+
+[node name="ImgShadowDialog" type="ConfirmationDialog"]
+disable_3d = true
+title = "Outline"
+size = Vector2i(270, 347)
+visible = true
+unresizable = true
+theme_type_variation = &"ConfirmDialog"
+script = ExtResource("1_bpvs8")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="column" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="note" type="Label" parent="MarginContainer/column"]
+layout_mode = 2
+theme_type_variation = &"caption"
+text = "Dropshadow for all selected cels."
+horizontal_alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Preview" type="TextureRect" parent="MarginContainer/column/AspectRatioContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_5s8h2")
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("3_sfvrj")
+
+[node name="MsgEmpty" type="Label" parent="MarginContainer/column/AspectRatioContainer/Preview"]
+show_behind_parent = true
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "No visible image"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="TransChecker" type="ColorRect" parent="MarginContainer/column/AspectRatioContainer/Preview"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_l68on")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("5_k64ct")
+
+[node name="holder" type="HSeparator" parent="MarginContainer/column"]
+layout_mode = 2
+
+[node name="row2" type="HBoxContainer" parent="MarginContainer/column"]
+layout_mode = 2
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/column/row2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="OffsetX" type="ProgressBar" parent="MarginContainer/column/row2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 1.0
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("6_mi6ps")
+prefix = "Offset X:"
+
+[node name="OffsetY" type="ProgressBar" parent="MarginContainer/column/row2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 1.0
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("6_mi6ps")
+prefix = "OffsetY:"
+
+[node name="holder2" type="HSeparator" parent="MarginContainer/column"]
+layout_mode = 2
