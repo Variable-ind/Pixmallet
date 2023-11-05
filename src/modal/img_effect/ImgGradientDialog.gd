@@ -1,4 +1,4 @@
-class_name ImgPosterizeDialog extends ConfirmationDialog
+class_name ImgGradientDialog extends ConfirmationDialog
 
 signal modal_toggled(state)
 signal applied
@@ -7,13 +7,15 @@ var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
 
 var project :Project
 
-var levels := 2.0
-var dither := 0.0
+var hue_shift := 0.0
+var sat_shift := 0.0
+var val_shift := 0.0
 
 var material_params :Dictionary :
 	get: return {
-		"colors": levels,
-		"dither": dither
+		"hue_shift": hue_shift,
+		"sat_shift": sat_shift,
+		"val_shift": val_shift,
 	}
 
 var color := Color.BLACK
@@ -23,8 +25,9 @@ var color := Color.BLACK
 @onready var confirm_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()
 
-@onready var slider_levels := %SliderLevels
-@onready var slider_dither := %SliderDither
+@onready var slider_hue := %SliderHue
+@onready var slider_sat := %SliderSat
+@onready var slider_val := %SliderVal
 
 @onready var preview := %Preview
 
@@ -44,10 +47,9 @@ func _ready():
 	confirmed.connect(_on_confirmed)
 	visibility_changed.connect(_on_visibility_changed)
 	
-	slider_levels.set_value_no_signal(levels)
-	slider_dither.set_value_no_signal(dither)
-	slider_levels.value_changed.connect(_on_levels_changed)
-	slider_dither.value_changed.connect(_on_dither_changed)
+	slider_hue.value_changed.connect(_on_hue_changed)
+	slider_sat.value_changed.connect(_on_sat_changed)
+	slider_val.value_changed.connect(_on_val_changed)
 
 
 func launch(proj:Project):
@@ -72,10 +74,10 @@ func update_preview():
 
 	preview.render(preview_image)
 	confirm_btn.disabled = preview_image.is_invisible()
-	update_posterize()
+	update_hsv()
 
 
-func update_posterize():
+func update_hsv():
 	preview.update_material(material_params)
 
 
@@ -90,14 +92,19 @@ func _on_confirmed():
 	applied.emit()
 
 
-func _on_levels_changed(val:int):
-	levels = val
-	update_posterize()
+func _on_hue_changed(val:int):
+	hue_shift = val / 360.0
+	update_hsv()
 
 
-func _on_dither_changed(val:int):
-	dither = val
-	update_posterize()
+func _on_sat_changed(val:int):
+	sat_shift = val / 100.0
+	update_hsv()
+
+
+func _on_val_changed(val:int):
+	val_shift = val / 100.0
+	update_hsv()
 
 
 func _on_visibility_changed():

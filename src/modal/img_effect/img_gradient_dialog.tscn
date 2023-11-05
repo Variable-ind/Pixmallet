@@ -1,19 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://bvd5a76ad6xm2"]
+[gd_scene load_steps=9 format=3 uid="uid://bi52y1bgrh6rr"]
 
-[ext_resource type="Script" path="res://src/modal/img_effect/ImgPosterizeDialog.gd" id="1_ngmn2"]
-[ext_resource type="Shader" path="res://src/shaders/Posterize.gdshader" id="2_cjs5r"]
-[ext_resource type="Script" path="res://src/modal/img_effect/ImgPreview.gd" id="3_u4r4b"]
-[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="4_m3mbn"]
-[ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="5_mhu00"]
-[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="6_ah5sj"]
+[ext_resource type="Script" path="res://src/modal/img_effect/ImgGradientDialog.gd" id="1_gheet"]
+[ext_resource type="Shader" path="res://src/shaders/Posterize.gdshader" id="2_ml7yg"]
+[ext_resource type="Script" path="res://src/modal/img_effect/ImgPreview.gd" id="3_7kng0"]
+[ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="4_kevls"]
+[ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="5_ond38"]
+[ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="6_d636d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5s8h2"]
-shader = ExtResource("2_cjs5r")
+shader = ExtResource("2_ml7yg")
 shader_parameter/colors = 2.0
 shader_parameter/dither = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l68on"]
-shader = ExtResource("4_m3mbn")
+shader = ExtResource("4_kevls")
 shader_parameter/size = 10.0
 shader_parameter/alpha = 1.0
 shader_parameter/color1 = Color(0.7, 0.7, 0.7, 1)
@@ -24,14 +24,14 @@ shader_parameter/rect_size = Vector2(200, 200)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
-[node name="ImgPosterizeDialog" type="ConfirmationDialog"]
+[node name="ImgGradientDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Posterize"
 size = Vector2i(273, 371)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
-script = ExtResource("1_ngmn2")
+script = ExtResource("1_gheet")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -67,7 +67,7 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
-script = ExtResource("3_u4r4b")
+script = ExtResource("3_7kng0")
 
 [node name="MsgEmpty" type="Label" parent="MarginContainer/column/AspectRatioContainer/Preview"]
 show_behind_parent = true
@@ -93,7 +93,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
-script = ExtResource("5_mhu00")
+script = ExtResource("5_ond38")
 
 [node name="holder" type="HSeparator" parent="MarginContainer/column"]
 layout_mode = 2
@@ -108,12 +108,11 @@ custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-min_value = 2.0
-max_value = 256.0
-step = 1.0
+min_value = 1.0
+max_value = 255.0
 value = 2.0
 show_percentage = false
-script = ExtResource("6_ah5sj")
+script = ExtResource("6_d636d")
 prefix = "Colors:"
 
 [node name="SliderDither" type="ProgressBar" parent="MarginContainer/column/row"]
@@ -124,7 +123,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 max_value = 0.5
 show_percentage = false
-script = ExtResource("6_ah5sj")
+script = ExtResource("6_d636d")
 prefix = "Dither:"
 
 [node name="holder2" type="HSeparator" parent="MarginContainer/column"]

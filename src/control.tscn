@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b8jv3d0p6f8c0"]
+[gd_scene load_steps=24 format=3 uid="uid://b8jv3d0p6f8c0"]
 
 [ext_resource type="Theme" uid="uid://bnvbwu202rx6u" path="res://assets/theme/default.tres" id="1_hk23w"]
 [ext_resource type="Script" path="res://src/control.gd" id="2_egbqx"]
@@ -11,17 +11,18 @@
 [ext_resource type="PackedScene" uid="uid://bw43bipa0o2mv" path="res://src/colorpalette/color_palette.tscn" id="9_igahc"]
 [ext_resource type="PackedScene" uid="uid://br0pl1uwvg3v8" path="res://src/properties/properties.tscn" id="10_reykc"]
 [ext_resource type="PackedScene" uid="uid://cj5klcx8ccx2n" path="res://src/modal/crop/crop_dialog.tscn" id="11_t7lj5"]
-[ext_resource type="PackedScene" uid="uid://lh4alyjsuyd4" path="res://src/modal/img_effect/imgcrop_dialog.tscn" id="12_42p4h"]
-[ext_resource type="PackedScene" uid="uid://du8kf164kcqfk" path="res://src/modal/img_effect/imgflip_dialog.tscn" id="13_tsirw"]
-[ext_resource type="PackedScene" uid="uid://5rqcx73w4hx1" path="res://src/modal/img_effect/imgoffset_dialog.tscn" id="13_y3c41"]
-[ext_resource type="PackedScene" uid="uid://dl2ady5de5f2s" path="res://src/modal/img_effect/imgscale_dialog.tscn" id="14_4b5wq"]
-[ext_resource type="PackedScene" uid="uid://cpa42gpjhhusd" path="res://src/modal/img_effect/imgrotate_dialog.tscn" id="14_kodwm"]
-[ext_resource type="PackedScene" uid="uid://led4xclr08vn" path="res://src/modal/img_effect/imgoutline_dialog.tscn" id="17_2x24a"]
-[ext_resource type="PackedScene" uid="uid://c08kuunhd5hvt" path="res://src/modal/img_effect/imgshadow_dialog.tscn" id="18_rcwda"]
-[ext_resource type="PackedScene" uid="uid://danigd1qhjhy8" path="res://src/modal/img_effect/imginvert_dialog.tscn" id="19_4n0v8"]
-[ext_resource type="PackedScene" uid="uid://c0r13k6xllbd4" path="res://src/modal/img_effect/imgdesaturation_dialog.tscn" id="20_psoan"]
-[ext_resource type="PackedScene" uid="uid://cbub76b34lofm" path="res://src/modal/img_effect/imghsv_dialog.tscn" id="21_b15lj"]
-[ext_resource type="PackedScene" uid="uid://bvd5a76ad6xm2" path="res://src/modal/img_effect/imgposterize_dialog.tscn" id="22_l78c2"]
+[ext_resource type="PackedScene" uid="uid://lh4alyjsuyd4" path="res://src/modal/img_effect/img_crop_dialog.tscn" id="12_42p4h"]
+[ext_resource type="PackedScene" uid="uid://du8kf164kcqfk" path="res://src/modal/img_effect/img_flip_dialog.tscn" id="13_tsirw"]
+[ext_resource type="PackedScene" uid="uid://5rqcx73w4hx1" path="res://src/modal/img_effect/img_offset_dialog.tscn" id="13_y3c41"]
+[ext_resource type="PackedScene" uid="uid://dl2ady5de5f2s" path="res://src/modal/img_effect/img_scale_dialog.tscn" id="14_4b5wq"]
+[ext_resource type="PackedScene" uid="uid://cpa42gpjhhusd" path="res://src/modal/img_effect/img_rotate_dialog.tscn" id="14_kodwm"]
+[ext_resource type="PackedScene" uid="uid://led4xclr08vn" path="res://src/modal/img_effect/img_outline_dialog.tscn" id="17_2x24a"]
+[ext_resource type="PackedScene" uid="uid://c08kuunhd5hvt" path="res://src/modal/img_effect/img_shadow_dialog.tscn" id="18_rcwda"]
+[ext_resource type="PackedScene" uid="uid://danigd1qhjhy8" path="res://src/modal/img_effect/img_invert_dialog.tscn" id="19_4n0v8"]
+[ext_resource type="PackedScene" uid="uid://c0r13k6xllbd4" path="res://src/modal/img_effect/img_desaturation_dialog.tscn" id="20_psoan"]
+[ext_resource type="PackedScene" uid="uid://cbub76b34lofm" path="res://src/modal/img_effect/img_hsv_dialog.tscn" id="21_b15lj"]
+[ext_resource type="PackedScene" uid="uid://bvd5a76ad6xm2" path="res://src/modal/img_effect/img_posterize_dialog.tscn" id="22_l78c2"]
+[ext_resource type="PackedScene" uid="uid://bi52y1bgrh6rr" path="res://src/modal/img_effect/img_gradient_dialog.tscn" id="23_gyctc"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -189,6 +190,11 @@ unique_name_in_owner = true
 size = Vector2i(273, 395)
 visible = false
 
+[node name="ImgGradientDialog" parent="." instance=ExtResource("23_gyctc")]
+unique_name_in_owner = true
+size = Vector2i(273, 403)
+visible = false
+
 [node name="overlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -230,3 +236,5 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 [connection signal="modal_toggled" from="ImgHSVDialog" to="." method="_on_modal_toggled"]
 [connection signal="applied" from="ImgPosterizeDialog" to="." method="refresh_canvas"]
 [connection signal="modal_toggled" from="ImgPosterizeDialog" to="." method="_on_modal_toggled"]
+[connection signal="applied" from="ImgGradientDialog" to="." method="refresh_canvas"]
+[connection signal="modal_toggled" from="ImgGradientDialog" to="." method="_on_modal_toggled"]
