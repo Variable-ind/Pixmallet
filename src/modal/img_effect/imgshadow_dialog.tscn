@@ -98,16 +98,16 @@ script = ExtResource("5_k64ct")
 [node name="holder" type="HSeparator" parent="MarginContainer/column"]
 layout_mode = 2
 
-[node name="row2" type="HBoxContainer" parent="MarginContainer/column"]
+[node name="row" type="HBoxContainer" parent="MarginContainer/column"]
 layout_mode = 2
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/column/row2"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/column/row"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="OffsetX" type="ProgressBar" parent="MarginContainer/column/row2"]
+[node name="OffsetX" type="ProgressBar" parent="MarginContainer/column/row"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
@@ -120,7 +120,7 @@ show_percentage = false
 script = ExtResource("6_mi6ps")
 prefix = "Offset X:"
 
-[node name="OffsetY" type="ProgressBar" parent="MarginContainer/column/row2"]
+[node name="OffsetY" type="ProgressBar" parent="MarginContainer/column/row"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2

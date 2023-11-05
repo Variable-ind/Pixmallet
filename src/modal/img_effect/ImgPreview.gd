@@ -33,13 +33,13 @@ func render(img :Image, check_visible := true):
 	trans_checker.size = img.get_size()
 	trans_checker.position = (size - trans_checker.size) /2
 	
-	# preview_rect to draw a rect outline.
-	# but the texture will center of the TextureRect
-	# by the setting of properties.
-	preview_rect = Rect2i(
-		(size - trans_checker.size) /2, 
-		trans_checker.size
-	)
+#	# preview_rect to draw a rect outline.
+#	# but the texture will center of the TextureRect
+#	# by the setting of properties.
+#	preview_rect = Rect2i(
+#		(size - trans_checker.size) /2, 
+#		trans_checker.size
+#	)
 	
 	if check_visible:
 		check_preview_visible(img)
@@ -51,7 +51,7 @@ func render(img :Image, check_visible := true):
 		texture = ImageTexture.create_from_image(img)
 		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
-	queue_redraw()
+#	queue_redraw()
 
 
 func set_preview_material(params:Dictionary):
@@ -73,6 +73,6 @@ func check_preview_visible(img):
 		msg_empty.hide()
 
 
-func _draw():
-	if preview_rect.has_area():
-		draw_rect(preview_rect, frame_line_color, false, 2)
+#func _draw():
+#	if preview_rect.has_area():
+#		draw_rect(preview_rect, frame_line_color, false, 2)
