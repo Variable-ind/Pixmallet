@@ -3,7 +3,7 @@ class_name ImgPreview extends TextureRect
 const MIN_SIZE := Vector2i(200, 200)
 
 var preview_rect := Rect2i()
-var frame_line_color := Color.GRAY
+var bgcolor := Color.GRAY
 
 @onready var trans_checker := $TransChecker
 @onready var msg_empty := $MsgEmpty
@@ -36,10 +36,10 @@ func render(img :Image, check_visible := true):
 #	# preview_rect to draw a rect outline.
 #	# but the texture will center of the TextureRect
 #	# by the setting of properties.
-#	preview_rect = Rect2i(
-#		(size - trans_checker.size) /2, 
-#		trans_checker.size
-#	)
+	preview_rect = Rect2i(
+		(size - trans_checker.size) /2, 
+		trans_checker.size
+	)
 	
 	if check_visible:
 		check_preview_visible(img)
@@ -51,7 +51,7 @@ func render(img :Image, check_visible := true):
 		texture = ImageTexture.create_from_image(img)
 		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
-#	queue_redraw()
+	queue_redraw()
 
 
 func set_preview_material(params:Dictionary):
@@ -73,6 +73,6 @@ func check_preview_visible(img):
 		msg_empty.hide()
 
 
-#func _draw():
-#	if preview_rect.has_area():
-#		draw_rect(preview_rect, frame_line_color, false, 2)
+func _draw():
+	if preview_rect.has_area() and not trans_checker.visible:
+		draw_rect(preview_rect, bgcolor)

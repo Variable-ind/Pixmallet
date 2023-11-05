@@ -7,7 +7,6 @@ var preview_texture :Image:
 		
 var preview_rect := Rect2i()
 var preview_crop_rect := Rect2i()
-var frame_line_color := Color.GRAY
 var crop_line_color := Color.WHITE
 
 @onready var trans_checker := $TransChecker
@@ -55,8 +54,6 @@ func update_rect(rect :Rect2, base_size :Vector2):
 
 
 func _draw():
-	if preview_rect.has_area():
-		draw_rect(preview_rect, frame_line_color, false, 2)
 	if preview_crop_rect.has_area():
 		draw_rect(preview_crop_rect, crop_line_color, false, 2)
 

@@ -10,7 +10,7 @@ var project :Project
 var flipped_x := false
 var flipped_y := false
 
-@export var frame_line_color := Color.DIM_GRAY
+@export var preview_bgcolor := Color(1, 1, 1, 0.6)
 
 @onready var confirm_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()
@@ -22,7 +22,7 @@ var flipped_y := false
 func _ready():
 	initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_PRIMARY_SCREEN
 	
-	preview.frame_line_color = frame_line_color
+	preview.bgcolor = preview_bgcolor
 	preview.resized.connect(_on_resized)
 	
 #	confirm_btn.focus_mode = Control.FOCUS_NONE

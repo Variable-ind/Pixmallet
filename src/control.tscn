@@ -140,7 +140,6 @@ visible = false
 [node name="ImgOffsetDialog" parent="." instance=ExtResource("13_y3c41")]
 unique_name_in_owner = true
 visible = false
-frame_line_color = Color(0.411765, 0.411765, 0.411765, 1)
 
 [node name="ImgScaleDialog" parent="." instance=ExtResource("14_4b5wq")]
 unique_name_in_owner = true

@@ -12,8 +12,7 @@ var pivot_offset :Vector2i :
 	get: return Pivot.get_pivot_offset(pivot, crop_rect.size)
 var crop_rect := Rect2i()
 
-@export var frame_line_color := Color.DIM_GRAY
-@export var crop_line_color := Color.PURPLE
+@export var crop_line_color := Color.WHITE
 
 @onready var confirm_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()
@@ -36,7 +35,6 @@ func _ready():
 	input_height.focus_mode = Control.FOCUS_ALL
 	
 	crop_preview.crop_line_color = crop_line_color
-	crop_preview.frame_line_color = frame_line_color
 	
 #	confirm_btn.focus_mode = Control.FOCUS_NONE
 	confirm_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
