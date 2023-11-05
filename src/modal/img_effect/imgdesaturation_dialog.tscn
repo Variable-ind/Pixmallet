@@ -28,7 +28,7 @@ shader_parameter/follow_scale = false
 [node name="ImgDesaturationDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Desaturation"
-size = Vector2i(270, 369)
+size = Vector2i(273, 369)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
@@ -53,7 +53,7 @@ layout_mode = 2
 [node name="note" type="Label" parent="MarginContainer/column"]
 layout_mode = 2
 theme_type_variation = &"caption"
-text = "Dropshadow for all selected cels."
+text = "For all selected cels."
 horizontal_alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]

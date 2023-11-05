@@ -62,7 +62,9 @@ func set_preview_material(params:Dictionary):
 
 
 func update_material(params:Dictionary):
-	if material:
+	if shader_material:
+		if not material:
+			material = shader_material
 		for param in params:
 			material.set_shader_parameter(param, params[param])
 

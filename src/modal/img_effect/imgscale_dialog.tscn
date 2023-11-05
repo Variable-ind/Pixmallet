@@ -45,7 +45,7 @@ layout_mode = 2
 [node name="note" type="Label" parent="MarginContainer/column"]
 layout_mode = 2
 theme_type_variation = &"caption"
-text = "Scale image for all selected cels."
+text = "For all selected cels."
 horizontal_alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]

@@ -83,10 +83,10 @@ func update_preview():
 
 	preview.render(preview_image)
 	confirm_btn.disabled = preview_image.is_invisible()
-	update_invert()
+	update_desaturation()
 
 
-func update_invert():
+func update_desaturation():
 	preview.update_material(material_params)
 
 
@@ -103,22 +103,22 @@ func _on_confirmed():
 
 func _on_red_toggled(btn_pressed:bool):
 	red = btn_pressed
-	update_invert()
+	update_desaturation()
 
 
 func _on_blue_toggled(btn_pressed:bool):
 	blue = btn_pressed
-	update_invert()
+	update_desaturation()
 
 
 func _on_green_toggled(btn_pressed:bool):
 	green = btn_pressed
-	update_invert()
+	update_desaturation()
 
 
 func _on_alpha_toggled(btn_pressed:bool):
 	alpha = btn_pressed
-	update_invert()
+	update_desaturation()
 
 
 func _on_visibility_changed():
