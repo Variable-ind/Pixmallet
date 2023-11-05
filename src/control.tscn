@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://c0r13k6xllbd4" path="res://src/modal/img_effect/img_desaturation_dialog.tscn" id="20_psoan"]
 [ext_resource type="PackedScene" uid="uid://cbub76b34lofm" path="res://src/modal/img_effect/img_hsv_dialog.tscn" id="21_b15lj"]
 [ext_resource type="PackedScene" uid="uid://bvd5a76ad6xm2" path="res://src/modal/img_effect/img_posterize_dialog.tscn" id="22_l78c2"]
-[ext_resource type="PackedScene" uid="uid://bi52y1bgrh6rr" path="res://src/modal/img_effect/img_gradient_dialog.tscn" id="23_gyctc"]
+[ext_resource type="PackedScene" uid="uid://bi52y1bgrh6rr" path="res://src/modal/gradient/gradient_dialog.tscn" id="23_gyctc"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(800, 480)
@@ -136,6 +136,11 @@ unique_name_in_owner = true
 size = Vector2i(300, 390)
 visible = false
 
+[node name="GradientDialog" parent="." instance=ExtResource("23_gyctc")]
+unique_name_in_owner = true
+size = Vector2i(273, 403)
+visible = false
+
 [node name="ImgCropDialog" parent="." instance=ExtResource("12_42p4h")]
 unique_name_in_owner = true
 size = Vector2i(300, 303)
@@ -190,11 +195,6 @@ unique_name_in_owner = true
 size = Vector2i(273, 395)
 visible = false
 
-[node name="ImgGradientDialog" parent="." instance=ExtResource("23_gyctc")]
-unique_name_in_owner = true
-size = Vector2i(273, 403)
-visible = false
-
 [node name="overlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -214,6 +214,8 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 [connection signal="modal_toggled" from="main_area/mainborad/workspace/right-sider/split/split/ColorPalette" to="." method="_on_modal_toggled"]
 [connection signal="applied" from="CropDialog" to="." method="refresh_canvas"]
 [connection signal="modal_toggled" from="CropDialog" to="." method="_on_modal_toggled"]
+[connection signal="applied" from="GradientDialog" to="." method="refresh_canvas"]
+[connection signal="modal_toggled" from="GradientDialog" to="." method="_on_modal_toggled"]
 [connection signal="applied" from="ImgCropDialog" to="." method="refresh_canvas"]
 [connection signal="modal_toggled" from="ImgCropDialog" to="." method="_on_modal_toggled"]
 [connection signal="applied" from="ImgOffsetDialog" to="." method="refresh_canvas"]
@@ -236,5 +238,3 @@ color = Color(0.133333, 0.133333, 0.133333, 0.784314)
 [connection signal="modal_toggled" from="ImgHSVDialog" to="." method="_on_modal_toggled"]
 [connection signal="applied" from="ImgPosterizeDialog" to="." method="refresh_canvas"]
 [connection signal="modal_toggled" from="ImgPosterizeDialog" to="." method="_on_modal_toggled"]
-[connection signal="applied" from="ImgGradientDialog" to="." method="refresh_canvas"]
-[connection signal="modal_toggled" from="ImgGradientDialog" to="." method="_on_modal_toggled"]

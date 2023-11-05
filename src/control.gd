@@ -16,6 +16,8 @@ var background_color := Color.BLACK
 @onready var properties := %Properties
 
 @onready var dialog_crop := %CropDialog
+@onready var dialog_gradient := %GradientDialog
+
 @onready var dialog_img_crop := %ImgCropDialog
 @onready var dialog_img_offset := %ImgOffsetDialog
 @onready var dialog_img_scale := %ImgScaleDialog
@@ -27,7 +29,6 @@ var background_color := Color.BLACK
 @onready var dialog_img_desaturation := %ImgDesaturationDialog
 @onready var dialog_img_hsv := %ImgHSVDialog
 @onready var dialog_img_posterize := %ImgPosterizeDialog
-@onready var dialog_img_gradient := %ImgGradientDialog
 
 
 func _ready():
@@ -114,8 +115,8 @@ func _on_navbar_navigation_to(nav_id, data):
 			dialog_img_hsv.launch(g.current_project)
 		Navbar.IMG_POSTERIZE:
 			dialog_img_posterize.launch(g.current_project)
-		Navbar.IMG_GRADIENT:
-			dialog_img_gradient.launch(g.current_project)
+		Navbar.GRADIENT:
+			dialog_gradient.launch(g.current_project)
 
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')

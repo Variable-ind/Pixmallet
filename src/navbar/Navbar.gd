@@ -12,9 +12,9 @@ enum {
 	
 	SELECT_ALL, CLEAR_SEL, INVERT_SEL,
 	
-	CROP_CANVAS, IMG_OFFSET, IMG_SCALE, IMG_CROP, IMG_FLIP, IMG_ROTATE, 
+	CROP_CANVAS, GRADIENT, IMG_OFFSET, IMG_SCALE, IMG_CROP, IMG_FLIP, IMG_ROTATE, 
 	IMG_OUTLINE, IMG_DROP_SHADOW, IMG_INVERT_COLOR, IMG_DESATURATION, 
-	IMG_HSV, IMG_POSTERIZE, IMG_GRADIENT,
+	IMG_HSV, IMG_POSTERIZE, 
 	
 	TILE_MODE, TILE_MODE_OFFSET, GRAYSCALE_VIEW, MIRROR_VIEW,
 	SHOW_CARTESIAN_GRID, SHOW_ISOMETRIC_GRID, SHOW_PIX_GRID, 
@@ -124,7 +124,7 @@ var menu_item_map: Dictionary = {}
 			 'action': 'hsv'},
 			{'id': IMG_POSTERIZE, 'label': 'Posterize',
 			 'action': 'postersize'},
-			{'id': IMG_GRADIENT, 'label': 'Gradient',
+			{'id': GRADIENT, 'label': 'Gradient',
 			 'action': 'gradient'},
 		]
 	},

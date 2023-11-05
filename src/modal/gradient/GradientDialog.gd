@@ -1,35 +1,73 @@
-class_name ImgGradientDialog extends ConfirmationDialog
+class_name GradientDialog extends ConfirmationDialog
 
 signal modal_toggled(state)
 signal applied
+
+enum {
+	LINEAR,
+	RADIAL,
+	LINEAR_DITHERING,
+	RADIAL_DITHERING
+}
+enum Animate {
+	POSITION,
+	SIZE,
+	ANGLE,
+	CENTER_X,
+	CENTER_Y,
+	RADIUS_X,
+	RADIUS_Y
+}
 
 var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
 
 var project :Project
 
-var hue_shift := 0.0
-var sat_shift := 0.0
-var val_shift := 0.0
-
-var material_params :Dictionary :
-	get: return {
-		"hue_shift": hue_shift,
-		"sat_shift": sat_shift,
-		"val_shift": val_shift,
-	}
-
-var color := Color.BLACK
+var dither_matrices: Array[DitherMatrix] = [
+	DitherMatrix.new(
+		preload("res://assets/dither-matrices/bayer2.png"),
+		"Bayer 2x2"
+	),
+	DitherMatrix.new(
+		preload("res://assets/dither-matrices/bayer4.png"),
+		"Bayer 4x4"
+	),
+	DitherMatrix.new(
+		preload("res://assets/dither-matrices/bayer8.png"),
+		"Bayer 8x8"
+	),
+	DitherMatrix.new(
+		preload("res://assets/dither-matrices/bayer16.png"),
+		"Bayer 16x16"
+	),
+]
+var selected_dither_matrix := dither_matrices[0]
 
 @export var preview_bgcolor := Color(1, 1, 1, 0.2)
 
 @onready var confirm_btn:Button = get_ok_button()
 @onready var cancel_btn:Button = get_cancel_button()
 
-@onready var slider_hue := %SliderHue
-@onready var slider_sat := %SliderSat
-@onready var slider_val := %SliderVal
+@onready var gradient_edit := %GradientEdit
+@onready var opt_shape := %OptShape
+@onready var opt_dithering := %OptDithering
+@onready var opt_repeat := %OptRepeat
+@onready var slider_position := %SliderPosition
+@onready var slider_size := %SliderSize
+@onready var slider_angle := %SliderAngle
+@onready var slider_center := %SliderCenter
+@onready var radius_slider := %SliderRadius
 
 @onready var preview := %Preview
+
+
+class DitherMatrix:
+	var texture: Texture2D
+	var name: String
+
+	func _init(_texture: Texture2D, _name: String) -> void:
+		texture = _texture
+		name = _name
 
 
 func _ready():
@@ -47,9 +85,8 @@ func _ready():
 	confirmed.connect(_on_confirmed)
 	visibility_changed.connect(_on_visibility_changed)
 	
-	slider_hue.value_changed.connect(_on_hue_changed)
-	slider_sat.value_changed.connect(_on_sat_changed)
-	slider_val.value_changed.connect(_on_val_changed)
+	for matrix in dither_matrices:
+		opt_dithering.add_item(matrix.name)
 
 
 func launch(proj:Project):

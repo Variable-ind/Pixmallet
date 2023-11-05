@@ -1,16 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bi52y1bgrh6rr"]
+[gd_scene load_steps=7 format=3 uid="uid://bi52y1bgrh6rr"]
 
-[ext_resource type="Script" path="res://src/modal/img_effect/ImgGradientDialog.gd" id="1_gheet"]
-[ext_resource type="Shader" path="res://src/shaders/Posterize.gdshader" id="2_ml7yg"]
-[ext_resource type="Script" path="res://src/modal/img_effect/ImgPreview.gd" id="3_7kng0"]
+[ext_resource type="Script" path="res://src/modal/gradient/GradientDialog.gd" id="1_d0ya4"]
+[ext_resource type="Script" path="res://src/modal/gradient/GradientPreview.gd" id="2_6bwyp"]
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="4_kevls"]
 [ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="5_ond38"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="6_d636d"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5s8h2"]
-shader = ExtResource("2_ml7yg")
-shader_parameter/colors = 2.0
-shader_parameter/dither = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l68on"]
 shader = ExtResource("4_kevls")
@@ -24,14 +18,15 @@ shader_parameter/rect_size = Vector2(200, 200)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
-[node name="ImgGradientDialog" type="ConfirmationDialog"]
+[node name="GradientDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Posterize"
-size = Vector2i(273, 371)
+size = Vector2i(273, 375)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
-script = ExtResource("1_gheet")
+script = ExtResource("1_d0ya4")
+preview_bgcolor = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -52,7 +47,7 @@ layout_mode = 2
 [node name="note" type="Label" parent="MarginContainer/column"]
 layout_mode = 2
 theme_type_variation = &"caption"
-text = "For all selected cels."
+text = "For current cel."
 horizontal_alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]
@@ -62,24 +57,11 @@ size_flags_vertical = 3
 
 [node name="Preview" type="TextureRect" parent="MarginContainer/column/AspectRatioContainer"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_5s8h2")
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
-script = ExtResource("3_7kng0")
-
-[node name="MsgEmpty" type="Label" parent="MarginContainer/column/AspectRatioContainer/Preview"]
-show_behind_parent = true
-layout_mode = 2
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "No visible image"
-horizontal_alignment = 1
-vertical_alignment = 1
-clip_text = true
+script = ExtResource("2_6bwyp")
 
 [node name="TransChecker" type="ColorRect" parent="MarginContainer/column/AspectRatioContainer/Preview"]
 show_behind_parent = true
@@ -96,6 +78,9 @@ mouse_filter = 2
 script = ExtResource("5_ond38")
 
 [node name="holder" type="HSeparator" parent="MarginContainer/column"]
+layout_mode = 2
+
+[node name="GradientEdit" type="Control" parent="MarginContainer/column"]
 layout_mode = 2
 
 [node name="row" type="VBoxContainer" parent="MarginContainer/column"]
