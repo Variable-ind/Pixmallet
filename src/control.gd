@@ -26,7 +26,7 @@ var background_color := Color.BLACK
 @onready var dialog_img_invert := %ImgInvertDialog
 @onready var dialog_img_desaturation := %ImgDesaturationDialog
 @onready var dialog_img_hsv := %ImgHSVDialog
-
+@onready var dialog_img_posterize  := %ImgPosterizeDialog
 
 
 func _ready():
@@ -111,6 +111,8 @@ func _on_navbar_navigation_to(nav_id, data):
 			dialog_img_desaturation.launch(g.current_project)
 		Navbar.IMG_HSV:
 			dialog_img_hsv.launch(g.current_project)
+		Navbar.IMG_POSTERIZE:
+			dialog_img_posterize.launch(g.current_project)
 
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')
