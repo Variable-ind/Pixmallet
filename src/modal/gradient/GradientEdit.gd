@@ -38,7 +38,7 @@ func _gui_input(ev: InputEvent):
 			update_from_value()
 
 
-func update_from_value() -> void:
+func update_from_value():
 	gradient.offsets = []
 	for c in texture_rect.get_children():
 		if c is GradientCursor:
@@ -51,8 +51,11 @@ func update_from_value() -> void:
 func add_cursor(x: float, color: Color):
 	var cursor := GradientCursor.new()
 	texture_rect.add_child(cursor)
+	cursor.movable_range = size.x
 	cursor.position.x = x
 	cursor.color = color
+	cursor.selected.connect(_on_cursor_selected)
+	cursor.removed.connect(_on_cursor_removed)
 
 
 func select_cursor(cursor: GradientCursor, pos: Vector2):
@@ -61,13 +64,23 @@ func select_cursor(cursor: GradientCursor, pos: Vector2):
 	if pos.x > global_position.x + (size.x / 2.0):
 		pos.x = global_position.x + size.x
 	else:
-		pos.x = global_position.x - $Popup.size.x
+		pos.x = global_position.x - color_picker_popup.size.x
 	color_picker_popup.position = pos
 	color_picker_popup.popup()
 
 
 func get_gradient_color(x: float) -> Color:
 	return gradient.sample(x / x_offset)
+
+
+func _on_cursor_selected(cursor :GradientCursor, pos :Vector2i):
+	select_cursor(cursor, pos)
+
+
+func _on_cursor_removed(cursor :GradientCursor):
+	cursor.remove()
+	continuous_change = false
+	update_from_value()
 
 
 func _on_color_changed(color: Color) -> void:
@@ -87,19 +100,19 @@ func set_interpolation_mode(index: Gradient.InterpolationMode):
 
 class GradientCursor extends Control:
 	
-	signal selected(gcursor)
+	signal selected(gcursor, pos)
 	signal removed(gcursor)
-	signal pressed(gcursor)
-	signal released(gcursor)
 
 	const WIDTH := 10
+	const HEIGHT := 15
 	
+	var movable_range := 0.0
 	var color: Color
-	var is_sliding := false
+	var is_pressed := false
 
 	func _ready() -> void:
-		position = Vector2(0, 15)
-		size = Vector2(WIDTH, 15)
+		position = Vector2(0, HEIGHT)
+		size = Vector2(WIDTH, HEIGHT)
 
 	func _draw() -> void:
 		var polygon := PackedVector2Array(
@@ -116,30 +129,26 @@ class GradientCursor extends Control:
 		c.a = 1.0
 		draw_colored_polygon(polygon, c)
 		if color.v > 0.5:
-			draw_polyline(polygon, Color(0.0, 0.0, 0.0))
+			draw_polyline(polygon, Color.BLACK)
 		else:
-			draw_polyline(polygon, Color(1.0, 1.0, 1.0))
+			draw_polyline(polygon, Color.WHITE)
 
 	func _gui_input(ev: InputEvent):
 		if ev is InputEventMouseButton:
 			if ev.button_index == MOUSE_BUTTON_LEFT:
 				if ev.double_click:
-					selected.emit(self)
-				elif ev.pressed:
-					pressed.emit(self)
-					is_sliding = true
+					selected.emit(self, ev.global_position)
 				else:
-					released.emit(self)
-					is_sliding = false
+					is_pressed = ev.pressed
 			elif ev.button_index == MOUSE_BUTTON_RIGHT:
 				removed.emit(self)
-				remove()
+		elif ev is InputEventMouseMotion and is_pressed:
+			position.x += get_local_mouse_position().x
+			position.x = min(max(0, position.x), movable_range - size.x)
 
 	func remove():
+		for conn in selected.get_connections():
+			conn['callable'].disconnect()
+		for conn in removed.get_connections():
+			conn['callable'].disconnect()
 		queue_free()
-
-	func _can_drop_data(_position, data):
-		return data is Color
-
-	func _drop_data(_position, data):
-		color = data
