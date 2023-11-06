@@ -116,7 +116,8 @@ func _on_navbar_navigation_to(nav_id, data):
 		Navbar.IMG_POSTERIZE:
 			dialog_img_posterize.launch(g.current_project)
 		Navbar.GRADIENT:
-			dialog_gradient.launch(g.current_project)
+			dialog_gradient.launch(g.current_project,
+								   artboard.canvas.selection)
 
 		Navbar.SHOW_CARTESIAN_GRID:
 			artboard.show_cartesian_grid = data.get('checked')

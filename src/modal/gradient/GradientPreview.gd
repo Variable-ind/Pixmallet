@@ -23,7 +23,13 @@ func _ready():
 	var sm := ShaderMaterial.new()
 	sm.shader = shader
 	material = sm
-	
+
+
+func switch_shader(index:int):
+	match index:
+		1: shader = shader_linear_dither
+		_: shader = shader_linear
+
 
 func render(img :Image):
 	img = img.duplicate()  # prevent image unexcept changes.

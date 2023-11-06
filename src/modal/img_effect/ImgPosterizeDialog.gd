@@ -90,12 +90,12 @@ func _on_confirmed():
 	applied.emit()
 
 
-func _on_levels_changed(val:int):
+func _on_levels_changed(val:float):
 	levels = val
 	update_posterize()
 
 
-func _on_dither_changed(val:int):
+func _on_dither_changed(val:float):
 	dither = val
 	update_posterize()
 

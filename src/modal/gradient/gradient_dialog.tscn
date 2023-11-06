@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bi52y1bgrh6rr"]
+[gd_scene load_steps=10 format=3 uid="uid://bi52y1bgrh6rr"]
 
 [ext_resource type="Script" path="res://src/modal/gradient/GradientDialog.gd" id="1_d0ya4"]
 [ext_resource type="Script" path="res://src/modal/gradient/GradientPreview.gd" id="2_6bwyp"]
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="4_kevls"]
+[ext_resource type="Script" path="res://src/modal/gradient/GradientEdit.gd" id="5_duyix"]
 [ext_resource type="Script" path="res://src/widgets/TransChecker.gd" id="5_ond38"]
-[ext_resource type="PackedScene" uid="uid://ktqqbtn154ac" path="res://src/modal/gradient/gradient_edit.tscn" id="5_sa6oj"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="6_d636d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l68on"]
@@ -19,16 +19,20 @@ shader_parameter/rect_size = Vector2(200, 200)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
+[sub_resource type="Gradient" id="Gradient_260l1"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j4bt2"]
+gradient = SubResource("Gradient_260l1")
+
 [node name="GradientDialog" type="ConfirmationDialog"]
 disable_3d = true
-title = "Posterize"
+title = "Gradient"
 position = Vector2i(0, 36)
-size = Vector2i(273, 405)
+size = Vector2i(216, 549)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
 script = ExtResource("1_d0ya4")
-preview_bgcolor = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -82,36 +86,149 @@ script = ExtResource("5_ond38")
 [node name="holder" type="HSeparator" parent="MarginContainer/column"]
 layout_mode = 2
 
-[node name="GradientEdit" parent="MarginContainer/column" instance=ExtResource("5_sa6oj")]
+[node name="GradientEdit" type="Control" parent="MarginContainer/column"]
+unique_name_in_owner = true
 layout_mode = 2
+script = ExtResource("5_duyix")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/column/GradientEdit"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -13.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_j4bt2")
+expand_mode = 1
+
+[node name="ColorPickerPopup" type="Popup" parent="MarginContainer/column/GradientEdit"]
+size = Vector2i(338, 592)
+
+[node name="ColorPicker" type="ColorPicker" parent="MarginContainer/column/GradientEdit/ColorPickerPopup"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 24.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="row" type="VBoxContainer" parent="MarginContainer/column"]
 layout_mode = 2
-alignment = 1
 
-[node name="SliderLevels" type="ProgressBar" parent="MarginContainer/column/row"]
+[node name="OptShape" type="OptionButton" parent="MarginContainer/column/row"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OptRepeat" type="OptionButton" parent="MarginContainer/column/row"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OptDithering" type="OptionButton" parent="MarginContainer/column/row"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 1
+selected = 0
+popup/item_0/text = "No Dithering"
+popup/item_0/id = 0
+
+[node name="holder" type="HSeparator" parent="MarginContainer/column/row"]
+layout_mode = 2
+
+[node name="SliderPosition" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_linear"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-min_value = 1.0
-max_value = 255.0
-value = 2.0
+step = 1.0
+value = 50.0
 show_percentage = false
 script = ExtResource("6_d636d")
-prefix = "Colors:"
+prefix = "Position:"
+suffix = "%"
 
-[node name="SliderDither" type="ProgressBar" parent="MarginContainer/column/row"]
+[node name="SliderSize" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_linear"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-max_value = 0.5
+step = 1.0
+value = 50.0
 show_percentage = false
 script = ExtResource("6_d636d")
-prefix = "Dither:"
+prefix = "Size:"
+suffix = "%"
+
+[node name="SliderAngle" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_linear"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 360.0
+step = 1.0
+show_percentage = false
+script = ExtResource("6_d636d")
+prefix = "Angle:"
+
+[node name="SliderCenterX" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_radial"]]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+show_percentage = false
+script = ExtResource("6_d636d")
+prefix = "Center X:"
+
+[node name="SliderCenterY" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_radial"]]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+show_percentage = false
+script = ExtResource("6_d636d")
+prefix = "Center Y:"
+
+[node name="SliderRadiusX" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_radial"]]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+show_percentage = false
+script = ExtResource("6_d636d")
+prefix = "Radius X:"
+
+[node name="SliderRadiusY" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_radial"]]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(85, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+show_percentage = false
+script = ExtResource("6_d636d")
+prefix = "Radius Y:"
 
 [node name="holder2" type="HSeparator" parent="MarginContainer/column"]
 layout_mode = 2
