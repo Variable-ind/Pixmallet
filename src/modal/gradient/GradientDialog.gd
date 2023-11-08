@@ -152,15 +152,12 @@ func _ready():
 	visibility_changed.connect(_on_visibility_changed)
 
 
-func launch(proj :Project,
-			selection :Selection,
-			gradient_colors :PackedColorArray = []):
+func launch(proj :Project, selection :Selection):
 	preview_image.fill(Color.TRANSPARENT)
 	project = proj
 	if selection.has_selected():
 		selection_tex = ImageTexture.create_from_image(selection.mask)
 	cancel_btn.grab_focus.call_deferred()
-	gradient_edit.load_gradient_colors(gradient_colors)
 	update_preview()
 	visible = true
 

@@ -2,6 +2,7 @@ class_name GradientEditNode extends PanelContainer
 
 signal updated(gradient, cc)
 
+var DEFAULT_COLORS:PackedColorArray = [Color.WHITE, Color.BLACK]
 var current_cursor = null
 var continuous_change := true
 # showing a color picker popup to change a cursor's color
@@ -17,20 +18,17 @@ var continuous_change := true
 
 
 func _ready():
+	current_cursor = null
+	
+	gradient.offsets = []
+	for i in DEFAULT_COLORS.size():
+		var color :Color = DEFAULT_COLORS[i]
+		var point = i * (1.0 / (DEFAULT_COLORS.size() - 1))
+		gradient.add_point(point, color)
+	
 	color_picker.color_changed.connect(_on_color_changed)
 	resized.connect(_on_resized)
 	
-
-func load_gradient_colors(colors:PackedColorArray):
-	current_cursor = null
-	color_picker_popup.hide()
-	gradient.offsets = []
-	for i in colors.size():
-		if not colors[i] is Color:
-			continue
-		var color :Color = colors[i]
-		var point = i * (1.0 / (colors.size() - 1))
-		gradient.add_point(point, color)
 	place_cursors()
 
 
@@ -81,6 +79,7 @@ func get_gradient_color(x: float) -> Color:
 
 func _on_cursor_double_clicked(cursor):
 	current_cursor = cursor
+	color_picker.color = current_cursor.color
 	color_picker_popup.show()
 
 
