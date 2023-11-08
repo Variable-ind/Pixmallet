@@ -27,7 +27,7 @@ gradient = SubResource("Gradient_260l1")
 [node name="GradientDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Gradient"
-size = Vector2i(216, 530)
+size = Vector2i(216, 502)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
@@ -96,6 +96,25 @@ layout_mode = 2
 texture = SubResource("GradientTexture2D_j4bt2")
 expand_mode = 1
 
+[node name="PopupPanel" type="PopupPanel" parent="MarginContainer/column/GradientEdit"]
+initial_position = 4
+size = Vector2i(300, 450)
+
+[node name="ColorPicker" type="ColorPicker" parent="MarginContainer/column/GradientEdit/PopupPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+edit_alpha = false
+can_add_swatches = false
+sampler_visible = false
+presets_visible = false
+
 [node name="row" type="VBoxContainer" parent="MarginContainer/column"]
 layout_mode = 2
 
@@ -104,12 +123,15 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OptRepeat" type="OptionButton" parent="MarginContainer/column/row"]
+[node name="common-row" type="HBoxContainer" parent="MarginContainer/column/row"]
+layout_mode = 2
+
+[node name="OptRepeat" type="OptionButton" parent="MarginContainer/column/row/common-row"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OptDithering" type="OptionButton" parent="MarginContainer/column/row"]
+[node name="OptDithering" type="OptionButton" parent="MarginContainer/column/row/common-row"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -121,7 +143,17 @@ popup/item_0/id = 0
 [node name="holder" type="HSeparator" parent="MarginContainer/column/row"]
 layout_mode = 2
 
-[node name="SliderPosition" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_linear"]]
+[node name="linear_group" type="VBoxContainer" parent="MarginContainer/column/row" groups=["gradient_linear"]]
+layout_mode = 2
+
+[node name="label_linear" type="Label" parent="MarginContainer/column/row/linear_group"]
+layout_mode = 2
+text = "Linear Property"
+
+[node name="linear_row_position" type="HBoxContainer" parent="MarginContainer/column/row/linear_group"]
+layout_mode = 2
+
+[node name="SliderPosition" type="ProgressBar" parent="MarginContainer/column/row/linear_group/linear_row_position"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
@@ -134,7 +166,10 @@ script = ExtResource("6_d636d")
 prefix = "Position:"
 suffix = "%"
 
-[node name="SliderSize" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_linear"]]
+[node name="linear_row_size_angle" type="HBoxContainer" parent="MarginContainer/column/row/linear_group"]
+layout_mode = 2
+
+[node name="SliderSize" type="ProgressBar" parent="MarginContainer/column/row/linear_group/linear_row_size_angle"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
@@ -147,7 +182,7 @@ script = ExtResource("6_d636d")
 prefix = "Size:"
 suffix = "%"
 
-[node name="SliderAngle" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_linear"]]
+[node name="SliderAngle" type="ProgressBar" parent="MarginContainer/column/row/linear_group/linear_row_size_angle" groups=["gradient_linear"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
@@ -159,9 +194,23 @@ show_percentage = false
 script = ExtResource("6_d636d")
 prefix = "Angle:"
 
-[node name="SliderCenterX" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_radial"]]
-unique_name_in_owner = true
+[node name="radial_group" type="VBoxContainer" parent="MarginContainer/column/row" groups=["gradient_radial"]]
 visible = false
+layout_mode = 2
+
+[node name="label_radial" type="Label" parent="MarginContainer/column/row/radial_group"]
+layout_mode = 2
+text = "Radial Property"
+
+[node name="row" type="HBoxContainer" parent="MarginContainer/column/row/radial_group"]
+layout_mode = 2
+
+[node name="radial_center" type="VBoxContainer" parent="MarginContainer/column/row/radial_group/row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SliderCenterX" type="ProgressBar" parent="MarginContainer/column/row/radial_group/row/radial_center"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -171,9 +220,8 @@ show_percentage = false
 script = ExtResource("6_d636d")
 prefix = "Center X:"
 
-[node name="SliderCenterY" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_radial"]]
+[node name="SliderCenterY" type="ProgressBar" parent="MarginContainer/column/row/radial_group/row/radial_center"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -183,9 +231,12 @@ show_percentage = false
 script = ExtResource("6_d636d")
 prefix = "Center Y:"
 
-[node name="SliderRadiusX" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_radial"]]
+[node name="radial_radius" type="VBoxContainer" parent="MarginContainer/column/row/radial_group/row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SliderRadiusX" type="ProgressBar" parent="MarginContainer/column/row/radial_group/row/radial_radius"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -195,9 +246,8 @@ show_percentage = false
 script = ExtResource("6_d636d")
 prefix = "Radius X:"
 
-[node name="SliderRadiusY" type="ProgressBar" parent="MarginContainer/column/row" groups=["gradient_radial"]]
+[node name="SliderRadiusY" type="ProgressBar" parent="MarginContainer/column/row/radial_group/row/radial_radius"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(85, 30)
 layout_mode = 2
 size_flags_horizontal = 3

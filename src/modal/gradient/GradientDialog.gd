@@ -107,18 +107,24 @@ func _ready():
 	cancel_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	
 	# perpare OptShape
-	for v in GradientShape:
-		opt_shape.add_item(v.capitalize(), GradientShape[v])
-	opt_shape.selected = 0
+	for s in GradientShape:
+		opt_shape.add_item(s.capitalize(), GradientShape[s])
+		if gradient_shape == GradientShape[s]:
+			opt_shape.selected = GradientShape[s]
 	
 	# perpare OptRepeat
 	for r in GradientRepeat:
 		opt_repeat.add_item(r.capitalize(), GradientRepeat[r])
-	opt_repeat.selected = 0
+		if gradient_repeat == GradientRepeat[r]:
+			opt_repeat.selected = GradientRepeat[r]
 	
-	for matrix in dither_matrices:
+	for i in dither_matrices.size():
+		var matrix = dither_matrices[i]
 		opt_dithering.add_item(matrix.name)
-	opt_dithering.selected = 0
+		if matrix == selected_dither_matrix:
+			opt_dithering.selected = i
+	if opt_dithering.selected == -1:
+		opt_dithering.selected = 0
 	
 	opt_shape.item_selected.connect(_on_shape_selected)
 	opt_repeat.item_selected.connect(_on_repeat_selected)
@@ -146,14 +152,13 @@ func _ready():
 
 func launch(proj :Project,
 			selection :Selection,
-			foreground :Color,
-			background :Color):
+			gradient_colors :PackedColorArray = []):
 	preview_image.fill(Color.TRANSPARENT)
 	project = proj
 	if selection.has_selected():
 		selection_tex = ImageTexture.create_from_image(selection.mask)
 	cancel_btn.grab_focus.call_deferred()
-	gradient_edit.load_gradient([foreground, background])
+	gradient_edit.load_gradient_colors(gradient_colors)
 	update_preview()
 	visible = true
 
