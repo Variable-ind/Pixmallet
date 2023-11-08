@@ -6,7 +6,9 @@ var continuous_change := true
 var active_cursor: GradientCursor  
 # showing a color picker popup to change a cursor's color
 
-@onready var x_offset: float = size.x - GradientCursor.WIDTH
+@onready var x_offset: float:
+	get: return size.x - GradientCursor.WIDTH
+
 @onready var texture_rect := $TextureRect
 @onready var texture :GradientTexture2D = texture_rect.texture
 @onready var gradient := texture.gradient
@@ -16,6 +18,15 @@ var active_cursor: GradientCursor
 
 
 func _ready():
+	color_picker.can_add_swatches = false
+	color_picker.color_modes_visible = false
+	color_picker.color_mode = ColorPicker.MODE_RGB
+#	color_picker.deferred_mode = true
+	color_picker.presets_visible = false
+	color_picker.sampler_visible = false
+	color_picker.picker_shape = ColorPicker.SHAPE_NONE
+	color_picker.hex_visible = false
+	
 	place_cursors()
 
 
@@ -56,6 +67,7 @@ func add_cursor(x: float, color: Color):
 	cursor.color = color
 	cursor.selected.connect(_on_cursor_selected)
 	cursor.removed.connect(_on_cursor_removed)
+	print('add', cursor)
 
 
 func select_cursor(cursor: GradientCursor, pos: Vector2):
@@ -90,7 +102,6 @@ func _on_color_changed(color: Color) -> void:
 func _on_resized() -> void:
 	if not gradient:
 		return
-	x_offset = size.x - GradientCursor.WIDTH
 	place_cursors()
 
 

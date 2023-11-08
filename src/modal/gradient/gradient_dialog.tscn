@@ -28,7 +28,7 @@ gradient = SubResource("Gradient_260l1")
 disable_3d = true
 title = "Gradient"
 position = Vector2i(0, 36)
-size = Vector2i(216, 549)
+size = Vector2i(306, 1072)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
@@ -83,6 +83,11 @@ size_flags_vertical = 4
 mouse_filter = 2
 script = ExtResource("5_ond38")
 
+[node name="ColorPicker" type="ColorPicker" parent="MarginContainer/column"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
 [node name="holder" type="HSeparator" parent="MarginContainer/column"]
 layout_mode = 2
 
@@ -103,21 +108,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_j4bt2")
 expand_mode = 1
-
-[node name="ColorPickerPopup" type="Popup" parent="MarginContainer/column/GradientEdit"]
-size = Vector2i(338, 592)
-
-[node name="ColorPicker" type="ColorPicker" parent="MarginContainer/column/GradientEdit/ColorPickerPopup"]
-unique_name_in_owner = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = 24.0
-offset_right = 16.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="row" type="VBoxContainer" parent="MarginContainer/column"]
 layout_mode = 2
