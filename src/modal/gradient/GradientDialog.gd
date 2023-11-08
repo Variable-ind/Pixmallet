@@ -144,12 +144,16 @@ func _ready():
 	visibility_changed.connect(_on_visibility_changed)
 
 
-func launch(proj:Project, selection:Selection):
+func launch(proj :Project,
+			selection :Selection,
+			foreground :Color,
+			background :Color):
 	preview_image.fill(Color.TRANSPARENT)
 	project = proj
 	if selection.has_selected():
 		selection_tex = ImageTexture.create_from_image(selection.mask)
 	cancel_btn.grab_focus.call_deferred()
+	gradient_edit.load_gradient([foreground, background])
 	update_preview()
 	visible = true
 
@@ -243,7 +247,7 @@ func _on_radius_y_changed(val):
 
 func _on_gradient_updated(_gradient, _cc):
 	update_gradient()
-	
+
 
 func _on_visibility_changed():
 	modal_toggled.emit(visible)

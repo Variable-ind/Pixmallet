@@ -1,9 +1,8 @@
-class_name GradientEditNode extends Control
+class_name GradientEditNode extends PanelContainer
 
 signal updated(gradient, cc)
 
 var continuous_change := true
-var active_cursor: GradientCursor  
 # showing a color picker popup to change a cursor's color
 
 @onready var x_offset: float:
@@ -13,20 +12,14 @@ var active_cursor: GradientCursor
 @onready var texture :GradientTexture2D = texture_rect.texture
 @onready var gradient := texture.gradient
 
-@onready var color_picker_popup := $ColorPickerPopup
-@onready var color_picker := $ColorPickerPopup/ColorPicker
 
-
-func _ready():
-	color_picker.can_add_swatches = false
-	color_picker.color_modes_visible = false
-	color_picker.color_mode = ColorPicker.MODE_RGB
-#	color_picker.deferred_mode = true
-	color_picker.presets_visible = false
-	color_picker.sampler_visible = false
-	color_picker.picker_shape = ColorPicker.SHAPE_NONE
-	color_picker.hex_visible = false
-	
+func load_gradient(colors:Array):
+	gradient.offsets = []
+	for i in colors.size():
+		if not colors[i] is Color:
+			continue
+		var color :Color = colors[i]
+		gradient.add_point(1.0, color)
 	place_cursors()
 
 
@@ -65,38 +58,22 @@ func add_cursor(x: float, color: Color):
 	cursor.movable_range = size.x
 	cursor.position.x = x
 	cursor.color = color
-	cursor.selected.connect(_on_cursor_selected)
+	cursor.color_changed.connect(_on_cursor_color_changed)
 	cursor.removed.connect(_on_cursor_removed)
-	print('add', cursor)
-
-
-func select_cursor(cursor: GradientCursor, pos: Vector2):
-	active_cursor = cursor
-	color_picker.color = cursor.color
-	if pos.x > global_position.x + (size.x / 2.0):
-		pos.x = global_position.x + size.x
-	else:
-		pos.x = global_position.x - color_picker_popup.size.x
-	color_picker_popup.position = pos
-	color_picker_popup.popup()
 
 
 func get_gradient_color(x: float) -> Color:
 	return gradient.sample(x / x_offset)
 
 
-func _on_cursor_selected(cursor :GradientCursor, pos :Vector2i):
-	select_cursor(cursor, pos)
+func _on_cursor_color_changed(_color: Color):
+	update_from_value()
 
 
 func _on_cursor_removed(cursor :GradientCursor):
 	cursor.remove()
 	continuous_change = false
 	update_from_value()
-
-
-func _on_color_changed(color: Color) -> void:
-	active_cursor.color = color
 
 
 func _on_resized() -> void:
@@ -109,23 +86,32 @@ func set_interpolation_mode(index: Gradient.InterpolationMode):
 	gradient.interpolation_mode = index
 
 
-class GradientCursor extends Control:
+class GradientCursor extends ColorPickerButton:
 	
-	signal selected(gcursor, pos)
 	signal removed(gcursor)
 
 	const WIDTH := 10
 	const HEIGHT := 15
 	
 	var movable_range := 0.0
-	var color: Color
 	var is_pressed := false
 
-	func _ready() -> void:
+	func _ready():
 		position = Vector2(0, HEIGHT)
 		size = Vector2(WIDTH, HEIGHT)
-
-	func _draw() -> void:
+		flat = true
+		var picker = get_picker()
+		picker.can_add_swatches = false
+#		picker.color_modes_visible = false
+		picker.color_mode = ColorPicker.MODE_RGB
+#		color_picker.deferred_mode = true
+		picker.sampler_visible = false
+		picker.presets_visible = false
+#		picker.picker_shape = ColorPicker.SHAPE_NONE
+		picker.hex_visible = true
+		theme_type_variation = 'TextureBtn'
+	
+	func _draw():
 		var polygon := PackedVector2Array(
 			[
 				Vector2(0, 5),
@@ -147,10 +133,7 @@ class GradientCursor extends Control:
 	func _gui_input(ev: InputEvent):
 		if ev is InputEventMouseButton:
 			if ev.button_index == MOUSE_BUTTON_LEFT:
-				if ev.double_click:
-					selected.emit(self, ev.global_position)
-				else:
-					is_pressed = ev.pressed
+				is_pressed = true
 			elif ev.button_index == MOUSE_BUTTON_RIGHT:
 				removed.emit(self)
 		elif ev is InputEventMouseMotion and is_pressed:
@@ -158,8 +141,6 @@ class GradientCursor extends Control:
 			position.x = min(max(0, position.x), movable_range - size.x)
 
 	func remove():
-		for conn in selected.get_connections():
-			conn['callable'].disconnect()
 		for conn in removed.get_connections():
 			conn['callable'].disconnect()
 		queue_free()
