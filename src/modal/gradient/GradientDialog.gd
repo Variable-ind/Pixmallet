@@ -19,7 +19,7 @@ var gradient_shape := GradientShape.LINEAR
 var gradient_repeat := GradientRepeat.NONE
 
 var gradient_tex: Texture2D
-var offsets_tex := ImageTexture
+var offsets_tex : ImageTexture
 var selection_tex: ImageTexture
 
 var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
@@ -27,6 +27,9 @@ var preview_image := Image.create(1, 1, false, Image.FORMAT_RGBA8)
 var project :Project
 
 var dither_matrices: Array[DitherMatrix] = [
+	DitherMatrix.new(
+		null, "No Dither"
+	),
 	DitherMatrix.new(
 		preload("res://assets/dither-matrices/bayer2.png"),
 		"Bayer 2x2"
@@ -51,19 +54,20 @@ var linear_angle := 0
 var radial_center := Vector2i(50, 50)
 var radial_radius := Vector2i.ONE
 
-var gradient_params := {
-	"gradient_texture": gradient_tex,
-	"offset_texture": offsets_tex,
-	"selection": selection_tex,
-	"position": linear_pos / 100.0 - 0.5,
-	"size": linear_size / 100.0,
-	"angle": linear_angle,
-	"center": radial_center / 100.0,
-	"radius": radial_radius,
-	"dither_texture": selected_dither_matrix.texture,
-	"repeat": gradient_repeat,
-	"shape": gradient_shape,
-}
+var gradient_params :Dictionary :
+	get: return {
+		"gradient_texture": gradient_tex,
+		"offset_texture": offsets_tex,
+		"selection": selection_tex,
+		"position": linear_pos / 100.0 - 0.5,
+		"size": linear_size / 100.0,
+		"angle": linear_angle,
+		"center": radial_center / 100.0,
+		"radius": radial_radius,
+		"dither_texture": selected_dither_matrix.texture,
+		"repeat": gradient_repeat,
+		"shape": gradient_shape,
+	}
 
 @export var preview_bgcolor := Color(1, 1, 1, 0.2)
 
@@ -123,8 +127,6 @@ func _ready():
 		opt_dithering.add_item(matrix.name)
 		if matrix == selected_dither_matrix:
 			opt_dithering.selected = i
-	if opt_dithering.selected == -1:
-		opt_dithering.selected = 0
 	
 	opt_shape.item_selected.connect(_on_shape_selected)
 	opt_repeat.item_selected.connect(_on_repeat_selected)
@@ -175,17 +177,41 @@ func update_preview():
 								Vector2i.ZERO)
 
 	preview.render(preview_image)
-	confirm_btn.disabled = preview_image.is_invisible()
 	update_gradient()
 
 
 func update_gradient():
+	var gradient :Gradient = gradient_edit.gradient
+	var n_of_colors := gradient.offsets.size()
+	# Pass the gradient offsets as an array to the shader
+	# ...but since Godot 3.x doesn't support uniform arrays, 
+	# instead we construct
+	# a nx1 grayscale texture with each offset stored in each pixel,
+	# and pass it to the shader
+	var offsets_image := Image.create(n_of_colors, 1, false, 
+									  Image.FORMAT_L8)
+	# Construct an image that contains the selected 
+	# colors of the gradient without interpolation
+	var gradient_image := Image.create(n_of_colors, 1, false,
+									   Image.FORMAT_RGBA8)
+	for i in n_of_colors:
+		var c := gradient.offsets[i]
+		offsets_image.set_pixel(i, 0, Color(c, c, c, c))
+		gradient_image.set_pixel(i, 0, gradient.colors[i])
+
+	offsets_tex = ImageTexture.create_from_image(offsets_image)
+
+	if selected_dither_matrix.texture:
+		gradient_tex = ImageTexture.create_from_image(gradient_image)
+	else:
+		gradient_tex = gradient_edit.texture
+
 	preview.update_material(gradient_params)
 
 
 func _on_confirmed():
 	var gen := ShaderImageEffect.new()
-	gen.generate_image(project.crruent_cel.get_image(), 
+	gen.generate_image(project.current_cel.get_image(), 
 					   preview.material.shader, 
 					   gradient_params,
 					   project.size)
@@ -210,7 +236,7 @@ func _on_repeat_selected(index :GradientRepeat):
 	
 
 func _on_dithering_selected(index:int):
-	selected_dither_matrix = dither_matrices[index - 1]
+	selected_dither_matrix = dither_matrices[index]
 	preview.switch_shader(index)
 	update_gradient()
 

@@ -11,7 +11,7 @@ var continuous_change := true
 
 @onready var texture_rect := $TextureRect
 @onready var texture :GradientTexture2D = texture_rect.texture
-@onready var gradient := texture.gradient
+@onready var gradient :Gradient = texture.gradient
 @onready var color_picker_popup := $PopupPanel
 @onready var color_picker := $PopupPanel/ColorPicker
 
@@ -41,7 +41,6 @@ func place_cursors():
 			cur.queue_free()
 	for i in gradient.get_point_count():
 		var p: float = gradient.get_offset(i)
-		print('p:', p, ' x_offset:', x_offset)
 		add_cursor(p * x_offset, gradient.get_color(i))
 
 
@@ -104,6 +103,8 @@ func _on_cursor_removed(cursor :GradientCursor):
 		cursor.pressed.disconnect(conn['callable'])
 	for conn in cursor.double_clicked.get_connections():
 		cursor.double_clicked.disconnect(conn['callable'])
+	if current_cursor == cursor:
+		current_cursor = null
 	continuous_change = false
 	update_from_value()
 

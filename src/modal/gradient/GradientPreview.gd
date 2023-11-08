@@ -21,14 +21,14 @@ func _ready():
 	stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	
 	var sm := ShaderMaterial.new()
-	sm.shader = shader
+	sm.shader = shader_linear
 	material = sm
 
 
 func switch_shader(index:int):
 	match index:
-		1: shader = shader_linear_dither
-		_: shader = shader_linear
+		0: material.shader = shader_linear
+		_: material.shader = shader_linear_dither
 
 
 func render(img :Image):

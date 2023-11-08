@@ -27,7 +27,7 @@ gradient = SubResource("Gradient_260l1")
 [node name="GradientDialog" type="ConfirmationDialog"]
 disable_3d = true
 title = "Gradient"
-size = Vector2i(216, 502)
+size = Vector2i(216, 461)
 visible = true
 unresizable = true
 theme_type_variation = &"ConfirmDialog"
@@ -48,12 +48,6 @@ size_flags_vertical = 3
 
 [node name="column" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-
-[node name="note" type="Label" parent="MarginContainer/column"]
-layout_mode = 2
-theme_type_variation = &"caption"
-text = "For current cel."
-horizontal_alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/column"]
 clip_contents = true
@@ -93,6 +87,9 @@ script = ExtResource("5_duyix")
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/column/GradientEdit"]
 layout_mode = 2
+tooltip_text = "Left Click to Add Point,
+Right Click to Remove,
+Double Click to Change Color."
 texture = SubResource("GradientTexture2D_j4bt2")
 expand_mode = 1
 
@@ -104,10 +101,10 @@ size = Vector2i(300, 450)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 300.0
+offset_bottom = 450.0
 grow_horizontal = 2
 grow_vertical = 2
 edit_alpha = false
@@ -135,10 +132,6 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-item_count = 1
-selected = 0
-popup/item_0/text = "No Dithering"
-popup/item_0/id = 0
 
 [node name="holder" type="HSeparator" parent="MarginContainer/column/row"]
 layout_mode = 2
