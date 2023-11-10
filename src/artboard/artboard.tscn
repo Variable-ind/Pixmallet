@@ -85,12 +85,11 @@ script = ExtResource("7_u15up")
 [node name="CropSizer" type="Node2D" parent="Viewport/Canvas"]
 script = ExtResource("9_jix6q")
 gizmo_color = Color(1, 1, 1, 1)
+gizmo_bgcolor = Color(1, 1, 1, 1)
 line_color = Color(1, 1, 1, 1)
-line_width = 2
 
 [node name="MoveSizer" type="Node2D" parent="Viewport/Canvas"]
 script = ExtResource("10_e8gjq")
-line_width = 2
 
 [node name="Grid" type="Node2D" parent="Viewport"]
 script = ExtResource("6_qakk7")

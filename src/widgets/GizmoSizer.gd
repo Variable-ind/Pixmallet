@@ -28,7 +28,7 @@ enum GSPivot {
 			gizmo.color = gizmo_color
 		queue_redraw()
 			
-@export var gizmo_bgcolor := Color.WHITE:
+@export var gizmo_bgcolor := Color.BLUE:
 	set(val):
 		gizmo_bgcolor = val
 		for gizmo in gizmos:
@@ -44,11 +44,6 @@ enum GSPivot {
 @export var line_color := Color.BLUE:
 	set(val):
 		line_color = val
-		queue_redraw()
-
-@export var line_width := 1.0:
-	set(val):
-		line_width = val
 		queue_redraw()
 
 var zoom_ratio := 1.0 :
@@ -480,7 +475,7 @@ func _input(event :InputEvent):
 
 func _draw():
 	if has_area(): # careful has_area might be ovrride.
-		draw_rect(bound_rect, line_color, false, line_width / zoom_ratio)
+		draw_rect(bound_rect, line_color, false)
 
 
 func _on_gizmo_hover_updated(gizmo, status):

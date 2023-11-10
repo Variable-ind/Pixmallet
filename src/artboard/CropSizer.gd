@@ -64,23 +64,23 @@ func _draw():
 	var third: float = bound_rect.position.y + bound_rect.size.y * 0.333
 	draw_line(Vector2(bound_rect.position.x, third), 
 			  Vector2(bound_rect.end.x, third),
-			  line_color, line_width / zoom_ratio)
+			  line_color)
 			
 	third = bound_rect.position.y + bound_rect.size.y * 0.667
 	draw_line(Vector2(bound_rect.position.x, third),
 			  Vector2(bound_rect.end.x, third),
-			  line_color, line_width / zoom_ratio)
+			  line_color)
 
 	# Vertical rule of thirds lines:
 	third = bound_rect.position.x + bound_rect.size.x * 0.333
 	draw_line(Vector2(third, bound_rect.position.y),
 			  Vector2(third, bound_rect.end.y),
-			  line_color, line_width / zoom_ratio)
+			  line_color)
 			
 	third = bound_rect.position.x + bound_rect.size.x * 0.667
 	draw_line(Vector2(third, bound_rect.position.y),
 			  Vector2(third, bound_rect.end.y),
-			  line_color, line_width / zoom_ratio)
+			  line_color)
 
 
 func _on_applied(rect):

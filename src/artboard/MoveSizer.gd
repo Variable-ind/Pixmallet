@@ -55,6 +55,8 @@ func cancel():
 
 func apply():
 	if has_area() and has_image():
+		print(image)
+		history.record(image)
 		preview_image.resize(bound_rect.size.x, 
 							 bound_rect.size.y,
 							 Image.INTERPOLATE_NEAREST)
@@ -74,6 +76,7 @@ func apply():
 		preview_image = Image.new()
 
 		super.apply()
+		history.commit('move')
 
 
 
@@ -119,16 +122,16 @@ func update_texture():
 
 func _draw():
 	if has_area(): # careful has_area might be ovrride.
-		var draw_color = line_color
-		if not is_activated:
-			draw_color.a = 0.5
-		draw_rect(bound_rect, draw_color, false, line_width / zoom_ratio)
-	
 		if has_image():
 	#		texture = ImageTexture.create_from_image(image)
 			# DO NOT new a texture here, may got blank texture. do it before.
 			draw_texture_rect(preview_texture, bound_rect, false,
 							  MODULATE_COLOR if is_dragging else Color.WHITE)
+		
+		var draw_color = line_color
+		if not is_activated:
+			draw_color.a = 0.5
+		draw_rect(bound_rect, draw_color, false)
 	
 
 func _on_refreshed(_rect, _rel_pos:=Vector2i.ZERO, _status:=false):

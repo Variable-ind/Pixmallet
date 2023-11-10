@@ -70,6 +70,8 @@ func set_editable(status):
 	input_width.editable = status
 	input_height.editable = status
 	opt_pivot.set_process_input(status)
+	btn_apply.disabled = not status
+	btn_cancel.disabled = not status
 
 
 func _on_applied():
