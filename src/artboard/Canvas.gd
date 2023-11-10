@@ -199,7 +199,8 @@ func process_drawing_or_erasing(event, drawer):
 		if (not drawer.can_draw(pos) or
 			not project.current_cel is PixelCel):
 			return
-			
+		
+		var src_img := project.current_cel.get_image()
 		if is_pressed:
 			match drawer.dynamics_stroke_width:
 				Dynamics.PRESSURE:
@@ -219,32 +220,39 @@ func process_drawing_or_erasing(event, drawer):
 						prepare_velocity(event.velocity))
 				_:
 					drawer.set_stroke_alpha_dynamics() # back to default
+			if not drawer.is_drawing:
+				history.record(src_img, refresh)
 			drawer.draw_move(pos)
-			project.current_cel.update_texture()
-			queue_redraw()
+			refresh()
 				
 		elif drawer.is_drawing:
 			drawer.draw_end(pos)
-			project.current_cel.update_texture()
-			queue_redraw()
+			history.commit()
+			refresh()
 
 
 func process_selection(event, selector):
 	if event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
+			if not selector.is_operating:
+				history.record(selection.mask, selection.update_selection)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
+			history.commit()
 
 
 func process_selection_polygon(event, selector):
 	if event is InputEventMouseButton:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed and not event.double_click:
+			if not selector.is_operating:
+				history.record(selection.mask, selection.update_selection)
 			selector.select_move(pos)
 		elif selector.is_selecting and event.double_click:
 			selector.select_end(pos)
+			history.commit()
 	elif event is InputEventMouseMotion and selector.is_moving:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
@@ -312,13 +320,37 @@ func process_shape(event, shaper):
 			shaper.shape_end(pos)
 
 
+func select_all():
+	history.record(selection.mask, selection.update_selection)
+	selection.select_all()
+	history.commit()
+
+
+func select_deselect():
+	history.record(selection.mask, selection.update_selection)
+	selection.deselect()
+	history.commit()
+
+
+func select_invert():
+	history.record(selection.mask, selection.update_selection)
+	selection.invert()
+	history.commit()
+
+
 func fill_color(color:Color):
 	if not project:
 		return
+	var imgs :Array[Image] = []
 	for cel in project.selected_cels:
 		if not cel is PixelCel or not cel.is_visible:
 			continue
 		var image = cel.get_image()
+		imgs.append(image)
+	
+	history.record(imgs, refresh)
+		
+	for image in imgs:
 		if selection.has_selected():
 			var tmp_img := Image.create(image.get_width(),
 										image.get_height(),
@@ -330,13 +362,18 @@ func fill_color(color:Color):
 								 Vector2i.ZERO)
 		else:
 			image.fill(color)
+	
 	refresh()
+	history.commit()
+	
 
 
 func flip_x():
+	var src_img := project.current_cel.get_image()
+	history.record(src_img, refresh)
 	if selection.has_selected():
 		var rect := selection.selected_rect
-		var src_img := project.current_cel.get_image()
+		
 		var blank := Image.create(src_img.get_width(), src_img.get_height(), 
 								  false, src_img.get_format())
 		var img := Image.create(src_img.get_width(), src_img.get_height(),
@@ -346,21 +383,25 @@ func flip_x():
 		
 		img = img.get_region(rect)
 		img.flip_x()
+		
+		history.record(selection.mask, selection.update_selection)
 		selection.flip_x()
 		src_img.blit_rect_mask(img, 
 							   selection.get_mask_region(), 
 							   selection.get_mask_rect(),
 							   rect.position)
 	else:
-		project.current_cel.get_image().flip_x()
+		src_img.flip_x()
 
 	refresh()
+	history.commit()
 	
 
 func flip_y():
+	var src_img := project.current_cel.get_image()
+	history.record(src_img, refresh)
 	if selection.has_selected():
 		var rect := selection.selected_rect
-		var src_img := project.current_cel.get_image()
 		var blank := Image.create(src_img.get_width(), src_img.get_height(), 
 								  false, src_img.get_format())
 		var img := Image.create(src_img.get_width(), src_img.get_height(),
@@ -371,21 +412,26 @@ func flip_y():
 		
 		img = img.get_region(rect)
 		img.flip_y()
+		
+		history.record(selection.mask, selection.update_selection)
 		selection.flip_y()
 		src_img.blit_rect_mask(img,
 							   selection.get_mask_region(),
 							   selection.get_mask_rect(),
 							   rect.position)
 	else:
-		project.current_cel.get_image().flip_y()
+		src_img.get_image().flip_y()
 
 	refresh()
+	history.commit()
 	
 
 func rotate_cw():
+	var src_img := project.current_cel.get_image()
+	history.record(src_img, refresh)
 	if selection.has_selected():
 		var rect := selection.selected_rect
-		var src_img := project.current_cel.get_image()
+		
 		var blank := Image.create(src_img.get_width(), src_img.get_height(), 
 								  false, src_img.get_format())
 		var img := Image.create(src_img.get_width(), src_img.get_height(),
@@ -396,31 +442,35 @@ func rotate_cw():
 		
 		img = img.get_region(rect)
 		img.rotate_90(CLOCKWISE)
+		
+		history.record(selection.mask, selection.update_selection)
 		selection.rotate_90(CLOCKWISE)
 		src_img.blit_rect_mask(img, img, selection.get_mask_rect(),
 							   selection.selected_rect.position)
 	else:
-		var img := project.current_cel.get_image()
-		var w: = img.get_width()
-		var h: = img.get_height()
+		var w: = src_img.get_width()
+		var h: = src_img.get_height()
 		
-		var rotate_img := img.duplicate()
+		var rotate_img := src_img.duplicate()
 		rotate_img.rotate_90(CLOCKWISE)
 		var rotate_rect := Rect2i(Vector2i.ZERO, rotate_img.get_size())
 		var dst = Vector2i(
 			floor((w - rotate_rect.size.x) * 0.5),
 			floor((h - rotate_rect.size.y) * 0.5)
 		)
-		img.fill(Color.TRANSPARENT)
-		img.blit_rect(rotate_img, rotate_rect, dst)
+		src_img.fill(Color.TRANSPARENT)
+		src_img.blit_rect(rotate_img, rotate_rect, dst)
 
 	refresh()
+	history.commit()
 	
 
 func rotate_ccw():
+	var src_img := project.current_cel.get_image()
+	history.record(src_img, refresh)
+	
 	if selection.has_selected():
 		var rect := selection.selected_rect
-		var src_img := project.current_cel.get_image()
 		var blank := Image.create(src_img.get_width(), src_img.get_height(), 
 								  false, src_img.get_format())
 		var img := Image.create(src_img.get_width(), src_img.get_height(),
@@ -436,21 +486,21 @@ func rotate_ccw():
 		src_img.blit_rect_mask(img, img, selection.get_mask_rect(),
 							   selection.selected_rect.position)
 	else:
-		var img := project.current_cel.get_image()
-		var w: = img.get_width()
-		var h: = img.get_height()
+		var w: = src_img.get_width()
+		var h: = src_img.get_height()
 		
-		var rotate_img := img.duplicate()
+		var rotate_img := src_img.duplicate()
 		rotate_img.rotate_90(COUNTERCLOCKWISE)
 		var rotate_rect := Rect2i(Vector2i.ZERO, rotate_img.get_size())
 		var dst = Vector2i(
 			floor((w - rotate_rect.size.x) * 0.5),
 			floor((h - rotate_rect.size.y) * 0.5)
 		)
-		img.fill(Color.TRANSPARENT)
-		img.blit_rect(rotate_img, rotate_rect, dst)
+		src_img.fill(Color.TRANSPARENT)
+		src_img.blit_rect(rotate_img, rotate_rect, dst)
 		
 	refresh()
+	history.commit()
 
 
 func _input(event :InputEvent):

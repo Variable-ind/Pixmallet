@@ -34,6 +34,7 @@ func select_rect(rect :Rect2i,
 				 replace:=false, subtract:=false, intersect:=false):
 	if rect.size < Vector2i.ONE:
 		return
+	
 	if is_invisible():
 		fill_rect(rect, SELECTED_COLOR)
 		return
@@ -119,7 +120,7 @@ func select_magic(points:PackedVector2Array,
 	
 	if replace:
 		fill(UNSELECTED_COLOR)
-	
+
 	if intersect:
 		for x in width:
 			for y in height:

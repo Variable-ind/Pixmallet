@@ -105,7 +105,8 @@ func update_selection():
 		selected_rect = selection_map.get_used_rect()
 		updated.emit(selected_rect, relative_position)
 		visible = true
-			
+	
+	points.clear()
 	_current_draw = null
 	queue_redraw()
 
@@ -129,32 +130,27 @@ func get_drag_offset(pos :Vector2i) ->Vector2i:
 
 
 func deselect():
-	points.clear()
 	selection_map.select_none()
 	update_selection()
 
 
 func select_all():
-	points.clear()
 	selection_map.select_all()
 	update_selection()
 
 
 func invert():
-	points.clear()
 	selection_map.select_invert()
 	update_selection()
 
 
 func update(sel_img, rect:=Rect2i(), dst:=Vector2i.ZERO):
-	points.clear()
 	selection_map.select_none()
 	selection_map.blit_rect(sel_img, rect, dst)
 	update_selection()
 
 
 func merge(sel_img, rect:=Rect2i(), dst:=Vector2i.ZERO):
-	points.clear()
 	selection_map.blit_rect_mask(sel_img, sel_img, rect, dst)
 	update_selection()
 
@@ -168,7 +164,6 @@ func get_mask_rect():
 
 
 func flip_x():
-	points.clear()
 	var flip_sel = mask.get_region(selected_rect)
 	var flip_rect = Rect2i(Vector2i.ZERO, selected_rect.size)
 	flip_sel.flip_x()
@@ -178,7 +173,6 @@ func flip_x():
 
 
 func flip_y():
-	points.clear()
 	var flip_sel = mask.get_region(selected_rect)
 	var flip_rect = Rect2i(Vector2i.ZERO, selected_rect.size)
 	flip_sel.flip_y()
@@ -188,7 +182,6 @@ func flip_y():
 
 
 func rotate_90(direction:ClockDirection):
-	points.clear()
 	var dst := selected_rect.position
 	var rotate_sel := selection_map.get_region(selected_rect)
 	var w: = selected_rect.size.x
@@ -218,7 +211,7 @@ func move_to(to_pos :Vector2i, use_pivot := true):
 		to_pos.x -= target_edge.x - size.x
 	if target_edge.y > size.y:
 		to_pos.y -= target_edge.y - size.y
-		
+	
 	selection_map.move_to(to_pos, _offset)
 	update_selection()
 
@@ -250,7 +243,7 @@ func drag_to(pos, drag_offset):
 	update_selection()
 
 
-func resize_to(to_size :Vector2i):			
+func resize_to(to_size :Vector2i):
 	to_size = to_size.clamp(Vector2i.ONE, size)
 	var _pos_offset = Pivot.get_position_offset(pivot, 
 												selected_rect.size,
@@ -343,10 +336,10 @@ func selected_rectangle(sel_points :Array):
 	if not check_visible(sel_points):
 		return
 	var sel_rect := get_rect_from_points(sel_points)
+	
 	selection_map.select_rect(
 		sel_rect, as_replace, as_subtract, as_intersect)
 	update_selection()
-	points.clear()
 
 
 # Ellipse
@@ -371,7 +364,6 @@ func selected_ellipse(sel_points :Array):
 	selection_map.select_ellipse(
 		sel_rect, as_replace, as_subtract, as_intersect)
 	update_selection()
-	points.clear()
 
 
 # Polygon
@@ -390,7 +382,6 @@ func selected_polygon(sel_points :Array):
 	selection_map.select_polygon(
 		sel_points, as_replace, as_subtract, as_intersect)
 	update_selection()
-	points.clear()
 
 
 # Lasso
@@ -409,18 +400,15 @@ func selected_lasso(sel_points :Array):
 	selection_map.select_polygon(
 		sel_points, as_replace, as_subtract, as_intersect)
 	update_selection()
-	points.clear()
 
 
 # magic
 func selected_magic(sel_points :Array):
 	if not check_visible(sel_points):
 		return
-		
 	selection_map.select_magic(
 		sel_points, as_replace, as_subtract, as_intersect)
 	update_selection()
-	points.clear()
 
 
 # Draw selecting lines

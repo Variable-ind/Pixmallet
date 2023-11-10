@@ -33,7 +33,7 @@ var background_color := Color.BLACK
 
 func _ready():
 	DisplayServer.window_set_min_size(Vector2i(800, 700))
-	
+
 	g.current_project = Project.new(Vector2i(400, 300))
 	
 	artboard.load_project(g.current_project)
@@ -73,12 +73,17 @@ func _on_navbar_navigation_to(nav_id, data):
 		Navbar.OPEN_FILE:
 			pass
 		
+		Navbar.UNDO:
+			history.undo()
+		Navbar.REDO:
+			history.redo()
+		
 		Navbar.SELECT_ALL:
-			artboard.canvas.selection.select_all()
+			artboard.canvas.select_all()
 		Navbar.CLEAR_SEL:
-			artboard.canvas.selection.deselect()
+			artboard.canvas.select_deselect()
 		Navbar.INVERT_SEL:
-			artboard.canvas.selection.invert()
+			artboard.canvas.select_invert()
 		
 		Navbar.ZOOM_IN:
 			camera.zoom_in()
@@ -104,7 +109,8 @@ func _on_navbar_navigation_to(nav_id, data):
 		Navbar.IMG_ROTATE:
 			dialog_img_rotate.launch(g.current_project)
 		Navbar.IMG_OUTLINE:
-			dialog_img_outline.launch(g.current_project, foreground_color)
+			dialog_img_outline.launch(g.current_project,
+									  foreground_color)
 		Navbar.IMG_DROP_SHADOW:
 			dialog_img_shadow.launch(g.current_project)
 		Navbar.IMG_INVERT_COLOR:
