@@ -2,7 +2,8 @@ class_name PixelSelector extends BaseSelector
 
 
 func select_start(pos :Vector2i):
-	reset()  # no problem reset here, because selection actually is a image.
+	super.select_start(pos)
+
 	if selection.has_point(pos, true):
 		if mode == Selection.Mode.REPLACE:
 			is_moving = true

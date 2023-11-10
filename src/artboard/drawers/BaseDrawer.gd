@@ -1,5 +1,8 @@
 class_name BaseDrawer extends RefCounted
 
+signal drawing_started(drawer)
+signal drawing_stopped()
+
 var color_op := ColorOp.new()
 
 var is_drawing := false
@@ -26,6 +29,7 @@ func reset():
 
 func draw_start(_pos: Vector2i):
 	is_drawing = true
+	drawing_started.emit(self)
 
 
 func draw_move(pos: Vector2i):
@@ -37,4 +41,5 @@ func draw_move(pos: Vector2i):
 
 func draw_end(_pos: Vector2i):
 	is_drawing = false
+	drawing_stopped.emit()
 

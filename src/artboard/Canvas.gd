@@ -103,6 +103,15 @@ func _ready():
 	silhouette.inject_snapping(drag_snapping_hook)
 	
 	selection.inject_snapping(drag_snapping_hook)
+	
+	for drawer in [drawer_pencil, drawer_brush, drawer_eraser, drawer_shading]:
+		drawer.drawing_started.connect(_on_drawing_started)
+		drawer.drawing_stopped.connect(_on_drawing_stopped)
+		
+	for selector in [selector_rect, selector_ellipse, selector_polygon, 
+					 selector_lasso, selector_magic]:
+		selector.selecting_started.connect(_on_selecting_started)
+		selector.selecting_stopped.connect(_on_selecting_stopped)
 
 
 func attach_project(proj):
@@ -217,14 +226,10 @@ func process_drawing_or_erasing(event, drawer):
 						prepare_velocity(event.velocity))
 				_:
 					drawer.set_stroke_alpha_dynamics() # back to default
-			if not drawer.is_drawing:
-				history.record(drawer.image, refresh)
 			drawer.draw_move(pos)
 			refresh()
-				
 		elif drawer.is_drawing:
 			drawer.draw_end(pos)
-			history.commit()
 			refresh()
 
 
@@ -232,56 +237,43 @@ func process_selection(event, selector):
 	if event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
-			if not selector.is_operating:
-				history.record(selection.mask, selection.update_selection)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
-			history.commit()
 
 
 func process_selection_polygon(event, selector):
 	if event is InputEventMouseButton:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed and not event.double_click:
-			if not selector.is_operating:
-				history.record(selection.mask, selection.update_selection)
 			selector.select_move(pos)
 		elif selector.is_selecting and event.double_click:
 			selector.select_end(pos)
-			history.commit()
 	elif event is InputEventMouseMotion and selector.is_moving:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			selector.select_move(pos)
 		else:
 			selector.select_end(pos)
-			history.commit()
 			
 
 func process_selection_lasso(event, selector):
 	if event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
-			if not selector.is_operating:
-				history.record(selection.mask, selection.update_selection)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
-			history.commit()
 
 
 func process_selection_magic(event, selector):
 	if event is InputEventMouseButton:
 		var pos = get_local_mouse_position()
 		if is_pressed:
-			if not selector.is_operating:
-				history.record(selection.mask, selection.update_selection)
 			selector.image = project.current_cel.get_image()
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
-			history.commit()
 			
 	elif event is InputEventMouseMotion and selector.is_moving:
 		var pos = snapper.snap_position(get_local_mouse_position())
@@ -289,7 +281,6 @@ func process_selection_magic(event, selector):
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
-			history.commit()
 
 
 func process_color_pick(event):
@@ -317,9 +308,7 @@ func process_shape(event, shaper):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not silhouette.has_point(pos):
-				history.record(silhouette.image, refresh)
 				shaper.apply()
-				history.commit()
 			# DO NOT depaned doublie_clieck here, pressed always come first.
 	elif event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
@@ -575,6 +564,24 @@ func _draw():
 func get_relative_mouse_position() -> Vector2i: # mouse location of canvas.
 	var mpos = get_local_mouse_position()
 	return Vector2i(round(mpos.x), round(mpos.y))
+
+
+# drawing
+func _on_drawing_started(drawer):
+	history.record(drawer.image, refresh)
+
+
+func _on_drawing_stopped():
+	history.commit()
+
+
+# selecting
+func _on_selecting_started(sel:Selection):
+	history.record(sel.mask, sel.update_selection)
+
+
+func _on_selecting_stopped():
+	history.commit()
 
 
 # cursor

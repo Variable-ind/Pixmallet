@@ -67,7 +67,7 @@ func can_draw(pos :Vector2i):
 
 
 func draw_start(pos: Vector2i):
-	is_drawing = true
+	super.draw_start(pos)
 	last_position = pos
 	draw_start_position = pos
 	draw_pixel(pos)
@@ -82,8 +82,8 @@ func draw_move(pos: Vector2i):
 	last_position = pos
 
 
-func draw_end(_pos: Vector2i):
-	is_drawing = false
+func draw_end(pos: Vector2i):
+	super.draw_end(pos)
 #	draw_pixel(pos)
 	# no need draw in the end.
 
