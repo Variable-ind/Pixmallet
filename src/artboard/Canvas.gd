@@ -44,7 +44,7 @@ var color_pick := ColorPick.new()
 @onready var move_sizer :MoveSizer = $MoveSizer
 @onready var silhouette :Silhouette = $Silhouette
 
-@onready var selector_rect := RectSelector.new(selection)
+@onready var selector_rectangle := RectSelector.new(selection)
 @onready var selector_ellipse := EllipseSelector.new(selection)
 @onready var selector_polygon := PolygonSelector.new(selection)
 @onready var selector_lasso := LassoSelector.new(selection)
@@ -103,15 +103,6 @@ func _ready():
 	silhouette.inject_snapping(drag_snapping_hook)
 	
 	selection.inject_snapping(drag_snapping_hook)
-	
-	for drawer in [drawer_pencil, drawer_brush, drawer_eraser, drawer_shading]:
-		drawer.drawing_started.connect(_on_drawing_started)
-		drawer.drawing_stopped.connect(_on_drawing_stopped)
-		
-	for selector in [selector_rect, selector_ellipse, selector_polygon, 
-					 selector_lasso, selector_magic]:
-		selector.selecting_started.connect(_on_selecting_started)
-		selector.selecting_stopped.connect(_on_selecting_stopped)
 
 
 func attach_project(proj):
@@ -523,7 +514,7 @@ func _input(event :InputEvent):
 		Operate.MOVE:
 			pass
 		Operate.SELECT_RECTANGLE:
-			process_selection(event, selector_rect)
+			process_selection(event, selector_rectangle)
 		Operate.SELECT_ELLIPSE:
 			process_selection(event, selector_ellipse)
 		Operate.SELECT_POLYGON:
@@ -564,24 +555,6 @@ func _draw():
 func get_relative_mouse_position() -> Vector2i: # mouse location of canvas.
 	var mpos = get_local_mouse_position()
 	return Vector2i(round(mpos.x), round(mpos.y))
-
-
-# drawing
-func _on_drawing_started(drawer):
-	history.record(drawer.image, refresh)
-
-
-func _on_drawing_stopped():
-	history.commit()
-
-
-# selecting
-func _on_selecting_started(sel:Selection):
-	history.record(sel.mask, sel.update_selection)
-
-
-func _on_selecting_stopped():
-	history.commit()
 
 
 # cursor

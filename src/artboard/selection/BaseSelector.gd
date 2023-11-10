@@ -1,8 +1,5 @@
 class_name BaseSelector extends RefCounted
 
-signal selecting_started(selector)
-signal selecting_stopped(selector)
-
 var selection :Selection
 var selected_rect :Rect2i :
 	get: return selection.selected_rect
@@ -36,8 +33,7 @@ func reset():
 
 func select_start(_pos :Vector2i):
 	reset()
-	selecting_started.emit(selection)
-	
+	history.record(selection.mask)
 
 
 func select_move(pos :Vector2i):
@@ -48,4 +44,4 @@ func select_move(pos :Vector2i):
 func select_end(_pos :Vector2i):
 	is_selecting = false
 	is_moving = false
-	selecting_stopped.emit()
+	history.commit('select')

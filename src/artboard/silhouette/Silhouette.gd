@@ -5,6 +5,7 @@ signal applied(rect)
 signal canceled
 signal refresh_canvas
 
+
 const STROKE_WIDTH_MIN := 0
 const STROKE_WIDTH_MAX := 100
 
@@ -159,7 +160,7 @@ var _shape_rectangle = func():
 		var _rect = shaped_rect.grow(round(-stroke_width / 2.0))
 		# stroke is middle of the rect boundary.
 		draw_rect(_rect, shape_color, false, stroke_width / zoom_ratio)
-	draw_rect(shaped_rect, line_color, false)
+
 
 # Ellipse
 
@@ -208,8 +209,6 @@ var _shape_ellipse = func():
 	var center = shaped_rect.get_center()
 	
 	var _rect = Rect2(shaped_rect)
-	
-	draw_rect(shaped_rect, line_color, false)
 	
 	if _rect.size.x < _rect.size.y:
 		radius = _rect.size.y / 2.0
@@ -273,7 +272,7 @@ var _shape_line = func():
 			var rect := Rect2i(pos - Vector2.ONE * (stroke_width >> 1), 
 							   Vector2.ONE * stroke_width)
 			draw_rect(rect, shape_color)
-	draw_rect(shaped_rect, line_color, false)
+
 
 # Polygon
 
@@ -333,6 +332,7 @@ func shaped_polygon():
 	refresh_canvas.emit()
 	update_shape()
 
+
 var _shape_polygon = func():
 	var radius = minf(shaped_rect.size.x / 2.0, shaped_rect.size.y / 2.0)
 	var center = shaped_rect.get_center()
@@ -368,7 +368,6 @@ var _shape_polygon = func():
 				   not Geometry2D.is_point_in_polygon(pos, inner_polygon):
 					draw_rect(Rect2i(pos, Vector2i.ONE), shape_color)
 					# draw one pixel rect, same with set_pixelv on image.
-	draw_rect(shaped_rect, line_color, false)
 
 
 # Draw shaping
@@ -376,9 +375,7 @@ var _shape_polygon = func():
 func _draw():
 	if has_area() and _current_shape is Callable:
 		_current_shape.call()
-	# switch in `selection_` func.
-	# try not use state, so many states in proejcts already.
-	# also there is internal useage for this class only.
+	draw_rect(shaped_rect, line_color, false)
 
 var _current_shape = null
 

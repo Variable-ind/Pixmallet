@@ -42,6 +42,7 @@ func _ready():
 	camera = artboard.camera
 	canvas = artboard.canvas
 	
+	
 	navbar.launch()
 	
 	# color
@@ -50,17 +51,17 @@ func _ready():
 	artboard.set_current_color(foreground_color)
 	
 	# properties
-	properties.propPencil.subscribe(artboard.canvas.drawer_pencil)
-	properties.propBrush.subscribe(artboard.canvas.drawer_brush)
-	properties.propEraser.subscribe(artboard.canvas.drawer_eraser)
-	properties.propShading.subscribe(artboard.canvas.drawer_shading)
-	properties.propBucket.subscribe(artboard.canvas.bucket)
-	properties.propZoom.subscribe(artboard.camera)
-	properties.propCrop.subscribe(artboard.canvas.crop_sizer)
-	properties.propMove.subscribe(artboard.canvas.move_sizer)
-	properties.propColorpick.subscribe(artboard.canvas.color_pick)
-	properties.propShape.subscribe(artboard.canvas.silhouette)
-	properties.propSelection.subscribe(artboard.canvas.selection)
+	properties.propPencil.subscribe(canvas.drawer_pencil)
+	properties.propBrush.subscribe(canvas.drawer_brush)
+	properties.propEraser.subscribe(canvas.drawer_eraser)
+	properties.propShading.subscribe(canvas.drawer_shading)
+	properties.propBucket.subscribe(canvas.bucket)
+	properties.propZoom.subscribe(camera)
+	properties.propCrop.subscribe(canvas.crop_sizer)
+	properties.propMove.subscribe(canvas.move_sizer)
+	properties.propColorpick.subscribe(canvas.color_pick)
+	properties.propShape.subscribe(canvas.silhouette)
+	properties.propSelection.subscribe(canvas.selection)
 	
 	# ensure modal background overlay is hide
 	overlay.hide()
@@ -79,11 +80,11 @@ func _on_navbar_navigation_to(nav_id, data):
 			history.redo()
 		
 		Navbar.SELECT_ALL:
-			artboard.canvas.select_all()
+			canvas.select_all()
 		Navbar.CLEAR_SEL:
-			artboard.canvas.select_deselect()
+			canvas.select_deselect()
 		Navbar.INVERT_SEL:
-			artboard.canvas.select_invert()
+			canvas.select_invert()
 		
 		Navbar.ZOOM_IN:
 			camera.zoom_in()
@@ -91,9 +92,9 @@ func _on_navbar_navigation_to(nav_id, data):
 			camera.zoom_out()
 		
 		Navbar.FILL_FOREGROUND:
-			artboard.canvas.fill_color(foreground_color)
+			canvas.fill_color(foreground_color)
 		Navbar.FILL_BACKGROUND:
-			artboard.canvas.fill_color(background_color)
+			canvas.fill_color(background_color)
 		
 		Navbar.CROP_CANVAS:
 			dialog_crop.launch(g.current_project)
@@ -144,13 +145,13 @@ func _on_navbar_navigation_to(nav_id, data):
 			artboard.show_rulers = data.get('checked')
 			
 		Navbar.SNAP_GRID_CENTER:
-			artboard.canvas.snapper.snap_to_grid_center = data.get('checked')
+			canvas.snapper.snap_to_grid_center = data.get('checked')
 		Navbar.SNAP_GRID_BOUNDARY:
-			artboard.canvas.snapper.snap_to_grid_boundary = data.get('checked')
+			canvas.snapper.snap_to_grid_boundary = data.get('checked')
 		Navbar.SNAP_SYMMETRY_GRID:
-			artboard.canvas.snapper.snap_to_symmetry_guide = data.get('checked')
+			canvas.snapper.snap_to_symmetry_guide = data.get('checked')
 		Navbar.SNAP_GUIDES:
-			artboard.canvas.snapper.snap_to_guide = data.get('checked')
+			canvas.snapper.snap_to_guide = data.get('checked')
 		
 		Navbar.SUPPORT:
 			OS.shell_open(config.URL_SUPPORT)
@@ -166,17 +167,17 @@ func _on_toolbar_activated(operate_id):
 func _on_adjusted(adjust_id):
 	match adjust_id:
 		AdjustmentTool.FLIP_H:
-			artboard.canvas.flip_x()
+			canvas.flip_x()
 		AdjustmentTool.FLIP_V:
-			artboard.canvas.flip_y()
+			canvas.flip_y()
 		AdjustmentTool.ROTATE_CCW:
-			artboard.canvas.rotate_ccw()
+			canvas.rotate_ccw()
 		AdjustmentTool.ROTATE_CW:
-			artboard.canvas.rotate_cw()
+			canvas.rotate_cw()
 
 
 func refresh_canvas():
-	artboard.canvas.refresh()
+	canvas.refresh()
 
 
 func _on_modal_toggled(state :bool):

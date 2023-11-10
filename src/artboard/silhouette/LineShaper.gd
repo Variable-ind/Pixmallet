@@ -14,6 +14,8 @@ func shape_move(pos :Vector2i):
 
 
 func apply():
-	if points.size() > 0:
+	if points.size() > 0:  # only current shaper has points.
+		history.record(silhouette.image)
 		silhouette.shaped_line()
+		history.commit('shape')
 	super.apply()

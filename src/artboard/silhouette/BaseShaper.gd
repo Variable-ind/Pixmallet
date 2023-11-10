@@ -1,6 +1,5 @@
 class_name BaseShaper extends RefCounted
 
-
 var silhouette : Silhouette
 
 var points :PackedVector2Array = []

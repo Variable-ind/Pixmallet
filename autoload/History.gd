@@ -1,4 +1,4 @@
-class_name ImageChangeHistory extends Node
+class_name History extends Node
 
 var undo_redo = UndoRedo.new()
 var count :int :
