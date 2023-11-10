@@ -82,8 +82,6 @@ func _ready():
 #	onion_future.type = onion_future.FUTURE
 #	onion_future.blue_red_color = Color.BLUE
 	
-	bucket.mask = selection.mask
-	
 	var scale_snapping_hook = func(pos :Vector2i) -> Vector2i:
 		return snapper.snap_position(pos, true)
 	
@@ -200,7 +198,6 @@ func process_drawing_or_erasing(event, drawer):
 			not project.current_cel is PixelCel):
 			return
 		
-		var src_img := project.current_cel.get_image()
 		if is_pressed:
 			match drawer.dynamics_stroke_width:
 				Dynamics.PRESSURE:
@@ -221,7 +218,7 @@ func process_drawing_or_erasing(event, drawer):
 				_:
 					drawer.set_stroke_alpha_dynamics() # back to default
 			if not drawer.is_drawing:
-				history.record(src_img, refresh)
+				history.record(drawer.image, refresh)
 			drawer.draw_move(pos)
 			refresh()
 				
@@ -259,25 +256,32 @@ func process_selection_polygon(event, selector):
 			selector.select_move(pos)
 		else:
 			selector.select_end(pos)
+			history.commit()
 			
 
 func process_selection_lasso(event, selector):
 	if event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
+			if not selector.is_operating:
+				history.record(selection.mask, selection.update_selection)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
+			history.commit()
 
 
 func process_selection_magic(event, selector):
 	if event is InputEventMouseButton:
 		var pos = get_local_mouse_position()
 		if is_pressed:
+			if not selector.is_operating:
+				history.record(selection.mask, selection.update_selection)
 			selector.image = project.current_cel.get_image()
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
+			history.commit()
 			
 	elif event is InputEventMouseMotion and selector.is_moving:
 		var pos = snapper.snap_position(get_local_mouse_position())
@@ -285,6 +289,7 @@ func process_selection_magic(event, selector):
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
+			history.commit()
 
 
 func process_color_pick(event):
@@ -302,7 +307,9 @@ func process_bucket_fill(event):
 	if event is InputEventMouseButton:
 		if is_pressed:
 			var pos = get_local_mouse_position()
+			history.record(bucket.image, refresh)
 			bucket.fill(pos)
+			history.commit()
 
 
 func process_shape(event, shaper):
@@ -310,7 +317,9 @@ func process_shape(event, shaper):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not silhouette.has_point(pos):
+				history.record(silhouette.image, refresh)
 				shaper.apply()
+				history.commit()
 			# DO NOT depaned doublie_clieck here, pressed always come first.
 	elif event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
