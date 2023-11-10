@@ -372,10 +372,22 @@ var _shape_polygon = func():
 
 # Draw shaping
 
-func _draw():
+func _draw():	
 	if has_area() and _current_shape is Callable:
 		_current_shape.call()
-	draw_rect(shaped_rect, line_color, false)
+	
+	var points :PackedVector2Array = [
+		Vector2(shaped_rect.position.x, 0),
+		Vector2(shaped_rect.position.x, size.y),
+		Vector2(0, shaped_rect.position.y),
+		Vector2(size.x, shaped_rect.position.y),
+		Vector2(shaped_rect.end.x+1, 0),
+		Vector2(shaped_rect.end.x+1, size.y),
+		Vector2(0, shaped_rect.end.y+1),
+		Vector2(size.x, shaped_rect.end.y+1),
+	]
+	draw_multiline(points, line_color)
+
 
 var _current_shape = null
 

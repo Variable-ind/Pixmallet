@@ -42,6 +42,10 @@ func _ready():
 	camera = artboard.camera
 	canvas = artboard.canvas
 	
+	history.register_callbacks({
+		'select': canvas.selection.update_selection,
+		'_': canvas.refresh
+	})
 	
 	navbar.launch()
 	
