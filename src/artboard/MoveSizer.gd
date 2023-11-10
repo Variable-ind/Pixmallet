@@ -55,8 +55,7 @@ func cancel():
 
 func apply():
 	if has_area() and has_image():
-		print(image)
-		history.record(image)
+		history.record(image_backup)
 		preview_image.resize(bound_rect.size.x, 
 							 bound_rect.size.y,
 							 Image.INTERPOLATE_NEAREST)
@@ -100,7 +99,7 @@ func hire():
 						
 			_tmp.resize(image.get_width(), image.get_height())
 			_tmp.fill(Color.TRANSPARENT)
-	#			image.fill_rect(move_rect, Color.TRANSPARENT)
+#			image.fill_rect(move_rect, Color.TRANSPARENT)
 			# DO NOT just fill rect, selection might have different shapes.
 			image.blit_rect_mask(_tmp, image_mask, 
 								 bound_rect, bound_rect.position)
