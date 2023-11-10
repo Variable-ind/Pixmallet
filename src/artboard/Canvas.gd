@@ -296,10 +296,13 @@ func process_bucket_fill(event):
 
 func process_shape(event, shaper):
 	if event is InputEventMouseButton:
-		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
-			if not silhouette.has_point(pos):
+			var pos = get_local_mouse_position()
+			if not silhouette.has_touch_point(pos) and silhouette.has_area():
 				shaper.apply()
+				is_pressed = false
+				# prevent make unexcept shape right after apply.
+
 			# DO NOT depaned doublie_clieck here, pressed always come first.
 	elif event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())

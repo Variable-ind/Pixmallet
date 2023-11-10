@@ -112,7 +112,7 @@ func has_area():
 #	return touch_rect.has_area()
 
 
-func has_point(pos :Vector2i):
+func has_touch_point(pos :Vector2i):
 #	return shaped_rect.has_point(pos)
 	return touch_rect.has_point(pos)
 
@@ -374,23 +374,30 @@ var _shape_polygon = func():
 
 func _draw():
 	if has_area() and _current_shape is Callable:
-		var points :PackedVector2Array = [
-			Vector2(shaped_rect.position.x, 0),
-			Vector2(shaped_rect.position.x, size.y),
-			Vector2(0, shaped_rect.position.y),
-			Vector2(size.x, shaped_rect.position.y),
-			Vector2(shaped_rect.end.x+1, 0),
-			Vector2(shaped_rect.end.x+1, size.y),
-			Vector2(0, shaped_rect.end.y+1),
-			Vector2(size.x, shaped_rect.end.y+1),
-		]
-		draw_multiline(points, line_color)
-		
-		# must after base line is drawn, because shape might have transfrom.
-		_current_shape.call()
+		if _current_shape == _shape_ellipse:
+			draw_shapeline()
+			# draw after, because ellipse have transfrom.
+			_current_shape.call()
+		else:
+			_current_shape.call()
+			draw_shapeline()
+
 
 var _current_shape = null
 
+func draw_shapeline():
+	var points :PackedVector2Array = [
+		Vector2(shaped_rect.position.x, 0),
+		Vector2(shaped_rect.position.x, size.y),
+		Vector2(0, shaped_rect.position.y),
+		Vector2(size.x, shaped_rect.position.y),
+		Vector2(shaped_rect.end.x+1, 0),
+		Vector2(shaped_rect.end.x+1, size.y),
+		Vector2(0, shaped_rect.end.y+1),
+		Vector2(size.x, shaped_rect.end.y+1),
+	]
+	draw_multiline(points, line_color)
+	
 
 func _input(event):
 	if event is InputEventKey:

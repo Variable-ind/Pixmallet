@@ -27,10 +27,11 @@ func reset():
 	points.clear()
 	is_shaping = false
 	is_dragging = false
+	silhouette.reset()
 
 
 func shape_start(pos :Vector2i):
-	if silhouette.has_point(pos):
+	if silhouette.has_touch_point(pos):
 		is_dragging = true
 		drag_offset = silhouette.get_drag_offset(pos)
 	else:
