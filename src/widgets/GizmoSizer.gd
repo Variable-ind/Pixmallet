@@ -21,14 +21,14 @@ enum GSPivot {
 	CENTER,
 }
 
-@export var gizmo_color := Color(0.2, 0.2, 0.2, 1):
+@export var gizmo_color := Color.BLUE:
 	set(val):
 		gizmo_color = val
 		for gizmo in gizmos:
 			gizmo.color = gizmo_color
 		queue_redraw()
 			
-@export var gizmo_bgcolor := Color.WHITE :
+@export var gizmo_bgcolor := Color.WHITE:
 	set(val):
 		gizmo_bgcolor = val
 		for gizmo in gizmos:
@@ -41,7 +41,7 @@ enum GSPivot {
 		for gizmo in gizmos:
 			gizmo.default_size = gizmo_size
 		
-@export var line_color := Color(0.2, 0.2, 0.2, 1):
+@export var line_color := Color.BLUE:
 	set(val):
 		line_color = val
 		queue_redraw()

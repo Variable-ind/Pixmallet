@@ -9,7 +9,7 @@ signal refresh_canvas
 const STROKE_WIDTH_MIN := 0
 const STROKE_WIDTH_MAX := 100
 
-@export var line_color := Color(0.2, 0.2, 0.2, 1):
+@export var line_color := Color.BLUE:
 	set(val):
 		line_color = val
 		queue_redraw()
@@ -108,8 +108,8 @@ func check_visible(sel_points) -> bool:
 	
 
 func has_area():
-#	return shaped_rect.has_area()
-	return touch_rect.has_area()
+	return shaped_rect.size.x > 0 or shaped_rect.size.y > 0
+#	return touch_rect.has_area()
 
 
 func has_point(pos :Vector2i):
@@ -374,20 +374,20 @@ var _shape_polygon = func():
 
 func _draw():
 	if has_area() and _current_shape is Callable:
+		var points :PackedVector2Array = [
+			Vector2(shaped_rect.position.x, 0),
+			Vector2(shaped_rect.position.x, size.y),
+			Vector2(0, shaped_rect.position.y),
+			Vector2(size.x, shaped_rect.position.y),
+			Vector2(shaped_rect.end.x+1, 0),
+			Vector2(shaped_rect.end.x+1, size.y),
+			Vector2(0, shaped_rect.end.y+1),
+			Vector2(size.x, shaped_rect.end.y+1),
+		]
+		draw_multiline(points, line_color)
+		
+		# must after base line is drawn, because shape might have transfrom.
 		_current_shape.call()
-	
-	var points :PackedVector2Array = [
-		Vector2(shaped_rect.position.x, 0),
-		Vector2(shaped_rect.position.x, size.y),
-		Vector2(0, shaped_rect.position.y),
-		Vector2(size.x, shaped_rect.position.y),
-		Vector2(shaped_rect.end.x+1, 0),
-		Vector2(shaped_rect.end.x+1, size.y),
-		Vector2(0, shaped_rect.end.y+1),
-		Vector2(size.x, shaped_rect.end.y+1),
-	]
-	draw_multiline(points, line_color)
-
 
 var _current_shape = null
 
