@@ -372,7 +372,7 @@ var _shape_polygon = func():
 
 # Draw shaping
 
-func _draw():	
+func _draw():
 	if has_area() and _current_shape is Callable:
 		_current_shape.call()
 	
