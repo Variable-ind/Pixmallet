@@ -49,6 +49,9 @@ class ShadingOp extends BaseDrawer.ColorOp:
 
 	var sat_lighten_limit := 10.0 / 100.0
 	var value_darken_limit := 10.0 / 100.0
+	
+	func _init():
+		strength = 0.25
 
 	func process(_src: Color, dst: Color) -> Color:
 		if dst.a == 0:

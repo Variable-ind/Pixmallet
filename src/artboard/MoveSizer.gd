@@ -74,6 +74,7 @@ func apply():
 		preview_image = Image.new()
 
 		super.apply()
+		history.commit()
 
 
 
@@ -103,7 +104,6 @@ func hire():
 								 bound_rect, bound_rect.position)
 	
 	super.hire()
-
 
 
 func has_image() -> bool:

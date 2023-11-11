@@ -42,7 +42,7 @@ func _ready():
 	camera = artboard.camera
 	canvas = artboard.canvas
 	
-	history.register_callbacks({
+	history.register_default_callbacks({
 		'select': canvas.selection.update_selection,
 		'_': canvas.refresh
 	})
@@ -79,14 +79,7 @@ func _on_navbar_navigation_to(nav_id, data):
 			pass
 		
 		Navbar.UNDO:
-			if canvas.silhouette.has_area():
-				canvas.silhouette.reset()
-			elif canvas.state == Operate.MOVE:
-				canvas.move_sizer.cancel()
-			elif canvas.state == Operate.CROP:
-				canvas.crop_sizer.cancel()
-			else:
-				history.undo()
+			history.undo()
 		Navbar.REDO:
 			history.redo()
 		
