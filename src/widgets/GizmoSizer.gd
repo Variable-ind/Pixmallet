@@ -4,9 +4,6 @@ signal gizmo_hover_updated(gizmo, status)
 signal gizmo_press_updated(gizmo, status)
 
 signal updated(rect, rel_pos, status)
-signal applied(rect)
-signal canceled
-
 signal cursor_changed(cursor)
 
 enum GSPivot {
@@ -148,24 +145,6 @@ func set_pivot(pivot_id):
 	pivot = pivot_id
 	if is_activated:
 		updated.emit(bound_rect, relative_position, is_activated)
-
-
-func apply():
-	dismiss()
-	applied.emit(bound_rect)
-
-
-func cancel():
-	dismiss()
-	canceled.emit()
-
-
-func terminate(use_apply :=false):
-	if use_apply:
-		apply()
-	else:
-		cancel()
-	reset()
 
 
 func hire():
@@ -412,27 +391,21 @@ func _input(event :InputEvent):
 		return
 			
 	if event is InputEventKey:
-		if Input.is_key_pressed(KEY_ENTER) and \
-		   event.is_command_or_control_pressed():
-			apply()
-		elif Input.is_key_pressed(KEY_ESCAPE):
-			cancel()
-		else:
-			var delta := 1
-			if Input.is_key_pressed(KEY_SHIFT):
-				delta = 10
-				
-			if Input.is_action_pressed('ui_up'):
-				move_delta(-delta, VERTICAL)
+		var delta := 1
+		if Input.is_key_pressed(KEY_SHIFT):
+			delta = 10
 			
-			elif Input.is_action_pressed('ui_right'):
-				move_delta(delta, HORIZONTAL)
-			
-			elif Input.is_action_pressed('ui_down'):
-				move_delta(delta, VERTICAL)
-			
-			elif Input.is_action_pressed('ui_left'):
-				move_delta(-delta, HORIZONTAL)
+		if Input.is_action_pressed('ui_up'):
+			move_delta(-delta, VERTICAL)
+		
+		elif Input.is_action_pressed('ui_right'):
+			move_delta(delta, HORIZONTAL)
+		
+		elif Input.is_action_pressed('ui_down'):
+			move_delta(delta, VERTICAL)
+		
+		elif Input.is_action_pressed('ui_left'):
+			move_delta(-delta, HORIZONTAL)
 	
 	elif event is InputEventMouseMotion:
 		var pos := get_local_mouse_position()

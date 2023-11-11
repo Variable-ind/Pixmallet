@@ -1,6 +1,8 @@
 class_name MoveSizer extends GizmoSizer
 
 signal refresh_canvas
+signal applied(rect)
+signal canceled
 
 const MODULATE_COLOR := Color(1, 1, 1, 0.66)
 
@@ -17,12 +19,6 @@ var preview_image := Image.new() :
 		update_texture()
 
 
-func _init():
-	super._init()
-	updated.connect(_on_refreshed)
-	applied.connect(_on_refreshed)
-
-
 func reset():
 	super.reset()
 	preview_texture = ImageTexture.new()
@@ -33,10 +29,7 @@ func reset():
 	
 
 func lanuch(img :Image, mask :Image):
-	history.record([
-		img, preview_image, image_mask,
-		{'obj': self, 'key': 'bound_rect'}
-	], dismiss)
+	history.record(img)
 	frozen(false)
 	if not has_area():
 		image = img  # DO NOT copy_form, image must change runtime.
@@ -50,12 +43,21 @@ func lanuch(img :Image, mask :Image):
 			attach(backup_rect)
 
 
-func cancel():	
+func terminate(use_apply :=false):
+	if use_apply:
+		apply()
+	else:
+		cancel()
+	reset()
+
+
+func cancel():
 	image.copy_from(image_backup)
 	bound_rect = backup_rect
 	preview_image = Image.new()
-	super.cancel()
-	
+	dismiss()
+	refresh_canvas.emit()
+	canceled.emit()
 
 
 func apply():
@@ -77,8 +79,9 @@ func apply():
 						bound_rect.position)
 		image_mask.copy_from(_mask)
 		preview_image = Image.new()
-
-		super.apply()
+		dismiss()
+		applied.emit(bound_rect)
+		refresh_canvas.emit()
 		history.commit()
 
 
@@ -106,7 +109,7 @@ func hire():
 			# DO NOT just fill rect, selection might have different shapes.
 			image.blit_rect_mask(_tmp, image_mask, 
 								 bound_rect, bound_rect.position)
-	
+		refresh_canvas.emit()
 	super.hire()
 
 
@@ -133,7 +136,20 @@ func _draw():
 		if not is_activated:
 			draw_color.a = 0.5
 		draw_rect(bound_rect, draw_color, false)
-	
 
-func _on_refreshed(_rect, _rel_pos:=Vector2i.ZERO, _status:=false):
-	refresh_canvas.emit()
+
+func _input(event :InputEvent):
+	# TODO: the way handle the events might not support touch / tablet. 
+	# since I have no device to try. leave it for now.
+
+	if not visible:
+		return
+			
+	if event is InputEventKey:
+		if Input.is_key_pressed(KEY_ENTER) and \
+		   event.is_command_or_control_pressed():
+			apply()
+		elif Input.is_key_pressed(KEY_ESCAPE):
+			cancel()
+	
+	super._input(event)

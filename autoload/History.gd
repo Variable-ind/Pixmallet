@@ -41,15 +41,15 @@ func record(properties:Variant, actions:Variant=null, as_reset:=true):
 	for prop in prepare_properties(properties):
 		properties_stack.append(prop)
 
-	for method in prepare_methods(actions):
-		match method.type:
+	for act in prepare_methods(actions):
+		match act.type:
 			HistoryMethod.Type.DO:
-				do_methods_stack.append(method)
+				do_methods_stack.append(act.method)
 			HistoryMethod.Type.UNDO:
-				undo_methods_stack.append(method)
+				undo_methods_stack.append(act.method)
 			_:
-				do_methods_stack.append(method)
-				undo_methods_stack.append(method)
+				do_methods_stack.append(act.method)
+				undo_methods_stack.append(act.method)
 
 
 func commit(action_name:StringName = ''):

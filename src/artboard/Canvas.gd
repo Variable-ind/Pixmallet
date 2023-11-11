@@ -88,7 +88,7 @@ func _ready():
 	var drag_snapping_hook = func(rect:Rect2i, pos :Vector2i) -> Vector2i:
 		return snapper.snap_boundary_position(rect, pos)
 	
-	crop_sizer.crop_canvas.connect(crop)
+	crop_sizer.applied.connect(crop)
 	crop_sizer.cursor_changed.connect(_on_cursor_changed)
 	crop_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
