@@ -2,7 +2,7 @@ class_name MoveSizer extends GizmoSizer
 
 signal refresh_canvas
 
-const MODULATE_COLOR := Color(1, 1, 1, 0.33)
+const MODULATE_COLOR := Color(1, 1, 1, 0.66)
 
 var image := Image.new()
 var image_backup := Image.new()  # a backup image for cancel.
@@ -33,6 +33,7 @@ func reset():
 	
 
 func lanuch(img :Image, mask :Image):
+	history.record(img)
 	frozen(false)
 	if not has_area():
 		image = img  # DO NOT copy_form, image must change runtime.
@@ -74,8 +75,6 @@ func apply():
 		preview_image = Image.new()
 
 		super.apply()
-		history.commit()
-
 
 
 func hire():

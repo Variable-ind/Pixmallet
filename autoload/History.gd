@@ -82,16 +82,18 @@ func redo():
 
 func prepare_properties(objs:Variant):
 	var props :Array = []
-	if objs is Image:
-		props.append(HistoryProp.new(objs, 'data'))
-	elif objs is Dictionary:
-		props.append(HistoryProp.new(objs['obj'], objs['prop']))
-	elif objs is Array:
-		for obj in objs:
-			if obj is Image:
-				props.append(HistoryProp.new(obj, 'data'))
-			elif obj is Dictionary:
-				props.append(HistoryProp.new(obj['obj'], obj['prop']))
+	if objs is Image or objs is Dictionary:
+		objs = [objs]
+	elif not objs is Array:
+		return props
+	for obj in objs:
+		if obj is Image:
+			props.append(HistoryProp.new(obj, 'data'))
+		elif obj is Dictionary:
+			var prop = HistoryProp.new(obj['obj'], obj['key'])
+			if obj.has('undo'):
+				prop.undo_value = obj.get('undo')
+			props.append(prop)
 	return props
 
 
@@ -125,7 +127,7 @@ class HistoryProp extends Object:
 	var do_value :Variant :
 		get: return obj.get(key)
 	
-	func _init(_obj:Variant, _key:StringName):
+	func _init(_obj :Variant, _key :StringName):
 		obj = _obj
 		key = _key
 		undo_value = obj.get(key)
