@@ -55,7 +55,6 @@ func cancel():
 
 func apply():
 	if has_area() and has_image():
-		history.record(image_backup)
 		preview_image.resize(bound_rect.size.x, 
 							 bound_rect.size.y,
 							 Image.INTERPOLATE_NEAREST)
@@ -75,7 +74,6 @@ func apply():
 		preview_image = Image.new()
 
 		super.apply()
-		history.commit('move')
 
 
 

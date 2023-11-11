@@ -79,7 +79,14 @@ func _on_navbar_navigation_to(nav_id, data):
 			pass
 		
 		Navbar.UNDO:
-			history.undo()
+			if canvas.silhouette.has_area():
+				canvas.silhouette.reset()
+			elif canvas.state == Operate.MOVE:
+				canvas.move_sizer.cancel()
+			elif canvas.state == Operate.CROP:
+				canvas.crop_sizer.cancel()
+			else:
+				history.undo()
 		Navbar.REDO:
 			history.redo()
 		
