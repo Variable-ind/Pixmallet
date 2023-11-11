@@ -34,6 +34,7 @@ func reset():
 
 func lanuch(img :Image, mask :Image):
 	history.record(img)
+	history.append_undo_action(cancel)
 	frozen(false)
 	if not has_area():
 		image = img  # DO NOT copy_form, image must change runtime.
@@ -47,11 +48,12 @@ func lanuch(img :Image, mask :Image):
 			attach(backup_rect)
 
 
-func cancel():
+func cancel():	
 	image.copy_from(image_backup)
 	bound_rect = backup_rect
 	preview_image = Image.new()
 	super.cancel()
+	
 
 
 func apply():
@@ -75,6 +77,7 @@ func apply():
 		preview_image = Image.new()
 
 		super.apply()
+		history.commit()
 
 
 func hire():

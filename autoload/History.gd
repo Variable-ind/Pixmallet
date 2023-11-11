@@ -5,7 +5,8 @@ var count :int :
 	get: return undo_redo.get_history_count()
 
 var properties_stack :Array[HistoryProp] = []
-var methods_stack :Array[Callable] = []
+var do_methods_stack :Array[Callable] = []
+var undo_methods_stack :Array[Callable] = []
 
 var default_callbacks :Dictionary = {}
 
@@ -16,7 +17,8 @@ func clear_history():
 
 func reset():
 	properties_stack.clear()
-	methods_stack.clear()
+	do_methods_stack.clear()
+	undo_methods_stack.clear()
 
 
 func register_default_callbacks(_callbacks_map :Dictionary):
@@ -39,8 +41,15 @@ func record(properties:Variant, actions:Variant=null, as_reset:=true):
 	for prop in prepare_properties(properties):
 		properties_stack.append(prop)
 
-	for act in prepare_methods(actions):
-		methods_stack.append(act)
+	for method in prepare_methods(actions):
+		match method.type:
+			HistoryMethod.Type.DO:
+				do_methods_stack.append(method)
+			HistoryMethod.Type.UNDO:
+				undo_methods_stack.append(method)
+			_:
+				do_methods_stack.append(method)
+				undo_methods_stack.append(method)
 
 
 func commit(action_name:StringName = ''):
@@ -54,13 +63,13 @@ func commit(action_name:StringName = ''):
 	
 	var callbacks = get_default_callbacks(action_name)
 	
-	for do_act in methods_stack:
+	for do_act in do_methods_stack:
 		undo_redo.add_do_method(do_act)
 	
 	for c in callbacks:
 		undo_redo.add_do_method(c)
 	
-	for undo_act in methods_stack:
+	for undo_act in undo_methods_stack:
 		undo_redo.add_undo_method(undo_act)
 	
 	for c in callbacks:
@@ -98,12 +107,24 @@ func prepare_properties(objs:Variant):
 
 
 func prepare_methods(actions:Variant):
-	if actions is Callable:
-		return [actions]
-	elif actions is Array:
-		return actions.filter(func(act): return act is Callable)
-	else:
-		return []
+	var methods :Array = []
+	
+	if actions is Callable or actions is Dictionary:
+		actions = [actions]
+	elif not actions is Array:
+		return methods
+	
+	for act in actions:
+		if act is Callable:
+			methods.append(HistoryMethod.new(act))
+		elif act is Dictionary:
+			var method_type = HistoryMethod.Type.ALL
+			if act.get('is_do'):
+				method_type = HistoryMethod.Type.DO
+			if act.get('is_undo'):
+				method_type = HistoryMethod.Type.UNDO
+			methods.append(HistoryMethod.new(act['action'], method_type))
+	return methods
 
 
 func get_default_callbacks(key):
@@ -131,3 +152,19 @@ class HistoryProp extends Object:
 		obj = _obj
 		key = _key
 		undo_value = obj.get(key)
+
+
+class HistoryMethod extends Object:
+	
+	enum Type {
+		ALL,
+		DO,
+		UNDO,
+	}
+	
+	var method :Callable
+	var type := Type.ALL
+	
+	func _init(_method :Callable, _type := Type.ALL):
+		method = _method
+		type = _type
