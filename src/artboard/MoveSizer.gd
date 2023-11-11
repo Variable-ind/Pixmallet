@@ -33,8 +33,10 @@ func reset():
 	
 
 func lanuch(img :Image, mask :Image):
-	history.record(img)
-	history.append_undo_action(cancel)
+	history.record([
+		img, preview_image, image_mask,
+		{'obj': self, 'key': 'bound_rect'}
+	], dismiss)
 	frozen(false)
 	if not has_area():
 		image = img  # DO NOT copy_form, image must change runtime.
