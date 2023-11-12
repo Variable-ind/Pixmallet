@@ -3,6 +3,9 @@ class_name GizmoSizer extends Node2D
 signal gizmo_hover_updated(gizmo, status)
 signal gizmo_press_updated(gizmo, status)
 
+signal refreshed
+signal activated(rect, rel)
+signal deactivated(rect, rel)
 signal updated(rect, rel_pos, status)
 signal cursor_changed(cursor)
 
@@ -151,6 +154,8 @@ func hire():
 	if is_activated:
 		return
 	is_activated = true
+	refreshed.emit()
+	activated.emit(bound_rect, relative_position)
 	updated.emit(bound_rect, relative_position, is_activated)
 	queue_redraw()
 	
@@ -165,6 +170,8 @@ func dismiss():
 	is_dragging = false
 	is_scaling = false
 #	pressed_gizmo = null # already set to null in is_scaling setter.
+	refreshed.emit()
+	deactivated.emit(bound_rect, relative_position)
 	updated.emit(bound_rect, relative_position, is_activated)
 	queue_redraw()
 

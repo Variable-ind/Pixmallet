@@ -92,14 +92,14 @@ func _ready():
 	crop_sizer.cursor_changed.connect(_on_cursor_changed)
 	crop_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
-	move_sizer.refresh_canvas.connect(refresh)
+	move_sizer.refreshed.connect(refresh)
 	move_sizer.cursor_changed.connect(_on_cursor_changed)
 	move_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
 	bucket.color_filled.connect(refresh)
 	color_pick.color_picked.connect(_on_color_picked)
 	
-	silhouette.refresh_canvas.connect(refresh)
+	silhouette.refreshed.connect(refresh)
 	silhouette.inject_snapping(drag_snapping_hook)
 	
 	selection.inject_snapping(drag_snapping_hook)

@@ -3,7 +3,7 @@ class_name Silhouette extends Node2D
 signal updated(rect, rel_pos, status)
 signal applied(rect)
 signal canceled
-signal refresh_canvas
+signal refreshed
 
 
 const STROKE_WIDTH_MIN := 0
@@ -97,6 +97,7 @@ func update_shape():
 	else:
 		updated.emit(shaped_rect, relative_position, false)
 		visible = false
+	refreshed.emit()
 	queue_redraw()
 
 
@@ -149,7 +150,7 @@ func shaped_rectangle():
 		tmp_img.fill_rect(shaped_rect, shape_color)
 		tmp_img.fill_rect(rect, Color.TRANSPARENT)
 		image.blend_rect(tmp_img, shaped_rect, shaped_rect.position)
-	refresh_canvas.emit()
+
 	update_shape()
 
 
@@ -199,7 +200,6 @@ func shaped_ellipse():
 			if boundary.has_point(pos):
 				image.set_pixelv(pos, shape_color)
 
-	refresh_canvas.emit()
 	update_shape()
 
 
@@ -259,7 +259,6 @@ func shaped_line():
 		if boundary.has_point(pos):
 			image.fill_rect(rect, shape_color)
 
-	refresh_canvas.emit()
 	update_shape()
 
 
@@ -329,7 +328,7 @@ func shaped_polygon():
 				   Geometry2D.is_point_in_polygon(pos, outer_polygon) and \
 				   not Geometry2D.is_point_in_polygon(pos, inner_polygon):
 					image.set_pixelv(pos, shape_color)
-	refresh_canvas.emit()
+
 	update_shape()
 
 

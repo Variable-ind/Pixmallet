@@ -1,6 +1,5 @@
 class_name MoveSizer extends GizmoSizer
 
-signal refresh_canvas
 signal applied(rect)
 signal canceled
 
@@ -56,7 +55,6 @@ func cancel():
 	bound_rect = backup_rect
 	preview_image = Image.new()
 	dismiss()
-	refresh_canvas.emit()
 	canceled.emit()
 
 
@@ -81,7 +79,6 @@ func apply():
 		preview_image = Image.new()
 		dismiss()
 		applied.emit(bound_rect)
-		refresh_canvas.emit()
 		history.commit()
 
 
@@ -109,9 +106,14 @@ func hire():
 			# DO NOT just fill rect, selection might have different shapes.
 			image.blit_rect_mask(_tmp, image_mask, 
 								 bound_rect, bound_rect.position)
-		refresh_canvas.emit()
 	super.hire()
 
+
+func dismiss():
+	if not is_activated:
+		return
+	apply()
+	super.dismiss()
 
 func has_image() -> bool:
 	return not preview_image.is_empty()
