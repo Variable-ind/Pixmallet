@@ -115,6 +115,7 @@ func dismiss():
 	apply()
 	super.dismiss()
 
+
 func has_image() -> bool:
 	return not preview_image.is_empty()
 

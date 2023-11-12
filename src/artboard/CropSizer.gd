@@ -24,10 +24,12 @@ func terminate(use_apply :=false):
 
 
 func apply():
+	dismiss()
 	applied.emit(bound_rect)
 
 
 func cancel():
+	dismiss()
 	bound_rect = Rect2i(Vector2i.ZERO, size)
 	canceled.emit()
 
@@ -87,3 +89,18 @@ func _draw():
 			  line_color)
 
 
+func _input(event :InputEvent):
+	# TODO: the way handle the events might not support touch / tablet. 
+	# since I have no device to try. leave it for now.
+
+	if not visible:
+		return
+			
+	if event is InputEventKey:
+		if Input.is_key_pressed(KEY_ENTER) and \
+		   event.is_command_or_control_pressed():
+			apply()
+		elif Input.is_key_pressed(KEY_ESCAPE):
+			cancel()
+	
+	super._input(event)

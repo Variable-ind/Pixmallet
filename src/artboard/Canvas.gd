@@ -122,8 +122,9 @@ func attach_project(proj):
 
 
 func refresh():
-	project.current_cel.update_texture()
-	queue_redraw()
+	if project:
+		project.current_cel.update_texture()
+		queue_redraw()
 
 
 func crop(crop_rect :Rect2i):
