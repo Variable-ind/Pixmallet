@@ -1,10 +1,10 @@
 class_name Silhouette extends Node2D
 
 signal updated(rect, rel_pos, status)
-signal applied(rect)
+signal applied(rect, img_backup)
 signal canceled
-signal refreshed(img)
 
+signal refreshed(form_image)
 
 const STROKE_WIDTH_MIN := 0
 const STROKE_WIDTH_MAX := 100
@@ -62,7 +62,8 @@ func attach(img :Image):
 
 
 func apply():
-	if current_shaper_type != BaseShaper.NONE: 
+	if current_shaper_type != BaseShaper.NONE:
+		var from_img := image.duplicate()
 		match current_shaper_type:
 			BaseShaper.RECTANGLE:
 				shaped_rectangle()
@@ -72,6 +73,7 @@ func apply():
 				shaped_line()
 			BaseShaper.POLYGON:
 				shaped_polygon()
+		refreshed.emit(from_img)
 		applied.emit(shaped_rect)
 	reset()
 
@@ -144,9 +146,8 @@ func shaping_rectangle(sel_points :Array):
 func shaped_rectangle():
 	if not has_area():
 		return
-	var img := image.duplicate()  # duplicate a image for undo redo on cavans.
 	if opt_fill:
-		img.fill_rect(shaped_rect, shape_color)
+		image.fill_rect(shaped_rect, shape_color)
 	else:
 		var tmp_img = Image.create(image.get_width(),
 								   image.get_height(),
@@ -155,10 +156,9 @@ func shaped_rectangle():
 		var rect = shaped_rect.grow(-stroke_width)
 		tmp_img.fill_rect(shaped_rect, shape_color)
 		tmp_img.fill_rect(rect, Color.TRANSPARENT)
-		img.blend_rect(tmp_img, shaped_rect, shaped_rect.position)
+		image.blend_rect(tmp_img, shaped_rect, shaped_rect.position)
 
 	update_shape()
-	refreshed.emit(img)
 
 
 var _shape_rectangle = func():
@@ -187,7 +187,6 @@ func shaping_ellipse(sel_points :Array):
 func shaped_ellipse():
 	if not has_area():
 		return
-	var img := image.duplicate()  # duplicate a image for undo redo on cavans.
 	var pos_offset :Vector2 = shaped_rect.position
 	if opt_fill:
 		var ellipse = get_ellipse_points_filled(shaped_rect.size)
@@ -195,7 +194,7 @@ func shaped_ellipse():
 			if pos_offset:
 				pos += pos_offset
 			if boundary.has_point(pos):
-				img.set_pixelv(pos, shape_color)
+				image.set_pixelv(pos, shape_color)
 	else:
 		var ellipse = get_ellipse_points_filled(shaped_rect.size)
 		var inner_rect := shaped_rect.grow(-stroke_width)
@@ -206,10 +205,9 @@ func shaped_ellipse():
 			if pos_offset:
 				pos += pos_offset
 			if boundary.has_point(pos):
-				img.set_pixelv(pos, shape_color)
+				image.set_pixelv(pos, shape_color)
 
 	update_shape()
-	refreshed.emit(img)
 
 
 var _shape_ellipse = func():
@@ -259,7 +257,6 @@ func shaping_line(sel_points :Array):
 func shaped_line():
 	if not has_area():
 		return
-	var img := image.duplicate()  # duplicate a image for undo redo on cavans.
 	var distance := Vector2(start_point).distance_to(end_point)
 	var line := get_lines_form_points(start_point, end_point, distance)
 	for i in line.size():
@@ -267,10 +264,9 @@ func shaped_line():
 		var rect := Rect2i(pos - Vector2.ONE * (stroke_width >> 1), 
 						   Vector2.ONE * stroke_width)
 		if boundary.has_point(pos):
-			img.fill_rect(rect, shape_color)
+			image.fill_rect(rect, shape_color)
 
 	update_shape()
-	refreshed.emit(img)
 
 
 var _shape_line = func():
@@ -309,7 +305,7 @@ func shaping_polygon(sel_points :Array):
 func shaped_polygon():
 	if not has_area():
 		return
-	var img := image.duplicate()  # duplicate a image for undo redo on cavans.
+
 	var radius = minf(shaped_rect.size.x / 2.0, shaped_rect.size.y / 2.0)
 	var center = shaped_rect.get_center()
 
@@ -322,7 +318,7 @@ func shaped_polygon():
 				var pos = Vector2i(x, y)
 				if boundary.has_point(pos) and \
 				   Geometry2D.is_point_in_polygon(pos, polygon):
-					img.set_pixelv(pos, shape_color)
+					image.set_pixelv(pos, shape_color)
 	else:
 		var outer_polygon = get_arc_division_polygon(
 			radius, division, center,
@@ -340,10 +336,9 @@ func shaped_polygon():
 				if boundary.has_point(pos) and \
 				   Geometry2D.is_point_in_polygon(pos, outer_polygon) and \
 				   not Geometry2D.is_point_in_polygon(pos, inner_polygon):
-					img.set_pixelv(pos, shape_color)
+					image.set_pixelv(pos, shape_color)
 
 	update_shape()
-	refreshed.emit(img)
 
 
 var _shape_polygon = func():

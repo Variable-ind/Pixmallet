@@ -98,7 +98,7 @@ func _ready():
 	
 	color_pick.color_picked.connect(_on_color_picked)
 	
-	silhouette.refreshed.connect(_on_image_refreshed)
+	silhouette.refreshed.connect(_on_refreshed)
 	silhouette.inject_snapping(drag_snapping_hook)
 	
 	selection.inject_snapping(drag_snapping_hook)
@@ -123,16 +123,6 @@ func attach_project(proj):
 func refresh():
 	if project:
 		project.current_cel.update_texture()
-		queue_redraw()
-
-
-func _on_image_refreshed(img :Image):
-	# img should be duplicated form project.current_cel.image
-	if project and project.current_cel is PixelCel:
-		history.record(project.current_cel.image)
-		project.current_cel.image.copy_from(img)  # must copy_from for history.
-		project.current_cel.update_texture()
-		history.commit()
 		queue_redraw()
 
 
@@ -595,6 +585,21 @@ func _draw():
 func get_relative_mouse_position() -> Vector2i: # mouse location of canvas.
 	var mpos = get_local_mouse_position()
 	return Vector2i(round(mpos.x), round(mpos.y))
+
+
+# refresh canvas with silhouette / sizer.
+func _on_refreshed(img_before :Image):
+	# img_before should be duplicated form project.current_cel.image
+	# project.current_cel.image already updated with emitter.
+	if project and project.current_cel is PixelCel:
+		history.record({
+			'obj': project.current_cel.get_image(),
+			'key': 'data',
+			'undo': img_before.data
+		})
+		project.current_cel.update_texture()
+		history.commit()
+		queue_redraw()
 
 
 # cursor
