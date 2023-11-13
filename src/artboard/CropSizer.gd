@@ -3,6 +3,7 @@ class_name CropSizer extends GizmoSizer
 signal applied(rect)
 signal canceled
 
+
 const MASK_COLOR := Color(0, 0, 0, 0.66)
 
 var canvas_size := Vector2i.ZERO

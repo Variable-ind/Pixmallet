@@ -89,10 +89,12 @@ func _ready():
 		return snapper.snap_boundary_position(rect, pos)
 	
 	crop_sizer.applied.connect(_on_crop_applied)
+	crop_sizer.attached.connect(_on_crop_attached)
 	crop_sizer.cursor_changed.connect(_on_cursor_changed)
 	crop_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
-	move_sizer.refreshed.connect(refresh)
+	move_sizer.activated.connect(_on_move_activated)
+	move_sizer.deactivated.connect(_on_move_activated)
 	move_sizer.cursor_changed.connect(_on_cursor_changed)
 	move_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
@@ -594,6 +596,20 @@ func get_relative_mouse_position() -> Vector2i: # mouse location of canvas.
 # crop
 func _on_crop_applied(crop_rect :Rect2i):
 	project.crop_to(crop_rect)
+
+
+func _on_crop_attached():
+	history.record(null, crop_sizer.cancel)
+	history.commit()
+
+
+# move
+func _on_move_activated():
+	refresh()
+
+
+func _on_move_deactivated():
+	refresh()
 
 
 # silhouette
