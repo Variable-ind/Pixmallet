@@ -112,8 +112,8 @@ func _on_confirmed():
 		# rotated the rest 90 after rotated 180 if not 0.
 		# no other possibility in this case.
 		if abs_rotated > 0: # 90 or 270
-			var w: = img.get_width()
-			var h: = img.get_height()
+			var w := img.get_width()
+			var h := img.get_height()
 			var rotate_img := img.duplicate()
 			rotate_img.rotate_90(direction)
 			

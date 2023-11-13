@@ -185,10 +185,6 @@ func _on_adjusted(adjust_id):
 			canvas.rotate_cw()
 
 
-func refresh_canvas():
-	canvas.refresh()
-
-
 func _on_modal_toggled(state :bool):
 	overlay.visible = state
 

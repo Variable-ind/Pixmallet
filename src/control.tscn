@@ -164,6 +164,7 @@ visible = false
 unique_name_in_owner = true
 size = Vector2i(300, 334)
 visible = false
+preview_bgcolor = null
 
 [node name="ImgOutlineDialog" parent="." instance=ExtResource("17_2x24a")]
 unique_name_in_owner = true

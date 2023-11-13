@@ -96,10 +96,9 @@ func _ready():
 	move_sizer.cursor_changed.connect(_on_cursor_changed)
 	move_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
-	bucket.color_filled.connect(refresh)
 	color_pick.color_picked.connect(_on_color_picked)
 	
-	silhouette.refreshed.connect(refresh)
+	silhouette.refreshed.connect(_on_image_refreshed)
 	silhouette.inject_snapping(drag_snapping_hook)
 	
 	selection.inject_snapping(drag_snapping_hook)
@@ -124,6 +123,16 @@ func attach_project(proj):
 func refresh():
 	if project:
 		project.current_cel.update_texture()
+		queue_redraw()
+
+
+func _on_image_refreshed(img :Image):
+	# img should be duplicated form project.current_cel.image
+	if project and project.current_cel is PixelCel:
+		history.record(project.current_cel.image)
+		project.current_cel.image.copy_from(img)  # must copy_from for history.
+		project.current_cel.update_texture()
+		history.commit()
 		queue_redraw()
 
 
@@ -316,9 +325,10 @@ func process_bucket_fill(event):
 	if event is InputEventMouseButton:
 		if is_pressed:
 			var pos = get_local_mouse_position()
-			history.record(bucket.image, refresh)
+			history.record(bucket.image)
 			bucket.fill(pos)
 			history.commit('bucket_fill')
+			refresh()
 
 
 func process_shape(event, shaper):
@@ -388,7 +398,7 @@ func fill_color(color:Color):
 
 
 func flip_x():
-	var src_img := project.current_cel.get_image()
+	var src_img :Image = project.current_cel.get_image()
 	history.record(src_img, refresh)
 	if selection.has_selected():
 		var rect := selection.selected_rect
@@ -417,7 +427,7 @@ func flip_x():
 	
 
 func flip_y():
-	var src_img := project.current_cel.get_image()
+	var src_img :Image = project.current_cel.get_image()
 	history.record(src_img, refresh)
 	if selection.has_selected():
 		var rect := selection.selected_rect
@@ -446,7 +456,7 @@ func flip_y():
 	
 
 func rotate_cw():
-	var src_img := project.current_cel.get_image()
+	var src_img :Image = project.current_cel.get_image()
 	history.record(src_img, refresh)
 	if selection.has_selected():
 		var rect := selection.selected_rect
@@ -485,7 +495,7 @@ func rotate_cw():
 	
 
 func rotate_ccw():
-	var src_img := project.current_cel.get_image()
+	var src_img :Image = project.current_cel.get_image()
 	history.record(src_img, refresh)
 	
 	if selection.has_selected():
