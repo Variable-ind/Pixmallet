@@ -98,7 +98,8 @@ func _ready():
 	
 	color_pick.color_picked.connect(_on_color_picked)
 	
-	silhouette.refreshed.connect(refresh)
+	silhouette.before_apply.connect(_on_silhouette_before_apply)
+	silhouette.after_apply.connect(_on_silhouette_after_apply)
 	silhouette.inject_snapping(drag_snapping_hook)
 	
 	selection.inject_snapping(drag_snapping_hook)
@@ -592,6 +593,24 @@ func _draw():
 func get_relative_mouse_position() -> Vector2i: # mouse location of canvas.
 	var mpos = get_local_mouse_position()
 	return Vector2i(round(mpos.x), round(mpos.y))
+
+
+# silhouette
+func _on_silhouette_before_apply():
+	history.record([
+		silhouette.image,
+		{'obj': silhouette, 'key': 'current_shaper_type'},
+		{'obj': silhouette, 'key': 'shaped_rect'},
+		{'obj': silhouette, 'key': 'touch_rect'},
+		{'obj': silhouette, 'key': 'start_point'},
+		{'obj': silhouette, 'key': 'end_point'},
+		{'obj': silhouette, 'key': '_current_shape'},
+	], silhouette.update_shape)
+
+
+func _on_silhouette_after_apply():
+	history.commit()
+	refresh()
 
 
 # cursor
