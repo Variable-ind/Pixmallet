@@ -345,7 +345,39 @@ func process_shape(event, shaper):
 			shaper.shape_move(pos)
 		elif shaper.is_operating:
 			shaper.shape_end(pos)
-			history.commit()
+			history.commit('shape drawn')
+
+
+func copy():
+	var img := project.current_cel.get_image()
+	if selection.has_selected():
+		var clip_img := Image.create(
+			img.get_width(), img.get_height(), false, img.get_format())
+		clip_img.blit_rect_mask(img, selection.mask, 
+								Rect2i(Vector2i.ZERO, img.get_size()),
+								Vector2i.ZERO)
+		OS.set_clipboard_image(clip_img)
+	else:
+		OS.set_clipboard_image(img)
+
+
+func paste():
+	pass
+	
+
+func delete():
+	var imgs := []
+	for cel in project.selected_cels:
+		if not cel is PixelCel or not cel.is_visible:
+			continue
+		imgs.append(cel.get_image())
+		
+	history.record(imgs, refresh)
+	for img in imgs:
+		img.fill(Color.TRANSPARENT)
+	
+	refresh()
+	history.commit('delete')
 
 
 func select_all():
@@ -373,8 +405,7 @@ func fill_color(color:Color):
 	for cel in project.selected_cels:
 		if not cel is PixelCel or not cel.is_visible:
 			continue
-		var image = cel.get_image()
-		imgs.append(image)
+		imgs.append(cel.get_image())
 	
 	history.record(imgs, refresh)
 		
@@ -608,7 +639,7 @@ func _on_crop_attached(_rect, _rel_pos):
 		{'action': crop_sizer.hire, 'is_do': true},
 		{'action': crop_sizer.dismiss, 'is_undo': true}
 	])
-	history.commit()
+	history.commit('crop_start')
 
 
 # move
@@ -621,7 +652,7 @@ func _on_move_attached(_rect, _rel_pos):
 		{'action': move_sizer.hire, 'is_do': true},
 		{'action': move_sizer.dismiss, 'is_undo': true}
 	])
-	history.commit()
+	history.commit('move_start')
 
 
 func _on_move_activated(_rect, _rel_pos):
@@ -632,7 +663,7 @@ func _on_move_activated(_rect, _rel_pos):
 		{'action': move_sizer.hire, 'is_do': true},
 		{'action': move_sizer.dismiss, 'is_undo': true}
 	])
-	history.commit()
+	history.commit('move_activated')
 	refresh()
 
 
@@ -644,7 +675,7 @@ func _on_move_deactivated(_rect, _rel_pos):
 		{'action': move_sizer.hire, 'is_do': true},
 		{'action': move_sizer.dismiss, 'is_undo': true}
 	])
-	history.commit()
+	history.commit('move_deactivated')
 	refresh()
 
 
@@ -662,7 +693,7 @@ func _on_silhouette_before_apply():
 
 
 func _on_silhouette_after_apply():
-	history.commit()
+	history.commit('shape applied')
 	refresh()
 
 

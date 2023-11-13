@@ -83,6 +83,16 @@ func _on_navbar_navigation_to(nav_id, data):
 		Navbar.REDO:
 			history.redo()
 		
+		Navbar.COPY:
+			canvas.copy()
+		Navbar.CUT:
+			canvas.cut()
+		Navbar.PASTE:
+			canvas.paste()
+		Navbar.DELETE:
+			canvas.delete()
+		
+		
 		Navbar.SELECT_ALL:
 			canvas.select_all()
 		Navbar.CLEAR_SEL:

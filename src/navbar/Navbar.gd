@@ -5,7 +5,7 @@ signal navigation_to(nav_id, data)
 enum {
 	NEW_FILE, OPEN_FILE, RECENT_FILE, SAVE_FILE, SAVE_FILE_AS, EXPORT_FILE, QUIT,
 	
-	UNDO, REDO, COPY, PASTE, DELETE, 
+	UNDO, REDO, COPY, CUT, PASTE, DELETE, 
 	FILL_FOREGROUND, FILL_BACKGROUND,
 	ZOOM_IN, ZOOM_OUT,
 	PREFERENCES, 
@@ -65,6 +65,8 @@ var menu_item_map: Dictionary = {}
 			 'event': KeyChain.makeEventKey(KEY_Z, true, true)},
 			{'id': COPY, 'label': 'Copy', 'action': 'copy',
 			 'event': KeyChain.makeEventKey(KEY_C, true)},
+			{'id': CUT, 'label': 'Cut', 'action': 'cut',
+			 'event': KeyChain.makeEventKey(KEY_X, true)},
 			{'id': PASTE, 'label': 'Paste', 'action': 'paste',
 			 'event': KeyChain.makeEventKey(KEY_V, true)},
 			{'id': DELETE, 'label': 'Delete', 'action': 'delete',
