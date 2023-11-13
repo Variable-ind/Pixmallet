@@ -324,15 +324,24 @@ func process_shape(event, shaper):
 				history.record(project.current_cel.get_image())
 				shaper.apply()
 				is_pressed = false
-				history.commit('make_shape')
+				history.commit('apply_shape')
 				# prevent make unexcept shape right after apply.
 
 			# DO NOT depaned doublie_clieck here, pressed always come first.
 	elif event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
+			if not shaper.is_operating:
+				history.record([
+					{'obj': silhouette, 'key':'shaped_rect'},
+					{'obj': silhouette, 'key':'touch_rect'},
+					{'obj': silhouette, 'key':'start_point'},
+					{'obj': silhouette, 'key':'end_point'},
+					{'obj': silhouette, 'key':'_current_shape'},
+				], silhouette.update_shape)
 			shaper.shape_move(pos)
 		elif shaper.is_operating:
+			history.commit()
 			shaper.shape_end(pos)
 
 

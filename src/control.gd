@@ -172,9 +172,9 @@ func _on_toolbar_activated(operate_id):
 
 func _on_adjusted(adjust_id):
 	match adjust_id:
-		AdjustmentTool.FLIP_H:
+		AdjustmentTool.FLIP_X:
 			canvas.flip_x()
-		AdjustmentTool.FLIP_V:
+		AdjustmentTool.FLIP_Y:
 			canvas.flip_y()
 		AdjustmentTool.ROTATE_CCW:
 			canvas.rotate_ccw()
