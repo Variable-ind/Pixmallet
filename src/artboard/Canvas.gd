@@ -326,19 +326,8 @@ func process_shape(event, shaper):
 		if is_pressed:
 			var pos = get_local_mouse_position()
 			if not silhouette.has_touch_point(pos) and silhouette.has_area():
-#				history.record([
-#					project.current_cel.get_image(),
-#					{'obj': silhouette, 'key':'shaped_rect'},
-#					{'obj': silhouette, 'key':'touch_rect'},
-#					{'obj': silhouette, 'key':'start_point'},
-#					{'obj': silhouette, 'key':'end_point'},
-#					{'obj': silhouette, 'key':'visible'},
-#					{'obj': silhouette, 'key':'_current_shape'},
-#				], silhouette.update_shape)
-				history.record(project.current_cel.get_image())
 				shaper.apply()
 				is_pressed = false
-				history.commit('apply_shape')
 				# prevent make unexcept shape right after apply.
 
 			# DO NOT depaned doublie_clieck here, pressed always come first.

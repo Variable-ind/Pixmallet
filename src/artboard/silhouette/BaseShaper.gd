@@ -1,5 +1,14 @@
 class_name BaseShaper extends RefCounted
 
+enum {
+	NONE,
+	RECTANGLE,
+	ELLIPSE,
+	LINE,
+	POLYGON,
+}
+var type := NONE
+
 var silhouette : Silhouette
 
 var points :PackedVector2Array = []
@@ -14,12 +23,12 @@ var is_operating :bool :
 
 func _init(_silhouette :Silhouette):
 	silhouette = _silhouette
-	silhouette.applied.connect(_on_applied)
-	silhouette.canceled.connect(_on_canceled)
-	# use signal to separate different shaper is current using.
-	# because shaper do not have _input event.
-	# but silhouette can emit signal when key event is triggered.
-	# then current shaper can tell sillhouette what to do. 
+#	silhouette.applied.connect(_on_applied)
+#	silhouette.canceled.connect(_on_canceled)
+	# DO NOT use signal to separate different shaper is current using.
+	# even shaper do not have _input event.
+	# but DO NOT silhouette can emit signal when key event is triggered.
+	# that will mess up UndoRedo rulers. 
 
 
 func reset():
@@ -48,20 +57,14 @@ func shape_move(pos :Vector2i):
 func shape_end(_pos :Vector2i):
 	is_shaping = false
 	is_dragging = false
+	silhouette.current_shaper_type = type
 
 
 func apply():
+	if points.size() > 0:
+		silhouette.apply()
 	reset()
 
 
 func cancel():
 	reset()
-
-
-
-func _on_applied(_rect):
-	apply()
-
-
-func _on_canceled():
-	cancel()

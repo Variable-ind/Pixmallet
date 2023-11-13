@@ -9,6 +9,8 @@ signal refreshed
 const STROKE_WIDTH_MIN := 0
 const STROKE_WIDTH_MAX := 100
 
+var current_shaper_type := BaseShaper.NONE
+
 @export var line_color := Color.BLUE:
 	set(val):
 		line_color = val
@@ -60,7 +62,28 @@ func attach(img :Image):
 
 
 func apply():
-	applied.emit(shaped_rect)
+#	history.record([
+#		project.current_cel.get_image(),
+#		{'obj': silhouette, 'key':'shaped_rect'},
+#		{'obj': silhouette, 'key':'touch_rect'},
+#		{'obj': silhouette, 'key':'start_point'},
+#		{'obj': silhouette, 'key':'end_point'},
+#		{'obj': silhouette, 'key':'visible'},
+#		{'obj': silhouette, 'key':'_current_shape'},
+#	], silhouette.update_shape)
+	if current_shaper_type != BaseShaper.NONE: 
+		history.record(image)
+		match current_shaper_type:
+			BaseShaper.RECTANGLE:
+				shaped_rectangle()
+			BaseShaper.ELLIPSE:
+				shaped_ellipse()
+			BaseShaper.LINE:
+				shaped_line()
+			BaseShaper.POLYGON:
+				shaped_polygon()
+		applied.emit(shaped_rect)
+		history.commit('apply_shape')
 	reset()
 
 
@@ -72,6 +95,7 @@ func cancel():
 func reset():
 #	shaped_angle = null
 	_current_shape = null
+	current_shaper_type = BaseShaper.NONE
 	shaped_rect = Rect2i()
 	touch_rect = Rect2i()
 	update_shape()

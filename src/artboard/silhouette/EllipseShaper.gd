@@ -1,6 +1,11 @@
 class_name EllipseShaper extends BaseShaper
 
 
+func _init(_silhouette :Silhouette):
+	type = ELLIPSE
+	super._init(_silhouette)
+	
+
 func shape_move(pos :Vector2i):
 	super.shape_move(pos)
 	if is_shaping:
@@ -11,9 +16,3 @@ func shape_move(pos :Vector2i):
 		silhouette.shaping_ellipse(points)
 	elif is_dragging:
 		silhouette.drag_to(pos, drag_offset)
-
-
-func apply():
-	if points.size() > 0:
-		silhouette.shaped_ellipse()
-	super.apply()

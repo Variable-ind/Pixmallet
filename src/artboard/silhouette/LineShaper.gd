@@ -1,6 +1,11 @@
 class_name LineShaper extends BaseShaper
 
 
+func _init(_silhouette :Silhouette):
+	type = LINE
+	super._init(_silhouette)
+	
+
 func shape_move(pos :Vector2i):
 	super.shape_move(pos)
 	if is_shaping:
@@ -12,8 +17,3 @@ func shape_move(pos :Vector2i):
 	elif is_dragging:
 		silhouette.drag_to(pos, drag_offset)
 
-
-func apply():
-	if points.size() > 0:  # only current shaper has points.
-		silhouette.shaped_line()
-	super.apply()
