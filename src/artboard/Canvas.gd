@@ -152,13 +152,13 @@ func set_state(val):  # triggered when state changing.
 			move_sizer.apply()
 			move_sizer.reset()
 		Operate.SHAPE_RECTANGLE:
-			shaper_rectangle.cancel()
+			shaper_rectangle.apply()
 		Operate.SHAPE_ELLIPSE:
-			shaper_ellipse.cancel()
+			shaper_ellipse.apply()
 		Operate.SHAPE_POLYGON:
-			shaper_polygon.cancel()
+			shaper_polygon.apply()
 		Operate.SHAPE_LINE:
-			shaper_line.cancel()
+			shaper_line.apply()
 	
 	state = val
 	is_pressed = false
