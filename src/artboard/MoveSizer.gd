@@ -27,7 +27,8 @@ func reset():
 	image_backup = Image.new()
 	
 
-func lanuch(img :Image, mask :Image):
+func launch(img :Image, mask :Image):
+	reset()
 	if not has_area():
 		image = img  # DO NOT copy_form, image must change runtime.
 		image_backup.copy_from(image)

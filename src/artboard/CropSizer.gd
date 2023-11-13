@@ -12,6 +12,7 @@ var canvas_rect :Rect2i :
 
 
 func launch(size: Vector2i):
+	reset()
 	canvas_size = size
 	var rect = Rect2i(Vector2i.ZERO, canvas_size)
 	attach(rect, true)

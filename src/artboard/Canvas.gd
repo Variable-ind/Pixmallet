@@ -95,6 +95,7 @@ func _ready():
 	crop_sizer.cursor_changed.connect(_on_cursor_changed)
 	crop_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
+	move_sizer.attached.connect(_on_move_attached)
 	move_sizer.activated.connect(_on_move_activated)
 	move_sizer.deactivated.connect(_on_move_activated)
 	move_sizer.cursor_changed.connect(_on_cursor_changed)
@@ -159,7 +160,7 @@ func set_state(val):  # triggered when state changing.
 	if state == Operate.CROP:
 		crop_sizer.launch(project.size)
 	elif state == Operate.MOVE:
-		move_sizer.launch(project.size, selection.mask)
+		move_sizer.launch(project.current_cel.get_image(), selection.mask)
 
 
 func set_zoom_ratio(val):
@@ -611,11 +612,21 @@ func _on_crop_attached(_rect, _rel_pos):
 
 
 # move
-func _on_move_activated():
+func _on_move_attached(_rect, _rel_pos):
+	history.record([
+		{'obj': move_sizer, 'key': 'bound_rect'},
+	], [
+		{'action': move_sizer.hire, 'is_do': true},
+		{'action': move_sizer.dismiss, 'is_undo': true}
+	])
+	history.commit()
+
+
+func _on_move_activated(_rect, _rel_pos):
 	refresh()
 
 
-func _on_move_deactivated():
+func _on_move_deactivated(_rect, _rel_pos):
 	refresh()
 
 
