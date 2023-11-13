@@ -119,13 +119,12 @@ func _ready():
 func attach(rect :Rect2i, auto_activate := false):
 	if bound_rect == Rect2i(): # prevent multiple attach place bound rect.
 		bound_rect = rect
-	attached.emit()
 	if has_area() and auto_activate:
 		hire()
 	else:
 		dismiss()
 	visible = true
-	# NO NEED emit signal here, hire or dismiss will take care of it.
+	attached.emit()
 
 
 func frozen(frozen_it := true):

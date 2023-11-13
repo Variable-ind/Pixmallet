@@ -53,8 +53,6 @@ var stroke_width := 2 :
 var division := 5
 var edge_expansion := 0
 
-var is_pressed := false
-
 
 func attach(img :Image):
 	image = img

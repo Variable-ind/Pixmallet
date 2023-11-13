@@ -89,7 +89,9 @@ func _ready():
 		return snapper.snap_boundary_position(rect, pos)
 	
 	crop_sizer.applied.connect(_on_crop_applied)
-	crop_sizer.attached.connect(_on_crop_attached)
+#	crop_sizer.attached.connect(_on_crop_attached)
+	crop_sizer.activated.connect(_on_crop_activated)
+#	crop_sizer.deactivated.connect(_on_crop_deactivated)
 	crop_sizer.cursor_changed.connect(_on_cursor_changed)
 	crop_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
@@ -147,7 +149,7 @@ func set_state(val):  # triggered when state changing.
 		move_sizer.reset()
 	elif state in Operate.GROUP_SHAPE:
 		silhouette.apply()
-	
+
 	state = val
 	is_pressed = false
 	
@@ -598,9 +600,10 @@ func _on_crop_applied(crop_rect :Rect2i):
 	project.crop_to(crop_rect)
 
 
-func _on_crop_attached():
-	history.record(null, crop_sizer.cancel)
-	history.commit()
+func _on_crop_activated(rect, _rel_pos):
+	if rect != crop_sizer.canvas_rect or crop_sizer.is_activated:
+		history.record(null, crop_sizer.cancel)
+		history.commit()
 
 
 # move
