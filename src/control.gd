@@ -79,7 +79,10 @@ func _on_navbar_navigation_to(nav_id, data):
 			pass
 		
 		Navbar.UNDO:
-			history.undo()
+			if canvas.silhouette.has_area():
+				canvas.silhouette.cancel()
+			else:
+				history.undo()
 			print(history.count, ' ', history.version, ' ', history.current_action_id)
 		Navbar.REDO:
 			history.redo()

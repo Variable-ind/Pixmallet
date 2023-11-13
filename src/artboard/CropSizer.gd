@@ -14,14 +14,6 @@ func launch(canvas_size: Vector2i):
 	attach(rect, true)
 
 
-func terminate(use_apply :=false):
-	if use_apply:
-		apply()
-	else:
-		cancel()
-	reset()
-
-
 func apply():
 	dismiss()
 	applied.emit(bound_rect)

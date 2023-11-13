@@ -40,14 +40,6 @@ func lanuch(img :Image, mask :Image):
 			attach(backup_rect)
 
 
-func terminate(use_apply :=false):
-	if use_apply:
-		apply()
-	else:
-		cancel()
-	reset()
-
-
 func cancel():
 	image.copy_from(image_backup)
 	bound_rect = backup_rect

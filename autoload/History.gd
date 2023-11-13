@@ -41,7 +41,7 @@ func unregister_default_callbacks():
 func record(properties:Variant, actions:Variant=null, use_reset:=true):
 	if use_reset:
 		reset()
-	
+
 	for prop in prepare_properties(properties):
 		properties_stack.append(prop)
 

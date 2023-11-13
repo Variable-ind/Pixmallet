@@ -69,13 +69,6 @@ func cancel():
 	reset()
 
 
-func terminate(use_apply :=false):
-	if use_apply:
-		apply()
-	else:
-		cancel()
-
-
 func reset():
 #	shaped_angle = null
 	_current_shape = null
