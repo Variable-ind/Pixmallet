@@ -5,12 +5,12 @@ signal canceled
 
 const MASK_COLOR := Color(0, 0, 0, 0.66)
 
-var size := Vector2i.ZERO
+var canvas_size := Vector2i.ZERO
 
 
-func launch(canvas_size: Vector2i):
-	size = canvas_size
-	var rect = Rect2i(Vector2i.ZERO, size)
+func launch(size: Vector2i):
+	canvas_size = size
+	var rect = Rect2i(Vector2i.ZERO, canvas_size)
 	attach(rect, true)
 
 
@@ -20,7 +20,7 @@ func apply():
 
 
 func cancel():
-	bound_rect = Rect2i(Vector2i.ZERO, size)
+	bound_rect = Rect2i(Vector2i.ZERO, canvas_size)
 	dismiss()
 	canceled.emit()
 
@@ -32,22 +32,23 @@ func _draw():
 		return
 	
 	# Background
-	var total_rect = Rect2i(Vector2.ZERO, size)
+	var total_rect = Rect2i(Vector2.ZERO, canvas_size)
 	
-	if bound_rect.position.y > 0 and size.x > 0:
+	if bound_rect.position.y > 0 and canvas_size.x > 0:
 		var top_rect = total_rect.intersection(
-			Rect2i(0, 0, size.x, bound_rect.position.y))
+			Rect2i(0, 0, canvas_size.x, bound_rect.position.y))
 		draw_rect(top_rect, MASK_COLOR)
 	
-	if (size.x - bound_rect.end.x) > 0 and bound_rect.size.y > 0:
+	if (canvas_size.x - bound_rect.end.x) > 0 and bound_rect.size.y > 0:
 		var right_rect = total_rect.intersection(
 			Rect2i(bound_rect.end.x, bound_rect.position.y, 
-				   size.x - bound_rect.end.x, bound_rect.size.y))
+				   canvas_size.x - bound_rect.end.x, bound_rect.size.y))
 		draw_rect(right_rect, MASK_COLOR)
 	
-	if size.x > 0 and (size.y - bound_rect.end.y) > 0:
+	if canvas_size.x > 0 and (canvas_size.y - bound_rect.end.y) > 0:
 		var bottom_rect = total_rect.intersection(
-			Rect2i(0, bound_rect.end.y, size.x, size.y - bound_rect.end.y))
+			Rect2i(0, bound_rect.end.y, 
+				   canvas_size.x, canvas_size.y - bound_rect.end.y))
 		draw_rect(bottom_rect, MASK_COLOR)	
 		
 	if bound_rect.position.x > 0 and bound_rect.size.y > 0:

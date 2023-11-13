@@ -88,7 +88,7 @@ func _ready():
 	var drag_snapping_hook = func(rect:Rect2i, pos :Vector2i) -> Vector2i:
 		return snapper.snap_boundary_position(rect, pos)
 	
-	crop_sizer.applied.connect(crop)
+	crop_sizer.applied.connect(_on_crop_applied)
 	crop_sizer.cursor_changed.connect(_on_cursor_changed)
 	crop_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
@@ -126,10 +126,6 @@ func refresh():
 		project.current_cel.update_texture()
 		queue_redraw()
 
-
-func crop(crop_rect :Rect2i):
-	project.crop_to(crop_rect)
-	
 
 # temporary prevent canvas operations.
 func frozen(frozen_it := false): 
@@ -220,7 +216,7 @@ func process_drawing_or_erasing(event, drawer):
 				_:
 					drawer.set_stroke_alpha_dynamics() # back to default
 			if not drawer.is_drawing:
-				history.record(project.current_cel.get_image())
+				history.record(drawer.image)
 			drawer.draw_move(pos)
 			refresh()
 		elif drawer.is_drawing:
@@ -593,6 +589,11 @@ func _draw():
 func get_relative_mouse_position() -> Vector2i: # mouse location of canvas.
 	var mpos = get_local_mouse_position()
 	return Vector2i(round(mpos.x), round(mpos.y))
+
+
+# crop
+func _on_crop_applied(crop_rect :Rect2i):
+	project.crop_to(crop_rect)
 
 
 # silhouette
