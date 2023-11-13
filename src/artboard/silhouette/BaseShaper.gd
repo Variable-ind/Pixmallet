@@ -59,12 +59,3 @@ func shape_end(_pos :Vector2i):
 	is_dragging = false
 	silhouette.current_shaper_type = type
 
-
-func apply():
-	if points.size() > 0:
-		silhouette.apply()
-	reset()
-
-
-func cancel():
-	reset()

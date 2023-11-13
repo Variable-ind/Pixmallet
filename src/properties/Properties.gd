@@ -43,14 +43,11 @@ func set_state(val):
 		for prop in property_panels:
 			prop.visible = false
 		
-		if state in [Operate.SHAPE_RECTANGLE, Operate.SHAPE_ELLIPSE,
-					 Operate.SHAPE_LINE, Operate.SHAPE_POLYGON]:
+		if state in Operate.GROUP_SHAPE:
 			propShape.visible = true
 			propShape.set_for_polygon(state == Operate.SHAPE_POLYGON)
 
-		elif state in [Operate.SELECT_RECTANGLE, Operate.SELECT_ELLIPSE,
-					   Operate.SELECT_POLYGON, Operate.SELECT_LASSO,
-					   Operate.SELECT_MAGIC]:
+		elif state in Operate.GROUP_SELECT:
 			propSelection.visible = true
 			propSelection.set_for_magic_selector(state == Operate.SELECT_MAGIC)
 			

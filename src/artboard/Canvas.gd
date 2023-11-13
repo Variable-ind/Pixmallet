@@ -98,7 +98,7 @@ func _ready():
 	
 	color_pick.color_picked.connect(_on_color_picked)
 	
-	silhouette.refreshed.connect(_on_refreshed)
+	silhouette.refreshed.connect(refresh)
 	silhouette.inject_snapping(drag_snapping_hook)
 	
 	selection.inject_snapping(drag_snapping_hook)
@@ -138,32 +138,28 @@ func frozen(frozen_it := false):
 func set_state(val):  # triggered when state changing.
 	if state == val:
 		return
-#	silhouette.terminate(true)
-#		move_sizer.terminate(true)
-#		crop_sizer.launch(project.size)
-#		selection.deselect()
-#move_sizer.lanuch(project.current_cel.get_image(), selection.mask)
-	match state:
-		Operate.CROP:
-			crop_sizer.cancel()
-			crop_sizer.reset()
-		Operate.MOVE:
-			move_sizer.apply()
-			move_sizer.reset()
-		Operate.SHAPE_RECTANGLE:
-			shaper_rectangle.apply()
-		Operate.SHAPE_ELLIPSE:
-			shaper_ellipse.apply()
-		Operate.SHAPE_POLYGON:
-			shaper_polygon.apply()
-		Operate.SHAPE_LINE:
-			shaper_line.apply()
+	
+	# leave state
+	if state == Operate.CROP:
+		crop_sizer.cancel()
+		crop_sizer.reset()
+	elif state == Operate.MOVE:
+		move_sizer.apply()
+		move_sizer.reset()
+	elif state in Operate.GROUP_SHAPE:
+		silhouette.apply()
 	
 	state = val
 	is_pressed = false
 	
 	indicator.hide_indicator()  # not all state need indicator
 	
+	# enter state
+	if state == Operate.CROP:
+		crop_sizer.launch(project.size)
+	elif state == Operate.MOVE:
+		move_sizer.launch(project.size, selection.mask)
+
 
 func set_zoom_ratio(val):
 	if zoom == val:
@@ -326,7 +322,8 @@ func process_shape(event, shaper):
 		if is_pressed:
 			var pos = get_local_mouse_position()
 			if not silhouette.has_touch_point(pos) and silhouette.has_area():
-				shaper.apply()
+				silhouette.apply()
+				# DO NOT do or undo there, apply could trigger by other actions.
 				is_pressed = false
 				# prevent make unexcept shape right after apply.
 
@@ -334,9 +331,19 @@ func process_shape(event, shaper):
 	elif event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
+			if not shaper.is_operating:
+				history.record([
+					{'obj': silhouette, 'key': 'current_shaper_type'},
+					{'obj': silhouette, 'key': 'shaped_rect'},
+					{'obj': silhouette, 'key': 'touch_rect'},
+					{'obj': silhouette, 'key': 'start_point'},
+					{'obj': silhouette, 'key': 'end_point'},
+					{'obj': silhouette, 'key': '_current_shape'},
+				], silhouette.update_shape)
 			shaper.shape_move(pos)
 		elif shaper.is_operating:
 			shaper.shape_end(pos)
+			history.commit()
 
 
 func select_all():
@@ -585,21 +592,6 @@ func _draw():
 func get_relative_mouse_position() -> Vector2i: # mouse location of canvas.
 	var mpos = get_local_mouse_position()
 	return Vector2i(round(mpos.x), round(mpos.y))
-
-
-# refresh canvas with silhouette / sizer.
-func _on_refreshed(img_before :Image):
-	# img_before should be duplicated form project.current_cel.image
-	# project.current_cel.image already updated with emitter.
-	if project and project.current_cel is PixelCel:
-		history.record({
-			'obj': project.current_cel.get_image(),
-			'key': 'data',
-			'undo': img_before.data
-		})
-		project.current_cel.update_texture()
-		history.commit()
-		queue_redraw()
 
 
 # cursor

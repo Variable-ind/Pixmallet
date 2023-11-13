@@ -3,8 +3,7 @@ class_name Silhouette extends Node2D
 signal updated(rect, rel_pos, status)
 signal applied(rect, img_backup)
 signal canceled
-
-signal refreshed(form_image)
+signal refreshed
 
 const STROKE_WIDTH_MIN := 0
 const STROKE_WIDTH_MAX := 100
@@ -63,7 +62,16 @@ func attach(img :Image):
 
 func apply():
 	if current_shaper_type != BaseShaper.NONE:
-		var from_img := image.duplicate()
+		history.record([
+			image,
+			{'obj': self, 'key': 'current_shaper_type'},
+			{'obj': self, 'key': 'shaped_rect'},
+			{'obj': self, 'key': 'touch_rect'},
+			{'obj': self, 'key': 'start_point'},
+			{'obj': self, 'key': 'end_point'},
+			{'obj': self, 'key': '_current_shape'},
+		], update_shape)
+		
 		match current_shaper_type:
 			BaseShaper.RECTANGLE:
 				shaped_rectangle()
@@ -73,9 +81,10 @@ func apply():
 				shaped_line()
 			BaseShaper.POLYGON:
 				shaped_polygon()
-		refreshed.emit(from_img)
+		refreshed.emit()
 		applied.emit(shaped_rect)
-	reset()
+		reset()
+		history.commit()
 
 
 func cancel():
@@ -84,7 +93,6 @@ func cancel():
 
 
 func reset():
-#	shaped_angle = null
 	_current_shape = null
 	current_shaper_type = BaseShaper.NONE
 	shaped_rect = Rect2i()
