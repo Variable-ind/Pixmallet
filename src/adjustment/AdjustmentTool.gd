@@ -5,8 +5,8 @@ signal adjusted(adjustId)
 
 
 enum {
-	FLIP_H,
-	FLIP_V,
+	FLIP_X,
+	FLIP_Y,
 	ROTATE_CCW,
 	ROTATE_CW,
 #	MIRROR_H,
@@ -15,8 +15,8 @@ enum {
 }
 
 const ADJUST_ID_MAP :Dictionary = {
-	'FlipH': FLIP_H,
-	'FlipV': FLIP_V,
+	'FlipX': FLIP_X,
+	'FlipY': FLIP_Y,
 	'RotateCCW': ROTATE_CCW,
 	'RotateCW': ROTATE_CW,
 #	'MirrorH': MIRROR_H,

@@ -29,7 +29,6 @@ func reset():
 
 func lanuch(img :Image, mask :Image):
 	if not has_area():
-		history.record(img)
 		image = img  # DO NOT copy_form, image must change runtime.
 		image_backup.copy_from(image)
 		image_mask.copy_from(mask)
@@ -59,7 +58,6 @@ func cancel():
 
 func apply():
 	if has_area() and has_image():
-		history.record({'obj': image, 'key': 'data', 'undo': image_backup.data})
 		preview_image.resize(bound_rect.size.x,
 							 bound_rect.size.y,
 							 Image.INTERPOLATE_NEAREST)

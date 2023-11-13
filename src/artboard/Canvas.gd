@@ -313,7 +313,7 @@ func process_bucket_fill(event):
 			var pos = get_local_mouse_position()
 			history.record(bucket.image, refresh)
 			bucket.fill(pos)
-			history.commit()
+			history.commit('bucket_fill')
 
 
 func process_shape(event, shaper):
@@ -324,7 +324,7 @@ func process_shape(event, shaper):
 				history.record(project.current_cel.get_image())
 				shaper.apply()
 				is_pressed = false
-				history.commit()
+				history.commit('make_shape')
 				# prevent make unexcept shape right after apply.
 
 			# DO NOT depaned doublie_clieck here, pressed always come first.
@@ -339,19 +339,19 @@ func process_shape(event, shaper):
 func select_all():
 	history.record(selection.mask, selection.update_selection)
 	selection.select_all()
-	history.commit()
+	history.commit('select_all')
 
 
 func select_deselect():
 	history.record(selection.mask, selection.update_selection)
 	selection.deselect()
-	history.commit()
+	history.commit('deselect')
 
 
 func select_invert():
 	history.record(selection.mask, selection.update_selection)
 	selection.invert()
-	history.commit()
+	history.commit('invert_selection')
 
 
 func fill_color(color:Color):
@@ -380,7 +380,7 @@ func fill_color(color:Color):
 			image.fill(color)
 	
 	refresh()
-	history.commit()
+	history.commit('fill_color')
 	
 
 
@@ -410,7 +410,7 @@ func flip_x():
 		src_img.flip_x()
 
 	refresh()
-	history.commit()
+	history.commit('flip_x')
 	
 
 func flip_y():
@@ -439,7 +439,7 @@ func flip_y():
 		src_img.get_image().flip_y()
 
 	refresh()
-	history.commit()
+	history.commit('flip_y')
 	
 
 func rotate_cw():
@@ -478,7 +478,7 @@ func rotate_cw():
 		src_img.blit_rect(rotate_img, rotate_rect, dst)
 
 	refresh()
-	history.commit()
+	history.commit('rotate_cw')
 	
 
 func rotate_ccw():
@@ -516,7 +516,7 @@ func rotate_ccw():
 		src_img.blit_rect(rotate_img, rotate_rect, dst)
 		
 	refresh()
-	history.commit()
+	history.commit('rotate_ccw')
 
 
 func _input(event :InputEvent):

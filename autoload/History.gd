@@ -56,11 +56,7 @@ func record(properties:Variant, actions:Variant=null, use_reset:=true):
 				undo_methods_stack.append(act.method)
 
 
-func commit(action_name:StringName = '', actions = null, properties = null):
-	if properties != null or actions != null:
-		# append prop and actions
-		record(properties, actions, false)
-	
+func commit(action_name:StringName = ''):
 	undo_redo.create_action(action_name)
 	
 	for prop in properties_stack:
