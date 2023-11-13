@@ -613,8 +613,10 @@ func _on_crop_attached(_rect, _rel_pos):
 
 # move
 func _on_move_attached(_rect, _rel_pos):
+	print(_rect)
 	history.record([
 		{'obj': move_sizer, 'key': 'bound_rect'},
+		{'obj': move_sizer, 'key': 'preview_texture'}
 	], [
 		{'action': move_sizer.hire, 'is_do': true},
 		{'action': move_sizer.dismiss, 'is_undo': true}
@@ -623,10 +625,26 @@ func _on_move_attached(_rect, _rel_pos):
 
 
 func _on_move_activated(_rect, _rel_pos):
+	history.record([
+		{'obj': move_sizer, 'key': 'bound_rect'},
+		{'obj': move_sizer, 'key': 'preview_texture'}
+	], [
+		{'action': move_sizer.hire, 'is_do': true},
+		{'action': move_sizer.dismiss, 'is_undo': true}
+	])
+	history.commit()
 	refresh()
 
 
 func _on_move_deactivated(_rect, _rel_pos):
+	history.record([
+		{'obj': move_sizer, 'key': 'bound_rect'},
+		{'obj': move_sizer, 'key': 'preview_texture'}
+	], [
+		{'action': move_sizer.hire, 'is_do': true},
+		{'action': move_sizer.dismiss, 'is_undo': true}
+	])
+	history.commit()
 	refresh()
 
 
