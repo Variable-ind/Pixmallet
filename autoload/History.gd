@@ -3,6 +3,10 @@ class_name History extends Node
 var undo_redo = UndoRedo.new()
 var count :int :
 	get: return undo_redo.get_history_count()
+var current_action_id :int :
+	get: return undo_redo.get_current_action()
+var version : int:
+	get: return undo_redo.get_version()
 
 var properties_stack :Array[HistoryProp] = []
 var do_methods_stack :Array[Callable] = []
@@ -34,8 +38,8 @@ func unregister_default_callbacks():
 	default_callbacks.clear()
 
 
-func record(properties:Variant, actions:Variant=null, as_reset:=true):
-	if as_reset:
+func record(properties:Variant, actions:Variant=null, use_reset:=true):
+	if use_reset:
 		reset()
 	
 	for prop in prepare_properties(properties):
@@ -52,7 +56,11 @@ func record(properties:Variant, actions:Variant=null, as_reset:=true):
 				undo_methods_stack.append(act.method)
 
 
-func commit(action_name:StringName = ''):
+func commit(action_name:StringName = '', actions = null, properties = null):
+	if properties != null or actions != null:
+		# append prop and actions
+		record(properties, actions, false)
+	
 	undo_redo.create_action(action_name)
 	
 	for prop in properties_stack:

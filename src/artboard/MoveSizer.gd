@@ -28,9 +28,8 @@ func reset():
 	
 
 func lanuch(img :Image, mask :Image):
-	history.record(img)
-	frozen(false)
 	if not has_area():
+		history.record(img)
 		image = img  # DO NOT copy_form, image must change runtime.
 		image_backup.copy_from(image)
 		image_mask.copy_from(mask)
@@ -54,13 +53,14 @@ func cancel():
 	image.copy_from(image_backup)
 	bound_rect = backup_rect
 	preview_image = Image.new()
-	dismiss()
+	super.dismiss()
 	canceled.emit()
 
 
 func apply():
 	if has_area() and has_image():
-		preview_image.resize(bound_rect.size.x, 
+		history.record({'obj': image, 'key': 'data', 'undo': image_backup.data})
+		preview_image.resize(bound_rect.size.x,
 							 bound_rect.size.y,
 							 Image.INTERPOLATE_NEAREST)
 		# DO NOT just fill rect, selection might have different shapes.
@@ -77,9 +77,8 @@ func apply():
 						bound_rect.position)
 		image_mask.copy_from(_mask)
 		preview_image = Image.new()
-		dismiss()
 		applied.emit(bound_rect)
-		history.commit()
+	super.dismiss()
 
 
 func hire():
@@ -135,10 +134,7 @@ func _draw():
 			draw_texture_rect(preview_texture, bound_rect, false,
 							  MODULATE_COLOR if is_dragging else Color.WHITE)
 		
-		var draw_color = line_color
-		if not is_activated:
-			draw_color.a = 0.5
-		draw_rect(bound_rect, draw_color, false)
+		draw_rect(bound_rect, line_color, false)
 
 
 func _input(event :InputEvent):

@@ -67,7 +67,6 @@ func can_draw(pos :Vector2i):
 
 
 func draw_start(pos: Vector2i):
-	history.record(image)
 	super.draw_start(pos)
 	last_position = pos
 	draw_start_position = pos
@@ -84,7 +83,6 @@ func draw_move(pos: Vector2i):
 
 
 func draw_end(pos: Vector2i):
-	history.commit('draw')
 	super.draw_end(pos)
 #	draw_pixel(pos)
 	# no need draw in the end.

@@ -33,7 +33,6 @@ func reset():
 
 func select_start(_pos :Vector2i):
 	reset()
-	history.record(selection.mask)
 
 
 func select_move(pos :Vector2i):
@@ -44,4 +43,3 @@ func select_move(pos :Vector2i):
 func select_end(_pos :Vector2i):
 	is_selecting = false
 	is_moving = false
-	history.commit('select')

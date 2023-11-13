@@ -218,10 +218,13 @@ func process_drawing_or_erasing(event, drawer):
 						prepare_velocity(event.velocity))
 				_:
 					drawer.set_stroke_alpha_dynamics() # back to default
+			if not drawer.is_drawing:
+				history.record(project.current_cel.get_image())
 			drawer.draw_move(pos)
 			refresh()
 		elif drawer.is_drawing:
 			drawer.draw_end(pos)
+			history.commit('draw')
 			refresh()
 
 
@@ -229,50 +232,68 @@ func process_selection(event, selector):
 	if event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
+			if not selector.is_operating:
+				history.record(selection.mask)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
+			history.commit('select')
 
 
 func process_selection_polygon(event, selector):
 	if event is InputEventMouseButton:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed and not event.double_click:
+			if not selector.is_operating:
+				history.record(selection.mask)
 			selector.select_move(pos)
 		elif selector.is_selecting and event.double_click:
 			selector.select_end(pos)
+			history.commit('select_polygon')
 	elif event is InputEventMouseMotion and selector.is_moving:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
+			if not selector.is_operating:
+				history.record(selection.mask)
 			selector.select_move(pos)
 		else:
 			selector.select_end(pos)
+			history.commit('select_polygon')
 			
 
 func process_selection_lasso(event, selector):
 	if event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
+			if not selector.is_operating:
+				history.record(selection.mask)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
+			history.commit('select_lasso')
 
 
 func process_selection_magic(event, selector):
 	if event is InputEventMouseButton:
 		var pos = get_local_mouse_position()
 		if is_pressed:
+			if not selector.is_operating:
+				history.record(selection.mask)
 			selector.image = project.current_cel.get_image()
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
+			history.commit('select_magic')
 			
 	elif event is InputEventMouseMotion and selector.is_moving:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
+			if not selector.is_operating:
+				history.record(selection.mask)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
+			history.commit('select_magic')
 
 
 func process_color_pick(event):
@@ -300,8 +321,10 @@ func process_shape(event, shaper):
 		if is_pressed:
 			var pos = get_local_mouse_position()
 			if not silhouette.has_touch_point(pos) and silhouette.has_area():
+				history.record(project.current_cel.get_image())
 				shaper.apply()
 				is_pressed = false
+				history.commit()
 				# prevent make unexcept shape right after apply.
 
 			# DO NOT depaned doublie_clieck here, pressed always come first.

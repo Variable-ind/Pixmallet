@@ -9,9 +9,8 @@ var size := Vector2i.ZERO
 
 
 func launch(canvas_size: Vector2i):
-	frozen(false)
 	size = canvas_size
-	var rect := Rect2i(Vector2i.ZERO, size)
+	var rect = Rect2i(Vector2i.ZERO, size)
 	attach(rect, true)
 
 
@@ -29,8 +28,8 @@ func apply():
 
 
 func cancel():
-	dismiss()
 	bound_rect = Rect2i(Vector2i.ZERO, size)
+	dismiss()
 	canceled.emit()
 
 
