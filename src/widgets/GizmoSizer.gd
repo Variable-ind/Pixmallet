@@ -3,9 +3,10 @@ class_name GizmoSizer extends Node2D
 signal gizmo_hover_updated(gizmo, status)
 signal gizmo_press_updated(gizmo, status)
 
-signal attached
+signal attached(rect, rel)
 signal activated(rect, rel)
 signal deactivated(rect, rel)
+
 signal updated(rect, rel_pos, status)
 signal cursor_changed(cursor)
 
@@ -119,12 +120,12 @@ func _ready():
 func attach(rect :Rect2i, auto_activate := false):
 	if bound_rect == Rect2i(): # prevent multiple attach place bound rect.
 		bound_rect = rect
+	attached.emit(bound_rect, relative_position)
 	if has_area() and auto_activate:
 		hire()
 	else:
 		dismiss()
 	visible = true
-	attached.emit()
 
 
 func frozen(frozen_it := true):
