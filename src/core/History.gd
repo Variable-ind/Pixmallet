@@ -2,8 +2,8 @@ class_name History extends Node
 
 enum {
 	MERGE_DISABLE,
-	MERGE_ENDS,
-	MERGE_ALL,
+	MERGE_ENDS,  # use first action's undo , and use do of next same action.
+	MERGE_ALL,  # merge to next same action.
 }
 
 static var undo_redo = UndoRedo.new()

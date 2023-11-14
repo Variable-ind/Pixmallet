@@ -706,11 +706,13 @@ func _on_silhouette_before_apply():
 #		{'obj': silhouette, 'key': 'end_point'},
 #		{'obj': silhouette, 'key': '_current_shape'},
 #	], [silhouette.update_shape])
-	History.record(silhouette.image)
+	History.record(silhouette.image, silhouette.cancel)
+	# use silhouette.cancel is for 
+	# prevent show drawing lines of drawn shape which is already finished.
 
 
 func _on_silhouette_after_apply():
-	History.commit('shape', History.MERGE_ALL)
+	History.commit('shape', History.MERGE_ALL) # merge next drawing shape.
 	refresh()
 
 
