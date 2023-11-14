@@ -78,7 +78,7 @@ static func commit(action_name:StringName = '', merge := MERGE_DISABLE):
 			merge_mode = UndoRedo.MERGE_ENDS
 		MERGE_ALL:
 			merge_mode = UndoRedo.MERGE_ALL
-		
+
 	undo_redo.create_action(action_name, merge_mode)
 	
 	for prop in properties_stack:
