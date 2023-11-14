@@ -364,6 +364,7 @@ func copy():
 func cut():
 	copy()
 	var image := project.current_cel.get_image()
+	History.record(image)
 	if selection.has_selected():
 		var cut_img := Image.create(image.get_width(), image.get_height(),
 									false, image.get_format())
@@ -374,7 +375,9 @@ func cut():
 							 selection.selected_rect.position)
 	else:
 		image.fill(Color.TRANSPARENT)
+	
 	refresh()
+	History.commit()
 
 
 func paste():
@@ -387,8 +390,10 @@ func paste():
 		pos = selection.selected_rect.position
 		clip_rect.size = selection.selected_rect.size
 	
+	History.record(image)
 	image.blend_rect_mask(clip_img, clip_img, clip_rect, pos)
 	refresh()
+	History.commit()
 
 
 func delete():
