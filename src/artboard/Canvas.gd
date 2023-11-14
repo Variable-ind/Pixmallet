@@ -72,7 +72,6 @@ var color_pick := ColorPick.new()
 
 
 func _ready():
-
 	var scale_snapping_hook = func(pos :Vector2i) -> Vector2i:
 		return snapper.snap_position(pos, true)
 	
@@ -327,7 +326,6 @@ func process_shape(event, shaper):
 	elif event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
-			# DONT NEED those, prevent unecept activate silhouette on undo/redo.
 #			if not shaper.is_operating:
 #				History.record([
 #					{'obj': silhouette, 'key': 'current_shaper_type'},
@@ -515,7 +513,7 @@ func flip_y():
 							   selection.get_mask_rect(),
 							   rect.position)
 	else:
-		src_img.get_image().flip_y()
+		src_img.flip_y()
 
 	refresh()
 	History.commit('flip_y')
@@ -604,7 +602,7 @@ func _input(event :InputEvent):
 	
 	if event is InputEventMouseButton:
 		is_pressed = event.pressed
-		operating.emit(state, not is_pressed)
+		operating.emit(state, is_pressed)
 
 	match state:
 		Operate.PENCIL:
@@ -684,34 +682,29 @@ func _on_move_activate_toggled(_rect, _rel_pos):
 
 
 func _on_move_attached(_rect, _rel_pos):
-	History.record([
-		project.current_cel.get_image(),
-		{'obj': move_sizer, 'key': 'preview_image'},
-		{'obj': move_sizer, 'key': 'bound_rect'}
-	])
+	pass
 	
 
 func _on_move_applied(_rect):
-	History.commit('move')
+	History.compose('move', [
+		{'obj': move_sizer.image, 'key': 'data', 
+		 'undo': move_sizer.image_backup.data},
+	])
 	refresh()
 
 
 # silhouette
-func cancel_silhouette():
-	if not (state in Operate.GROUP_SHAPE):
-		silhouette.cancel()
-
-
 func _on_silhouette_before_apply():
-	History.record([
-		silhouette.image,
-		{'obj': silhouette, 'key': 'current_shaper_type'},
-		{'obj': silhouette, 'key': 'shaped_rect'},
-		{'obj': silhouette, 'key': 'touch_rect'},
-		{'obj': silhouette, 'key': 'start_point'},
-		{'obj': silhouette, 'key': 'end_point'},
-		{'obj': silhouette, 'key': '_current_shape'},
-	], [silhouette.update_shape, cancel_silhouette])
+#	History.record([
+#		silhouette.image,
+#		{'obj': silhouette, 'key': 'current_shaper_type'},
+#		{'obj': silhouette, 'key': 'shaped_rect'},
+#		{'obj': silhouette, 'key': 'touch_rect'},
+#		{'obj': silhouette, 'key': 'start_point'},
+#		{'obj': silhouette, 'key': 'end_point'},
+#		{'obj': silhouette, 'key': '_current_shape'},
+#	], [silhouette.update_shape, silhouette.cancel])
+	History.record(silhouette.image)
 
 
 func _on_silhouette_after_apply():

@@ -257,11 +257,11 @@ func _on_viewport_size_changed():
 	camera.viewport_size = viewport.size
 
 
-func _on_canvas_operating(_state:int, is_finished :bool):
-	if is_finished:
-		_lock_guides(guides_locked)
-	else:
+func _on_canvas_operating(_state:int, in_progress :bool):
+	if in_progress:
 		_lock_guides(true)
+	else:
+		_lock_guides(guides_locked)
 
 
 func _on_canvas_cursor_changed(cursor):

@@ -17,6 +17,7 @@ var current_shaper_type := BaseShaper.NONE
 		queue_redraw()
 
 var image := Image.new()
+
 var pivot := Pivot.TOP_LEFT  # Pivot class in /core.
 var pivot_offset :Vector2i :
 	get: return Pivot.get_pivot_offset(pivot, shaped_rect.size)
@@ -393,17 +394,19 @@ func _draw():
 var _current_shape = null
 
 func draw_shapeline():
-	var points :PackedVector2Array = [
-		Vector2(shaped_rect.position.x, 0),
-		Vector2(shaped_rect.position.x, size.y),
-		Vector2(0, shaped_rect.position.y),
-		Vector2(size.x, shaped_rect.position.y),
-		Vector2(shaped_rect.end.x+1, 0),
-		Vector2(shaped_rect.end.x+1, size.y),
-		Vector2(0, shaped_rect.end.y+1),
-		Vector2(size.x, shaped_rect.end.y+1),
-	]
-	draw_multiline(points, line_color)
+	if shaped_rect.has_area():
+		var points :PackedVector2Array = [
+			Vector2(shaped_rect.position.x, 0),
+			Vector2(shaped_rect.position.x, size.y),
+			Vector2(0, shaped_rect.position.y),
+			Vector2(size.x, shaped_rect.position.y),
+			Vector2(shaped_rect.end.x+1, 0),
+			Vector2(shaped_rect.end.x+1, size.y),
+			Vector2(0, shaped_rect.end.y+1),
+			Vector2(size.x, shaped_rect.end.y+1),
+		]
+		draw_multiline(points, line_color)
+#		draw_rect(shaped_rect, line_color, false)
 	
 
 func _input(event):
