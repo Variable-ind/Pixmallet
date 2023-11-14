@@ -3,9 +3,6 @@ class_name MoveSizer extends GizmoSizer
 signal applied(rect)
 signal canceled
 
-signal before_apply
-signal after_apply
-
 const MODULATE_COLOR := Color(1, 1, 1, 0.66)
 
 var image := Image.new()
@@ -52,8 +49,7 @@ func cancel():
 
 
 func apply():
-	if has_area() and has_image():
-		before_apply.emit()
+	if has_area() and has_preview():
 		preview_image.resize(bound_rect.size.x,
 							 bound_rect.size.y,
 							 Image.INTERPOLATE_NEAREST)
@@ -61,8 +57,8 @@ func apply():
 		image.blit_rect_mask(preview_image, preview_image,
 							 Rect2i(Vector2i.ZERO, bound_rect.size),
 							 bound_rect.position)
-		image_backup.copy_from(image)
-		backup_rect = bound_rect
+#		image_backup.copy_from(image)
+#		backup_rect = bound_rect
 		# also the image mask must update, because already transformed.
 		var _mask = Image.create(image.get_width(), image.get_height(),
 								 false, image.get_format())
@@ -72,7 +68,6 @@ func apply():
 		image_mask.copy_from(_mask)
 		preview_image = Image.new()
 		applied.emit(bound_rect)
-		after_apply.emit()
 	super.dismiss()
 
 
@@ -81,7 +76,7 @@ func hire():
 		return
 	# image will not change and cancelable while in the progress.
 	# until applied or canceld.
-	if not has_image():
+	if not has_preview():
 		if image_mask.is_empty() or image_mask.is_invisible():
 			# for whole image
 			preview_image = image.get_region(bound_rect)
@@ -110,7 +105,7 @@ func dismiss():
 	super.dismiss()
 
 
-func has_image() -> bool:
+func has_preview() -> bool:
 	return not preview_image.is_empty()
 
 
@@ -123,7 +118,7 @@ func update_texture():
 
 func _draw():
 	if has_area(): # careful has_area might be ovrride.
-		if has_image():
+		if has_preview():
 	#		texture = ImageTexture.create_from_image(image)
 			# DO NOT new a texture here, may got blank texture. do it before.
 			draw_texture_rect(preview_texture, bound_rect, false,

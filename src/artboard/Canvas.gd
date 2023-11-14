@@ -61,11 +61,6 @@ var color_pick := ColorPick.new()
 @onready var shaper_ellipse := EllipseShaper.new(silhouette)
 @onready var shaper_line := LineShaper.new(silhouette)
 @onready var shaper_polygon := PolygonShaper.new(silhouette)
-#var mirror_view :bool = false
-#var draw_pixel_grid :bool = false
-#var grid_draw_over_tile_mode :bool = false
-#var shape_perfect :bool = false
-#var shape_center :bool = false
 
 #var onion_skinning :bool = false
 #var onion_skinning_past_rate := 1.0
@@ -77,11 +72,7 @@ var color_pick := ColorPick.new()
 
 
 func _ready():
-#	onion_past.type = onion_past.PAST
-#	onion_past.blue_red_color = Color.RED
-#	onion_future.type = onion_future.FUTURE
-#	onion_future.blue_red_color = Color.BLUE
-	
+
 	var scale_snapping_hook = func(pos :Vector2i) -> Vector2i:
 		return snapper.snap_position(pos, true)
 	
@@ -95,11 +86,10 @@ func _ready():
 	crop_sizer.cursor_changed.connect(_on_cursor_changed)
 	crop_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
-#	move_sizer.attached.connect(_on_move_attached)
+	move_sizer.attached.connect(_on_move_attached)
 	move_sizer.activated.connect(_on_move_activate_toggled)
 	move_sizer.deactivated.connect(_on_move_activate_toggled)
-	move_sizer.before_apply.connect(_on_move_before_apply)
-	move_sizer.after_apply.connect(_on_move_after_apply)
+	move_sizer.applied.connect(_on_move_applied)
 	move_sizer.cursor_changed.connect(_on_cursor_changed)
 	move_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
@@ -693,18 +683,15 @@ func _on_move_activate_toggled(_rect, _rel_pos):
 	refresh()
 
 
-func _on_move_before_apply():
-	print('fuck')
+func _on_move_attached(_rect, _rel_pos):
 	History.record([
 		project.current_cel.get_image(),
-		{'obj': move_sizer, 'key': 'bound_rect'},
 		{'obj': move_sizer, 'key': 'preview_image'},
-		{'obj': move_sizer, 'key': 'preview_texture'},
+		{'obj': move_sizer, 'key': 'bound_rect'}
 	])
 	
 
-func _on_move_after_apply():
-	print('fuckoff')
+func _on_move_applied(_rect):
 	History.commit('move')
 	refresh()
 
