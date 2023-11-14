@@ -349,21 +349,24 @@ func process_shape(event, shaper):
 
 
 func copy():
-	var img := project.current_cel.get_image()
+	var image := project.current_cel.get_image()
 	if selection.has_selected():
-		var clip_img := Image.create(
-			img.get_width(), img.get_height(), false, img.get_format())
-		clip_img.blit_rect_mask(img, selection.mask, 
-								Rect2i(Vector2i.ZERO, img.get_size()),
-								Vector2i.ZERO)
-		OS.set_clipboard_image(clip_img)
+		var clip_img := image.get_region(selection.selected_rect)
+		Clipboard.set_image(clip_img, selection.selected_rect.position)
 	else:
-		OS.set_clipboard_image(img)
+		Clipboard.set_image(image)
 
 
 func paste():
-	pass
-	
+	var image := project.current_cel.get_image()
+	var pos := Clipboard.get_image_posistion()
+	if selection.has_selected():
+		pos = selection.selected_rect.position
+	var clip_img := Clipboard.get_image()
+	var clip_rect := Rect2i(Vector2i.ZERO, clip_img.get_size())
+	image.blend_rect_mask(clip_img, clip_img, clip_rect, pos)
+	refresh()
+
 
 func delete():
 	var imgs := []
