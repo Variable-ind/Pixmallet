@@ -221,12 +221,12 @@ func process_drawing_or_erasing(event, drawer):
 				_:
 					drawer.set_stroke_alpha_dynamics() # back to default
 			if not drawer.is_drawing:
-				history.record(drawer.image)
+				History.record(drawer.image)
 			drawer.draw_move(pos)
 			refresh()
 		elif drawer.is_drawing:
 			drawer.draw_end(pos)
-			history.commit('draw')
+			History.commit('draw')
 			refresh()
 
 
@@ -235,11 +235,11 @@ func process_selection(event, selector):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not selector.is_operating:
-				history.record(selection.mask)
+				History.record(selection.mask)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
-			history.commit('select')
+			History.commit('select')
 
 
 func process_selection_polygon(event, selector):
@@ -247,20 +247,20 @@ func process_selection_polygon(event, selector):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed and not event.double_click:
 			if not selector.is_operating:
-				history.record(selection.mask)
+				History.record(selection.mask)
 			selector.select_move(pos)
 		elif selector.is_selecting and event.double_click:
 			selector.select_end(pos)
-			history.commit('select_polygon')
+			History.commit('select_polygon')
 	elif event is InputEventMouseMotion and selector.is_moving:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not selector.is_operating:
-				history.record(selection.mask)
+				History.record(selection.mask)
 			selector.select_move(pos)
 		else:
 			selector.select_end(pos)
-			history.commit('select_polygon')
+			History.commit('select_polygon')
 			
 
 func process_selection_lasso(event, selector):
@@ -268,11 +268,11 @@ func process_selection_lasso(event, selector):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not selector.is_operating:
-				history.record(selection.mask)
+				History.record(selection.mask)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
-			history.commit('select_lasso')
+			History.commit('select_lasso')
 
 
 func process_selection_magic(event, selector):
@@ -280,22 +280,22 @@ func process_selection_magic(event, selector):
 		var pos = get_local_mouse_position()
 		if is_pressed:
 			if not selector.is_operating:
-				history.record(selection.mask)
+				History.record(selection.mask)
 			selector.image = project.current_cel.get_image()
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
-			history.commit('select_magic')
+			History.commit('select_magic')
 			
 	elif event is InputEventMouseMotion and selector.is_moving:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not selector.is_operating:
-				history.record(selection.mask)
+				History.record(selection.mask)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
-			history.commit('select_magic')
+			History.commit('select_magic')
 
 
 func process_color_pick(event):
@@ -313,9 +313,9 @@ func process_bucket_fill(event):
 	if event is InputEventMouseButton:
 		if is_pressed:
 			var pos = get_local_mouse_position()
-			history.record(bucket.image)
+			History.record(bucket.image)
 			bucket.fill(pos)
-			history.commit('bucket_fill')
+			History.commit('bucket_fill')
 			refresh()
 
 
@@ -334,7 +334,7 @@ func process_shape(event, shaper):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not shaper.is_operating:
-				history.record([
+				History.record([
 					{'obj': silhouette, 'key': 'current_shaper_type'},
 					{'obj': silhouette, 'key': 'shaped_rect'},
 					{'obj': silhouette, 'key': 'touch_rect'},
@@ -345,7 +345,7 @@ func process_shape(event, shaper):
 			shaper.shape_move(pos)
 		elif shaper.is_operating:
 			shaper.shape_end(pos)
-			history.commit('shape drawn')
+			History.commit('shape drawn')
 
 
 func copy():
@@ -386,7 +386,7 @@ func paste():
 	if selection.has_selected():
 		pos = selection.selected_rect.position
 		clip_rect.size = selection.selected_rect.size
-
+	
 	image.blend_rect_mask(clip_img, clip_img, clip_rect, pos)
 	refresh()
 
@@ -397,31 +397,41 @@ func delete():
 		if not cel is PixelCel or not cel.is_visible:
 			continue
 		imgs.append(cel.get_image())
-		
-	history.record(imgs, refresh)
+	var curr_img := project.current_cel.get_image()
+	var cut_img := Image.create(curr_img.get_width(), curr_img.get_height(),
+								false, curr_img.get_format())
+	cut_img.fill(Color.TRANSPARENT)
+
+	History.record(imgs, refresh)
 	for img in imgs:
-		img.fill(Color.TRANSPARENT)
+		if selection.has_selected():
+			img.blit_rect_mask(cut_img,
+								 selection.mask,
+								 selection.selected_rect,
+								 selection.selected_rect.position)
+		else:
+			img.fill(Color.TRANSPARENT)
 	
 	refresh()
-	history.commit('delete')
+	History.commit('delete')
 
 
 func select_all():
-	history.record(selection.mask, selection.update_selection)
+	History.record(selection.mask, selection.update_selection)
 	selection.select_all()
-	history.commit('select_all')
+	History.commit('select_all')
 
 
 func select_deselect():
-	history.record(selection.mask, selection.update_selection)
+	History.record(selection.mask, selection.update_selection)
 	selection.deselect()
-	history.commit('deselect')
+	History.commit('deselect')
 
 
 func select_invert():
-	history.record(selection.mask, selection.update_selection)
+	History.record(selection.mask, selection.update_selection)
 	selection.invert()
-	history.commit('invert_selection')
+	History.commit('invert_selection')
 
 
 func fill_color(color:Color):
@@ -433,7 +443,7 @@ func fill_color(color:Color):
 			continue
 		imgs.append(cel.get_image())
 	
-	history.record(imgs, refresh)
+	History.record(imgs, refresh)
 		
 	for image in imgs:
 		if selection.has_selected():
@@ -449,13 +459,13 @@ func fill_color(color:Color):
 			image.fill(color)
 	
 	refresh()
-	history.commit('fill_color')
+	History.commit('fill_color')
 	
 
 
 func flip_x():
 	var src_img :Image = project.current_cel.get_image()
-	history.record(src_img, refresh)
+	History.record(src_img, refresh)
 	if selection.has_selected():
 		var rect := selection.selected_rect
 		
@@ -469,7 +479,7 @@ func flip_x():
 		img = img.get_region(rect)
 		img.flip_x()
 		
-		history.record(selection.mask, selection.update_selection)
+		History.record(selection.mask, selection.update_selection)
 		selection.flip_x()
 		src_img.blit_rect_mask(img, 
 							   selection.get_mask_region(), 
@@ -479,12 +489,12 @@ func flip_x():
 		src_img.flip_x()
 
 	refresh()
-	history.commit('flip_x')
+	History.commit('flip_x')
 	
 
 func flip_y():
 	var src_img :Image = project.current_cel.get_image()
-	history.record(src_img, refresh)
+	History.record(src_img, refresh)
 	if selection.has_selected():
 		var rect := selection.selected_rect
 		var blank := Image.create(src_img.get_width(), src_img.get_height(), 
@@ -498,7 +508,7 @@ func flip_y():
 		img = img.get_region(rect)
 		img.flip_y()
 		
-		history.record(selection.mask, selection.update_selection)
+		History.record(selection.mask, selection.update_selection)
 		selection.flip_y()
 		src_img.blit_rect_mask(img,
 							   selection.get_mask_region(),
@@ -508,12 +518,12 @@ func flip_y():
 		src_img.get_image().flip_y()
 
 	refresh()
-	history.commit('flip_y')
+	History.commit('flip_y')
 	
 
 func rotate_cw():
 	var src_img :Image = project.current_cel.get_image()
-	history.record(src_img, refresh)
+	History.record(src_img, refresh)
 	if selection.has_selected():
 		var rect := selection.selected_rect
 		
@@ -528,7 +538,7 @@ func rotate_cw():
 		img = img.get_region(rect)
 		img.rotate_90(CLOCKWISE)
 		
-		history.record(selection.mask, selection.update_selection)
+		History.record(selection.mask, selection.update_selection)
 		selection.rotate_90(CLOCKWISE)
 		src_img.blit_rect_mask(img, img, selection.get_mask_rect(),
 							   selection.selected_rect.position)
@@ -547,12 +557,12 @@ func rotate_cw():
 		src_img.blit_rect(rotate_img, rotate_rect, dst)
 
 	refresh()
-	history.commit('rotate_cw')
+	History.commit('rotate_cw')
 	
 
 func rotate_ccw():
 	var src_img :Image = project.current_cel.get_image()
-	history.record(src_img, refresh)
+	History.record(src_img, refresh)
 	
 	if selection.has_selected():
 		var rect := selection.selected_rect
@@ -585,7 +595,7 @@ func rotate_ccw():
 		src_img.blit_rect(rotate_img, rotate_rect, dst)
 		
 	refresh()
-	history.commit('rotate_ccw')
+	History.commit('rotate_ccw')
 
 
 func _input(event :InputEvent):
@@ -659,55 +669,55 @@ func _on_crop_applied(crop_rect :Rect2i):
 
 
 func _on_crop_attached(_rect, _rel_pos):
-	history.record([
+	History.record([
 		{'obj': crop_sizer, 'key': 'bound_rect'},
 	], [
 		{'action': crop_sizer.hire, 'is_do': true},
 		{'action': crop_sizer.dismiss, 'is_undo': true}
 	])
-	history.commit('crop_start')
+	History.commit('crop_start')
 
 
 # move
 func _on_move_attached(_rect, _rel_pos):
 	print(_rect)
-	history.record([
+	History.record([
 		{'obj': move_sizer, 'key': 'bound_rect'},
 		{'obj': move_sizer, 'key': 'preview_texture'}
 	], [
 		{'action': move_sizer.hire, 'is_do': true},
 		{'action': move_sizer.dismiss, 'is_undo': true}
 	])
-	history.commit('move_start')
+	History.commit('move_start')
 
 
 func _on_move_activated(_rect, _rel_pos):
-	history.record([
+	History.record([
 		{'obj': move_sizer, 'key': 'bound_rect'},
 		{'obj': move_sizer, 'key': 'preview_texture'}
 	], [
 		{'action': move_sizer.hire, 'is_do': true},
 		{'action': move_sizer.dismiss, 'is_undo': true}
 	])
-	history.commit('move_activated')
+	History.commit('move_activated')
 	refresh()
 
 
 func _on_move_deactivated(_rect, _rel_pos):
-	history.record([
+	History.record([
 		{'obj': move_sizer, 'key': 'bound_rect'},
 		{'obj': move_sizer, 'key': 'preview_texture'}
 	], [
 		{'action': move_sizer.hire, 'is_do': true},
 		{'action': move_sizer.dismiss, 'is_undo': true}
 	])
-	history.commit('move_deactivated')
+	History.commit('move_deactivated')
 	refresh()
 
 
 # silhouette
 func _on_silhouette_before_apply():
-	history.record([
+	History.record([
 		silhouette.image,
 		{'obj': silhouette, 'key': 'current_shaper_type'},
 		{'obj': silhouette, 'key': 'shaped_rect'},
@@ -719,7 +729,7 @@ func _on_silhouette_before_apply():
 
 
 func _on_silhouette_after_apply():
-	history.commit('shape applied')
+	History.commit('shape applied')
 	refresh()
 
 

@@ -42,7 +42,7 @@ func _ready():
 	camera = artboard.camera
 	canvas = artboard.canvas
 	
-	history.register_default_callbacks({
+	History.register_default_callbacks({
 		'select': canvas.selection.update_selection,
 		'_': canvas.refresh
 	})
@@ -79,9 +79,9 @@ func _on_navbar_navigation_to(nav_id, data):
 			pass
 		
 		Navbar.UNDO:
-			history.undo()
+			History.undo()
 		Navbar.REDO:
-			history.redo()
+			History.redo()
 		
 		Navbar.COPY:
 			canvas.copy()

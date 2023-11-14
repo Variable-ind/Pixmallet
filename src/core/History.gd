@@ -1,31 +1,31 @@
 class_name History extends Node
 
-var undo_redo = UndoRedo.new()
-var count :int :
+static var undo_redo = UndoRedo.new()
+static var count :int :
 	get: return undo_redo.get_history_count()
-var current_action_id :int :
+static var current_action_id :int :
 	get: return undo_redo.get_current_action()
-var version : int:
+static var version : int:
 	get: return undo_redo.get_version()
 
-var properties_stack :Array[HistoryProp] = []
-var do_methods_stack :Array[Callable] = []
-var undo_methods_stack :Array[Callable] = []
+static var properties_stack :Array[HistoryProp] = []
+static var do_methods_stack :Array[Callable] = []
+static var undo_methods_stack :Array[Callable] = []
 
-var default_callbacks :Dictionary = {}
+static var default_callbacks :Dictionary = {}
 
 
-func clear_history():
+static func clear_history():
 	undo_redo.clear_history()
 	
 
-func reset():
+static func reset():
 	properties_stack.clear()
 	do_methods_stack.clear()
 	undo_methods_stack.clear()
 
 
-func register_default_callbacks(_callbacks_map :Dictionary):
+static func register_default_callbacks(_callbacks_map :Dictionary):
 	for k in _callbacks_map:
 		var callback = _callbacks_map[k]
 		if (k is String or k is StringName) and callback is Callable:
@@ -34,11 +34,11 @@ func register_default_callbacks(_callbacks_map :Dictionary):
 			default_callbacks[k] = callback
 
 
-func unregister_default_callbacks():
+static func unregister_default_callbacks():
 	default_callbacks.clear()
 
 
-func record(properties:Variant, actions:Variant=null, use_reset:=true):
+static func record(properties:Variant, actions:Variant=null, use_reset:=true):
 	if use_reset:
 		reset()
 
@@ -56,7 +56,7 @@ func record(properties:Variant, actions:Variant=null, use_reset:=true):
 				undo_methods_stack.append(act.method)
 
 
-func commit(action_name:StringName = ''):
+static func commit(action_name:StringName = ''):
 	undo_redo.create_action(action_name)
 	
 	for prop in properties_stack:
@@ -83,17 +83,17 @@ func commit(action_name:StringName = ''):
 	reset()
 
 
-func undo():
+static func undo():
 	if undo_redo.has_undo():
 		undo_redo.undo()
 
 
-func redo():
+static func redo():
 	if undo_redo.has_redo():
 		undo_redo.redo()
 
 
-func prepare_properties(objs:Variant):
+static func prepare_properties(objs:Variant):
 	var props :Array = []
 	if objs is Image or objs is Dictionary:
 		objs = [objs]
@@ -110,7 +110,7 @@ func prepare_properties(objs:Variant):
 	return props
 
 
-func prepare_methods(actions:Variant):
+static func prepare_methods(actions:Variant):
 	var methods :Array = []
 	
 	if actions is Callable or actions is Dictionary:
@@ -131,7 +131,7 @@ func prepare_methods(actions:Variant):
 	return methods
 
 
-func get_default_callbacks(key):
+static func get_default_callbacks(key):
 	var output := []
 	for k in default_callbacks:
 		if k == '_' or key.begins_with(key):
