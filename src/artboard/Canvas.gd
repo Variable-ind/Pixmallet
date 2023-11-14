@@ -315,6 +315,7 @@ func process_bucket_fill(event):
 func process_shape(event, shaper):
 	if event is InputEventMouseButton:
 		if is_pressed:
+			selection.deselect()  # prevent show selection with shape.
 			var pos = get_local_mouse_position()
 			if not silhouette.has_touch_point(pos) and silhouette.has_area():
 				silhouette.apply()
@@ -326,19 +327,20 @@ func process_shape(event, shaper):
 	elif event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
-#			if not shaper.is_operating:
-#				History.record([
-#					{'obj': silhouette, 'key': 'current_shaper_type'},
-#					{'obj': silhouette, 'key': 'shaped_rect'},
-#					{'obj': silhouette, 'key': 'touch_rect'},
-#					{'obj': silhouette, 'key': 'start_point'},
-#					{'obj': silhouette, 'key': 'end_point'},
-#					{'obj': silhouette, 'key': '_current_shape'},
-#				], silhouette.update_shape)
+			if not shaper.is_operating:
+				History.record([
+					{'obj': silhouette, 'key': 'current_shaper_type'},
+					{'obj': silhouette, 'key': 'shaped_rect'},
+					{'obj': silhouette, 'key': 'touch_rect'},
+					{'obj': silhouette, 'key': 'start_point'},
+					{'obj': silhouette, 'key': 'end_point'},
+					{'obj': silhouette, 'key': '_current_shape'},
+				], silhouette.update_shape)
 			shaper.shape_move(pos)
 		elif shaper.is_operating:
 			shaper.shape_end(pos)
-#			History.commit('shape drawn')
+			History.commit('shape')
+#			History.compose('shape', null, silhouette.cancel)
 
 
 func copy():
@@ -670,8 +672,8 @@ func _on_crop_attached(_rect, _rel_pos):
 	History.record([
 		{'obj': crop_sizer, 'key': 'bound_rect'},
 	], [
-		{'action': crop_sizer.hire, 'is_do': true},
-		{'action': crop_sizer.dismiss, 'is_undo': true}
+		{'do': crop_sizer.hire},
+		{'undo': crop_sizer.dismiss}
 	])
 	History.commit('crop_start')
 
@@ -703,12 +705,12 @@ func _on_silhouette_before_apply():
 #		{'obj': silhouette, 'key': 'start_point'},
 #		{'obj': silhouette, 'key': 'end_point'},
 #		{'obj': silhouette, 'key': '_current_shape'},
-#	], [silhouette.update_shape, silhouette.cancel])
+#	], [silhouette.update_shape])
 	History.record(silhouette.image)
 
 
 func _on_silhouette_after_apply():
-	History.commit('shape applied')
+	History.commit('shape', History.MERGE_ALL)
 	refresh()
 
 

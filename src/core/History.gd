@@ -1,10 +1,22 @@
 class_name History extends Node
 
+enum {
+	MERGE_DISABLE,
+	MERGE_ENDS,
+	MERGE_ALL,
+}
+
 static var undo_redo = UndoRedo.new()
+
 static var count :int :
 	get: return undo_redo.get_history_count()
+	
 static var current_action_id :int :
 	get: return undo_redo.get_current_action()
+
+static var current_action_name :String :
+	get: return undo_redo.get_current_action_name()
+	
 static var version : int:
 	get: return undo_redo.get_version()
 
@@ -56,8 +68,18 @@ static func record(properties:Variant, actions:Variant=null, use_reset:=true):
 				undo_methods_stack.append(act.method)
 
 
-static func commit(action_name:StringName = ''):
-	undo_redo.create_action(action_name)
+static func commit(action_name:StringName = '', merge := MERGE_DISABLE):
+	var merge_mode
+	
+	match merge:
+		MERGE_DISABLE:
+			merge_mode = UndoRedo.MERGE_DISABLE
+		MERGE_ENDS:
+			merge_mode = UndoRedo.MERGE_ENDS
+		MERGE_ALL:
+			merge_mode = UndoRedo.MERGE_ALL
+		
+	undo_redo.create_action(action_name, merge_mode)
 	
 	for prop in properties_stack:
 		undo_redo.add_do_property(prop.obj, prop.key, prop.do_value)
@@ -100,6 +122,15 @@ static func redo():
 		undo_redo.redo()
 
 
+static func has_redo():
+	return undo_redo.has_redo()
+	
+
+static func has_undo():
+	return undo_redo.has_undo()
+
+
+
 static func prepare_properties(objs:Variant):
 	var props :Array = []
 	if objs is Image or objs is Dictionary:
@@ -117,24 +148,30 @@ static func prepare_properties(objs:Variant):
 	return props
 
 
-static func prepare_methods(actions:Variant):
+static func prepare_methods(funcs:Variant):
 	var methods :Array = []
 	
-	if actions is Callable or actions is Dictionary:
-		actions = [actions]
-	elif not actions is Array:
+	if funcs is Callable or funcs is Dictionary:
+		funcs = [funcs]
+	elif not funcs is Array:
 		return methods
 	
-	for act in actions:
-		if act is Callable:
-			methods.append(HistoryMethod.new(act))
-		elif act is Dictionary:
-			var method_type = HistoryMethod.Type.ALL
-			if act.get('is_do'):
+	for fn in funcs:
+		if fn is Callable:
+			methods.append(HistoryMethod.new(fn))
+		elif fn is Dictionary:
+			var method_type
+			var method :Callable
+			if fn.get('both'):
+				method = fn['both']
+				method_type = HistoryMethod.Type.ALL
+			if fn.get('do'):
+				method = fn['do']
 				method_type = HistoryMethod.Type.DO
-			if act.get('is_undo'):
+			elif fn.get('undo'):
+				method = fn['undo']
 				method_type = HistoryMethod.Type.UNDO
-			methods.append(HistoryMethod.new(act['action'], method_type))
+			methods.append(HistoryMethod.new(method, method_type))
 	return methods
 
 
