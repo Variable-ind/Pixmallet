@@ -3,6 +3,9 @@ class_name MoveSizer extends GizmoSizer
 signal applied(rect)
 signal canceled
 
+signal before_apply
+signal after_apply
+
 const MODULATE_COLOR := Color(1, 1, 1, 0.66)
 
 var image := Image.new()
@@ -25,20 +28,19 @@ func reset():
 	image = Image.new()
 	image_mask = Image.new()
 	image_backup = Image.new()
-	
+
 
 func launch(img :Image, mask :Image):
 	reset()
-	if not has_area():
-		image = img  # DO NOT copy_form, image must change runtime.
-		image_backup.copy_from(image)
-		image_mask.copy_from(mask)
-		if image_mask.is_empty() or image_mask.is_invisible():
-			backup_rect = image.get_used_rect()
-			attach(backup_rect)
-		else:
-			backup_rect = image_mask.get_used_rect()
-			attach(backup_rect)
+	image = img  # DO NOT copy_form, image must change runtime.
+	image_backup.copy_from(image)
+	image_mask.copy_from(mask)
+	if image_mask.is_empty() or image_mask.is_invisible():
+		backup_rect = image.get_used_rect()
+		attach(backup_rect)
+	else:
+		backup_rect = image_mask.get_used_rect()
+		attach(backup_rect)
 
 
 func cancel():
@@ -51,6 +53,7 @@ func cancel():
 
 func apply():
 	if has_area() and has_image():
+		before_apply.emit()
 		preview_image.resize(bound_rect.size.x,
 							 bound_rect.size.y,
 							 Image.INTERPOLATE_NEAREST)
@@ -69,6 +72,7 @@ func apply():
 		image_mask.copy_from(_mask)
 		preview_image = Image.new()
 		applied.emit(bound_rect)
+		after_apply.emit()
 	super.dismiss()
 
 

@@ -83,6 +83,13 @@ static func commit(action_name:StringName = ''):
 	reset()
 
 
+static func compose(action_name :StringName = '',
+					properties = null,
+					actions = null):
+	record(properties, actions)
+	commit(action_name)
+
+
 static func undo():
 	if undo_redo.has_undo():
 		undo_redo.undo()

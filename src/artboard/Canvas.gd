@@ -95,9 +95,11 @@ func _ready():
 	crop_sizer.cursor_changed.connect(_on_cursor_changed)
 	crop_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
-	move_sizer.attached.connect(_on_move_attached)
-	move_sizer.activated.connect(_on_move_activated)
-	move_sizer.deactivated.connect(_on_move_activated)
+#	move_sizer.attached.connect(_on_move_attached)
+	move_sizer.activated.connect(_on_move_activate_toggled)
+	move_sizer.deactivated.connect(_on_move_activate_toggled)
+	move_sizer.before_apply.connect(_on_move_before_apply)
+	move_sizer.after_apply.connect(_on_move_after_apply)
 	move_sizer.cursor_changed.connect(_on_cursor_changed)
 	move_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
@@ -159,8 +161,10 @@ func set_state(val):  # triggered when state changing.
 	# enter state
 	if state == Operate.CROP:
 		crop_sizer.launch(project.size)
+		selection.deselect()
 	elif state == Operate.MOVE:
 		move_sizer.launch(project.current_cel.get_image(), selection.mask)
+		selection.deselect()
 
 
 func set_zoom_ratio(val):
@@ -333,19 +337,20 @@ func process_shape(event, shaper):
 	elif event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
-			if not shaper.is_operating:
-				History.record([
-					{'obj': silhouette, 'key': 'current_shaper_type'},
-					{'obj': silhouette, 'key': 'shaped_rect'},
-					{'obj': silhouette, 'key': 'touch_rect'},
-					{'obj': silhouette, 'key': 'start_point'},
-					{'obj': silhouette, 'key': 'end_point'},
-					{'obj': silhouette, 'key': '_current_shape'},
-				], silhouette.update_shape)
+			# DONT NEED those, prevent unecept activate silhouette on undo/redo.
+#			if not shaper.is_operating:
+#				History.record([
+#					{'obj': silhouette, 'key': 'current_shaper_type'},
+#					{'obj': silhouette, 'key': 'shaped_rect'},
+#					{'obj': silhouette, 'key': 'touch_rect'},
+#					{'obj': silhouette, 'key': 'start_point'},
+#					{'obj': silhouette, 'key': 'end_point'},
+#					{'obj': silhouette, 'key': '_current_shape'},
+#				], silhouette.update_shape)
 			shaper.shape_move(pos)
 		elif shaper.is_operating:
 			shaper.shape_end(pos)
-			History.commit('shape drawn')
+#			History.commit('shape drawn')
 
 
 func copy():
@@ -684,43 +689,32 @@ func _on_crop_attached(_rect, _rel_pos):
 
 
 # move
-func _on_move_attached(_rect, _rel_pos):
-	print(_rect)
-	History.record([
-		{'obj': move_sizer, 'key': 'bound_rect'},
-		{'obj': move_sizer, 'key': 'preview_texture'}
-	], [
-		{'action': move_sizer.hire, 'is_do': true},
-		{'action': move_sizer.dismiss, 'is_undo': true}
-	])
-	History.commit('move_start')
-
-
-func _on_move_activated(_rect, _rel_pos):
-	History.record([
-		{'obj': move_sizer, 'key': 'bound_rect'},
-		{'obj': move_sizer, 'key': 'preview_texture'}
-	], [
-		{'action': move_sizer.hire, 'is_do': true},
-		{'action': move_sizer.dismiss, 'is_undo': true}
-	])
-	History.commit('move_activated')
+func _on_move_activate_toggled(_rect, _rel_pos):
 	refresh()
 
 
-func _on_move_deactivated(_rect, _rel_pos):
+func _on_move_before_apply():
+	print('fuck')
 	History.record([
+		project.current_cel.get_image(),
 		{'obj': move_sizer, 'key': 'bound_rect'},
-		{'obj': move_sizer, 'key': 'preview_texture'}
-	], [
-		{'action': move_sizer.hire, 'is_do': true},
-		{'action': move_sizer.dismiss, 'is_undo': true}
+		{'obj': move_sizer, 'key': 'preview_image'},
+		{'obj': move_sizer, 'key': 'preview_texture'},
 	])
-	History.commit('move_deactivated')
+	
+
+func _on_move_after_apply():
+	print('fuckoff')
+	History.commit('move')
 	refresh()
 
 
 # silhouette
+func cancel_silhouette():
+	if not (state in Operate.GROUP_SHAPE):
+		silhouette.cancel()
+
+
 func _on_silhouette_before_apply():
 	History.record([
 		silhouette.image,
@@ -730,7 +724,7 @@ func _on_silhouette_before_apply():
 		{'obj': silhouette, 'key': 'start_point'},
 		{'obj': silhouette, 'key': 'end_point'},
 		{'obj': silhouette, 'key': '_current_shape'},
-	], silhouette.update_shape)
+	], [silhouette.update_shape, cancel_silhouette])
 
 
 func _on_silhouette_after_apply():
