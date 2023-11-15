@@ -117,14 +117,10 @@ func _ready():
 		add_child(gizmo)
 
 
-func attach(rect :Rect2i, auto_activate := false):
+func attach(rect :Rect2i):
 	if bound_rect == Rect2i(): # prevent multiple attach place bound rect.
 		bound_rect = rect
 	attached.emit()
-	if has_area() and auto_activate:
-		hire()
-	else:
-		dismiss()
 	visible = true
 
 
@@ -456,7 +452,10 @@ func _input(event :InputEvent):
 
 func _draw():
 	if has_area(): # careful has_area might be ovrride.
-		draw_rect(bound_rect, line_color, false)
+		var rect_line_color := line_color
+		if not is_activated:
+			rect_line_color.a = 0.33
+		draw_rect(bound_rect, rect_line_color, false)
 
 
 func _on_gizmo_hover_updated(gizmo, status):

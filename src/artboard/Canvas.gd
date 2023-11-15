@@ -79,15 +79,13 @@ func _ready():
 		return snapper.snap_boundary_position(rect, pos)
 	
 	crop_sizer.applied.connect(_on_crop_applied)
-	crop_sizer.attached.connect(_on_crop_attached)
-#	crop_sizer.activated.connect(_on_crop_activated)
+	crop_sizer.activated.connect(_on_crop_activated)
 #	crop_sizer.deactivated.connect(_on_crop_deactivated)
 	crop_sizer.cursor_changed.connect(_on_cursor_changed)
 	crop_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
 	
-	move_sizer.attached.connect(_on_move_attached)
-	move_sizer.activated.connect(_on_move_activate_toggled)
-	move_sizer.deactivated.connect(_on_move_activate_toggled)
+	move_sizer.activated.connect(_on_move_activated)
+	move_sizer.deactivated.connect(_on_move_deactivated)
 	move_sizer.applied.connect(_on_move_applied)
 	move_sizer.cursor_changed.connect(_on_cursor_changed)
 	move_sizer.inject_snapping(scale_snapping_hook, drag_snapping_hook)
@@ -144,14 +142,13 @@ func set_state(val):  # triggered when state changing.
 	is_pressed = false
 	
 	indicator.hide_indicator()  # not all state need indicator
-	
+
 	# enter state
 	if state == Operate.CROP:
-		crop_sizer.launch(project.size)
 		selection.deselect()
+		crop_sizer.launch(project.size)
 	elif state == Operate.MOVE:
 		move_sizer.launch(project.current_cel.get_image(), selection.mask)
-		selection.deselect()
 
 
 func set_zoom_ratio(val):
@@ -677,31 +674,38 @@ func _on_crop_applied(crop_rect :Rect2i):
 	project.crop_to(crop_rect)
 
 
-func _on_crop_attached():
-	History.record([
+func _on_crop_activated():
+	History.compose('crop', [
 		{'obj': crop_sizer, 'key': 'bound_rect'},
 	], {
 		'do': crop_sizer.hire,
 		'undo': crop_sizer.dismiss
 	})
-	History.commit('crop_start')
+
+
+func _on_crop_deactivated():
+	pass
 
 
 # move
-func _on_move_activate_toggled():
+func _on_move_activated():
+	History.record([
+		move_sizer.image,
+		move_sizer.image_mask,
+		move_sizer.image_backup,
+		move_sizer.preview_image,
+		{'obj': move_sizer, 'key': 'bound_rect'},
+		{'obj': move_sizer, 'key': 'backup_rect'}
+	], move_sizer.cancel)
 	refresh()
 
 
-func _on_move_attached():
-	History.record([
-		move_sizer.image,
-		move_sizer.image_backup,
-		{'obj': move_sizer, 'key': 'bound_rect'}
-	], move_sizer.dismiss)
+func _on_move_deactivated():
+	refresh()
 
 
 func _on_move_applied(_rect):
-	History.commit('move')
+	History.commit('move', History.MERGE_ALL)
 	refresh()
 
 

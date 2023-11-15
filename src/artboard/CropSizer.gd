@@ -15,7 +15,8 @@ func launch(size: Vector2i):
 	reset()
 	canvas_size = size
 	var rect = Rect2i(Vector2i.ZERO, canvas_size)
-	attach(rect, true)
+	attach(rect)
+	hire()
 
 
 func apply():

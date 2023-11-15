@@ -63,6 +63,13 @@ static func reset():
 	undo_methods_stack.clear()
 
 
+static func has_record():
+	var is_empty := (properties_stack.is_empty() and 
+					 do_methods_stack.is_empty() and
+					 undo_methods_stack.is_empty())
+	return not is_empty
+	
+
 static func record(properties:Variant, methods:Variant=null, use_reset:=true):
 	if use_reset:
 		reset()
@@ -82,6 +89,9 @@ static func record(properties:Variant, methods:Variant=null, use_reset:=true):
 
 
 static func commit(action_name:StringName = '', merge := MERGE_DISABLE):
+	if not has_record():
+		return
+		
 	var merge_mode = parse_merge_mode(merge)
 
 	undo_redo.create_action(action_name, merge_mode)

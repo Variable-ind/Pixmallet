@@ -20,6 +20,7 @@ var preview_image := Image.new() :
 
 func reset():
 	super.reset()
+	backup_rect = Rect2i()
 	preview_texture = ImageTexture.new()
 	preview_image = Image.new()
 	image = Image.new()
@@ -34,22 +35,22 @@ func launch(img :Image, mask :Image):
 	image_mask.copy_from(mask)
 	if image_mask.is_empty() or image_mask.is_invisible():
 		backup_rect = image.get_used_rect()
-		attach(backup_rect)
 	else:
 		backup_rect = image_mask.get_used_rect()
-		attach(backup_rect)
+	preview_image = image.get_region(backup_rect)
+	attach(backup_rect)
 
 
 func cancel():
 	image.copy_from(image_backup)
 	bound_rect = backup_rect
-	preview_image = Image.new()
+	preview_image.fill(Color.TRANSPARENT)
 	dismiss()
 	canceled.emit()
 
 
 func apply():
-	if has_area() and has_preview():
+	if has_area():
 		preview_image.resize(bound_rect.size.x,
 							 bound_rect.size.y,
 							 Image.INTERPOLATE_NEAREST)
@@ -57,8 +58,8 @@ func apply():
 		image.blit_rect_mask(preview_image, preview_image,
 							 Rect2i(Vector2i.ZERO, bound_rect.size),
 							 bound_rect.position)
-#		image_backup.copy_from(image)
-#		backup_rect = bound_rect
+		image_backup.copy_from(image)
+		backup_rect = bound_rect
 		# also the image mask must update, because already transformed.
 		var _mask = Image.create(image.get_width(), image.get_height(),
 								 false, image.get_format())
@@ -66,7 +67,7 @@ func apply():
 						Rect2i(Vector2i.ZERO, bound_rect.size),
 						bound_rect.position)
 		image_mask.copy_from(_mask)
-		preview_image = Image.new()
+		preview_image.fill(Color.TRANSPARENT)
 		applied.emit(bound_rect)
 	dismiss()
 
@@ -76,30 +77,25 @@ func hire():
 		return
 	# image will not change and cancelable while in the progress.
 	# until applied or canceld.
-	if not has_preview():
-		if image_mask.is_empty() or image_mask.is_invisible():
-			# for whole image
-			preview_image = image.get_region(bound_rect)
-			image.fill_rect(bound_rect, Color.TRANSPARENT)
-		else:
-			# use tmp image for trigger the setter of transformer_image
-			var _tmp = Image.create(bound_rect.size.x, 
-									bound_rect.size.y,
-									false, image.get_format())
-			_tmp.blit_rect_mask(image, image_mask, bound_rect, Vector2i.ZERO)
-			preview_image = _tmp.duplicate()
-						
-			_tmp.resize(image.get_width(), image.get_height())
-			_tmp.fill(Color.TRANSPARENT)
+	if image_mask.is_empty() or image_mask.is_invisible():
+		# for whole image
+		preview_image = image.get_region(bound_rect)
+		image.fill_rect(bound_rect, Color.TRANSPARENT)
+	else:
+		# use tmp image for trigger the setter of transformer_image
+		var _tmp = Image.create(bound_rect.size.x, 
+								bound_rect.size.y,
+								false, image.get_format())
+		_tmp.blit_rect_mask(image, image_mask, bound_rect, Vector2i.ZERO)
+		preview_image = _tmp.duplicate()
+					
+		_tmp.resize(image.get_width(), image.get_height())
+		_tmp.fill(Color.TRANSPARENT)
 #			image.fill_rect(move_rect, Color.TRANSPARENT)
-			# DO NOT just fill rect, selection might have different shapes.
-			image.blit_rect_mask(_tmp, image_mask, 
-								 bound_rect, bound_rect.position)
+		# DO NOT just fill rect, selection might have different shapes.
+		image.blit_rect_mask(_tmp, image_mask, 
+							 bound_rect, bound_rect.position)
 	super.hire()
-
-
-func has_preview() -> bool:
-	return not preview_image.is_empty()
 
 
 func update_texture():
@@ -111,15 +107,12 @@ func update_texture():
 
 func _draw():
 	if has_area(): # careful has_area might be ovrride.
-		if has_preview():
+		if is_activated:
 	#		texture = ImageTexture.create_from_image(image)
 			# DO NOT new a texture here, may got blank texture. do it before.
 			draw_texture_rect(preview_texture, bound_rect, false,
 							  MODULATE_COLOR if is_dragging else Color.WHITE)
-		var rect_line_color := line_color
-		if not is_activated:
-			rect_line_color.a = 0.5
-		draw_rect(bound_rect, rect_line_color, false)
+	super._draw()
 
 
 func _input(event :InputEvent):
@@ -144,5 +137,4 @@ func _input(event :InputEvent):
 	
 	if event is InputEventMouseButton:
 		if is_dismissed:
-			print('fuck')
 			apply()
