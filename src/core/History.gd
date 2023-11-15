@@ -24,30 +24,43 @@ static var properties_stack :Array[HistoryProp] = []
 static var do_methods_stack :Array[Callable] = []
 static var undo_methods_stack :Array[Callable] = []
 
-static var default_callbacks :Dictionary = {}
+static var default_do_methods :Array[Callable] = []
+static var default_undo_methods :Array[Callable] = []
 
 
 static func clear_history():
 	undo_redo.clear_history()
-	
+
+
+static func register_default_methods(methods:Variant):
+	if methods is Callable:
+		methods = [methods]
+	elif not (methods is Array):
+		return
+		
+	for method in methods:
+		if method is Callable:
+			default_do_methods.append(method)
+			default_undo_methods.append(method)
+		elif method is Dictionary:
+			if method.get('all') is Callable:
+				default_do_methods.append(method['all'])
+				default_undo_methods.append(method['all'])
+			if method.get('do') is Callable:
+				default_do_methods.append(method['do'])
+			if method.get('undo') is Callable:
+				default_undo_methods.append(method['undo'])
+
+
+static func clear_default_methods():
+	default_do_methods.clear()
+	default_undo_methods.clear()
+
 
 static func reset():
 	properties_stack.clear()
 	do_methods_stack.clear()
 	undo_methods_stack.clear()
-
-
-static func register_default_callbacks(_callbacks_map :Dictionary):
-	for k in _callbacks_map:
-		var callback = _callbacks_map[k]
-		if (k is String or k is StringName) and callback is Callable:
-			if k in ['_', '-', '*']:
-				k = '_'
-			default_callbacks[k] = callback
-
-
-static func unregister_default_callbacks():
-	default_callbacks.clear()
 
 
 static func record(properties:Variant, methods:Variant=null, use_reset:=true):
@@ -79,18 +92,16 @@ static func commit(action_name:StringName = '', merge := MERGE_DISABLE):
 	for prop in properties_stack:
 		undo_redo.add_undo_property(prop.obj, prop.key, prop.undo_value)
 	
-	var callbacks = get_default_callbacks(action_name)
-	
 	for do_act in do_methods_stack:
 		undo_redo.add_do_method(do_act)
 	
-	for c in callbacks:
+	for c in default_do_methods:
 		undo_redo.add_do_method(c)
 	
 	for undo_act in undo_methods_stack:
 		undo_redo.add_undo_method(undo_act)
 	
-	for c in callbacks:
+	for c in default_undo_methods:
 		undo_redo.add_undo_method(c)
 
 	undo_redo.commit_action(false)
@@ -193,14 +204,6 @@ static func parse_funcs(funcs:Variant) -> Array:
 	else:
 		funcs = []
 	return funcs
-
-
-static func get_default_callbacks(key) -> Array:
-	var output := []
-	for k in default_callbacks:
-		if k == '_' or key.begins_with(key):
-			output.append(default_callbacks[k])
-	return output
 
 
 func gen_action_name():

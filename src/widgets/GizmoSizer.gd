@@ -120,7 +120,7 @@ func _ready():
 func attach(rect :Rect2i, auto_activate := false):
 	if bound_rect == Rect2i(): # prevent multiple attach place bound rect.
 		bound_rect = rect
-	attached.emit(bound_rect, relative_position)
+	attached.emit()
 	if has_area() and auto_activate:
 		hire()
 	else:

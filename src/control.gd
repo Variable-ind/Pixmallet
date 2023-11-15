@@ -1,5 +1,8 @@
 extends Control
 
+var state := Operate.NONE:
+	set = set_state
+
 var camera :CanvasCamera
 var canvas :Canvas
 
@@ -42,10 +45,9 @@ func _ready():
 	camera = artboard.camera
 	canvas = artboard.canvas
 	
-	History.register_default_callbacks({
-		'select': canvas.selection.update_selection,
-		'_': canvas.refresh
-	})
+	History.register_default_methods([
+		canvas.refresh
+	])
 	
 	navbar.launch()
 	
@@ -69,6 +71,12 @@ func _ready():
 	
 	# ensure modal background overlay is hide
 	overlay.hide()
+
+
+func set_state(val):
+	state = val  # no need check state == val, other place will take care.
+	artboard.state = val
+	properties.state = val
 
 
 func _on_navbar_navigation_to(nav_id, data):
@@ -175,8 +183,7 @@ func _on_navbar_navigation_to(nav_id, data):
 
 
 func _on_toolbar_activated(operate_id):
-	artboard.state = operate_id
-	properties.state = operate_id
+	state = operate_id
 
 
 func _on_adjusted(adjust_id):
@@ -191,8 +198,8 @@ func _on_adjusted(adjust_id):
 			canvas.rotate_cw()
 
 
-func _on_modal_toggled(state :bool):
-	overlay.visible = state
+func _on_modal_toggled(is_show :bool):
+	overlay.visible = is_show
 
 
 func _on_color_palette_color_changed(color_foreground :Color,

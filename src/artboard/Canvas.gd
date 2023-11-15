@@ -164,12 +164,12 @@ func set_zoom_ratio(val):
 	move_sizer.zoom_ratio = zoom_ratio
 
 
-func pre_undo() -> bool:
+func pre_undo():
+	# prevent undo redo while some tool in progress.
+	# such as `shape`, `move`.
 	if state in Operate.GROUP_SHAPE and silhouette.has_area():
 		silhouette.apply()
-		return false
-	
-	return true
+
 
 
 func prepare_pressure(pressure:float) -> float:
@@ -234,7 +234,8 @@ func process_selection(event, selector):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not selector.is_operating:
-				History.record(selection.mask)
+				History.record(selection.mask,
+							   selection.update_selection)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
@@ -246,7 +247,8 @@ func process_selection_polygon(event, selector):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed and not event.double_click:
 			if not selector.is_operating:
-				History.record(selection.mask)
+				History.record(selection.mask,
+							   selection.update_selection)
 			selector.select_move(pos)
 		elif selector.is_selecting and event.double_click:
 			selector.select_end(pos)
@@ -255,7 +257,8 @@ func process_selection_polygon(event, selector):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not selector.is_operating:
-				History.record(selection.mask)
+				History.record(selection.mask,
+							   selection.update_selection)
 			selector.select_move(pos)
 		else:
 			selector.select_end(pos)
@@ -267,7 +270,8 @@ func process_selection_lasso(event, selector):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not selector.is_operating:
-				History.record(selection.mask)
+				History.record(selection.mask,
+							   selection.update_selection)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
@@ -279,7 +283,8 @@ func process_selection_magic(event, selector):
 		var pos = get_local_mouse_position()
 		if is_pressed:
 			if not selector.is_operating:
-				History.record(selection.mask)
+				History.record(selection.mask,
+							   selection.update_selection)
 			selector.image = project.current_cel.get_image()
 			selector.select_move(pos)
 		elif selector.is_operating:
@@ -290,7 +295,8 @@ func process_selection_magic(event, selector):
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
 			if not selector.is_operating:
-				History.record(selection.mask)
+				History.record(selection.mask,
+							   selection.update_selection)
 			selector.select_move(pos)
 		elif selector.is_operating:
 			selector.select_end(pos)
