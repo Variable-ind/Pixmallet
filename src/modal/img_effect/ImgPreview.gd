@@ -30,7 +30,8 @@ func render(img :Image, check_visible := true):
 	else:
 		_width =  floor(size.x * img_width / img_height)
 	
-	img.resize(_width, _height, Image.INTERPOLATE_NEAREST)
+#	img.resize(_width, _height, Image.INTERPOLATE_NEAREST)
+	img.resize(_width, _height)
 	
 	trans_checker.size = img.get_size()
 	trans_checker.position = (size - trans_checker.size) /2

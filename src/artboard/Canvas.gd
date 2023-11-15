@@ -148,8 +148,10 @@ func set_state(val):  # triggered when state changing.
 		crop_sizer.launch(project.size)
 		selection.deselect()
 	elif state == Operate.MOVE:
-		move_sizer.launch(project.current_cel.get_image(), selection.mask)
-		selection.deselect()
+		move_sizer.launch(project.current_cel.get_image(), selection)
+#		selection.deselect()
+		# NO NEED deselect here,
+		# move_sizer move selection together
 
 
 func set_zoom_ratio(val):
@@ -691,13 +693,18 @@ func _on_crop_deactivated():
 # move
 func _on_move_activated():
 	History.record([
-		move_sizer.image,
-		move_sizer.image_mask,
-		move_sizer.image_backup,
+		move_sizer.backup_image,
 		move_sizer.preview_image,
+		move_sizer.backup_mask,
+		selection.mask,
+		{
+			'obj': move_sizer.image,
+			'key': 'data', 
+		 	'undo': move_sizer.backup_image.data
+		},
 		{'obj': move_sizer, 'key': 'bound_rect'},
 		{'obj': move_sizer, 'key': 'backup_rect'}
-	], move_sizer.cancel)
+	], [move_sizer.dismiss, selection.update_selection])
 	refresh()
 
 
@@ -706,7 +713,7 @@ func _on_move_deactivated():
 
 
 func _on_move_applied(_rect):
-	History.commit('move', History.MERGE_ALL)
+	History.commit('move')
 	refresh()
 
 

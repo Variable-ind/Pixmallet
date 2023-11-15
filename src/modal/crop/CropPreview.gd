@@ -31,7 +31,8 @@ func set_preview_texture(img :Image):
 	else:
 		_width =  floor(size.x * img_width / img_height)
 
-	img.resize(_width, _height, Image.INTERPOLATE_NEAREST)
+#	img.resize(_width, _height, Image.INTERPOLATE_NEAREST)
+	img.resize(_width, _height)
 	
 	trans_checker.size = img.get_size()
 	make_placement()

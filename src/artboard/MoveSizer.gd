@@ -6,10 +6,13 @@ signal canceled
 const MODULATE_COLOR := Color(1, 1, 1, 0.66)
 
 var image := Image.new()
-var image_backup := Image.new()  # a backup image for cancel.
-var image_mask := Image.new()  # pass selection mask
 
-var backup_rect := Rect2i()
+var selection :Selection
+var was_selection := false
+
+var backup_image := Image.new()  # a backup image for cancel.
+var backup_rect := Rect2i()  # a backup rect for cancel.
+var backup_mask := Image.new()  # a backup selection mask for cancel.
 
 var preview_texture := ImageTexture.new()
 var preview_image := Image.new() :
@@ -18,58 +21,65 @@ var preview_image := Image.new() :
 		update_texture()
 
 
+func _ready():
+	super._ready()
+	updated.connect(_on_updated)
+
+
 func reset():
 	super.reset()
 	backup_rect = Rect2i()
 	preview_texture = ImageTexture.new()
 	preview_image = Image.new()
 	image = Image.new()
-	image_mask = Image.new()
-	image_backup = Image.new()
+	backup_image = Image.new()
 
 
-func launch(img :Image, mask :Image):
+func launch(img :Image, _selection :Selection):
 	reset()
 	image = img  # DO NOT copy_form, image must change runtime.
-	image_backup.copy_from(image)
-	image_mask.copy_from(mask)
-	if image_mask.is_empty() or image_mask.is_invisible():
-		backup_rect = image.get_used_rect()
+	selection = _selection  # DO NOT copy_form, selection must change runtime.
+	was_selection = selection.has_selected()
+	backup_image.copy_from(image)
+	backup_mask.copy_from(selection.mask)
+
+	if selection.has_selected():
+		backup_rect = selection.selected_rect
 	else:
-		backup_rect = image_mask.get_used_rect()
-	preview_image = image.get_region(backup_rect)
+		backup_rect = image.get_used_rect()
+	
+	preview_image = create_preview_image(backup_rect, image, selection.mask)
 	attach(backup_rect)
 
 
 func cancel():
-	image.copy_from(image_backup)
+	image.copy_from(backup_image)
+	selection.mask.copy_from(backup_mask)
 	bound_rect = backup_rect
-	preview_image.fill(Color.TRANSPARENT)
+	preview_image = create_preview_image(bound_rect, image, selection.mask)
 	dismiss()
 	canceled.emit()
 
 
 func apply():
 	if has_area():
-		preview_image.resize(bound_rect.size.x,
-							 bound_rect.size.y,
-							 Image.INTERPOLATE_NEAREST)
+		# NO NEED resize image here, already did _on_updated.
+#		preview_image.resize(bound_rect.size.x,
+#							 bound_rect.size.y,
+#							 Image.INTERPOLATE_NEAREST)
 		# DO NOT just fill rect, selection might have different shapes.
 		image.blit_rect_mask(preview_image, preview_image,
 							 Rect2i(Vector2i.ZERO, bound_rect.size),
 							 bound_rect.position)
-		image_backup.copy_from(image)
+		if selection.has_selected():
+			bound_rect = selection.selected_rect
+		else:
+			bound_rect = image.get_used_rect()
+		backup_image.copy_from(image)
+		backup_mask.copy_from(selection.mask)
 		backup_rect = bound_rect
-		# also the image mask must update, because already transformed.
-		var _mask = Image.create(image.get_width(), image.get_height(),
-								 false, image.get_format())
-		_mask.blit_rect(preview_image,
-						Rect2i(Vector2i.ZERO, bound_rect.size),
-						bound_rect.position)
-		image_mask.copy_from(_mask)
-		preview_image.fill(Color.TRANSPARENT)
+#		preview_image.fill(Color.TRANSPARENT)
 		applied.emit(bound_rect)
-	dismiss()
 
 
 func hire():
@@ -77,25 +87,29 @@ func hire():
 		return
 	# image will not change and cancelable while in the progress.
 	# until applied or canceld.
-	if image_mask.is_empty() or image_mask.is_invisible():
-		# for whole image
-		preview_image = image.get_region(bound_rect)
-		image.fill_rect(bound_rect, Color.TRANSPARENT)
-	else:
-		# use tmp image for trigger the setter of transformer_image
-		var _tmp = Image.create(bound_rect.size.x, 
-								bound_rect.size.y,
+	if selection.has_selected():
+		preview_image = create_preview_image(bound_rect, image, selection.mask)
+		
+		# use _tmp another way.
+		var _tmp = Image.create(image.get_width(), image.get_height(),
 								false, image.get_format())
-		_tmp.blit_rect_mask(image, image_mask, bound_rect, Vector2i.ZERO)
-		preview_image = _tmp.duplicate()
-					
-		_tmp.resize(image.get_width(), image.get_height())
 		_tmp.fill(Color.TRANSPARENT)
 #			image.fill_rect(move_rect, Color.TRANSPARENT)
 		# DO NOT just fill rect, selection might have different shapes.
-		image.blit_rect_mask(_tmp, image_mask, 
+		image.blit_rect_mask(_tmp, selection.mask, 
 							 bound_rect, bound_rect.position)
+	else:
+		# for whole image
+		preview_image = image.get_region(bound_rect)
+		image.fill_rect(bound_rect, Color.TRANSPARENT)
+		
 	super.hire()
+
+
+func create_preview_image(rect:Rect2i, img:Image, mask:Image):
+	var tmp := Image.create(rect.size.x, rect.size.y, false, img.get_format())
+	tmp.blit_rect_mask(image, mask, rect, Vector2i.ZERO)
+	return tmp
 
 
 func update_texture():
@@ -138,3 +152,20 @@ func _input(event :InputEvent):
 	if event is InputEventMouseButton:
 		if is_dismissed:
 			apply()
+
+
+func _on_updated(rect, _rel_pos, _status):
+#	var img := RenderingServer.texture_2d_get(preview_texture.get_rid())
+#	preview_image.copy_from(img)
+
+	preview_image.resize(bound_rect.size.x, 
+						 bound_rect.size.y,
+						 Image.INTERPOLATE_NEAREST)
+	update_texture()
+	
+	if was_selection:
+		# also the image mask must update, because already transformed.
+		var to_rect = Rect2i(Vector2i.ZERO, rect.size)
+		var sel_img := preview_image.duplicate()
+		sel_img.convert(selection.mask.get_format())
+		selection.update(sel_img, to_rect, rect.position)
