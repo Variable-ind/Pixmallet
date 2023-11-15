@@ -55,11 +55,7 @@ var zoom_ratio := 1.0 :
 		queue_redraw()
 
 var bound_rect := Rect2i(Vector2i.ZERO, Vector2i.ZERO) :
-	set(val):
-		bound_rect = val
-		for gizmo in gizmos:
-			set_gizmo_place(gizmo)
-		queue_redraw()
+	set = set_bound_rect
 
 var gizmos :Array[Gizmo] = []
 
@@ -115,6 +111,13 @@ func _ready():
 		gizmo.hover_updated.connect(_on_gizmo_hover_updated)
 		gizmo.press_updated.connect(_on_gizmo_press_updated)
 		add_child(gizmo)
+
+
+func set_bound_rect(val):
+	bound_rect = val
+	for gizmo in gizmos:
+		set_gizmo_place(gizmo)
+	queue_redraw()
 
 
 func attach(rect :Rect2i):

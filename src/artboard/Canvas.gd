@@ -145,10 +145,11 @@ func set_state(val):  # triggered when state changing.
 
 	# enter state
 	if state == Operate.CROP:
-		selection.deselect()
 		crop_sizer.launch(project.size)
+		selection.deselect()
 	elif state == Operate.MOVE:
 		move_sizer.launch(project.current_cel.get_image(), selection.mask)
+		selection.deselect()
 
 
 func set_zoom_ratio(val):
