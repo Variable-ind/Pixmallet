@@ -1,5 +1,9 @@
 class_name History extends Node
 
+# Godot UndoRedo might not good engouth for a grahpic software.
+# make a own one if I can.
+
+
 enum {
 	MERGE_DISABLE,
 	MERGE_ENDS,  # use first action's undo , and use do of next same action.
