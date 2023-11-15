@@ -714,6 +714,9 @@ func _on_silhouette_before_apply():
 func _on_silhouette_after_apply():
 	History.commit('shape', History.MERGE_ALL) # merge next one drawing shape.
 	History.set_pre_undo_mehotds(silhouette.apply)
+	# apply every time undo shape, make sure no currently in progress shaping.
+	# don't worry unexcept apply is fired. 
+	# it's already takeing care of in side apply func.
 	refresh()
 
 
