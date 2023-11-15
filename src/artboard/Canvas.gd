@@ -94,8 +94,8 @@ func _ready():
 	
 	color_pick.color_picked.connect(_on_color_picked)
 	
-	silhouette.before_apply.connect(_on_silhouette_before_apply)
-	silhouette.after_apply.connect(_on_silhouette_after_apply)
+	silhouette.attached.connect(_on_silhouette_attached)
+	silhouette.applied.connect(_on_silhouette_applied)
 	silhouette.inject_snapping(drag_snapping_hook)
 	
 	selection.inject_snapping(drag_snapping_hook)
@@ -105,8 +105,6 @@ func attach_project(proj):
 	project = proj
 	
 	selection.size = project.size
-	
-	silhouette.attach(project.current_cel.get_image())
 	
 	drawer_brush.attach(project.current_cel.get_image())
 	drawer_pencil.attach(project.current_cel.get_image())
@@ -164,6 +162,14 @@ func set_zoom_ratio(val):
 	selection.zoom_ratio = zoom_ratio
 	crop_sizer.zoom_ratio = zoom_ratio
 	move_sizer.zoom_ratio = zoom_ratio
+
+
+func pre_undo() -> bool:
+	if state in Operate.GROUP_SHAPE and silhouette.has_area():
+		silhouette.apply()
+		return false
+	
+	return true
 
 
 func prepare_pressure(pressure:float) -> float:
@@ -327,22 +333,11 @@ func process_shape(event, shaper):
 	elif event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
-#			if not shaper.is_operating:
-#				History.record([
-#					silhouette.image,
-#					{'obj': silhouette, 'key': 'current_shaper_type'},
-#					{'obj': silhouette, 'key': 'shaped_rect'},
-#					{'obj': silhouette, 'key': 'touch_rect'},
-#					{'obj': silhouette, 'key': 'start_point'},
-#					{'obj': silhouette, 'key': 'end_point'},
-#					{'obj': silhouette, 'key': '_current_shape'},
-#				], [
-#					silhouette.update_shape,
-#				])
+			if not shaper.is_operating:
+				silhouette.attach(project.current_cel.get_image())
 			shaper.shape_move(pos)
 		elif shaper.is_operating:
 			shaper.shape_end(pos)
-#			History.compose('shape', null, silhouette.cancel)
 
 
 func copy():
@@ -670,7 +665,7 @@ func _on_crop_applied(crop_rect :Rect2i):
 	project.crop_to(crop_rect)
 
 
-func _on_crop_attached(_rect, _rel_pos):
+func _on_crop_attached():
 	History.record([
 		{'obj': crop_sizer, 'key': 'bound_rect'},
 	], {
@@ -685,42 +680,26 @@ func _on_move_activate_toggled(_rect, _rel_pos):
 	refresh()
 
 
-func _on_move_attached(_rect, _rel_pos):
-	pass
+func _on_move_attached():
+	History.record([
+		{'obj': move_sizer.image, 'key': 'data'},
+		{'obj': move_sizer.preview_image, 'key': 'data'},
+		{'obj': move_sizer, 'key': 'bound_rect'}
+	])
 	
 
 func _on_move_applied(_rect):
-	History.compose('move', [
-		{'obj': move_sizer.image, 'key': 'data', 
-		 'undo': move_sizer.image_backup.data},
-	])
+	History.commit('move')
 	refresh()
 
 
 # silhouette
-func _on_silhouette_before_apply():
-#	History.record([
-#		silhouette.image,
-#		{'obj': silhouette, 'key': 'current_shaper_type'},
-#		{'obj': silhouette, 'key': 'shaped_rect'},
-#		{'obj': silhouette, 'key': 'touch_rect'},
-#		{'obj': silhouette, 'key': 'start_point'},
-#		{'obj': silhouette, 'key': 'end_point'},
-#		{'obj': silhouette, 'key': '_current_shape'},
-#	], [silhouette.update_shape])
+func _on_silhouette_attached():
 	History.record(silhouette.image, silhouette.cancel)
-
-
-func _on_silhouette_after_apply():
-	History.commit('shape', History.MERGE_ALL) # merge next one drawing shape.
-	History.set_pre_undo_mehotds(silhouette.apply)
-	# apply every time undo shape, make sure no currently in progress shaping.
-	# when shaping in progress, undo will apply first.
-	# then another undo redo will committed.
-	# the undo actually undo the step just applied.
-	# to do this could prevent shapping line showing up while not on shape tool.
-	# don't worry unexcept apply is fired. 
-	# it's already takeing care of in side apply func.
+	refresh()
+	
+func _on_silhouette_applied(_rect):
+	History.commit('shape')
 	refresh()
 
 

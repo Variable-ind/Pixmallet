@@ -1,10 +1,9 @@
 class_name Silhouette extends Node2D
 
 signal updated(rect, rel_pos, status)
-signal applied(rect, img_backup)
+signal applied(rect)
 signal canceled
-signal before_apply
-signal after_apply
+signal attached
 
 const STROKE_WIDTH_MIN := 0
 const STROKE_WIDTH_MAX := 100
@@ -58,11 +57,11 @@ var edge_expansion := 0
 func attach(img :Image):
 	image = img
 	size = Vector2i(image.get_width(), image.get_height())
+	attached.emit()
 
 
 func apply():
 	if current_shaper_type != BaseShaper.NONE:
-		before_apply.emit()
 		
 		match current_shaper_type:
 			BaseShaper.RECTANGLE:
@@ -76,7 +75,6 @@ func apply():
 		
 		applied.emit(shaped_rect)
 		reset()
-		after_apply.emit()
 
 
 func cancel():

@@ -79,6 +79,7 @@ func _on_navbar_navigation_to(nav_id, data):
 			pass
 		
 		Navbar.UNDO:
+			canvas.pre_undo()
 			History.undo()
 		Navbar.REDO:
 			History.redo()

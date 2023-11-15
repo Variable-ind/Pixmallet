@@ -26,9 +26,6 @@ static var undo_methods_stack :Array[Callable] = []
 
 static var default_callbacks :Dictionary = {}
 
-static var pre_undo_map :Dictionary = {}
-static var pre_redo_map :Dictionary = {}
-
 
 static func clear_history():
 	undo_redo.clear_history()
@@ -98,7 +95,7 @@ static func commit(action_name:StringName = '', merge := MERGE_DISABLE):
 
 	undo_redo.commit_action(false)
 	print('Undo/Redo Committed:', current_action_name, 
-		  ' id', current_action_id)
+		  ' id:', current_action_id)
 	reset()
 
 
@@ -122,31 +119,19 @@ static func parse_merge_mode(merge):
 	return merge_mode
 
 
-static func set_pre_undo_mehotds(funcs:Variant):
-	for fn in parse_funcs(funcs):
-		pre_undo_map[current_action_id] = fn
-
-
-static func set_pre_redo_mehotds(funcs:Variant):
-	for fn in parse_funcs(funcs):
-		pre_redo_map[current_action_id] = fn
-
-
 static func undo():
 	if undo_redo.has_undo():
-		var fn = pre_undo_map.get(current_action_id)
-		if fn is Callable:
-			fn.call()
-		print('Undo:', current_action_name, ' id:', current_action_id)
+		print('Undo:', current_action_name, 
+			  ' id:', current_action_id,
+			  '/', count)
 		undo_redo.undo()
 
 
 static func redo():
 	if undo_redo.has_redo():
-		var fn = pre_redo_map.get(current_action_id)
-		if fn is Callable:
-			fn.call()
-		print('Redo:', current_action_name, ' id:', current_action_id)
+		print('Redo:', current_action_name, 
+			  ' id:', current_action_id,
+			  '/', count)
 		undo_redo.redo()
 
 

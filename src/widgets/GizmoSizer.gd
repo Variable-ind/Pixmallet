@@ -3,7 +3,7 @@ class_name GizmoSizer extends Node2D
 signal gizmo_hover_updated(gizmo, status)
 signal gizmo_press_updated(gizmo, status)
 
-signal attached(rect, rel)
+signal attached
 signal activated(rect, rel)
 signal deactivated(rect, rel)
 
