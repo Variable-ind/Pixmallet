@@ -164,12 +164,18 @@ func set_zoom_ratio(val):
 	move_sizer.zoom_ratio = zoom_ratio
 
 
-func pre_undo():
+func pre_undo() -> bool:
+	var continue_undo := true
 	# prevent undo redo while some tool in progress.
 	# such as `shape`, `move`.
-	if state in Operate.GROUP_SHAPE and silhouette.has_area():
-		silhouette.apply()
+	if state in Operate.GROUP_SHAPE:
+		if silhouette.has_area():
+			silhouette.apply()
+	elif state == Operate.MOVE and move_sizer.is_activated:
+		move_sizer.cancel()
+		continue_undo = false
 
+	return continue_undo
 
 
 func prepare_pressure(pressure:float) -> float:
@@ -682,16 +688,13 @@ func _on_crop_attached():
 
 
 # move
-func _on_move_activate_toggled(_rect, _rel_pos):
+func _on_move_activate_toggled():
 	refresh()
 
 
 func _on_move_attached():
-	History.record([
-		{'obj': move_sizer.image, 'key': 'data'},
-		{'obj': move_sizer.preview_image, 'key': 'data'},
-		{'obj': move_sizer, 'key': 'bound_rect'}
-	])
+	History.record(move_sizer.image, move_sizer.cancel)
+	# mover_sizer.dismiss() will apply.
 	
 
 func _on_move_applied(_rect):

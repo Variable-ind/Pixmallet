@@ -4,8 +4,8 @@ signal gizmo_hover_updated(gizmo, status)
 signal gizmo_press_updated(gizmo, status)
 
 signal attached
-signal activated(rect, rel)
-signal deactivated(rect, rel)
+signal activated
+signal deactivated
 
 signal updated(rect, rel_pos, status)
 signal cursor_changed(cursor)
@@ -156,7 +156,7 @@ func hire():
 		return
 	is_activated = true
 
-	activated.emit(bound_rect, relative_position)
+	activated.emit()
 	updated.emit(bound_rect, relative_position, is_activated)
 	queue_redraw()
 	
@@ -172,7 +172,7 @@ func dismiss():
 	is_scaling = false
 #	pressed_gizmo = null # already set to null in is_scaling setter.
 
-	deactivated.emit(bound_rect, relative_position)
+	deactivated.emit()
 	updated.emit(bound_rect, relative_position, is_activated)
 	queue_redraw()
 

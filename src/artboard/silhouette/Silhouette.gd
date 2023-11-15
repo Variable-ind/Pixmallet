@@ -61,7 +61,7 @@ func attach(img :Image):
 
 
 func apply():
-	if current_shaper_type != BaseShaper.NONE:
+	if current_shaper_type != BaseShaper.NONE and has_area():
 		
 		match current_shaper_type:
 			BaseShaper.RECTANGLE:
