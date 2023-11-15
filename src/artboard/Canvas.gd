@@ -329,21 +329,20 @@ func process_shape(event, shaper):
 		if is_pressed:
 #			if not shaper.is_operating:
 #				History.record([
+#					silhouette.image,
 #					{'obj': silhouette, 'key': 'current_shaper_type'},
 #					{'obj': silhouette, 'key': 'shaped_rect'},
 #					{'obj': silhouette, 'key': 'touch_rect'},
 #					{'obj': silhouette, 'key': 'start_point'},
 #					{'obj': silhouette, 'key': 'end_point'},
 #					{'obj': silhouette, 'key': '_current_shape'},
-#				], silhouette.update_shape)
+#				], [
+#					silhouette.update_shape,
+#				])
 			shaper.shape_move(pos)
 		elif shaper.is_operating:
 			shaper.shape_end(pos)
-#			History.commit('shape')
-			History.compose('shape', null, [{
-				'do': silhouette.apply,
-				'undo': silhouette.apply
-			}])
+#			History.compose('shape', null, silhouette.cancel)
 
 
 func copy():
@@ -710,12 +709,11 @@ func _on_silhouette_before_apply():
 #		{'obj': silhouette, 'key': '_current_shape'},
 #	], [silhouette.update_shape])
 	History.record(silhouette.image, silhouette.cancel)
-	# use silhouette.cancel is for 
-	# prevent show drawing lines of drawn shape which is already finished.
 
 
 func _on_silhouette_after_apply():
-	History.commit('shape', History.MERGE_ALL) # merge next drawing shape.
+	History.commit('shape', History.MERGE_ALL) # merge next one drawing shape.
+	History.set_pre_undo_mehotds(silhouette.apply)
 	refresh()
 
 
