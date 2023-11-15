@@ -44,7 +44,7 @@ func cancel():
 	image.copy_from(image_backup)
 	bound_rect = backup_rect
 	preview_image = Image.new()
-	super.dismiss()
+	dismiss()
 	canceled.emit()
 
 
@@ -68,7 +68,7 @@ func apply():
 		image_mask.copy_from(_mask)
 		preview_image = Image.new()
 		applied.emit(bound_rect)
-	super.dismiss()
+	dismiss()
 
 
 func hire():
@@ -98,13 +98,6 @@ func hire():
 	super.hire()
 
 
-func dismiss():
-	if not is_activated:
-		return
-	apply()
-	super.dismiss()
-
-
 func has_preview() -> bool:
 	return not preview_image.is_empty()
 
@@ -123,8 +116,10 @@ func _draw():
 			# DO NOT new a texture here, may got blank texture. do it before.
 			draw_texture_rect(preview_texture, bound_rect, false,
 							  MODULATE_COLOR if is_dragging else Color.WHITE)
-		
-		draw_rect(bound_rect, line_color, false)
+		var rect_line_color := line_color
+		if not is_activated:
+			rect_line_color.a = 0.5
+		draw_rect(bound_rect, rect_line_color, false)
 
 
 func _input(event :InputEvent):
@@ -141,4 +136,13 @@ func _input(event :InputEvent):
 		elif Input.is_key_pressed(KEY_ESCAPE):
 			cancel()
 	
+	var tmp_is_activated := is_activated
+	
 	super._input(event)
+	
+	var is_dismissed := (is_activated == false and tmp_is_activated == true)
+	
+	if event is InputEventMouseButton:
+		if is_dismissed:
+			print('fuck')
+			apply()

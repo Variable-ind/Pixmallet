@@ -693,9 +693,12 @@ func _on_move_activate_toggled():
 
 
 func _on_move_attached():
-	History.record(move_sizer.image, move_sizer.cancel)
-	# mover_sizer.dismiss() will apply.
-	
+	History.record([
+		move_sizer.image,
+		move_sizer.image_backup,
+		{'obj': move_sizer, 'key': 'bound_rect'}
+	], move_sizer.dismiss)
+
 
 func _on_move_applied(_rect):
 	History.commit('move')
