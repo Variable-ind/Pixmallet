@@ -160,18 +160,15 @@ static func prepare_methods(funcs:Variant):
 		if fn is Callable:
 			methods.append(HistoryMethod.new(fn))
 		elif fn is Dictionary:
-			var method_type
-			var method :Callable
-			if fn.get('both'):
-				method = fn['both']
-				method_type = HistoryMethod.Type.ALL
-			if fn.get('do'):
-				method = fn['do']
-				method_type = HistoryMethod.Type.DO
-			elif fn.get('undo'):
-				method = fn['undo']
-				method_type = HistoryMethod.Type.UNDO
-			methods.append(HistoryMethod.new(method, method_type))
+			if fn.get('all') is Callable:
+				methods.append(
+					HistoryMethod.new(fn['all'], HistoryMethod.Type.ALL))
+			if fn.get('do') is Callable:
+				methods.append(
+					HistoryMethod.new(fn['do'], HistoryMethod.Type.DO))
+			if fn.get('undo') is Callable:
+				methods.append(
+					HistoryMethod.new(fn['undo'], HistoryMethod.Type.UNDO))
 	return methods
 
 

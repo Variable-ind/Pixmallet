@@ -327,20 +327,23 @@ func process_shape(event, shaper):
 	elif event is InputEventMouseMotion:
 		var pos = snapper.snap_position(get_local_mouse_position())
 		if is_pressed:
-			if not shaper.is_operating:
-				History.record([
-					{'obj': silhouette, 'key': 'current_shaper_type'},
-					{'obj': silhouette, 'key': 'shaped_rect'},
-					{'obj': silhouette, 'key': 'touch_rect'},
-					{'obj': silhouette, 'key': 'start_point'},
-					{'obj': silhouette, 'key': 'end_point'},
-					{'obj': silhouette, 'key': '_current_shape'},
-				], silhouette.update_shape)
+#			if not shaper.is_operating:
+#				History.record([
+#					{'obj': silhouette, 'key': 'current_shaper_type'},
+#					{'obj': silhouette, 'key': 'shaped_rect'},
+#					{'obj': silhouette, 'key': 'touch_rect'},
+#					{'obj': silhouette, 'key': 'start_point'},
+#					{'obj': silhouette, 'key': 'end_point'},
+#					{'obj': silhouette, 'key': '_current_shape'},
+#				], silhouette.update_shape)
 			shaper.shape_move(pos)
 		elif shaper.is_operating:
 			shaper.shape_end(pos)
-			History.commit('shape')
-#			History.compose('shape', null, silhouette.cancel)
+#			History.commit('shape')
+			History.compose('shape', null, [{
+				'do': silhouette.apply,
+				'undo': silhouette.apply
+			}])
 
 
 func copy():
@@ -671,10 +674,10 @@ func _on_crop_applied(crop_rect :Rect2i):
 func _on_crop_attached(_rect, _rel_pos):
 	History.record([
 		{'obj': crop_sizer, 'key': 'bound_rect'},
-	], [
-		{'do': crop_sizer.hire},
-		{'undo': crop_sizer.dismiss}
-	])
+	], {
+		'do': crop_sizer.hire,
+		'undo': crop_sizer.dismiss
+	})
 	History.commit('crop_start')
 
 
