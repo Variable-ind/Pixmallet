@@ -715,6 +715,10 @@ func _on_silhouette_after_apply():
 	History.commit('shape', History.MERGE_ALL) # merge next one drawing shape.
 	History.set_pre_undo_mehotds(silhouette.apply)
 	# apply every time undo shape, make sure no currently in progress shaping.
+	# when shaping in progress, undo will apply first.
+	# then another undo redo will committed.
+	# the undo actually undo the step just applied.
+	# to do this could prevent shapping line showing up while not on shape tool.
 	# don't worry unexcept apply is fired. 
 	# it's already takeing care of in side apply func.
 	refresh()
