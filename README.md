@@ -15,7 +15,7 @@ Actually, it's impassable to change some features.
 
 So I start a new project to re-build another one.
 That's Pixmallet has been borned. 
-also for get deep knowlage with Godot 4.x by the way.
+also for get deep knowledge with Godot 4.x by the way.
 
 It's not finish yet, almost done. almost....
 
