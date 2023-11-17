@@ -6,10 +6,9 @@ enum Type {
 	GROUP
 }
 
-var type := Type.PIXEL:
-	set = set_type
+var type := Type.BASE
 
-var project_layer: BaseLayer
+var layer: BaseLayer
 var layer_name_overlayer := ColorRect.new()
 var layer_name_backup := ''
 
@@ -35,7 +34,6 @@ func _ready():
 	layer_name.focus_entered.connect(_on_layer_name_focused)
 	layer_name.focus_exited.connect(_on_layer_name_release)
 	layer_name.resized.connect(_on_resized)
-	layer_name.gui_input.connect(_on_layer_name_input)
 	layer_name.text_submitted.connect(_on_layer_name_submitted)
 	
 	# buttons
@@ -44,48 +42,50 @@ func _ready():
 	btn_lock.toggled.connect(_on_lock_toggled)
 
 
-func set_type(new_type:Type):
-	if type == new_type:
-		return
-	type = new_type
-	btn_visible.visible = type != Type.GROUP
-
-
-func attach(layer:BaseLayer):
+func attach(proj_layer:BaseLayer):
+	layer = proj_layer
 	if layer is PixelLayer:
 		type = Type.PIXEL
 	elif layer is GroupLayer:
 		type = Type.GROUP
 	else:
 		type = Type.BASE
+	
+	name = layer.name
+	layer_name.text = layer.name
+	btn_link.visible = type == Type.PIXEL
+	btn_link.set_pressed_without_signal(layer.is_linked)
+	btn_visible.set_pressed_without_signal(layer.is_visible)
+	btn_lock.set_pressed_without_signal(layer.is_locked)
+
+
+func toggle_layer_name(is_focused:bool):
+	if is_focused:
+		layer_name.editable = true
+		layer_name_overlayer.hide()
+	else:
+		layer_name.editable = false
+		layer_name_overlayer.show()
 
 
 func _on_link_toggled(btn_pressed:bool):
 	if type == Type.PIXEL:
-		print(btn_pressed)
+		layer.is_linked = btn_pressed
+		if not btn_pressed:
+			layer.cel_link_sets.clear()
 	
 
 func _on_visible_toggled(btn_pressed:bool):
-	print(btn_pressed)
+	layer.is_visible = btn_pressed
 
 
 func _on_lock_toggled(btn_pressed:bool):
-	print(btn_pressed)
+	layer.is_locked = btn_pressed
 
 
 func _on_layer_name_editing(event):
 	if event is InputEventMouseButton and event.pressed:
-		layer_name_overlayer.hide()
-		layer_name.editable = true
-
-
-func _on_layer_name_input(event):
-	if event is InputEventMouseButton and event.pressed:
-		print('fuck')
-	elif event is InputEventKey and Input.is_key_pressed(KEY_ESCAPE):
-		layer_name.text = layer_name_backup
-		layer_name.editable = false
-		layer_name_overlayer.show()
+		toggle_layer_name(true)
 
 
 func _on_layer_name_focused():
@@ -93,16 +93,27 @@ func _on_layer_name_focused():
 
 
 func _on_layer_name_release():
-	layer_name.editable = false
-	layer_name_overlayer.show()
+	layer.name = layer_name.text
+	toggle_layer_name(false)
 
 
 func _on_layer_name_submitted(new_text:String):
-	print(new_text)
+	if not new_text:
+		layer_name.text = layer_name_backup
+	layer.name = layer_name.text
 	layer_name.release_focus()
 
 
 func _on_resized():
 	layer_name_overlayer.size = layer_name.size
 
+
+func _input(event):
+	if (event is InputEventMouseButton) and event.pressed:
+		var loc_evt := make_input_local(event)
+		if not Rect2i(Vector2i.ZERO, size).has_point(loc_evt.position):
+			layer_name.text_submitted.emit(layer_name.text)
+	elif event is InputEventKey and Input.is_key_pressed(KEY_ESCAPE):
+		layer_name.text = layer_name_backup
+		layer_name.release_focus()
 

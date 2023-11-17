@@ -44,5 +44,12 @@ func set_icon():
 		modulate = Color.DIM_GRAY
 
 
+func set_pressed_without_signal(pressed :bool):
+	set_pressed_no_signal(pressed)
+	set_icon()
+
+
 func _on_toggled(_btn_pressed):
 	set_icon()
+
+	

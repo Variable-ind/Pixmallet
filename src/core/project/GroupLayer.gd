@@ -1,8 +1,6 @@
 class_name GroupLayer extends BaseLayer
 ## A class for group layer properties
 
-var type := LayerTypes.GROUP
-
 
 func get_children(layers :Array[BaseLayer], recursive: bool) -> Array:
 	var children: Array[BaseLayer] = []

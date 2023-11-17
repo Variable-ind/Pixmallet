@@ -1,0 +1,1 @@
+class_name CelBtn extends TextureButton

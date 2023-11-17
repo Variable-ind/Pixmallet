@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://41uljc4y6ch0"]
+[gd_scene load_steps=27 format=3 uid="uid://41uljc4y6ch0"]
 
 [ext_resource type="Texture2D" uid="uid://bn6kf7q2w3mll" path="res://assets/icons/add-layer.png" id="1_eknxa"]
 [ext_resource type="Script" path="res://src/timeline/Timeline.gd" id="1_tp4lt"]
@@ -21,14 +21,10 @@
 [ext_resource type="Texture2D" uid="uid://dkv14hlwkg80k" path="res://assets/icons/onino-off.png" id="18_gp6c5"]
 [ext_resource type="Texture2D" uid="uid://cu32y4qu0sipq" path="res://assets/icons/onino-on.png" id="19_4rgj5"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="20_qlhqw"]
-[ext_resource type="Texture2D" uid="uid://obg38undtpdg" path="res://assets/icons/eye-close.png" id="22_2xw2a"]
-[ext_resource type="Script" path="res://src/timeline/LayerBar.gd" id="22_uauch"]
-[ext_resource type="Texture2D" uid="uid://djd6jmojrvo5h" path="res://assets/icons/eye-open.png" id="23_ecy55"]
-[ext_resource type="Texture2D" uid="uid://do5d6ttn322c5" path="res://assets/icons/unlock.png" id="24_w6j71"]
-[ext_resource type="Texture2D" uid="uid://mfegu31r5d7t" path="res://assets/icons/locked.png" id="25_1kpxy"]
-[ext_resource type="Texture2D" uid="uid://1tbvgkny8w7s" path="res://assets/icons/unlink.png" id="26_3mpc4"]
-[ext_resource type="Texture2D" uid="uid://bu7d8v1voeon6" path="res://assets/icons/linked.png" id="27_w0fcw"]
+[ext_resource type="PackedScene" uid="uid://45x12j7e2oja" path="res://src/timeline/layer_column.tscn" id="22_ge65t"]
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="28_gng67"]
+[ext_resource type="Script" path="res://src/timeline/FrameBtn.gd" id="29_pjpv8"]
+[ext_resource type="Script" path="res://src/timeline/CelBtn.gd" id="30_1wni3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_62d7w"]
 shader = ExtResource("28_gng67")
@@ -228,75 +224,9 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="column-layers" type="VBoxContainer" parent="ScrollContainer/layers/split"]
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-
-[node name="label-layers" type="Label" parent="ScrollContainer/layers/split/column-layers"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_vertical = 1
-text = "Layers"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LayerBar" type="Panel" parent="ScrollContainer/layers/split/column-layers"]
+[node name="LayerColumn" parent="ScrollContainer/layers/split" instance=ExtResource("22_ge65t")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-script = ExtResource("22_uauch")
-
-[node name="row" type="HBoxContainer" parent="ScrollContainer/layers/split/column-layers/LayerBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="BtnLink" type="Button" parent="ScrollContainer/layers/split/column-layers/LayerBar/row"]
-modulate = Color(0.411765, 0.411765, 0.411765, 1)
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-icon = ExtResource("26_3mpc4")
-icon_alignment = 1
-script = ExtResource("12_0gw4f")
-ico_on = ExtResource("27_w0fcw")
-ico_off = ExtResource("26_3mpc4")
-
-[node name="BtnVisible" type="Button" parent="ScrollContainer/layers/split/column-layers/LayerBar/row"]
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-button_pressed = true
-icon = ExtResource("23_ecy55")
-icon_alignment = 1
-script = ExtResource("12_0gw4f")
-is_pressed = true
-ico_on = ExtResource("23_ecy55")
-ico_off = ExtResource("22_2xw2a")
-
-[node name="BtnLock" type="Button" parent="ScrollContainer/layers/split/column-layers/LayerBar/row"]
-modulate = Color(0.411765, 0.411765, 0.411765, 1)
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-theme_type_variation = &"IconButton"
-toggle_mode = true
-icon = ExtResource("24_w6j71")
-icon_alignment = 1
-script = ExtResource("12_0gw4f")
-ico_on = ExtResource("25_1kpxy")
-ico_off = ExtResource("24_w6j71")
-
-[node name="LayerName" type="LineEdit" parent="ScrollContainer/layers/split/column-layers/LayerBar/row"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"CaptionEdit"
-text = "Layer"
-max_length = 60
 
 [node name="contents" type="VBoxContainer" parent="ScrollContainer/layers/split"]
 layout_mode = 2
@@ -306,23 +236,27 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="FrameBtn" type="Button" parent="ScrollContainer/layers/split/contents/frames"]
+unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
 theme_type_variation = &"framebtn"
 text = "1"
+script = ExtResource("29_pjpv8")
 
 [node name="cels" type="HBoxContainer" parent="ScrollContainer/layers/split/contents"]
 custom_minimum_size = Vector2(300, 30)
 layout_mode = 2
 
-[node name="FrameBtn" type="TextureButton" parent="ScrollContainer/layers/split/contents/cels"]
+[node name="CelBtn" type="TextureButton" parent="ScrollContainer/layers/split/contents/cels"]
+unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(36, 30)
 layout_mode = 2
 theme_type_variation = &"framebtn"
+script = ExtResource("30_1wni3")
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/layers/split/contents/cels/FrameBtn"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/layers/split/contents/cels/CelBtn"]
 material = SubResource("ShaderMaterial_62d7w")
 layout_mode = 1
 anchors_preset = 15

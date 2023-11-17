@@ -1,19 +1,16 @@
 class_name BaseLayer extends RefCounted
 # Base class for layer properties. Different layer types extend from this class.
 
-enum LayerTypes {
-	GROUP,
-	PIXEL,
-}
-
 var name := ""
 var index : = 0
 var opacity := 1.0
 var parent :BaseLayer
 var expanded :bool = false
-var visible :bool = true
-var locked :bool = false
-var cels_linked :bool = false
+
+var is_visible :bool = true
+var is_locked :bool = false
+
+var is_linked :bool = false
 var cel_link_sets :Array[Dictionary] = []  
 # Each Dictionary represents a cel's "link set"z
 

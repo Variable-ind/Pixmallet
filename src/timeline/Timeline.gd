@@ -5,8 +5,12 @@ var project:Project
 var layers :Array = []
 var frames :Array[BaseCel] = []
 
-@onready var layer_bar :LayerBar = %LayerBar
+
+var selected_frames :Array[FrameBtn] = []
+var selected_cels :Array[CelBtn] = []
+
+@onready var layer_column :LayerColumn = %LayerColumn
 
 
 func load_project(proj:Project):
-	pass
+	project = proj

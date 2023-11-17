@@ -1,8 +1,6 @@
 class_name PixelLayer extends BaseLayer
 ## A class for standard pixel layer properties.
 
-var type := LayerTypes.PIXEL
-
 
 # Overridden Methods:
 func new_empty_cel(size:Vector2i) -> PixelCel:
