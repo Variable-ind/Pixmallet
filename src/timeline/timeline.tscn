@@ -1,6 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://41uljc4y6ch0"]
+[gd_scene load_steps=31 format=3 uid="uid://41uljc4y6ch0"]
 
 [ext_resource type="Texture2D" uid="uid://bn6kf7q2w3mll" path="res://assets/icons/add-layer.png" id="1_eknxa"]
+[ext_resource type="Script" path="res://src/timeline/Timeline.gd" id="1_tp4lt"]
 [ext_resource type="Texture2D" uid="uid://cctvx5owwp6ck" path="res://assets/icons/delete-layer.png" id="2_pfajt"]
 [ext_resource type="Texture2D" uid="uid://bi2txp2rls3tu" path="res://assets/icons/up-layer.png" id="3_i3mp0"]
 [ext_resource type="Texture2D" uid="uid://bqxvd7361lbwu" path="res://assets/icons/down-layer.png" id="4_mixod"]
@@ -20,8 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://dkv14hlwkg80k" path="res://assets/icons/onino-off.png" id="18_gp6c5"]
 [ext_resource type="Texture2D" uid="uid://cu32y4qu0sipq" path="res://assets/icons/onino-on.png" id="19_4rgj5"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="20_qlhqw"]
-[ext_resource type="Script" path="res://src/timeline/Layer.gd" id="21_q5cqk"]
 [ext_resource type="Texture2D" uid="uid://obg38undtpdg" path="res://assets/icons/eye-close.png" id="22_2xw2a"]
+[ext_resource type="Script" path="res://src/timeline/LayerBar.gd" id="22_uauch"]
 [ext_resource type="Texture2D" uid="uid://djd6jmojrvo5h" path="res://assets/icons/eye-open.png" id="23_ecy55"]
 [ext_resource type="Texture2D" uid="uid://do5d6ttn322c5" path="res://assets/icons/unlock.png" id="24_w6j71"]
 [ext_resource type="Texture2D" uid="uid://mfegu31r5d7t" path="res://assets/icons/locked.png" id="25_1kpxy"]
@@ -47,6 +48,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_tp4lt")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 30)
@@ -226,11 +228,11 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="labels" type="VBoxContainer" parent="ScrollContainer/layers/split"]
+[node name="column-layers" type="VBoxContainer" parent="ScrollContainer/layers/split"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/layers/split/labels"]
+[node name="label-layers" type="Label" parent="ScrollContainer/layers/split/column-layers"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 1
@@ -238,12 +240,13 @@ text = "Layers"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Layer" type="Panel" parent="ScrollContainer/layers/split/labels"]
+[node name="LayerBar" type="Panel" parent="ScrollContainer/layers/split/column-layers"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-script = ExtResource("21_q5cqk")
+script = ExtResource("22_uauch")
 
-[node name="row" type="HBoxContainer" parent="ScrollContainer/layers/split/labels/Layer"]
+[node name="row" type="HBoxContainer" parent="ScrollContainer/layers/split/column-layers/LayerBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -251,7 +254,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BtnLink" type="Button" parent="ScrollContainer/layers/split/labels/Layer/row"]
+[node name="BtnLink" type="Button" parent="ScrollContainer/layers/split/column-layers/LayerBar/row"]
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -263,7 +266,7 @@ script = ExtResource("12_0gw4f")
 ico_on = ExtResource("27_w0fcw")
 ico_off = ExtResource("26_3mpc4")
 
-[node name="BtnVisible" type="Button" parent="ScrollContainer/layers/split/labels/Layer/row"]
+[node name="BtnVisible" type="Button" parent="ScrollContainer/layers/split/column-layers/LayerBar/row"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_type_variation = &"IconButton"
@@ -276,7 +279,7 @@ is_pressed = true
 ico_on = ExtResource("23_ecy55")
 ico_off = ExtResource("22_2xw2a")
 
-[node name="BtnLock" type="Button" parent="ScrollContainer/layers/split/labels/Layer/row"]
+[node name="BtnLock" type="Button" parent="ScrollContainer/layers/split/column-layers/LayerBar/row"]
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -288,37 +291,38 @@ script = ExtResource("12_0gw4f")
 ico_on = ExtResource("25_1kpxy")
 ico_off = ExtResource("24_w6j71")
 
-[node name="LayerName" type="LineEdit" parent="ScrollContainer/layers/split/labels/Layer/row"]
+[node name="LayerName" type="LineEdit" parent="ScrollContainer/layers/split/column-layers/LayerBar/row"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"CaptionEdit"
 text = "Layer"
+max_length = 60
 
 [node name="contents" type="VBoxContainer" parent="ScrollContainer/layers/split"]
 layout_mode = 2
 
-[node name="framebar" type="HBoxContainer" parent="ScrollContainer/layers/split/contents"]
+[node name="frames" type="HBoxContainer" parent="ScrollContainer/layers/split/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="FrameBtn" type="Button" parent="ScrollContainer/layers/split/contents/framebar"]
+[node name="FrameBtn" type="Button" parent="ScrollContainer/layers/split/contents/frames"]
 clip_contents = true
 custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
 theme_type_variation = &"framebtn"
 text = "1"
 
-[node name="frames" type="HBoxContainer" parent="ScrollContainer/layers/split/contents"]
+[node name="cels" type="HBoxContainer" parent="ScrollContainer/layers/split/contents"]
 custom_minimum_size = Vector2(300, 30)
 layout_mode = 2
 
-[node name="FrameBtn" type="TextureButton" parent="ScrollContainer/layers/split/contents/frames"]
+[node name="FrameBtn" type="TextureButton" parent="ScrollContainer/layers/split/contents/cels"]
 clip_contents = true
 custom_minimum_size = Vector2(36, 30)
 layout_mode = 2
 theme_type_variation = &"framebtn"
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/layers/split/contents/frames/FrameBtn"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/layers/split/contents/cels/FrameBtn"]
 material = SubResource("ShaderMaterial_62d7w")
 layout_mode = 1
 anchors_preset = 15
