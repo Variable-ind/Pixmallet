@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://mfegu31r5d7t" path="res://assets/icons/locked.png" id="9_0td5k"]
 
 [node name="LayerTree" type="VBoxContainer"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(200, 0)
 script = ExtResource("1_lhpog")
 
 [node name="label-layers" type="Label" parent="."]
@@ -43,6 +43,7 @@ layout_mode = 2
 theme_type_variation = &"IconButton"
 toggle_mode = true
 icon = ExtResource("3_giesw")
+flat = true
 icon_alignment = 1
 script = ExtResource("4_us3qh")
 ico_on = ExtResource("5_pn06w")
@@ -55,6 +56,7 @@ theme_type_variation = &"IconButton"
 toggle_mode = true
 button_pressed = true
 icon = ExtResource("6_hiy7b")
+flat = true
 icon_alignment = 1
 script = ExtResource("4_us3qh")
 is_pressed = true
@@ -68,6 +70,7 @@ layout_mode = 2
 theme_type_variation = &"IconButton"
 toggle_mode = true
 icon = ExtResource("8_2l22k")
+flat = true
 icon_alignment = 1
 script = ExtResource("4_us3qh")
 ico_on = ExtResource("9_0td5k")

@@ -9,12 +9,27 @@ enum Type {
 var type := Type.BASE
 
 var layer: BaseLayer
-var layer_name_overlayer := ColorRect.new()
 var layer_name_backup := ''
+
+var selected := false:
+	set(val):
+		selected = val
+		queue_redraw()
+
+var index :int :
+	get: 
+		if layer:
+			return layer.index
+		else:
+			return -1
 
 var is_visible := true
 var is_locked := false
 var is_linked := false
+var is_current := false
+
+@export var selected_color := Color.DEEP_SKY_BLUE
+@export var selected_line_width := 2
 
 @onready var layer_name: LineEdit = $row/LayerName
 @onready var btn_link: Button = $row/BtnLink
@@ -24,23 +39,35 @@ var is_linked := false
 
 func _ready():
 	# layer_name:
-	layer_name_overlayer.color = Color.TRANSPARENT
-	layer_name_overlayer.size = layer_name.size
-	layer_name_overlayer.gui_input.connect(_on_layer_name_editing)
-	layer_name_overlayer.mouse_exited.connect(_on_layer_name_release)
-	
 	layer_name.editable = false
-	layer_name.add_child(layer_name_overlayer)
-	layer_name.focus_entered.connect(_on_layer_name_focused)
-	layer_name.focus_exited.connect(_on_layer_name_release)
-	layer_name.resized.connect(_on_resized)
+	layer_name.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	
 	layer_name.text_submitted.connect(_on_layer_name_submitted)
 	
+	layer_name.gui_input.connect(_on_layer_name_gui_input)
+	layer_name.focus_entered.connect(_on_layer_name_focused)
+	layer_name.focus_exited.connect(_on_layer_name_unfocused)
+
 	# buttons
 	btn_link.toggled.connect(_on_link_toggled)
 	btn_visible.toggled.connect(_on_visible_toggled)
 	btn_lock.toggled.connect(_on_lock_toggled)
 
+
+func destroy():
+	layer_name.gui_input.disconnect(_on_layer_name_gui_input)
+	layer_name.focus_entered.disconnect(_on_layer_name_focused)
+	layer_name.focus_exited.disconnect(_on_layer_name_unfocused)
+	
+	layer_name.text_submitted.disconnect(_on_layer_name_submitted)
+	
+	# buttons
+	btn_link.toggled.disconnect(_on_link_toggled)
+	btn_visible.toggled.disconnect(_on_visible_toggled)
+	btn_lock.toggled.disconnect(_on_lock_toggled)
+	
+	queue_free()
+	
 
 func attach(proj_layer:BaseLayer):
 	layer = proj_layer
@@ -52,20 +79,12 @@ func attach(proj_layer:BaseLayer):
 		type = Type.BASE
 	
 	layer_name.text = layer.name
+	
 	btn_link.visible = type == Type.PIXEL
 	btn_link.set_pressed_without_signal(layer.is_linked)
 	btn_visible.set_pressed_without_signal(layer.is_visible)
 	btn_lock.set_pressed_without_signal(layer.is_locked)
 	visible = true
-
-
-func toggle_layer_name(is_focused:bool):
-	if is_focused:
-		layer_name.editable = true
-		layer_name_overlayer.hide()
-	else:
-		layer_name.editable = false
-		layer_name_overlayer.show()
 
 
 func has_point(point):
@@ -87,20 +106,6 @@ func _on_lock_toggled(btn_pressed:bool):
 	layer.is_locked = btn_pressed
 
 
-func _on_layer_name_editing(event):
-	if event is InputEventMouseButton and event.pressed:
-		toggle_layer_name(true)
-
-
-func _on_layer_name_focused():
-	layer_name_backup = layer_name.text
-
-
-func _on_layer_name_release():
-	layer.name = layer_name.text
-	toggle_layer_name(false)
-
-
 func _on_layer_name_submitted(new_text:String):
 	if not new_text:
 		layer_name.text = layer_name_backup
@@ -108,8 +113,35 @@ func _on_layer_name_submitted(new_text:String):
 	layer_name.release_focus()
 
 
-func _on_resized():
-	layer_name_overlayer.size = layer_name.size
+func _on_layer_name_focused():
+	layer_name.mouse_default_cursor_shape = Control.CURSOR_IBEAM
+
+
+func _on_layer_name_unfocused():
+	layer_name.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	
+
+func _on_layer_name_gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		if is_current:
+			layer_name_backup = layer_name.text
+			layer_name.editable = true
+		if event.ctrl_pressed:
+			selected = true
+		else:
+			selected = true
+			is_current = true
+
+
+func _draw():
+	if selected:
+		var rect := Rect2i(Vector2i.ZERO, size)
+		rect = rect.grow_side(Side.SIDE_LEFT, -1)
+		if is_current:
+			selected_color.a = 1.0
+		else:
+			selected_color.a = 0.6
+		draw_rect(rect, selected_color, false, selected_line_width)
 
 
 func _input(event):
@@ -119,5 +151,5 @@ func _input(event):
 			layer_name.text_submitted.emit(layer_name.text)
 	elif event is InputEventKey and Input.is_key_pressed(KEY_ESCAPE):
 		layer_name.text = layer_name_backup
-		layer_name.release_focus()
+		layer_name.editable = false
 

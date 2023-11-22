@@ -38,7 +38,7 @@ shader_parameter/rect_size = Vector2(0, 0)
 shader_parameter/follow_movement = false
 shader_parameter/follow_scale = false
 
-[node name="timeline" type="VBoxContainer"]
+[node name="Timeline" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

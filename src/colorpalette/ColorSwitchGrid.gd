@@ -65,11 +65,12 @@ func clear_switches():
 		if cb is ColorSwitch:
 			cb.queue_free()
 
+
 func find_switch_by_pos(pos):
 	for switch in get_switches():
 		var _rect = Rect2(switch.position, switch.size) 
 		if _rect.has_point(pos):
-			return switch 
+			return switch
 	return null
 
 
