@@ -1,18 +1,21 @@
-class_name LayerColumn extends VBoxContainer
+class_name LayerTree extends VBoxContainer
 
 var layers :Array[BaseLayer] = []
 
 var selected_layer_bars :Array[LayerBar] = []
 var layer_bars :Array[LayerBar] = []
 
-@onready var layer_bar :LayerBar = $LayerBar
+@onready var layer_bar :LayerBar = $LayerBarTMPL
+@onready var column := $column
 
 
 func attach(proj_layers:Array[BaseLayer]):
-	for ly in proj_layers:
+	layers = proj_layers
+	for ly in layers:
 		var new_layer := layer_bar.duplicate()
+		column.add_child(new_layer)
 		new_layer.attach(ly)
-		layers.append(new_layer)
+		layer_bars.append(new_layer)
 
 
 func _get_drag_data(pos: Vector2):

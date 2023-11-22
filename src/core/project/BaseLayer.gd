@@ -1,7 +1,7 @@
 class_name BaseLayer extends RefCounted
 # Base class for layer properties. Different layer types extend from this class.
 
-var name := ""
+var name := 'Untitled'
 var index : = 0
 var opacity := 1.0
 var parent :BaseLayer
@@ -31,15 +31,15 @@ func is_expanded_in_hierarchy() -> bool:
 
 
 func is_visible_in_hierarchy() -> bool:
-	if is_instance_valid(parent) and visible:
+	if is_instance_valid(parent) and is_visible:
 		return parent.is_visible_in_hierarchy()
-	return visible
+	return is_visible
 
 
 func is_locked_in_hierarchy() -> bool:
-	if is_instance_valid(parent) and not locked:
+	if is_instance_valid(parent) and not is_locked:
 		return parent.is_locked_in_hierarchy()
-	return locked
+	return is_locked
 
 
 func get_hierarchy_depth() -> int:

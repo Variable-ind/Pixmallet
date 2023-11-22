@@ -103,7 +103,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="timeline" parent="main_area/mainborad/workspace/canvas/split" instance=ExtResource("9_esciw")]
+[node name="Timeline" parent="main_area/mainborad/workspace/canvas/split" instance=ExtResource("9_esciw")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="right-sider" type="PanelContainer" parent="main_area/mainborad/workspace"]

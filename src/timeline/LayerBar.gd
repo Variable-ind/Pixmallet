@@ -51,12 +51,12 @@ func attach(proj_layer:BaseLayer):
 	else:
 		type = Type.BASE
 	
-	name = layer.name
 	layer_name.text = layer.name
 	btn_link.visible = type == Type.PIXEL
 	btn_link.set_pressed_without_signal(layer.is_linked)
 	btn_visible.set_pressed_without_signal(layer.is_visible)
 	btn_lock.set_pressed_without_signal(layer.is_locked)
+	visible = true
 
 
 func toggle_layer_name(is_focused:bool):
@@ -66,6 +66,10 @@ func toggle_layer_name(is_focused:bool):
 	else:
 		layer_name.editable = false
 		layer_name_overlayer.show()
+
+
+func has_point(point):
+	return Rect2i(Vector2i.ZERO, size).has_point(point)
 
 
 func _on_link_toggled(btn_pressed:bool):
@@ -111,7 +115,7 @@ func _on_resized():
 func _input(event):
 	if (event is InputEventMouseButton) and event.pressed:
 		var loc_evt := make_input_local(event)
-		if not Rect2i(Vector2i.ZERO, size).has_point(loc_evt.position):
+		if not has_point(loc_evt.position) and layer_name.has_focus():
 			layer_name.text_submitted.emit(layer_name.text)
 	elif event is InputEventKey and Input.is_key_pressed(KEY_ESCAPE):
 		layer_name.text = layer_name_backup

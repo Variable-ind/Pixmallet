@@ -17,6 +17,7 @@ var background_color := Color.BLACK
 @onready var colorPalette := %ColorPalette
 @onready var adjustment := %Adjustment
 @onready var properties := %Properties
+@onready var timeline := %Timeline
 
 @onready var dialog_crop := %CropDialog
 @onready var dialog_gradient := %GradientDialog
@@ -41,6 +42,7 @@ func _ready():
 	
 	artboard.load_project(g.current_project)
 	preview.load_project(g.current_project)
+	timeline.load_project(g.current_project)
 	
 	camera = artboard.camera
 	canvas = artboard.canvas

@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dkv14hlwkg80k" path="res://assets/icons/onino-off.png" id="18_gp6c5"]
 [ext_resource type="Texture2D" uid="uid://cu32y4qu0sipq" path="res://assets/icons/onino-on.png" id="19_4rgj5"]
 [ext_resource type="Script" path="res://src/widgets/ValSlider.gd" id="20_qlhqw"]
-[ext_resource type="PackedScene" uid="uid://45x12j7e2oja" path="res://src/timeline/layer_column.tscn" id="22_ge65t"]
+[ext_resource type="PackedScene" uid="uid://45x12j7e2oja" path="res://src/timeline/layer_tree.tscn" id="22_6i23w"]
 [ext_resource type="Shader" path="res://src/shaders/TransparentChecker.gdshader" id="28_gng67"]
 [ext_resource type="Script" path="res://src/timeline/FrameBtn.gd" id="29_pjpv8"]
 [ext_resource type="Script" path="res://src/timeline/CelBtn.gd" id="30_1wni3"]
@@ -224,7 +224,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LayerColumn" parent="ScrollContainer/layers/split" instance=ExtResource("22_ge65t")]
+[node name="LayerTree" parent="ScrollContainer/layers/split" instance=ExtResource("22_6i23w")]
 unique_name_in_owner = true
 layout_mode = 2
 

@@ -9,8 +9,10 @@ var frames :Array[BaseCel] = []
 var selected_frames :Array[FrameBtn] = []
 var selected_cels :Array[CelBtn] = []
 
-@onready var layer_column :LayerColumn = %LayerColumn
+@onready var layer_tree :LayerTree = %LayerTree
 
 
 func load_project(proj:Project):
 	project = proj
+	
+	layer_tree.attach(project.layers)
