@@ -44,8 +44,12 @@ func blend_children(frame: Frame, layers :Array[BaseLayer], size:Vector2i,
 
 
 # Overridden Methods:
-func set_name_to_default(number: int) -> void:
+func set_name_to_default(number: int):
 	name = tr("Group") + " %s" % number
+
+
+func new_empty_cel(size:Vector2i) -> GroupCel:
+	return GroupCel.new(size.x, size.y)
 
 
 func can_layer_get_drawn() -> bool:

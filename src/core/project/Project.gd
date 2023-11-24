@@ -51,13 +51,13 @@ var save_dir_path := OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP)
 var export_dir_path := OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP)
 
 
-func _init(_size := Vector2i(64, 64), _name := tr("untitled")):
+func _init(_size := Vector2i(64, 64), _name := tr("Untitled")):
 	name = _name
 	size = _size
 	tiles = Tiles.new(size)
 	
 	add_empty_frame()
-	create_pixel_layer()
+	create_layer()
 	
 	if OS.get_name() == "Web":
 		save_dir_path = "user://"
@@ -139,12 +139,22 @@ func is_empty() -> bool:
 # These allow you to add/remove/move/swap frames/layers/cels.
 
 # layers
-
-func create_pixel_layer(index := 0) -> PixelLayer:
+func create_layer(index := 0) -> PixelLayer:
 	var layer = PixelLayer.new()
+	layer.set_name_to_default(layers.size() + 1)
 	for f in frames.size():
 		var cel = layer.new_empty_cel(size)
 		cel.texture_updated.connect(_on_cel_updated)
+		frames[f].cels.insert(index, cel)
+	layers.insert(index, layer)
+	return layer
+
+
+func create_group(index := 0) -> GroupLayer:
+	var group = Group.new()
+	for f in frames.size():
+		var cel = layer.new_empty_cel(size)
+#		cel.texture_updated.connect(_on_cel_updated)
 		frames[f].cels.insert(index, cel)
 	layers.insert(index, layer)
 	return layer

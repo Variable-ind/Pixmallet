@@ -1,7 +1,7 @@
 class_name BaseLayer extends RefCounted
 # Base class for layer properties. Different layer types extend from this class.
 
-var name := 'Untitled'
+var name := ''
 var index : = 0
 var opacity := 1.0
 var parent :BaseLayer
@@ -79,9 +79,11 @@ func link_cel(cel: BaseCel, link_set = null):
 					hues.append(other_link_set["hue"])
 				if hues.is_empty():
 					link_set["hue"] = Color.GREEN.h
-				else:  # Calculate the largest gap in hue between existing link sets:
+				else:  
+					# Calculate the largest gap in hue between existing links.
 					hues.sort()
-					# Start gap between the highest and lowest hues, otherwise its hard to include
+					# Start gap between the highest and lowest hues, 
+					# otherwise its hard to include
 					var largest_gap_pos = hues[-1]
 					var largest_gap_size = 1.0 - (hues[-1] - hues[0])
 					for h in hues.size() - 1:
@@ -89,16 +91,16 @@ func link_cel(cel: BaseCel, link_set = null):
 						if gap_size > largest_gap_size:
 							largest_gap_pos = hues[h]
 							largest_gap_size = gap_size
-					link_set["hue"] = wrapf(largest_gap_pos + largest_gap_size / 2.0, 0, 1)
+					link_set["hue"] = wrapf(
+						largest_gap_pos + largest_gap_size / 2.0, 0, 1)
 			cel_link_sets.append(link_set)
 
 
 # Methods to Override:
 
-func set_name_to_default(number: int) -> void:
+func set_name_to_default(number: int):
 	name = tr("Layer") + " %s" % number
 
 
 func can_layer_get_drawn() -> bool:
 	return false
-
