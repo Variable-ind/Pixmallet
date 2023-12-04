@@ -21,7 +21,7 @@ var project :Project
 
 
 func _ready():
-	optbtn_add.item_selected.connect(_on_add_selected)
+	optbtn_add.connect("item_selected", Callable(self, "_on_add_selected"))
 
 
 func attach(proj:Project):
@@ -32,17 +32,15 @@ func _on_add_selected(index):
 	match index:
 		0: add_layer()
 		1: add_group()
-		
+
 
 func add_layer():
 	if not project:
 		return
 	project.add_layer()
-	
+
 
 func add_group():
 	if not project:
 		return
 	project.add_group()
-
-
