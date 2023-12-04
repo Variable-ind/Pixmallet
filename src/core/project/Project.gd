@@ -34,14 +34,14 @@ var current_layer_index := 0
 var selected_cels_matrix := [[0, 0]]  # Arrays of 2 integers (frame & layer)
 
 var selected_cels :Array[BaseCel] :
-	get: 
+	get:
 		var cels :Array[BaseCel] = []
 		for cel_coord in selected_cels_matrix:
 			cels.append(frames[cel_coord[0]].cels[cel_coord[1]])
 		return cels
 
 var animation_tags :Array[AnimationTag] = []
-	
+
 var guides :Array[Guide] = []
 var reference_images :Array[ReferenceImage] = []
 var vanishing_points := []  # Array of Vanishing Points
@@ -55,10 +55,10 @@ func _init(_size := Vector2i(64, 64), _name := tr("Untitled")):
 	name = _name
 	size = _size
 	tiles = Tiles.new(size)
-	
+
 	add_empty_frame()
 	create_layer()
-	
+
 	if OS.get_name() == "Web":
 		save_dir_path = "user://"
 		export_dir_path = "user://"
@@ -68,14 +68,14 @@ func remove():
 	undo_redo.free()
 	for ri in reference_images:
 		ri.queue_free()
-		
+
 	for frame in frames:
 		for l in layers.size():
 			var cel: BaseCel = frame.cels[l]
 			for conn in cel.texture_updated.get_connections():
 				conn['callable'].disconnect()
 			cel.on_remove()
-	# Prevents memory leak (due to the layers' project 
+	# Prevents memory leak (due to the layers' project
 	# reference stopping ref counting from freeing)
 	layers.clear()
 
@@ -115,8 +115,8 @@ func is_empty() -> bool:
 	)
 
 
-#func can_pixel_get_drawn(pixel: Vector2i, 
-#						 image: SelectionMap, 
+#func can_pixel_get_drawn(pixel: Vector2i,
+#						 image: SelectionMap,
 #						 selection_position: Vector2i) -> bool:
 #
 #	if pixel.x < 0 or pixel.y < 0 or pixel.x >= size.x or pixel.y >= size.y:
@@ -151,7 +151,7 @@ func create_layer(index := 0) -> PixelLayer:
 
 
 func create_group(index := 0) -> GroupLayer:
-	var group = Group.new()
+	var layer = GroupLayer.new()
 	for f in frames.size():
 		var cel = layer.new_empty_cel(size)
 #		cel.texture_updated.connect(_on_cel_updated)
@@ -167,14 +167,14 @@ func remove_layer(index):
 		for conn in cel.texture_updated.get_connections():
 			conn['callable'].disconnect()
 		frame.cels.remove_at(index)
-			
+
 
 func remove_layers(indices: Array):
 	indices.sort() # sort to ascending
 	indices.reverse() # reverse to descending.
-	# remove largest index first, 
+	# remove largest index first,
 	# otherwise the index order will be change while in the loop.
-	for i in indices:  
+	for i in indices:
 		remove_layer(i)
 
 
@@ -182,11 +182,11 @@ func remove_layers(indices: Array):
 func move_layer(from_index: int, to_index: int, to_parent :GroupLayer = null):
 	var moved_cels := []
 	var moved_layer = layers.pop_at(from_index)
-	
+
 	moved_layer.parent = to_parent if to_parent != moved_layer else null
 	for frame in frames:
 		moved_cels.append(frame.cels.pop_at(from_index))
-	
+
 	layers.insert(to_index, moved_layer)
 	for f in frames.size():
 		frames[f].cels.insert(to_index, moved_cels[f])
@@ -200,7 +200,7 @@ func move_layers(from_indices :Array[int], to_index: int,
 		var from_index = from_indices[i]
 		move_layer(from_index, to_index, to_parent)
 		# to_index is same, because they should sort togehter after moved.
-		
+
 
 # frames
 func add_empty_frame(index :=0) -> Frame:
@@ -232,7 +232,7 @@ func remove_frame(index :int):
 
 func remove_frames(indices: Array):  # indices should be in ascending order
 	indices.sort()
-	
+
 	for i in indices.size():
 		remove_frame(indices[i] - i)
 		# With each removed index, future indices need to be lowered,
