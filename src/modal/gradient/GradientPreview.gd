@@ -3,9 +3,9 @@ class_name GradientPreview extends TextureRect
 const MIN_SIZE := Vector2i(200, 200)
 
 var shader_linear := preload(
-	"res://src/Shaders/Gradients/Linear.gdshader")
+	"res://src/shaders/Gradients/Linear.gdshader")
 var shader_linear_dither := preload(
-	"res://src/Shaders/Gradients/LinearDithering.gdshader")
+	"res://src/shaders/Gradients/LinearDithering.gdshader")
 
 var shader := shader_linear
 
@@ -19,7 +19,7 @@ func _ready():
 	custom_minimum_size = MIN_SIZE
 	expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	
+
 	var sm := ShaderMaterial.new()
 	sm.shader = shader_linear
 	material = sm
@@ -37,15 +37,15 @@ func render(img :Image):
 	var img_height :float = img.get_height()
 	var _width :int = floor(size.x)
 	var _height :int = floor(size.y)
-	
+
 	if img_width > img_height:
 		_height = floor(size.y * img_height / img_width)
 	else:
 		_width =  floor(size.x * img_width / img_height)
-	
+
 #	img.resize(_width, _height, Image.INTERPOLATE_NEAREST)
 	img.resize(_width, _height)
-	
+
 	trans_checker.size = img.get_size()
 	trans_checker.position = (size - trans_checker.size) /2
 
